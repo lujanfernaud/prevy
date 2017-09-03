@@ -1,0 +1,6 @@
+<div class="col-md-4">
+  <h2><%= link_to event.title, event_path(event) %></h2>
+  <p><%= event.description %></p>
+  <p>Start: <%= event.start_date.strftime("%A, %B %d, %Y - %H:%M") %></p>
+  <p>End: <%= event.end_date.strftime("%A, %B %d, %Y - %H:%M") %></p>
+</div>
