@@ -1,4 +1,6 @@
 <%= form_for @event do |f| %>
+  <%= render "error_messages", object: @event %>
+
   <%= f.label :title %>
   <%= f.text_field :title, class: "form-control" %>
 
