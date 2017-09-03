@@ -16,8 +16,12 @@ end
 titles = [Faker::RockBand.name, Faker::BossaNova.artist, Faker::Book.title]
 
 54.times do
+  start_date = Faker::Date.between(6.months.ago, 6.months.from_now)
+  end_date   = start_date + 1.day
+
   Event.create(title: titles.sample,
                description: Faker::Lorem.paragraph,
-               date: Faker::Date.between(6.months.ago, 6.months.from_now),
+               start_date: start_date,
+               end_date: end_date,
                organizer_id: rand(28))
 end
