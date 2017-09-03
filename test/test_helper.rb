@@ -18,6 +18,17 @@ class ActionDispatch::IntegrationTest
     Capybara.reset_sessions!
     Capybara.use_default_driver
   end
+
+  def log_in_as(user)
+    visit login_path
+
+    fill_in "Email",    with: user.email
+    fill_in "Password", with: "password"
+
+    within "form" do
+      click_on "Log in"
+    end
+  end
 end
 
 class ActiveSupport::TestCase

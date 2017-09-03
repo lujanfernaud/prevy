@@ -1,9 +1,24 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  description: MyString
+  title: Test event one
+  description: <%= Faker::Lorem.paragraph %>
+  start_date: <%= Time.zone.now + 6.days %>
+  end_date: <%= Time.zone.now + 1.week %>
+  organizer: phil
 
 two:
-  title: MyString
-  description: MyString
+  title: Test event two
+  description: <%= Faker::Lorem.paragraph %>
+  start_date: <%= Time.zone.now + 6.days %>
+  end_date: <%= Time.zone.now + 1.week %>
+  organizer: phil
+
+<% 22.times do |n| %>
+event_<%= n %>:
+  title: Test event <%= n %>
+  description: <%= Faker::Lorem.paragraph %>
+  start_date: <%= Time.zone.now + 6.days %>
+  end_date: <%= Time.zone.now + 1.week %>
+  organizer: phil
+<% end %>
