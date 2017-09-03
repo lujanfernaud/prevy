@@ -1,0 +1,15 @@
+<%= form_for @event do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title, class: "form-control" %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, class: "form-control" %>
+
+  <%= f.label :start_date %>
+  <%= f.text_field :start_date, class: "form-control", id: "datetimepicker1" %>
+
+  <%= f.label :end_date %>
+  <%= f.text_field :end_date, class: "form-control", id: "datetimepicker2" %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary btn-block" %>
+<% end %>
