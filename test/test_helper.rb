@@ -3,8 +3,12 @@ SimpleCov.start 'rails'
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+
 require 'capybara/rails'
 require 'capybara/minitest'
+
+require 'minitest/reporters'
+Minitest::Reporters.use!
 
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
