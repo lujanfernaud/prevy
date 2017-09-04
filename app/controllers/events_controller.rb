@@ -38,6 +38,12 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    @event = current_user.organized_events.find_by(id: params[:id])
+    redirect_to root_url unless @event
+
+    @event.destroy
+    flash[:success] = "Event deleted."
+    redirect_to user_path(current_user)
   end
 
   private

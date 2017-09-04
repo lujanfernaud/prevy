@@ -4,5 +4,12 @@
     <p><%= @event.description %></p>
     <p>Start: <%= @event.start_date.strftime("%A, %B %d, %Y - %H:%M") %></p>
     <p>End: <%= @event.end_date.strftime("%A, %B %d, %Y - %H:%M") %></p>
+    <% if author?(@event) %>
+      <p>
+        <%= link_to "Delete event", event_path(@event), method: :delete,
+                                    data: { confirm: "Are you sure?"} %>
+
+      </p>
+    <% end %>
   </div>
 </div>
