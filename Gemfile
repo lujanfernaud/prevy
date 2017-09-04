@@ -29,14 +29,14 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rubocop-rails'
-  gem 'selenium-webdriver'
 end
 
 group :test do
-  gem 'capybara',                      '~> 2.13'
+  gem 'capybara',                      '~> 2.14'
   gem 'guard',                         '2.14.0'
   gem 'guard-minitest',                '2.4.6'
   gem 'minitest-reporters',            '1.1.14'
+  gem 'selenium-webdriver'
   gem 'simplecov', :require => false
 end
 

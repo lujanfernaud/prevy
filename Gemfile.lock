@@ -260,7 +260,7 @@ DEPENDENCIES
   bootstrap-sass (= 3.3.7)
   bootstrap-will_paginate (= 1.0.0)
   bootstrap3-datetimepicker-rails (~> 4.17.47)
-  capybara (~> 2.13)
+  capybara (~> 2.14)
   coffee-rails (~> 4.2)
   faker
   guard (= 2.14.0)
