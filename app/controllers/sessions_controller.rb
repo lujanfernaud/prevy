@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  include SessionsHelper
+
   before_action :check_if_logged_in, only: [:new, :create]
 
   def new
@@ -24,10 +26,10 @@ class SessionsController < ApplicationController
 
   private
 
-  def check_if_logged_in
-    return unless @current_user
-
-    flash[:info] = "You are already logged in."
-    redirect_to user_path(@current_user)
-  end
+    def check_if_logged_in
+      if logged_in?
+        flash[:info] = "You are already logged in."
+        redirect_to user_path(@current_user)
+      end
+    end
 end
