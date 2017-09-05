@@ -17,9 +17,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    unless @user
-      redirect_to root_url
-    end
+    redirect_to root_url unless @user
+
+    @attended_events = @user.attended_events.past
+    @upcoming_events = @user.attended_events.upcoming
   end
 
   def edit

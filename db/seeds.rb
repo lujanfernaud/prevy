@@ -1,11 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
+# Users.
 27.times do
   User.create!(name: Faker::Internet.user_name.capitalize,
                email: Faker::Internet.email,
@@ -15,11 +8,26 @@ end
 
 titles = [Faker::RockBand.name, Faker::BossaNova.artist, Faker::Book.title]
 
-54.times do
+# Previous events.
+27.times do |n|
+  start_date = Faker::Date.between(6.months.ago, 1.month.ago)
+  end_date   = 1.month.ago + rand(7).day
+
+  event = Event.new
+  event.title        = titles.sample + " ##{n}"
+  event.description  = Faker::Lorem.paragraph
+  event.start_date   = start_date
+  event.end_date     = end_date
+  event.organizer_id = User.all.sample.id
+  event.save(validate: false)
+end
+
+# Upcoming events.
+54.times do |n|
   start_date = Faker::Date.between(1.day.from_now, 6.months.from_now)
   end_date   = start_date + 1.day
 
-  Event.create!(title: titles.sample,
+  Event.create!(title: titles.sample + " ##{n}",
                 description: Faker::Lorem.paragraph,
                 start_date: start_date,
                 end_date: end_date,
@@ -36,6 +44,7 @@ def pick_attendee_for(event)
   end
 end
 
+# Add attendees to events.
 Event.all.each do |event|
   rand(20).times { pick_attendee_for(event) }
 end

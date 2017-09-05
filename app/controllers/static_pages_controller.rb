@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
   def home
-    @events = Event.order(created_at: :desc).limit(9)
+    @events = Event.upcoming.limit(9)
   end
 end

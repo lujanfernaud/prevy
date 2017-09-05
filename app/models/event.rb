@@ -8,6 +8,14 @@ class Event < ApplicationRecord
   validates :description, presence: true, length: { in: 32..1000 }
   validate  :no_past_date
 
+  scope :past, -> {
+    where("end_date < ?", Time.zone.now).order("end_date DESC")
+  }
+
+  scope :upcoming, -> {
+    where("start_date > ?", Time.zone.now).order("start_date ASC")
+  }
+
   private
 
     def no_past_date
