@@ -1,6 +1,9 @@
 class Event < ApplicationRecord
   belongs_to :organizer, class_name: "User"
 
+  has_many :attendances, foreign_key: "attended_event_id"
+  has_many :attendees, through: :attendances
+
   validates :title,       presence: true, length: { in: 4..140 }
   validates :description, presence: true, length: { in: 32..1000 }
   validate  :no_past_date

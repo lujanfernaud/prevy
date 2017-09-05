@@ -23,5 +23,19 @@ titles = [Faker::RockBand.name, Faker::BossaNova.artist, Faker::Book.title]
                 description: Faker::Lorem.paragraph,
                 start_date: start_date,
                 end_date: end_date,
-                organizer_id: rand(28))
+                organizer_id: User.all.sample.id )
+end
+
+def pick_attendee_for(event)
+  loop do
+    attendee = User.all.sample
+    next if event.attendees.include?(attendee)
+
+    event.attendees << attendee
+    break
+  end
+end
+
+Event.all.each do |event|
+  rand(20).times { pick_attendee_for(event) }
 end

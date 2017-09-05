@@ -4,6 +4,14 @@
     <p><%= @event.description %></p>
     <p>Start: <%= @event.start_date.strftime("%A, %B %d, %Y - %H:%M") %></p>
     <p>End: <%= @event.end_date.strftime("%A, %B %d, %Y - %H:%M") %></p>
+    <% unless @event.attendees.empty? %>
+      <h3>Attendants</h3>
+      <ul>
+      <% @event.attendees.each do |attendee| %>
+        <li><%= link_to attendee.name, user_path(attendee) %></li>
+      <% end %>
+      </ul>
+    <% end %>
     <% if author?(@event) %>
       <p>
         <%= link_to "Delete event", event_path(@event), method: :delete,
