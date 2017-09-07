@@ -13,6 +13,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: @event.description
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time @event.end_date,   from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
 
     click_on_update_event
     assert_valid
@@ -25,6 +26,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: Faker::Lorem.paragraph
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time @event.end_date,   from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
 
     click_on_update_event
     assert_valid
@@ -37,6 +39,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: @event.description
     select_date_and_time @event.start_date + 1.day, from: "event_start_date"
     select_date_and_time @event.end_date + 1.day,   from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
 
     click_on_update_event
     assert_valid
@@ -49,6 +52,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: @event.description
     select_date_and_time 1.week.ago,              from: "event_start_date"
     select_date_and_time @event.end_date + 1.day, from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
 
     click_on_update_event
     assert_invalid
@@ -61,6 +65,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: @event.description
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time 1.week.ago,        from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
 
     click_on_update_event
     assert_invalid

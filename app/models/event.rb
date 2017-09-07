@@ -6,6 +6,7 @@ class Event < ApplicationRecord
 
   validates :title,       presence: true, length: { in: 4..140 }
   validates :description, presence: true, length: { in: 32..1000 }
+  validates :image,       presence: true
   validate  :no_past_date
 
   scope :past, -> {
@@ -15,6 +16,8 @@ class Event < ApplicationRecord
   scope :upcoming, -> {
     where("start_date > ?", Time.zone.now).order("start_date ASC")
   }
+
+  mount_uploader :image, ImageUploader
 
   private
 

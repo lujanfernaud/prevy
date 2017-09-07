@@ -7,6 +7,9 @@
 # Ignore notes.
 notes.md
 
+# Ignore uploaded images.
+public/uploads/*
+
 # Ignore code coverage.
 coverage
 

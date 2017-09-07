@@ -14,11 +14,12 @@ titles = [Faker::RockBand.name, Faker::BossaNova.artist, Faker::Book.title]
   end_date   = 1.month.ago + rand(7).day
 
   event = Event.new
-  event.title        = titles.sample + " ##{n}"
-  event.description  = Faker::Lorem.paragraph
-  event.start_date   = start_date
-  event.end_date     = end_date
-  event.organizer_id = User.all.sample.id
+  event.title            = titles.sample + " ##{n}"
+  event.description      = Faker::Lorem.paragraph
+  event.start_date       = start_date
+  event.end_date         = end_date
+  event.remote_image_url = Faker::LoremPixel.image("730x411")
+  event.organizer_id     = User.all.sample.id
   event.save(validate: false)
 end
 
@@ -27,11 +28,12 @@ end
   start_date = Faker::Date.between(1.day.from_now, 6.months.from_now)
   end_date   = start_date + 1.day
 
-  Event.create!(title: titles.sample + " ##{n}",
-                description: Faker::Lorem.paragraph,
-                start_date: start_date,
-                end_date: end_date,
-                organizer_id: User.all.sample.id )
+  Event.create!(title:            titles.sample + " ##{n}",
+                description:      Faker::Lorem.paragraph,
+                start_date:       start_date,
+                end_date:         end_date,
+                remote_image_url: Faker::LoremPixel.image("730x411"),
+                organizer_id:     User.all.sample.id )
 end
 
 def pick_attendee_for(event)

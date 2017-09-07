@@ -13,6 +13,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: @event.description
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time @event.end_date,   from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
 
     click_on_create_event
     assert_valid
@@ -25,6 +26,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: @event.description
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time @event.end_date,   from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
 
     click_on_create_event
     assert_invalid
@@ -37,6 +39,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: "Too short description."
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time @event.end_date,   from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
 
     click_on_create_event
     assert_invalid
@@ -49,6 +52,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: @event.description
     select_date_and_time 1.week.ago,      from: "event_start_date"
     select_date_and_time @event.end_date, from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
 
     click_on_create_event
     assert_invalid
@@ -61,6 +65,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: @event.description
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time 1.week.ago,        from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
 
     click_on_create_event
     assert_invalid
@@ -73,6 +78,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: @event.description
     select_date_and_time nil,             from: "event_start_date"
     select_date_and_time @event.end_date, from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
 
     click_on_create_event
     assert_invalid
@@ -85,6 +91,19 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     fill_in "Description",     with: @event.description
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time nil,               from: "event_end_date"
+    attach_file "event_image", "test/fixtures/files/sample.jpeg"
+
+    click_on_create_event
+    assert_invalid
+  end
+
+  test "create event without image" do
+    visit_new_event_path
+
+    fill_in "Title",           with: @event.title
+    fill_in "Description",     with: @event.description
+    select_date_and_time @event.start_date, from: "event_start_date"
+    select_date_and_time @event.end_date,   from: "event_end_date"
 
     click_on_create_event
     assert_invalid

@@ -21,9 +21,14 @@ gem 'bcrypt',                          '~> 3.1.7'
 gem 'bootstrap',                       '~> 4.0.0.beta'
 gem 'jquery-rails',                    '4.3.1'
 
-# Will paginate.
+# Pagination.
 gem 'bootstrap-will_paginate',         '1.0.0'
 gem 'will_paginate',                   '3.1.5'
+
+# Upload and resize images.
+gem 'carrierwave',             '1.1.0'
+gem 'mini_magick',             '4.7.0'
+gem 'fog',                     '1.40.0'
 
 group :development, :test do
   gem 'faker'
