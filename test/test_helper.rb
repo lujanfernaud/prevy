@@ -35,10 +35,19 @@ class ActionDispatch::IntegrationTest
       click_on "Log in"
     end
   end
+
+  def select_date_and_time(date, **options)
+    return nil unless date
+
+    field = options[:from]
+    select date.strftime("%Y"), from: "#{field}_1i" # Year.
+    select date.strftime("%B"), from: "#{field}_2i" # Month.
+    select date.strftime("%d"), from: "#{field}_3i" # Day.
+    select date.strftime("%H"), from: "#{field}_4i" # Hour.
+    select date.strftime("%M"), from: "#{field}_5i" # Minutes.
+  end
 end
 
 class ActiveSupport::TestCase
   fixtures :all
-
-  # Add more helper methods to be used by all tests here...
 end

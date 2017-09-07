@@ -4,8 +4,9 @@
       <%= render @events %>
     </div>
     <div class="row">
-      <div class="text-center">
-        <%= will_paginate %>
+      <div class="mx-auto">
+        <%= will_paginate @events,
+          :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
       </div>
     </div>
   </div>

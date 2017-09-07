@@ -11,8 +11,8 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
 
     fill_in "Title",           with: @event.title
     fill_in "Description",     with: @event.description
-    fill_in "datetimepicker1", with: @event.start_date
-    fill_in "datetimepicker2", with: @event.end_date
+    select_date_and_time @event.start_date, from: "event_start_date"
+    select_date_and_time @event.end_date,   from: "event_end_date"
 
     click_on_update_event
     assert_valid
@@ -23,8 +23,8 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
 
     fill_in "Title",           with: @event.title
     fill_in "Description",     with: Faker::Lorem.paragraph
-    fill_in "datetimepicker1", with: @event.start_date
-    fill_in "datetimepicker2", with: @event.end_date
+    select_date_and_time @event.start_date, from: "event_start_date"
+    select_date_and_time @event.end_date,   from: "event_end_date"
 
     click_on_update_event
     assert_valid
@@ -35,8 +35,8 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
 
     fill_in "Title",           with: @event.title
     fill_in "Description",     with: @event.description
-    fill_in "datetimepicker1", with: @event.start_date + 1.day
-    fill_in "datetimepicker2", with: @event.end_date + 1.day
+    select_date_and_time @event.start_date + 1.day, from: "event_start_date"
+    select_date_and_time @event.end_date + 1.day,   from: "event_end_date"
 
     click_on_update_event
     assert_valid
@@ -47,20 +47,8 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
 
     fill_in "Title",           with: @event.title
     fill_in "Description",     with: @event.description
-    fill_in "datetimepicker1", with: 1.week.ago
-    fill_in "datetimepicker2", with: @event.end_date + 1.day
-
-    click_on_update_event
-    assert_invalid
-  end
-
-  test "update event with empty start date" do
-    visit_edit_event_path
-
-    fill_in "Title",           with: @event.title
-    fill_in "Description",     with: @event.description
-    fill_in "datetimepicker1", with: nil
-    fill_in "datetimepicker2", with: @event.end_date + 1.day
+    select_date_and_time 1.week.ago,              from: "event_start_date"
+    select_date_and_time @event.end_date + 1.day, from: "event_end_date"
 
     click_on_update_event
     assert_invalid
@@ -71,20 +59,8 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
 
     fill_in "Title",           with: @event.title
     fill_in "Description",     with: @event.description
-    fill_in "datetimepicker1", with: @event.start_date + 1.day
-    fill_in "datetimepicker2", with: 1.year.ago
-
-    click_on_update_event
-    assert_invalid
-  end
-
-  test "update event with empty end date" do
-    visit_edit_event_path
-
-    fill_in "Title",           with: @event.title
-    fill_in "Description",     with: @event.description
-    fill_in "datetimepicker1", with: @event.start_date + 1.day
-    fill_in "datetimepicker2", with: nil
+    select_date_and_time @event.start_date, from: "event_start_date"
+    select_date_and_time 1.week.ago,        from: "event_end_date"
 
     click_on_update_event
     assert_invalid

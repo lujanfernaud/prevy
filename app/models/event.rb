@@ -19,11 +19,7 @@ class Event < ApplicationRecord
   private
 
     def no_past_date
-      if start_date.nil?
-        errors.add(:start_date, "can't be empty")
-      elsif end_date.nil?
-        errors.add(:end_date, "can't be empty")
-      elsif start_date < Time.zone.now
+      if start_date < Time.zone.now
         errors.add(:start_date, "can't be in the past")
       elsif end_date < start_date
         errors.add(:start_date, "can't be later than end date")
