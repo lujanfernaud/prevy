@@ -40,11 +40,11 @@ class ActionDispatch::IntegrationTest
     return nil unless date
 
     field = options[:from]
-    select date.strftime("%Y"), from: "#{field}_1i" # Year.
-    select date.strftime("%B"), from: "#{field}_2i" # Month.
-    select date.strftime("%d"), from: "#{field}_3i" # Day.
-    select date.strftime("%H"), from: "#{field}_4i" # Hour.
-    select date.strftime("%M"), from: "#{field}_5i" # Minutes.
+    select date.strftime("%Y"),  from: "#{field}_1i" # Year.
+    select date.strftime("%B"),  from: "#{field}_2i" # Month.
+    select date.strftime("%-d"), from: "#{field}_3i" # Day.
+    select date.strftime("%H"),  from: "#{field}_4i" # Hour.
+    select date.strftime("%M"),  from: "#{field}_5i" # Minutes.
   end
 end
 
