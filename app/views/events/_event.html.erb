@@ -1,5 +1,5 @@
 <div class="col-md-4 mt-2rem">
-  <div class="event-box">
+  <div class="box">
     <div class="event-box-image card card-inverse text-center">
       <%= image_tag event.image_url(:thumb), class: "img-fluid card-img-top" %>
       <div class="card-img-overlay">
@@ -9,9 +9,6 @@
       </div>
     </div>
     <div class="event-box-text card-body">
-<!--       <h2 class="h4 event-box-title">
-        <%= link_to event.title, event_path(event) %>
-      </h2> -->
       <p class="event-box-date">
         <% if event.start_date.year == Time.now.year %>
           <%= event.start_date.strftime("%A, %B %d") %>
