@@ -3,19 +3,23 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-// Event box
+// General
 
 
-.event-box {
+.box {
   box-shadow: 0 1px .36px 0 #989999;
   background: #fff;
 }
+
+
+// Event box
+
 
 .event-box-title {
   color: #fff;
   font-size: 1.26rem;
   font-weight: 600;
-  text-shadow: 1px 1px 0 rgba(0,0,0,0.35);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .35);
 }
 
 a.event-box-title:hover {
@@ -30,6 +34,25 @@ a.event-box-title:hover {
     font-size: 1rem;
     font-style: italic;
   }
+}
+
+
+// Show view
+
+
+.event-box-big-text {
+  padding: 1rem;
+  border-top: 6px solid $indigo;
+  .event-box-big-date {
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-style: italic;
+  }
+}
+
+.event-box-big-date {
+  padding: 1rem;
+  border-top: 1px solid #989999;
 }
 
 

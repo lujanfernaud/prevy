@@ -8,6 +8,7 @@
 }
 
 $dark-indigo: #210451;
+$light-background: #f3f4f5;
 
 
 // Spacing
@@ -22,11 +23,15 @@ $dark-indigo: #210451;
 }
 
 
-// Body
+// Body & General
 
 
 body {
   padding-top: 71px;
+}
+
+.bg-light {
+  background-color: $light-background !important;
 }
 
 
