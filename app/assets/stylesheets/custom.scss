@@ -7,12 +7,26 @@
   box-sizing:         border-box;
 }
 
+$dark-indigo: #210451;
+
+
+// Spacing
+
+
+.mt-2rem {
+  margin-top: 2rem !important;
+}
+
+.mb-2rem {
+  margin-bottom: 2rem !important;
+}
+
 
 // Body
 
 
 body {
-  padding-top: 85px;
+  padding-top: 71px;
 }
 
 
@@ -33,4 +47,3 @@ body {
     text-decoration: none;
   }
 }
-

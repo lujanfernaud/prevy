@@ -5,5 +5,6 @@
 
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
-@import "events";
 @import "custom";
+@import "static_pages";
+@import "events";
