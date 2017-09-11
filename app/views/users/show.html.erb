@@ -1,34 +1,33 @@
-<div class="row">
-  <div class="col-md-12">
-    <h2><%= @user.name %></h2>
-    <% unless @user.organized_events.empty? %>
-      <h3>Organized Events</h3>
-      <ul>
-        <% @user.organized_events.each do |event| %>
-          <li>
-            <h4><%= event.title %></h4>
-            <p><%= event.description %></p>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p><%= @user.name %> has no organized events.</p>
-    <% end %>
-    <% unless @upcoming_events.empty? %>
-      <h3>Upcoming Events</h3>
-      <ul>
-        <% @upcoming_events.each do |event|  %>
-          <li><%= link_to event.title, event_path(event) %></li>
-        <% end %>
-      </ul>
-    <% end %>
-    <% unless @attended_events.empty? %>
-      <h3>Attended Events</h3>
-      <ul>
-        <% @attended_events.each do |event|  %>
-          <li><%= link_to event.title, event_path(event) %></li>
-        <% end %>
-      </ul>
-    <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <h2 class="mt-1 mb-4"><%= @user.name %></h2>
+      <% unless @upcoming_events.empty? %>
+        <h3 class="h4">Attending</h3>
+        <ul>
+          <% @upcoming_events.each do |event|  %>
+            <li><%= link_to event.title, event_path(event) %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <% unless @attended_events.empty? %>
+        <h3 class="h4">Attended</h3>
+        <ul>
+          <% @attended_events.each do |event|  %>
+            <li><%= link_to event.title, event_path(event) %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <% unless @user.organized_events.empty? %>
+        <h3 class="h4">Organized</h3>
+        <ul>
+          <% @user.organized_events.each do |event| %>
+            <li>
+              <%= link_to event.title, event_path(event) %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
   </div>
 </div>
