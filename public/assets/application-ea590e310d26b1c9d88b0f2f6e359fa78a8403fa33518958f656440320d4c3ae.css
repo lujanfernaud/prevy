@@ -10466,17 +10466,108 @@ a.text-dark:focus, a.text-dark:hover {
   visibility: hidden !important;
 }
 
-/* line 7, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+/* line 17, /home/han/github/private-events/app/assets/stylesheets/custom.scss */
+.mt-2rem {
+  margin-top: 2rem !important;
+}
+
+/* line 21, /home/han/github/private-events/app/assets/stylesheets/custom.scss */
+.mb-2rem {
+  margin-bottom: 2rem !important;
+}
+
+/* line 29, /home/han/github/private-events/app/assets/stylesheets/custom.scss */
+body {
+  padding-top: 71px;
+}
+
+/* line 33, /home/han/github/private-events/app/assets/stylesheets/custom.scss */
+.bg-light {
+  background-color: #f3f4f5 !important;
+}
+
+/* line 41, /home/han/github/private-events/app/assets/stylesheets/custom.scss */
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: white;
+  text-transform: uppercase;
+  padding-top: 9px;
+  font-weight: bold;
+}
+/* line 50, /home/han/github/private-events/app/assets/stylesheets/custom.scss */
+#logo:hover {
+  color: white;
+  text-decoration: none;
+}
+
+/* line 9, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.box {
+  -webkit-box-shadow: 0 1px .36px 0 #989999;
+          box-shadow: 0 1px .36px 0 #989999;
+  background: #fff;
+}
+
+/* line 18, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.event-box-title {
+  color: #fff;
+  font-size: 1.26rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* line 25, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+a.event-box-title:hover {
+  color: #fff;
+}
+
+/* line 29, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.event-box-text {
+  padding: 0.5rem;
+  border-top: 3px solid #6610f2;
+}
+/* line 32, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.event-box-text .event-box-date {
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+/* line 43, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.event-box-big-text {
+  padding: 1rem;
+  border-top: 6px solid #6610f2;
+}
+/* line 46, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.event-box-big-text .event-box-big-date {
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+/* line 53, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.event-box-big-date {
+  padding: 1rem;
+  border-top: 1px solid #989999;
+}
+
+/* line 62, /home/han/github/private-events/app/assets/stylesheets/events.scss */
 .event-date-label {
   margin-top: 0.38rem;
 }
 
-/* line 11, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+/* line 66, /home/han/github/private-events/app/assets/stylesheets/events.scss */
 .event-start-date {
   margin-top: 1.4rem;
 }
 
-/* line 15, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+/* line 70, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.col-event-image {
+  max-width: 82.8%;
+}
+
+/* line 74, /home/han/github/private-events/app/assets/stylesheets/events.scss */
 [id*="event_start_date"],
 [id*="event_end_date"] {
   display: inline-block;
@@ -10496,30 +10587,37 @@ a.text-dark:focus, a.text-dark:hover {
   appearance: none;
 }
 
-/* line 34, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+/* line 93, /home/han/github/private-events/app/assets/stylesheets/events.scss */
 [id*="event_start_date"]:focus,
 [id*="event_end_date"]:focus {
   border-color: #b389f9;
   outline: none;
 }
 
-/* line 14, /home/han/github/private-events/app/assets/stylesheets/custom.scss */
-body {
-  padding-top: 85px;
+/* line 103, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.card {
+  border: 0;
+  border-radius: 0;
 }
 
-/* line 22, /home/han/github/private-events/app/assets/stylesheets/custom.scss */
-#logo {
-  float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
-  color: white;
-  text-transform: uppercase;
-  padding-top: 9px;
-  font-weight: bold;
+/* line 108, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.card-img-top {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
-/* line 31, /home/han/github/private-events/app/assets/stylesheets/custom.scss */
-#logo:hover {
-  color: white;
-  text-decoration: none;
+
+/* line 113, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.card-img-overlay {
+  padding: 0.5rem;
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(9%, rgba(33, 4, 81, 0.9)), color-stop(33%, rgba(33, 4, 81, 0.3)), color-stop(43%, rgba(33, 4, 81, 0.1)), color-stop(55%, transparent));
+  background-image: linear-gradient(to top, rgba(33, 4, 81, 0.9) 9%, rgba(33, 4, 81, 0.3) 33%, rgba(33, 4, 81, 0.1) 43%, transparent 55%);
+  opacity: 1;
+}
+
+/* line 119, /home/han/github/private-events/app/assets/stylesheets/events.scss */
+.card-title {
+  bottom: .67rem;
+  margin-bottom: 0;
+  position: absolute;
+  text-align: left;
 }
