@@ -5,6 +5,7 @@ one:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
+  image: image
   organizer: phil
 
 two:
@@ -12,6 +13,7 @@ two:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
+  image: image
   organizer: phil
 
 <% 22.times do |n| %>
@@ -20,5 +22,6 @@ event_<%= n %>:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
+  image: image
   organizer: phil
 <% end %>
