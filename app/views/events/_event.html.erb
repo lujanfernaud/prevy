@@ -1,9 +1,24 @@
-<div class="col-md-4 event-box">
-  <img src="<%= event.image_url(:thumb) %>" alt="">
-  <h2>
-    <%= link_to event.title, event_path(event) %>
-  </h2>
-  <p><%= event.description %></p>
-  <p>Start: <%= event.start_date.strftime("%A, %B %d, %Y - %H:%M") %></p>
-  <p>End: <%= event.end_date.strftime("%A, %B %d, %Y - %H:%M") %></p>
+<div class="col-md-4 mt-2rem">
+  <div class="event-box">
+    <div class="event-box-image card card-inverse text-center">
+      <%= image_tag event.image_url(:thumb), class: "img-fluid card-img-top" %>
+      <div class="card-img-overlay">
+        <h2 class="h4 card-title">
+        <%= link_to event.title, event_path(event), class: "event-box-title" %>
+      </h2>
+      </div>
+    </div>
+    <div class="event-box-text card-body">
+<!--       <h2 class="h4 event-box-title">
+        <%= link_to event.title, event_path(event) %>
+      </h2> -->
+      <p class="event-box-date">
+        <% if event.start_date.year == Time.now.year %>
+          <%= event.start_date.strftime("%A, %B %d") %>
+        <% else %>
+          <%= event.start_date.strftime("%A, %B %d, %Y") %>
+        <% end %>
+      </p>
+    </div>
+  </div>
 </div>
