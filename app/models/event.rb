@@ -1,6 +1,12 @@
 class Event < ApplicationRecord
   belongs_to :organizer, class_name: "User"
 
+  has_one :address
+  accepts_nested_attributes_for :address, update_only: true
+
+  delegate :place_name, :street1, :street2, :city,
+           :state, :post_code, :country, to: :address
+
   has_many :attendances, foreign_key: "attended_event_id"
   has_many :attendees, through: :attendances
 
@@ -18,6 +24,22 @@ class Event < ApplicationRecord
   }
 
   mount_uploader :image, ImageUploader
+
+  def full_address
+    return unless address
+
+    attributes = [place_name, street1, street2, city, state, post_code]
+
+    attributes.reject(&:blank?).join(", ")
+  end
+
+  def short_address
+    return unless address
+
+    attributes = [place_name, city]
+
+    attributes.reject(&:blank?).join(", ")
+  end
 
   private
 

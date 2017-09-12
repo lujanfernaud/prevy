@@ -4,11 +4,13 @@ class EventsController < ApplicationController
   before_action :find_event, only: [:show, :edit, :update]
 
   def index
-    @events = Event.upcoming.paginate(page: params[:page], per_page: 15)
+    @events = Event.upcoming.includes(:address)
+                   .paginate(page: params[:page], per_page: 15)
   end
 
   def new
     @event = Event.new
+    @event.build_address
   end
 
   def create
@@ -53,7 +55,9 @@ class EventsController < ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:title, :description,
-                                    :start_date, :end_date, :image)
+      params.require(:event)
+            .permit(:title, :description, :start_date, :end_date, :image,
+                      address_attributes: [:place_name, :street1, :street2,
+                                           :city, :post_code, :country])
     end
 end

@@ -19,6 +19,7 @@
                      <%= @event.end_date.strftime("%A, %B %d, %Y - %H:%M") %>
                   <% end %>
                 </p>
+                <p><%= @event.full_address %></p>
                 <p><%= @event.description %></p>
                 <% if author?(@event) %>
                   <p>

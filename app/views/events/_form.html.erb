@@ -1,42 +1,104 @@
 <%= form_for @event, html: { multipart: true } do |f| %>
   <%= render "error_messages", object: @event %>
 
-  <%= f.label :title %>
-  <%= f.text_field :title, class: "form-control" %>
+  <div class="form-group box p-4 mt-2rem mb-2rem">
+    <h3 class="mb-4">1. Event info</h3>
 
-  <%= f.label :description %>
-  <%= f.text_area :description, rows: "11", class: "form-control" %>
-
-  <div class="form-group event-start-date row">
-    <div class="col">
-      <%= f.label :start_date, class: "event-date-label" %>
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control",
+        required: true %>
     </div>
-    <div class="col-md-auto">
-      <%= f.datetime_select :start_date, start_year: Time.now.year,
-        end_year: Time.now.year + 1, class: "form-control custom-select" %>
+
+    <div>
+      <%= f.label :description %>
+      <%= f.text_area :description, rows: "13", class: "form-control",
+        required: true %>
     </div>
   </div>
 
-  <div class="form-group row">
-    <div class="col">
-      <%= f.label :end_date, class: "event-date-label" %>
+  <div class="form-group box p-4 mb-2rem">
+    <h3 class="mb-4">2. Location</h3>
+
+    <%= f.fields_for :address do |address_form| %>
+      <div class="form-group">
+        <%= address_form.label :place_name %>
+        <%= address_form.text_field :place_name, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= address_form.label :street1, "Address 1" %>
+        <%= address_form.text_field :street1, class: "form-control",
+          required: true  %>
+      </div>
+
+      <div class="form-group">
+        <%= address_form.label :street2, "Address 2" %>
+        <%= address_form.text_field :street2, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= address_form.label :city %>
+        <%= address_form.text_field :city, class: "form-control",
+          required: true  %>
+      </div>
+
+      <div class="form-group">
+        <%= address_form.label :state %>
+        <%= address_form.text_field :state, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= address_form.label :post_code %>
+        <%= address_form.text_field :post_code, class: "form-control",
+          required: true  %>
+      </div>
+
+      <div class="form-group">
+        <%= address_form.label :country %>
+        <%= address_form.text_field :country, class: "form-control",
+          required: true  %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-group box p-4 mb-2rem">
+    <h3 class="mb-4">3. Date</h3>
+
+    <div class="form-group event-start-date row">
+      <div class="col">
+        <%= f.label :start_date, class: "event-date-label" %>
+      </div>
+      <div class="col-md-auto">
+        <%= f.datetime_select :start_date, start_year: Time.now.year,
+          end_year: Time.now.year + 1, class: "form-control custom-select",
+          required: true  %>
+      </div>
     </div>
-    <div class="col-md-auto">
-      <%= f.datetime_select :end_date, start_year: Time.now.year,
-        end_year: Time.now.year + 1, class: "form-control custom-select" %>
+
+    <div class="form-group row mb-0">
+      <div class="col">
+        <%= f.label :end_date, class: "event-date-label" %>
+      </div>
+      <div class="col-md-auto">
+        <%= f.datetime_select :end_date, start_year: Time.now.year,
+          end_year: Time.now.year + 1, class: "form-control custom-select" %>
+      </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <%= f.label :image %>
-    </div>
-    <div class="col-md-10 col-event-image">
-      <%= image_tag(@event.image_url(:medium)) if @event.image? %>
+  <div class="form-group box p-4 mb-2rem">
+    <h3 class="mb-4">4. Image</h3>
+
+    <div class="form-group mb-0">
+      <%= f.label :image, hidden: true %>
+      <%= image_tag(@event.image_url, class: "img-fluid mb-2rem") if
+        @event.image? %>
       <%= f.file_field :image %>
       <%= f.hidden_field :image_cache %>
     </div>
   </div>
 
-  <%= f.submit yield(:button_text), class: "btn btn-primary btn-block mt-4" %>
+  <%= f.submit yield(:button_text),
+    class: "btn btn-primary btn-block btn-lg mt-4 mb-4" %>
 <% end %>

@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event_id: one
+  place_name: Place
+  street1: <%= Faker::Address.street_address %>
+  street2: <%= Faker::Address.community %>
+  city: <%= Faker::Address.city %>
+  state: <%= Faker::Address.state %>
+  post_code: <%= Faker::Address.postcode %>
+  country: <%= Faker::Address.country %>
+
+two:
+  event_id: two
+  place_name: Place
+  street1: <%= Faker::Address.street_address %>
+  street2: <%= Faker::Address.community %>
+  city: <%= Faker::Address.city %>
+  state: <%= Faker::Address.state %>
+  post_code: <%= Faker::Address.postcode %>
+  country: <%= Faker::Address.country %>
+
+<% 22.times do |n| %>
+address_<%= n %>:
+  event_id: event_<%= n %>
+  place_name: Place
+  street1: <%= Faker::Address.street_address %>
+  street2: <%= Faker::Address.community %>
+  city: <%= Faker::Address.city %>
+  state: <%= Faker::Address.state %>
+  post_code: <%= Faker::Address.postcode %>
+  country: <%= Faker::Address.country %>
+<% end %>

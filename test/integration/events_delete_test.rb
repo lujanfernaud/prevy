@@ -2,8 +2,8 @@ require 'test_helper'
 
 class EventsDeleteTest < ActionDispatch::IntegrationTest
   def setup
-    @user  = users(:phil)
-    @event = events(:one)
+    @user    = users(:phil)
+    @event   = events(:one)
     @invalid_user = users(:penny)
   end
 

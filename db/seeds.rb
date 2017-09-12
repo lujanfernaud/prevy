@@ -1,12 +1,24 @@
 # Users.
 27.times do
-  User.create!(name: Faker::Internet.user_name.capitalize,
+  User.create!(name: Faker::Internet.user_name.capitalize + "xyz",
                email: Faker::Internet.email,
                password: "password",
                password_confirmation: "password")
 end
 
-titles = [Faker::RockBand.name, Faker::BossaNova.artist, Faker::Book.title]
+def titles
+  [Faker::RockBand.name, Faker::BossaNova.artist, Faker::Book.title]
+end
+
+def address
+  { place_name: Faker::Lorem.word.capitalize,
+    street1:    Faker::Address.street_address,
+    street2:    Faker::Address.community,
+    city:       Faker::Address.city,
+    state:      Faker::Address.state,
+    post_code:  Faker::Address.postcode,
+    country:    Faker::Address.country }
+end
 
 # Previous events.
 27.times do |n|
@@ -15,11 +27,12 @@ titles = [Faker::RockBand.name, Faker::BossaNova.artist, Faker::Book.title]
 
   event = Event.new
   event.title            = titles.sample + " ##{n}"
-  event.description      = Faker::Lorem.paragraph
+  event.description      = Faker::Lorem.paragraphs.join(" ")
   event.start_date       = start_date
   event.end_date         = end_date
   event.remote_image_url = Faker::LoremPixel.image("730x411")
   event.organizer_id     = User.all.sample.id
+  event.build_address(address)
   event.save(validate: false)
 end
 
@@ -28,12 +41,15 @@ end
   start_date = Faker::Date.between(1.day.from_now, 6.months.from_now)
   end_date   = start_date + 1.day
 
-  Event.create!(title:            titles.sample + " ##{n}",
-                description:      Faker::Lorem.paragraph,
-                start_date:       start_date,
-                end_date:         end_date,
-                remote_image_url: Faker::LoremPixel.image("730x411"),
-                organizer_id:     User.all.sample.id )
+  event = Event.new(title:            titles.sample + " ##{n}",
+                    description:      Faker::Lorem.paragraphs.join(" "),
+                    start_date:       start_date,
+                    end_date:         end_date,
+                    remote_image_url: Faker::LoremPixel.image("730x411"),
+                    organizer_id:     User.all.sample.id )
+
+  event.build_address(address)
+  event.save!
 end
 
 def pick_attendee_for(event)

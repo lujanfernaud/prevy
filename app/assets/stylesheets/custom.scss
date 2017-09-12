@@ -9,6 +9,7 @@
 
 $dark-indigo: #210451;
 $light-background: #f3f4f5;
+$shadow: #989999;
 
 
 // Spacing
@@ -32,6 +33,29 @@ body {
 
 .bg-light {
   background-color: $light-background !important;
+}
+
+.box {
+  box-shadow: 0 1px .36px 0 $shadow;
+  background: $white;
+  border-top: 1px solid lighten($shadow, 34%);
+}
+
+
+// Errors
+
+
+#error_explanation {
+  margin-top: 2rem;
+}
+
+.alert > .list-styled {
+  margin-bottom: 0;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: #f8d7da;
 }
 
 
