@@ -6,12 +6,14 @@
 
     <div class="form-group">
       <%= f.label :title %>
+      <small class="text-muted">Required *</small>
       <%= f.text_field :title, class: "form-control",
         required: true %>
     </div>
 
     <div class="form-group mb-0">
       <%= f.label :description %>
+      <small class="text-muted">Required *</small>
       <%= f.text_area :description, rows: "13", class: "form-control",
         required: true %>
     </div>
@@ -28,6 +30,7 @@
 
       <div class="form-group">
         <%= address_form.label :street1, "Address 1" %>
+        <small class="text-muted">Required *</small>
         <%= address_form.text_field :street1, class: "form-control",
           required: true  %>
       </div>
@@ -39,6 +42,7 @@
 
       <div class="form-group">
         <%= address_form.label :city %>
+        <small class="text-muted">Required *</small>
         <%= address_form.text_field :city, class: "form-control",
           required: true  %>
       </div>
@@ -50,12 +54,14 @@
 
       <div class="form-group">
         <%= address_form.label :post_code %>
+        <small class="text-muted">Required *</small>
         <%= address_form.text_field :post_code, class: "form-control",
           required: true  %>
       </div>
 
       <div class="form-group mb-0">
         <%= address_form.label :country %>
+        <small class="text-muted">Required *</small>
         <%= address_form.country_select :country,
           { include_blank: true },
           class: "form-control custom-select",
@@ -70,6 +76,7 @@
     <div class="form-group event-start-date row">
       <div class="col">
         <%= f.label :start_date, class: "event-date-label" %>
+        <small class="text-muted">Required *</small>
       </div>
       <div class="col-md-auto">
         <%= f.datetime_select :start_date, start_year: Time.now.year,
@@ -81,6 +88,7 @@
     <div class="form-group row mb-0">
       <div class="col">
         <%= f.label :end_date, class: "event-date-label" %>
+        <small class="text-muted">Required *</small>
       </div>
       <div class="col-md-auto">
         <%= f.datetime_select :end_date, start_year: Time.now.year,
@@ -90,7 +98,10 @@
   </div>
 
   <div class="form-group box p-4 mb-2rem">
-    <h3 class="mb-4">4. Image</h3>
+    <h3 class="mb-4">
+      4. Image
+      <small class="text-muted ml-010rem">Required *</small>
+    </h3>
 
     <div class="form-group mb-0">
       <%= f.label :image, hidden: true %>
