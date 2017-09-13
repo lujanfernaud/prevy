@@ -30,6 +30,9 @@ gem 'carrierwave',             '1.1.0'
 gem 'mini_magick',             '4.7.0'
 gem 'fog',                     '1.40.0'
 
+# Forms country select.
+gem 'country_select'
+
 group :development, :test do
   gem 'faker'
   gem 'pry-byebug'

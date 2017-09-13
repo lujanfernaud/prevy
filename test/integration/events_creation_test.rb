@@ -53,12 +53,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
 
     fill_in_valid_information
 
-    fill_in "Address 1",   with: ""
-    fill_in "Address 2",   with: @event.street2
-    fill_in "City",        with: @event.city
-    fill_in "State",       with: @event.state
-    fill_in "Post code",   with: @event.post_code
-    fill_in "Country",     with: @event.country
+    fill_in "Address 1", with: ""
+    fill_in "Address 2", with: @event.street2
+    fill_in "City",      with: @event.city
+    fill_in "State",     with: @event.state
+    fill_in "Post code", with: @event.post_code
+    select  "Spain",     from: "Country"
 
     fill_in_valid_dates
     attach_valid_image
@@ -72,12 +72,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
 
     fill_in_valid_information
 
-    fill_in "Address 1",   with: @event.street1
-    fill_in "Address 2",   with: @event.street2
-    fill_in "City",        with: ""
-    fill_in "State",       with: @event.state
-    fill_in "Post code",   with: @event.post_code
-    fill_in "Country",     with: @event.country
+    fill_in "Address 1", with: @event.street1
+    fill_in "Address 2", with: @event.street2
+    fill_in "City",      with: ""
+    fill_in "State",     with: @event.state
+    fill_in "Post code", with: @event.post_code
+    select  "Spain",     from: "Country"
 
     fill_in_valid_dates
     attach_valid_image
@@ -91,12 +91,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
 
     fill_in_valid_information
 
-    fill_in "Address 1",   with: @event.street1
-    fill_in "Address 2",   with: @event.street2
-    fill_in "City",        with: @event.city
-    fill_in "State",       with: @event.state
-    fill_in "Post code",   with: ""
-    fill_in "Country",     with: @event.country
+    fill_in "Address 1", with: @event.street1
+    fill_in "Address 2", with: @event.street2
+    fill_in "City",      with: @event.city
+    fill_in "State",     with: @event.state
+    fill_in "Post code", with: ""
+    select  "Spain",     from: "Country"
 
     fill_in_valid_dates
     attach_valid_image
@@ -110,12 +110,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
 
     fill_in_valid_information
 
-    fill_in "Address 1",   with: @event.street1
-    fill_in "Address 2",   with: @event.street2
-    fill_in "City",        with: @event.city
-    fill_in "State",       with: @event.state
-    fill_in "Post code",   with: @event.post_code
-    fill_in "Country",     with: ""
+    fill_in "Address 1",      with: @event.street1
+    fill_in "Address 2",      with: @event.street2
+    fill_in "City",           with: @event.city
+    fill_in "State",          with: @event.state
+    fill_in "Post code",      with: @event.post_code
+    select  "",               from: "Country"
 
     fill_in_valid_dates
     attach_valid_image
@@ -213,7 +213,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
       fill_in "City",      with: @event.city
       fill_in "State",     with: @event.state
       fill_in "Post code", with: @event.post_code
-      fill_in "Country",   with: @event.country
+      select  "Spain",     from: "Country"
     end
 
     def fill_in_valid_dates
