@@ -5,7 +5,8 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :address, update_only: true
 
   delegate :place_name, :street1, :street2, :city,
-           :state, :post_code, :country, to: :address
+           :state, :post_code, :country,
+           :latitude, :longitude, to: :address
 
   has_many :attendances, foreign_key: "attended_event_id"
   has_many :attendees, through: :attendances
@@ -30,7 +31,7 @@ class Event < ApplicationRecord
 
     attributes = [place_name, street1, street2, city, state, post_code]
 
-    attributes.reject(&:blank?).join(", ")
+    attributes.reject(&:blank?).map(&:strip).join(", ")
   end
 
   def short_address
@@ -38,7 +39,7 @@ class Event < ApplicationRecord
 
     attributes = [place_name, city]
 
-    attributes.reject(&:blank?).join(", ")
+    attributes.reject(&:blank?).map(&:strip).join(", ")
   end
 
   private

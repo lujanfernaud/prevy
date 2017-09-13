@@ -9,6 +9,8 @@ one:
   state: <%= Faker::Address.state %>
   post_code: <%= Faker::Address.postcode %>
   country: <%= Faker::Address.country %>
+  latitude: 35.02107
+  longitude: 135.75385
 
 two:
   event_id: two
@@ -19,6 +21,8 @@ two:
   state: <%= Faker::Address.state %>
   post_code: <%= Faker::Address.postcode %>
   country: <%= Faker::Address.country %>
+  latitude: 35.02107
+  longitude: 135.75385
 
 <% 22.times do |n| %>
 address_<%= n %>:
@@ -30,4 +34,6 @@ address_<%= n %>:
   state: <%= Faker::Address.state %>
   post_code: <%= Faker::Address.postcode %>
   country: <%= Faker::Address.country %>
+  latitude: 35.02107
+  longitude: 135.75385
 <% end %>
