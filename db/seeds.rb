@@ -13,14 +13,31 @@ def titles
   [Faker::RockBand.name, Faker::BossaNova.artist, Faker::Book.title]
 end
 
+LATLON = [
+  { latitude:  35.0163,  longitude:  135.7567 },
+  { latitude:  20.8030,  longitude: -156.3382 },
+  { latitude:  34.7117,  longitude:  135.1199 },
+  { latitude:  42.3594,  longitude: -71.0959 },
+  { latitude:  29.65750, longitude:  91.11667 },
+  { latitude:  28.1214,  longitude: -16.7748 },
+  { latitude:  27.8138,  longitude: -17.8943 },
+  { latitude:  45.5428,  longitude: -122.6544 },
+  { latitude: -27.4673,  longitude:  153.0701 },
+  { latitude:  27.5889,  longitude:  89.8886 }
+]
+
 def address
+  latlon = LATLON.sample
+
   { place_name: Faker::Lorem.word.capitalize,
     street1:    Faker::Address.street_address,
     street2:    Faker::Address.community,
     city:       Faker::Address.city,
     state:      Faker::Address.state,
     post_code:  Faker::Address.postcode,
-    country:    Faker::Address.country }
+    country:    Faker::Address.country,
+    latitude:   latlon[:latitude],
+    longitude:  latlon[:longitude] }
 end
 
 # Previous events.
