@@ -45,11 +45,12 @@ body {
 }
 
 
-// Leaflet
+// Event Map
 
 
-.leaflet-container {
+#map {
   height: 600px;
+  border-top: 6px solid $indigo;
 }
 
 
