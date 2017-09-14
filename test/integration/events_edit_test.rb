@@ -2,8 +2,10 @@ require 'test_helper'
 
 class EventsUpdateTest < ActionDispatch::IntegrationTest
   def setup
-    @user  = users(:phil)
-    @event = events(:one)
+    @user    = users(:phil)
+    @event   = events(:one)
+    @address = addresses(:one)
+    @event.build_address(@address.attributes)
   end
 
   test "update event with valid title" do
