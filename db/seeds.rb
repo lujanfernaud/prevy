@@ -1,9 +1,12 @@
 # Users.
-27.times do
+27.times do |n|
+  puts "Creating user #{n + 1} of 27"
+
   User.create!(name: Faker::Internet.user_name.capitalize + "xyz",
                email: Faker::Internet.email,
                password: "password",
                password_confirmation: "password")
+
 end
 
 def titles
@@ -22,6 +25,8 @@ end
 
 # Previous events.
 27.times do |n|
+  puts "Creating previous event #{n + 1} of 27"
+
   start_date = Faker::Date.between(6.months.ago, 1.month.ago)
   end_date   = 1.month.ago + rand(7).day
 
@@ -38,6 +43,8 @@ end
 
 # Upcoming events.
 54.times do |n|
+  puts "Creating upcoming event #{n + 1} of 54"
+
   start_date = Faker::Date.between(1.day.from_now, 6.months.from_now)
   end_date   = start_date + 1.day
 
@@ -64,5 +71,7 @@ end
 
 # Add attendees to events.
 Event.all.each do |event|
+  puts "Picking attendees for event #{event.id} of #{Event.all.count}"
+
   rand(20).times { pick_attendee_for(event) }
 end
