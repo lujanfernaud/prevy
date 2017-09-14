@@ -50,14 +50,12 @@
 </div>
 
 <div class="container-fluid p-0">
-  <div id="map">
-    <%= map(:center => {
-              :latlng => [@event.latitude, @event.longitude],
-              :zoom   => 15
-            },
-            :markers => [{
-              :latlng => [@event.latitude, @event.longitude],
-              :popup  => @event.title
-            }]) %>
-  </div>
+  <%= map(:center => {
+            :latlng => [@event.latitude, @event.longitude],
+            :zoom   => 15
+          },
+          :markers => [{
+            :latlng => [@event.latitude, @event.longitude],
+            :popup  => @event.title
+          }]) %>
 </div>
