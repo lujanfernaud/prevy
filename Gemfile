@@ -33,8 +33,9 @@ gem 'fog',                             '1.40.0'
 # Forms country select.
 gem 'country_select'
 
-# Geolocalization.
+# Geolocalization and maps.
 gem 'geocoder'
+gem 'leaflet-rails'
 
 group :development, :test do
   gem 'faker'
