@@ -1,0 +1,31 @@
+<div class="container-fluid bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <div class="row mb-2rem">
+
+          <div class="col">
+            <div class="box">
+              <div class="event-box-big-text">
+                <h2 class="mb-3 font-italic"><%= @event.title %></h2>
+                <h3 class="h4 mb-3">
+                  Attendees (<%= @event.attendees.count %>)
+                </h3>
+                <ul>
+                  <% @attendees.reverse.each_with_index do |attendee, i| %>
+                    <li>
+                      <%= i + 1 %>
+                      <%= link_to attendee.name, user_path(attendee) %>
+                    </li>
+                  <% end %>
+                </ul>
+                <%= link_to "Go back to event", event_path(@event) %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-md-12 mt-4">
         <div class="row mb-2rem">
+
           <div class="col-md-8">
             <div class="box">
               <div class="event-box-big-image">
@@ -31,18 +32,52 @@
                </div>
              </div>
           </div>
+
           <div class="col-md-4">
             <div class="box p-3">
-              <% unless @event.attendees.empty? %>
-                <h3 class="h4">Attendants</h3>
-                <ul>
-                <% @event.attendees.each do |attendee| %>
-                  <li><%= link_to attendee.name, user_path(attendee) %></li>
+              <div class="attendees-preview">
+                <h3 class="h4 mb-3">
+                  Attendees (<%= @event.attendees.count %>)
+                </h3>
+                <% unless no_attendees?(@event) %>
+                  <ul>
+                  <% @attendees.each do |attendee| %>
+                    <li><%= link_to attendee.name, user_path(attendee) %></li>
+                  <% end %>
+                  </ul>
+                  <% if more_attendees?(@event) %>
+                    <%= link_to "See all attendees",
+                      event_attendances_path(@event) %>
+                  <% end %>
+                <% else %>
+                  <p class="mb-0">
+                    So far there are no attendees for this event.
+                  </p>
                 <% end %>
-                </ul>
+              </div>
+              <% if logged_in? %>
+                <% if !author?(@event) %>
+                  <div class="attendance mt-3">
+                    <% if not_attending?(@event) %>
+                      <h4 class="h5">Would you like to attend?</h4>
+                      <%= link_to "Attend",
+                        event_attendances_path(@event),
+                        method: :post,
+                        class: "btn btn-primary btn-block btn-lg mt-3" %>
+                    <% else %>
+                      <h4 class="h5">Yay! You are attending this event!</h4>
+                      <%= link_to "Cancel attendance",
+                        event_attendance_path(@event),
+                        method: :delete,
+                        class: "btn btn-secondary btn-block btn-lg mt-3",
+                        data: { confirm: "Are you sure to cancel your attendance?" } %>
+                    <% end %>
+                  </div>
+                <% end %>
               <% end %>
             </div>
           </div>
+
         </div>
       </div>
     </div>
