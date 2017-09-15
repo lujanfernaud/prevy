@@ -3,37 +3,37 @@
 one:
   event_id: one
   place_name: Place
-  street1: <%= Faker::Address.street_address %>
-  street2: <%= Faker::Address.community %>
-  city: <%= Faker::Address.city %>
-  state: <%= Faker::Address.state %>
-  post_code: <%= Faker::Address.postcode %>
-  country: <%= Faker::Address.country %>
-  latitude: 35.02107
-  longitude: 135.75385
+  street1: Matsubara-dori, 8
+  street2:
+  city: Kyoto
+  state:
+  post_code: 6050856
+  country: Japan
+  latitude: 34.997615
+  longitude: 135.775637
 
 two:
   event_id: two
   place_name: Place
-  street1: <%= Faker::Address.street_address %>
-  street2: <%= Faker::Address.community %>
-  city: <%= Faker::Address.city %>
-  state: <%= Faker::Address.state %>
-  post_code: <%= Faker::Address.postcode %>
-  country: <%= Faker::Address.country %>
-  latitude: 35.02107
-  longitude: 135.75385
+  street1: Matsubara-dori, 8
+  street2:
+  city: Kyoto
+  state:
+  post_code: 6050856
+  country: Japan
+  latitude: 34.997615
+  longitude: 135.775637
 
 <% 22.times do |n| %>
 address_<%= n %>:
   event_id: event_<%= n %>
   place_name: Place
-  street1: <%= Faker::Address.street_address %>
-  street2: <%= Faker::Address.community %>
-  city: <%= Faker::Address.city %>
-  state: <%= Faker::Address.state %>
-  post_code: <%= Faker::Address.postcode %>
-  country: <%= Faker::Address.country %>
-  latitude: 35.02107
-  longitude: 135.75385
+  street1: Matsubara-dori, 8
+  street2:
+  city: Kyoto
+  state:
+  post_code: 6050856
+  country: Japan
+  latitude: 34.997615
+  longitude: 135.775637
 <% end %>

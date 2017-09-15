@@ -2,6 +2,8 @@ require 'test_helper'
 
 class EventsCreationTest < ActionDispatch::IntegrationTest
   def setup
+    stub_geocoder
+
     @user    = users(:phil)
     @event   = events(:one)
     @address = addresses(:one)
