@@ -14,4 +14,8 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
 
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
+  scope :recent, -> {
+    order("created_at DESC").limit(5)
+  }
 end

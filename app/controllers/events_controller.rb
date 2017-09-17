@@ -25,7 +25,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @attendees = @event.attendees.limit(5)
+    @attendees = @event.attendees.recent
   end
 
   def edit
