@@ -15,6 +15,8 @@ class Event < ApplicationRecord
   validates :image,       presence: true
   validate  :no_past_date
 
+  before_save :check_website_url
+
   scope :past, -> {
     where("end_date < ?", Time.zone.now).order("end_date DESC")
   }
@@ -57,5 +59,15 @@ class Event < ApplicationRecord
       elsif end_date < start_date
         errors.add(:start_date, "can't be later than end date")
       end
+    end
+
+    def check_website_url
+      return if url_has_protocol?
+
+      self.website = "https://" + website
+    end
+
+    def url_has_protocol?
+      website =~ /https?\:\/\//
     end
 end

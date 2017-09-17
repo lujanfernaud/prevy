@@ -21,6 +21,9 @@
                   <% end %>
                 </p>
                 <p><%= @event.full_address %></p>
+                <% if @event.website %>
+                  <p><%= link_to @event.website, @event.website %></p>
+                <% end %>
                 <p><%= @event.description %></p>
                 <% if author?(@event) %>
                   <p>
