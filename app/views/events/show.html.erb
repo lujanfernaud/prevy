@@ -12,12 +12,9 @@
               <div class="event-box-big-text">
                 <h2 class="mb-3 font-italic"><%= @event.title %></h2>
                 <p>
-                  <% if @event.start_date.year == Time.now.year %>
-                    <%= @event.start_date.strftime("%A, %B %d - %H:%M") %> -
-                     <%= @event.end_date.strftime("%A, %B %d - %H:%M") %>
-                  <% else %>
-                    <%= @event.start_date.strftime("%A, %B %d, %Y - %H:%M") %> -
-                     <%= @event.end_date.strftime("%A, %B %d, %Y - %H:%M") %>
+                  <%= @event.start_date_prettyfied %>
+                  <% unless same_time?(@event) %>
+                    - <%= @event.end_date_prettyfied %>
                   <% end %>
                 </p>
                 <p><%= @event.full_address %></p>

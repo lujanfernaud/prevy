@@ -51,6 +51,14 @@ class Event < ApplicationRecord
     address.longitude if address
   end
 
+  def start_date_prettyfied
+    happens_this_year? ? start_date_formatted : start_date_formatted_with_year
+  end
+
+  def end_date_prettyfied
+    happens_this_year? ? end_date_formatted : end_date_formatted_with_year
+  end
+
   private
 
     def no_past_date
@@ -59,6 +67,38 @@ class Event < ApplicationRecord
       elsif end_date < start_date
         errors.add(:start_date, "can't be later than end date")
       end
+    end
+
+    def happens_this_year?
+      start_date.year == Time.zone.now.year
+    end
+
+    def start_date_formatted
+      start_date.strftime("%A, %b. %d, %H:%M")
+    end
+
+    def start_date_formatted_with_year
+      start_date.strftime("%A, %b. %d, %Y, %H:%M")
+    end
+
+    def end_date_formatted
+      if same_day?
+        end_date.strftime("%H:%M")
+      else
+        end_date.strftime("%A, %b. %d, %H:%M")
+      end
+    end
+
+    def end_date_formatted_with_year
+      if same_day?
+        end_date.strftime("%H:%M")
+      else
+        end_date.strftime("%A, %b. %d, %Y, %H:%M")
+      end
+    end
+
+    def same_day?
+      start_date.strftime("%A, %b. %d") == end_date.strftime("%A, %b. %d")
     end
 
     def check_website_url

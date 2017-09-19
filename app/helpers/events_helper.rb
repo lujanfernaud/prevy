@@ -16,4 +16,8 @@ module EventsHelper
   def more_attendees?(event)
     event.attendees.count > 5
   end
+
+  def same_time?(event)
+    event.start_date.strftime("%H:%M") == event.end_date.strftime("%H:%M")
+  end
 end
