@@ -9,3 +9,10 @@ penny:
   name: Penny
   email: penny@sample.com
   password_digest: <%= BCrypt::Password.create("password") %>
+
+<% 10.times do |n| %>
+user_<%= n %>:
+  name: User <%= n %>
+  email: user<%= n %>@sample.com
+  password_digest: <%= BCrypt::Password.create("password") %>
+<% end %>
