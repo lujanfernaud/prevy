@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.3.1'
+ruby '2.4.1'
 
 gem 'rails',                           '~> 5.1.3'
 gem 'pg',                              '~> 0.18'
@@ -18,7 +18,7 @@ gem 'jbuilder',                        '~> 2.5'
 gem 'bcrypt',                          '~> 3.1.7'
 
 # Bootstrap.
-gem 'bootstrap',                       '~> 4.0.0.beta'
+gem 'bootstrap',                       '~> 4.0.0.beta2.1'
 gem 'jquery-rails',                    '4.3.1'
 
 # Pagination.
@@ -34,8 +34,8 @@ gem 'fog',                             '1.40.0'
 gem 'country_select'
 
 # Geolocalization and maps.
-gem 'geocoder'
-gem 'leaflet-rails'
+gem 'geocoder',                        '~> 1.4', '>= 1.4.5'
+gem 'leaflet-rails',                   '~> 1.2'
 
 group :development, :test do
   gem 'faker'
