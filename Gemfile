@@ -54,6 +54,7 @@ group :test do
 end
 
 group :development do
+  gem 'guard-livereload',              '~> 2.5', '>= 2.5.2'
   gem 'web-console',                   '>= 3.3.0'
   gem 'listen',                        '>= 3.0.5', '< 3.2'
   gem 'spring'
