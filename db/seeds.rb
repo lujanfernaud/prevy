@@ -50,9 +50,10 @@ end
   event = Event.new
   event.title            = titles.sample + " ##{n}"
   event.description      = Faker::Lorem.paragraphs.join(" ")
+  event.website          = "website.com"
   event.start_date       = start_date
   event.end_date         = end_date
-  event.remote_image_url = Faker::LoremPixel.image("730x411")
+  event.remote_image_url = "http://via.placeholder.com/730x411"
   event.organizer_id     = User.all.sample.id
   event.build_address(address)
   event.save(validate: false)
@@ -67,9 +68,10 @@ end
 
   event = Event.new(title:            titles.sample + " ##{n}",
                     description:      Faker::Lorem.paragraphs.join(" "),
+                    website:          "website.com",
                     start_date:       start_date,
                     end_date:         end_date,
-                    remote_image_url: Faker::LoremPixel.image("730x411"),
+                    remote_image_url: "http://via.placeholder.com/730x411",
                     organizer_id:     User.all.sample.id )
 
   event.build_address(address)
