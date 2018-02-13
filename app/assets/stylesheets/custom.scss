@@ -27,12 +27,9 @@ $shadow: #989999;
   margin-left: .10rem !important;
 }
 
+
 // Body & General
 
-
-body {
-  padding-top: 71px;
-}
 
 .bg-light {
   background-color: $light-background !important;
@@ -90,7 +87,57 @@ body {
 }
 
 
-// Bootstrap Specifig
+// Search Bar
+
+
+.search-bar {
+  padding-top: .8rem;
+  padding-bottom: 0.7rem;
+  color: #fff;
+  background-color: lighten($dark-indigo, 5);
+}
+
+.search-form {
+  flex-direction: column;
+  align-items: flex-end;
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.search-group {
+  display: flex;
+  align-items: baseline;
+  margin-right: 0;
+  margin-bottom: .5rem !important;
+
+  @include media-breakpoint-up(md) {
+    margin-right: .5rem;
+    margin-bottom: 0 !important;
+  }
+}
+
+.search-label {
+  margin-right: .5rem;
+}
+
+.search-input {
+  width: initial;
+}
+
+.btn-search {
+  width: 100%;
+  margin: 0;
+
+  @include media-breakpoint-up(md) {
+    width: initial;
+  }
+}
+
+
+// Bootstrap Specific
 
 
 .alert {

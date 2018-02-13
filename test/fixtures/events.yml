@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: Test event one
+  title: Hatsumode
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
@@ -9,7 +9,15 @@ one:
   organizer: phil
 
 two:
-  title: Test event two
+  title: Fushimi Inari-taisha Shrine Tour
+  description: <%= Faker::Lorem.paragraph %>
+  start_date: <%= Time.zone.now + 6.days %>
+  end_date: <%= Time.zone.now + 1.week %>
+  image: image
+  organizer: phil
+
+three:
+  title: Test event in Tokyo
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>

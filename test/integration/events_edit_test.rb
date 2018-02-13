@@ -4,17 +4,16 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
   def setup
     stub_geocoder
 
-    @user    = users(:phil)
-    @event   = events(:one)
-    @address = addresses(:one)
-    @event.build_address(@address.attributes)
+    @user  = users(:phil)
+    @event = events(:one)
   end
 
   test "update event with valid title" do
     visit_edit_event_path
 
-    fill_in "Title",           with: @event.title
-    fill_in "Description",     with: @event.description
+    fill_in "Title",       with: @event.title
+    fill_in "Description", with: @event.description
+    select "Japan", from: "Country"
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time @event.end_date,   from: "event_end_date"
     attach_file "event_image", "test/fixtures/files/sample.jpeg"
@@ -26,8 +25,9 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
   test "update event with valid description" do
     visit_edit_event_path
 
-    fill_in "Title",           with: @event.title
-    fill_in "Description",     with: Faker::Lorem.paragraph
+    fill_in "Title",       with: @event.title
+    fill_in "Description", with: Faker::Lorem.paragraph
+    select "Japan", from: "Country"
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time @event.end_date,   from: "event_end_date"
     attach_file "event_image", "test/fixtures/files/sample.jpeg"
@@ -39,8 +39,9 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
   test "update event with valid date" do
     visit_edit_event_path
 
-    fill_in "Title",           with: @event.title
-    fill_in "Description",     with: @event.description
+    fill_in "Title",       with: @event.title
+    fill_in "Description", with: @event.description
+    select "Japan", from: "Country"
     select_date_and_time @event.start_date + 1.day, from: "event_start_date"
     select_date_and_time @event.end_date + 1.day,   from: "event_end_date"
     attach_file "event_image", "test/fixtures/files/sample.jpeg"
@@ -52,8 +53,8 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
   test "update event with invalid start date" do
     visit_edit_event_path
 
-    fill_in "Title",           with: @event.title
-    fill_in "Description",     with: @event.description
+    fill_in "Title",       with: @event.title
+    fill_in "Description", with: @event.description
     select_date_and_time 1.week.ago,              from: "event_start_date"
     select_date_and_time @event.end_date + 1.day, from: "event_end_date"
     attach_file "event_image", "test/fixtures/files/sample.jpeg"
@@ -65,8 +66,8 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
   test "update event with invalid end date" do
     visit_edit_event_path
 
-    fill_in "Title",           with: @event.title
-    fill_in "Description",     with: @event.description
+    fill_in "Title",       with: @event.title
+    fill_in "Description", with: @event.description
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time 1.week.ago,        from: "event_end_date"
     attach_file "event_image", "test/fixtures/files/sample.jpeg"

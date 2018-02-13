@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  event_id: one
+  event: one
   place_name: Place
   street1: Matsubara-dori, 8
   street2:
@@ -13,9 +13,9 @@ one:
   longitude: 135.775637
 
 two:
-  event_id: two
-  place_name: Place
-  street1: Matsubara-dori, 8
+  event: two
+  place_name: Fushimi Inari-taisha Shrine
+  street1: Fukakusa Yabunouchicho, 68
   street2:
   city: Kyoto
   state:
@@ -24,15 +24,27 @@ two:
   latitude: 34.997615
   longitude: 135.775637
 
+three:
+  event: three
+  place_name: Shinjuku Gyoen National Garden
+  street1: Naitocho, 11
+  street2:
+  city: Tokyo
+  state:
+  post_code: 1600014
+  country: Japan
+  latitude: 34.997615
+  longitude: 135.775637
+
 <% 22.times do |n| %>
 address_<%= n %>:
-  event_id: event_<%= n %>
-  place_name: Place
-  street1: Matsubara-dori, 8
+  event: event_<%= n %>
+  place_name: Tempozan
+  street1: KaiganDori, 10
   street2:
-  city: Kyoto
+  city: Osaka
   state:
-  post_code: 6050856
+  post_code: 5520022
   country: Japan
   latitude: 34.997615
   longitude: 135.775637
