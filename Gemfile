@@ -38,10 +38,10 @@ gem 'geocoder',                        '~> 1.4', '>= 1.4.5'
 gem 'leaflet-rails',                   '~> 1.2'
 
 group :development, :test do
-  gem 'faker'
-  gem 'pry-byebug'
-  gem 'pry-rails'
-  gem 'rubocop-rails'
+  gem 'faker',                         '~> 1.8', '>= 1.8.7'
+  gem 'pry-byebug',                    '~> 3.6'
+  gem 'pry-rails',                     '~> 0.3.6'
+  gem 'rubocop-rails',                 '~> 1.2', '>= 1.2.1'
 end
 
 group :test do
