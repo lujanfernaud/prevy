@@ -1,4 +1,4 @@
-access_token = Rails.application.secrets.mapbox_access_token
+access_token = Figaro.env.mapbox_access_token
 
 Leaflet.tile_layer = "https://api.mapbox.com/v4/" \
   "mapbox.streets/{z}/{x}/{y}.png?access_token=" + access_token
