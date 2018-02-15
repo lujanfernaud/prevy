@@ -4,15 +4,27 @@ phil:
   name: Phil
   email: phil@sample.com
   password_digest: <%= BCrypt::Password.create("password") %>
+  location: Portland, Oregon
+  bio: Business magnate and philanthropist.
 
 penny:
   name: Penny
   email: penny@sample.com
   password_digest: <%= BCrypt::Password.create("password") %>
+  location: Portland, Oregon
+  bio: Philanthropist.
+
+woodell:
+  name: Woodell
+  email: penny@sample.com
+  password_digest: <%= BCrypt::Password.create("password") %>
+  location: Portland, Oregon
+  bio: Chief Operating Officer.
 
 <% 10.times do |n| %>
 user_<%= n %>:
   name: User <%= n %>
   email: user<%= n %>@sample.com
   password_digest: <%= BCrypt::Password.create("password") %>
+  location: Portland, Oregon
 <% end %>

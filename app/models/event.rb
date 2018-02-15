@@ -32,6 +32,10 @@ class Event < ApplicationRecord
            "%#{city.downcase}%", "%#{event.downcase}%")
   }
 
+  scope :three, -> {
+    limit(3)
+  }
+
   mount_uploader :image, ImageUploader
 
   def full_address

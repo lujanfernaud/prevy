@@ -137,6 +137,44 @@ $shadow: #989999;
 }
 
 
+// Show User Profile
+
+
+.profile-heading {
+  margin-bottom: .8rem;
+  font-style: italic;
+}
+
+.organized-events-heading {
+  margin-bottom: -0.8rem;
+}
+
+
+// Edit User Profile
+
+
+.edit-profile__heading {
+  position: relative;
+  bottom: -.4rem;
+}
+
+.edit-profile__hr {
+  flex-basis: 25%;
+
+  @include media-breakpoint-up(md) {
+    flex-basis: 28%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    flex-basis: 35%;
+  }
+}
+
+.avatar-container {
+  background-color: rgba($light-background, .2);
+}
+
+
 // Bootstrap Specific
 
 

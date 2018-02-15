@@ -19,8 +19,9 @@ class UsersController < ApplicationController
   def show
     redirect_to root_url unless @user
 
-    @attended_events = @user.attended_events.past
-    @upcoming_events = @user.attended_events.upcoming
+    @attended_events = @user.past_attended_events
+    @upcoming_events = @user.upcoming_attended_events
+    @last_organized_events = @user.last_organized_events
   end
 
   def edit
@@ -43,6 +44,7 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email,
-                                   :password, :password_confirmation)
+                                   :password, :password_confirmation,
+                                   :location, :bio)
     end
 end

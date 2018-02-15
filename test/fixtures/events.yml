@@ -24,6 +24,14 @@ three:
   image: image
   organizer: phil
 
+four:
+  title: Test event in Tokyo 2
+  description: <%= Faker::Lorem.paragraph %>
+  start_date: <%= Time.zone.now + 6.days %>
+  end_date: <%= Time.zone.now + 1.week %>
+  image: image
+  organizer: penny
+
 <% 22.times do |n| %>
 event_<%= n %>:
   title: Test event <%= n %>

@@ -1,33 +1,45 @@
 <div class="container">
-  <div class="row">
+
+  <div class="row mb-2">
     <div class="col-md-12 mt-4">
-      <h2 class="mt-1 mb-4"><%= @user.name %></h2>
-      <% unless @upcoming_events.empty? %>
-        <h3 class="h4">Attending</h3>
-        <ul>
-          <% @upcoming_events.each do |event|  %>
-            <li><%= link_to event.title, event_path(event) %></li>
-          <% end %>
-        </ul>
-      <% end %>
-      <% unless @attended_events.empty? %>
-        <h3 class="h4">Attended</h3>
-        <ul>
-          <% @attended_events.each do |event|  %>
-            <li><%= link_to event.title, event_path(event) %></li>
-          <% end %>
-        </ul>
-      <% end %>
-      <% unless @user.organized_events.empty? %>
-        <h3 class="h4">Organized</h3>
-        <ul>
-          <% @user.organized_events.each do |event| %>
-            <li>
-              <%= link_to event.title, event_path(event) %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
+      <h2 class="mt-1 mb-4 d-inline-block font-italic">
+        <%= @user.name %>
+      </h2>
+      <div class="edit-profile-link d-inline-block ml-1">
+        <%= edit_profile_link(@user) %>
+      </div>
+      <%= gravatar_image_tag @user.email, alt: @user.name,
+        class: "avatar__image d-block" %>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <h3 class="h4 profile-heading">Location</h3>
+      <%= @user.location %>
+    </div>
+  </div>
+
+  <% if @user.bio %>
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <h3 class="h4 profile-heading">Bio</h3>
+        <%= @user.bio %>
+      </div>
+    </div>
+  <% end %>
+
+  <% unless @last_organized_events.empty? %>
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <h3 class="h4 profile-heading organized-events-heading">
+          <%= organized_events_header(@user.organized_events) %>
+        </h3>
+        <div class="row mb-4">
+          <%= render @last_organized_events %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
 </div>

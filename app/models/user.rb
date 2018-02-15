@@ -14,8 +14,21 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
 
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validates :location, presence: true, length: { minimum: 2 }
 
   scope :recent, -> {
     order("created_at DESC").limit(5)
   }
+
+  def past_attended_events
+    attended_events.past.three
+  end
+
+  def upcoming_attended_events
+    attended_events.upcoming.three
+  end
+
+  def last_organized_events
+    organized_events.three
+  end
 end

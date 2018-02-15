@@ -5,7 +5,9 @@
   User.create!(name: Faker::Internet.user_name.capitalize + "xyz",
                email: Faker::Internet.email,
                password: "password",
-               password_confirmation: "password")
+               password_confirmation: "password",
+               location: Faker::Address.city,
+               bio: Faker::BackToTheFuture.quote)
 
 end
 

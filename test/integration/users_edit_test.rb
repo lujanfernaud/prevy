@@ -61,6 +61,24 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_invalid
   end
 
+  test "update with empty location" do
+    visit edit_user_path(@user)
+
+    fill_in  "Location", with: ""
+    click_on "Update"
+
+    assert_invalid
+  end
+
+  test "update with invalid location" do
+    visit edit_user_path(@user)
+
+    fill_in  "Location", with: "A"
+    click_on "Update"
+
+    assert_invalid
+  end
+
   private
 
     def assert_valid
