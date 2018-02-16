@@ -15,7 +15,7 @@
 #
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 
-guard :minitest, spring: true, all_on_start: false,
+guard :minitest, spring: true,
                  env: { 'NO_COVERAGE' => 'true' } do
   # with Minitest::Unit
   # watch(%r{^test/(.*)\/?test_(.*)\.rb$})

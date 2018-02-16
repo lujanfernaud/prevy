@@ -113,7 +113,7 @@ class Event < ApplicationRecord
     end
 
     def check_website_url
-      return if url_has_protocol?
+      return if url_has_protocol? || website.empty?
 
       self.website = "https://" + website
     end
