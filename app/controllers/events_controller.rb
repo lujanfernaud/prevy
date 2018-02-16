@@ -25,6 +25,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    @organizer = @event.organizer
     @attendees = @event.attendees.recent
   end
 

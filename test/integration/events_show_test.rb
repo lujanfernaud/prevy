@@ -13,6 +13,9 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     assert page.has_content? event.website
     assert page.has_content? event.description
 
+    assert page.has_content? "Organizer"
+    assert page.has_link?    event.organizer.name
+
     assert page.has_content? "Attendees (#{attendees})"
     assert page.has_link?    "See all attendees"
 
