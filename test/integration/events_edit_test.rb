@@ -12,7 +12,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     visit_edit_event_path
 
     fill_in "Title",       with: @event.title
-    fill_in "Description", with: @event.description
+    find("trix-editor").click.set(@event.description)
     select "Japan", from: "Country"
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time @event.end_date,   from: "event_end_date"
@@ -26,7 +26,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     visit_edit_event_path
 
     fill_in "Title",       with: @event.title
-    fill_in "Description", with: Faker::Lorem.paragraph
+    find("trix-editor").click.set(Faker::Lorem.paragraph)
     select "Japan", from: "Country"
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time @event.end_date,   from: "event_end_date"
@@ -40,7 +40,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     visit_edit_event_path
 
     fill_in "Title",       with: @event.title
-    fill_in "Description", with: @event.description
+    find("trix-editor").click.set(@event.description)
     select "Japan", from: "Country"
     select_date_and_time @event.start_date + 1.day, from: "event_start_date"
     select_date_and_time @event.end_date + 1.day,   from: "event_end_date"
@@ -54,7 +54,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     visit_edit_event_path
 
     fill_in "Title",       with: @event.title
-    fill_in "Description", with: @event.description
+    find("trix-editor").click.set(@event.description)
     select_date_and_time 1.week.ago,              from: "event_start_date"
     select_date_and_time @event.end_date + 1.day, from: "event_end_date"
     attach_file "event_image", "test/fixtures/files/sample.jpeg"
@@ -67,7 +67,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     visit_edit_event_path
 
     fill_in "Title",       with: @event.title
-    fill_in "Description", with: @event.description
+    find("trix-editor").click.set(@event.description)
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time 1.week.ago,        from: "event_end_date"
     attach_file "event_image", "test/fixtures/files/sample.jpeg"

@@ -1,5 +1,7 @@
 {
   "name": "private-events",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "trix": "^0.11.1"
+  }
 }

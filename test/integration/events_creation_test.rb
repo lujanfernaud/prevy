@@ -11,6 +11,9 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event with valid data" do
+    Capybara.current_driver = :webkit
+    Capybara.raise_server_errors = false
+
     visit_new_event_path
 
     fill_in_valid_information
@@ -20,13 +23,15 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
 
     click_on_create_event
     assert_valid
+
+    teardown
   end
 
   test "create event with invalid title" do
     visit_new_event_path
 
-    fill_in "Title",       with: "T"
-    fill_in "Description", with: @event.description
+    fill_in "Title", with: "T"
+    fill_in_description
 
     fill_in_valid_address
     fill_in_valid_dates
@@ -39,8 +44,8 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   test "create event with invalid description" do
     visit_new_event_path
 
-    fill_in "Title",       with: @event.title
-    fill_in "Description", with: "Too short description."
+    fill_in "Title", with: @event.title
+    fill_in_description("Too short description.")
 
     fill_in_valid_address
     fill_in_valid_dates
@@ -112,12 +117,11 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
 
     fill_in_valid_information
 
-    fill_in "Address 1",      with: @event.street1
-    fill_in "Address 2",      with: @event.street2
-    fill_in "City",           with: @event.city
-    fill_in "State",          with: @event.state
-    fill_in "Post code",      with: @event.post_code
-    select  "",               from: "Country"
+    fill_in "Address 1", with: @event.street1
+    fill_in "Address 2", with: @event.street2
+    fill_in "City",      with: @event.state
+    fill_in "Post code", with: @event.post_code
+    select  "",          from: "Country"
 
     fill_in_valid_dates
     attach_valid_image
@@ -205,8 +209,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     end
 
     def fill_in_valid_information
-      fill_in "Title",       with: @event.title
-      fill_in "Description", with: @event.description
+      fill_in "Title", with: @event.title
+      fill_in_description
+    end
+
+    def fill_in_description(description = @event.description)
+      find("trix-editor").click.set(description)
     end
 
     def fill_in_valid_address

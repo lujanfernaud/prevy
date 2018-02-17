@@ -14,8 +14,9 @@
     <div class="form-group">
       <%= f.label :description %>
       <small class="text-muted">Required *</small>
-      <%= f.text_area :description, rows: "13", class: "form-control",
-        required: true %>
+      <%= f.hidden_field :description, required: true %>
+      <trix-editor input="event_description" class="form-control">
+      </trix-editor>
     </div>
 
     <div class="form-group mb-0">

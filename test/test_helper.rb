@@ -7,13 +7,20 @@ require 'rails/test_help'
 
 require 'capybara/rails'
 require 'capybara/minitest'
+require 'capybara-screenshot/minitest'
 
 require 'minitest/reporters'
 Minitest::Reporters.use!
 
+Capybara::Webkit.configure do |config|
+  config.allow_url("gravatar.com")
+  config.allow_url("api.mapbox.com")
+end
+
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Minitest::Assertions
+  include Capybara::Screenshot::MiniTestPlugin
 
   include ApplicationHelper
   include EventsHelper
@@ -23,6 +30,7 @@ class ActionDispatch::IntegrationTest
   def teardown
     Capybara.reset_sessions!
     Capybara.use_default_driver
+    Capybara.raise_server_errors = true
   end
 
   def stub_geocoder

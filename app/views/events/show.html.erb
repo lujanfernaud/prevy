@@ -21,7 +21,7 @@
                 <% if @event.website %>
                   <p><%= link_to @event.website, @event.website %></p>
                 <% end %>
-                <p><%= @event.description %></p>
+                <p><%= sanitize @event.description %></p>
                 <% if author?(@event) %>
                   <p>
                     <%= link_to "Edit event", edit_event_path(@event) %> |

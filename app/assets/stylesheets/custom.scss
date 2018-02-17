@@ -175,6 +175,20 @@ $shadow: #989999;
 }
 
 
+// Trix Editor Specific
+
+
+trix-editor {
+  min-height: 15rem !important;
+}
+
+.trix-button--icon-strike,
+.trix-button--icon-link,
+.trix-button-group--block-tools {
+  display: none !important;
+}
+
+
 // Bootstrap Specific
 
 

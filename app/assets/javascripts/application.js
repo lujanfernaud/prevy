@@ -16,4 +16,5 @@
 //= require bootstrap
 //= require turbolinks
 //= require leaflet
+//= require trix/dist/trix
 //= require_tree .
