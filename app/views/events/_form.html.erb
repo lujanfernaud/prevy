@@ -70,7 +70,8 @@
         <%= address_form.label :country %>
         <small class="text-muted">Required *</small>
         <%= address_form.country_select :country,
-          { include_blank: true, selected: request.location.country_code },
+          { include_blank: true,
+            selected: @event.country || request.location.country_code },
           class: "form-control custom-select",
           required: true  %>
       </div>
