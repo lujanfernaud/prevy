@@ -15,6 +15,6 @@
 //= require popper
 //= require bootstrap
 //= require turbolinks
-//= require leaflet
 //= require trix/dist/trix
+//= require leaflet/dist/leaflet
 //= require_tree .

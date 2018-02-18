@@ -89,13 +89,12 @@
   </div>
 </div>
 
-<div class="container-fluid p-0">
-  <%= map(:center => {
-            :latlng => [@event.latitude, @event.longitude],
-            :zoom   => 15
-          },
-          :markers => [{
-            :latlng => [@event.latitude, @event.longitude],
-            :popup  => @event.title
-          }]) %>
+<div id="map" class="container-fluid p-0"
+  data-token="<%= Figaro.env.mapbox_access_token %>"
+  data-latitude="<%= @event.latitude %>"
+  data-longitude="<%= @event.longitude %>"
+  data-event-title="<%= @event.title %>"
+  data-marker-url="<%= asset_path('leaflet/marker-icon-violet.png') %>"
+  data-marker-2x-url="<%= asset_path('leaflet/marker-icon-2x-violet.png') %>"
+  data-shadow-url="<%= asset_path('leaflet/marker-shadow.png') %>">
 </div>
