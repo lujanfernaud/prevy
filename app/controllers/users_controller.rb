@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update]
+  before_action :check_if_coming_from_event, only: :show
 
   def new
     @user = User.new
@@ -18,6 +19,10 @@ class UsersController < ApplicationController
 
   def show
     redirect_to root_url unless @user
+
+    if @event
+      add_breadcrumbs
+    end
 
     @attended_events = @user.past_attended_events
     @upcoming_events = @user.upcoming_attended_events
@@ -46,5 +51,31 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email,
                                    :password, :password_confirmation,
                                    :location, :bio)
+    end
+
+    def check_if_coming_from_event
+      @organized_event = params[:organized_event] || false
+      @attending_event = params[:attending_event] || false
+
+      if @organized_event || @attending_event
+        @event = Event.find(@organized_event || @attending_event)
+      end
+    end
+
+    def add_breadcrumbs
+      if @organized_event
+        add_breadcrumbs_for "Organizer"
+      end
+
+      if @attending_event
+        add_breadcrumbs_for "Attendees", event_attendances_path(@event)
+      end
+    end
+
+    def add_breadcrumbs_for(title, path = nil)
+      add_breadcrumb "Events", events_path
+      add_breadcrumb @event.title, event_path(@event)
+      add_breadcrumb title, path
+      add_breadcrumb @user.name
     end
 end

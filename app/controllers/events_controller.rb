@@ -3,6 +3,8 @@ class EventsController < ApplicationController
 
   before_action :find_event, only: [:show, :edit, :update]
 
+  add_breadcrumb "Events", :events_path
+
   def index
     @events = Event.upcoming.includes(:address)
                    .paginate(page: params[:page], per_page: 15)
@@ -25,11 +27,15 @@ class EventsController < ApplicationController
   end
 
   def show
+    add_breadcrumb @event.title, event_path(@event)
+
     @organizer = @event.organizer
     @attendees = @event.attendees.recent
   end
 
   def edit
+    add_breadcrumb @event.title, event_path(@event)
+    add_breadcrumb "Edit event", edit_event_path(@event)
   end
 
   def update

@@ -1,8 +1,11 @@
 class AttendancesController < ApplicationController
   include ApplicationHelper
 
+  before_action :add_root_breadcrumbs, only: :index
+
   def index
-    @event = Event.find(params[:event_id])
+    add_breadcrumb "Attendees", event_attendances_path
+
     @attendees = @event.attendees
   end
 
@@ -29,4 +32,13 @@ class AttendancesController < ApplicationController
     @event = Event.find(params[:event_id])
     redirect_to event_path(@event)
   end
+
+  private
+
+    def add_root_breadcrumbs
+      @event = Event.find(params[:event_id])
+
+      add_breadcrumb "Events", events_path
+      add_breadcrumb @event.title, event_path(@event)
+    end
 end

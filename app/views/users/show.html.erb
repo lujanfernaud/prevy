@@ -1,4 +1,7 @@
 <div class="container">
+  <% if @organized_event || @attending_event %>
+    <%= render partial: "breadcrumbs" %>
+  <% end %>
 
   <div class="row mb-2">
     <div class="col-md-12 mt-4">

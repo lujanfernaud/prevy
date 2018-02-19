@@ -23,9 +23,10 @@ gem 'gravatar_image_tag',              '~> 1.2'
 gem 'bootstrap',                       '~> 4.0.0.beta2.1'
 gem 'jquery-rails',                    '4.3.1'
 
-# Pagination.
+# Pagination and breadcrumbs.
 gem 'bootstrap-will_paginate',         '1.0.0'
 gem 'will_paginate',                   '3.1.5'
+gem 'breadcrumbs_on_rails',            '~> 3.0', '>= 3.0.1'
 
 # Upload and resize images.
 gem 'carrierwave',                     '1.1.0'

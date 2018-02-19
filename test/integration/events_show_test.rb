@@ -7,11 +7,8 @@ class EventsShowTest < ActionDispatch::IntegrationTest
 
     visit event_path(event)
 
-    assert page.has_content? event.title
-    assert page.has_content? event.start_date_prettyfied
-    assert page.has_content? event.full_address
-    assert page.has_content? event.website
-    assert page.has_content? event.description
+    assert_breadcrumbs(event)
+    assert_event_information(event)
 
     assert page.has_content? "Organizer"
     assert page.has_link?    event.organizer.name
@@ -31,11 +28,8 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     log_in_as(penny)
     visit event_path(event)
 
-    assert page.has_content? event.title
-    assert page.has_content? event.start_date_prettyfied
-    assert page.has_content? event.full_address
-    assert page.has_content? event.website
-    assert page.has_content? event.description
+    assert_breadcrumbs(event)
+    assert_event_information(event)
 
     assert page.has_content? "Attendees (#{attendees})"
     assert page.has_content? "See all attendees"
@@ -81,4 +75,27 @@ class EventsShowTest < ActionDispatch::IntegrationTest
 
     refute page.has_link? "https://"
   end
+
+  private
+
+    def assert_breadcrumbs(event)
+      assert page.has_css?  ".breadcrumb"
+      assert page.has_link? "Events"
+
+      within ".breadcrumb" do
+        click_on "Events"
+        assert current_path == events_path
+      end
+
+      click_on event.title
+      assert current_path == event_path(event)
+    end
+
+    def assert_event_information(event)
+      assert page.has_content? event.title
+      assert page.has_content? event.start_date_prettyfied
+      assert page.has_content? event.full_address
+      assert page.has_content? event.website
+      assert page.has_content? event.description
+    end
 end

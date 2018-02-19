@@ -1,7 +1,9 @@
 <div class="container-fluid bg-light">
   <div class="container">
+    <%= render partial: "breadcrumbs" %>
+
     <div class="row">
-      <div class="col-md-12 mt-4">
+      <div class="col-md-12 mt-2">
         <div class="row mb-2rem">
 
           <div class="col">
@@ -15,7 +17,8 @@
                   <% @attendees.reverse.each_with_index do |attendee, i| %>
                     <li>
                       <%= i + 1 %>
-                      <%= link_to attendee.name, user_path(attendee) %>
+                      <%= link_to attendee.name,
+                        user_path(attendee, attending_event: @event) %>
                     </li>
                   <% end %>
                 </ul>

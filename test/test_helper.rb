@@ -15,6 +15,7 @@ Minitest::Reporters.use!
 Capybara::Webkit.configure do |config|
   config.allow_url("gravatar.com")
   config.allow_url("api.mapbox.com")
+  config.allow_url("api.tiles.mapbox.com")
 end
 
 class ActionDispatch::IntegrationTest
