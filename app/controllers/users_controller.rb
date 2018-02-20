@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update]
-  before_action :check_if_coming_from_event, only: :show
+  before_action :set_event_if_coming_from_event, only: :show
 
   def new
     @user = User.new
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
                                    :location, :bio)
     end
 
-    def check_if_coming_from_event
+    def set_event_if_coming_from_event
       @organized_event = params[:organized_event] || false
       @attending_event = params[:attending_event] || false
 
