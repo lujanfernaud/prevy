@@ -21,6 +21,13 @@ woodell:
   location: Portland, Oregon
   bio: Chief Operating Officer.
 
+onitsuka:
+  name: Mr. Onitsuka
+  email: onitsuka@onitsuka.jp
+  password_digest: <%= BCrypt::Password.create("password") %>
+  location: Kobe
+  bio: Onitsuka Tiger founder.
+
 <% 10.times do |n| %>
 user_<%= n %>:
   name: User <%= n %>

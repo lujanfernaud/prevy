@@ -1,0 +1,19 @@
+<%= render "searches/search_bar" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-4 text-center">
+      <h2>Unhidden Groups</h2>
+
+      <div class="row d-flex justify-content-center">
+        <%= render @groups %>
+      </div>
+      <div class="row">
+        <div class="mx-auto mt-2rem mb-2rem">
+          <%= will_paginate @groups,
+            :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

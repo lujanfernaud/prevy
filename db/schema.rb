@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214093755) do
+ActiveRecord::Schema.define(version: 20180222180037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,31 @@ ActiveRecord::Schema.define(version: 20180214093755) do
     t.datetime "end_date"
     t.string "image"
     t.string "website"
+    t.bigint "group_id"
+    t.index ["group_id"], name: "index_events_on_group_id"
     t.index ["organizer_id"], name: "index_events_on_organizer_id"
+  end
+
+  create_table "group_memberships", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_memberships_on_group_id"
+    t.index ["user_id"], name: "index_group_memberships_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "image"
+    t.boolean "private"
+    t.boolean "hidden"
+    t.boolean "all_members_can_create_events"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,4 +87,8 @@ ActiveRecord::Schema.define(version: 20180214093755) do
     t.string "bio"
   end
 
+  add_foreign_key "events", "groups"
+  add_foreign_key "group_memberships", "groups"
+  add_foreign_key "group_memberships", "users"
+  add_foreign_key "groups", "users"
 end

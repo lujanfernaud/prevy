@@ -52,8 +52,8 @@ class UserTest < ActiveSupport::TestCase
   test ".recent returns newest 5 users" do
     newest_users = [users(:penny),
                     users(:woodell),
+                    users(:onitsuka),
                     users(:user_0),
-                    users(:user_1),
                     users(:phil)]
 
     assert_equal User.recent, newest_users
@@ -71,5 +71,21 @@ class UserTest < ActiveSupport::TestCase
     upcoming_attended_events = user.upcoming_attended_events
 
     assert upcoming_attended_events.count, 3
+  end
+
+  test "#owned_groups" do
+    penny = users(:penny)
+    phil  = users(:phil)
+
+    assert penny.owned_groups.count, 2
+    assert phil.owned_groups.count,  1
+  end
+
+  test "#associated_groups" do
+    penny = users(:penny)
+    phil  = users(:phil)
+
+    assert_equal penny.associated_groups, [groups(:one), groups(:four)]
+    assert_equal phil.associated_groups,  [groups(:two)]
   end
 end

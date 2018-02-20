@@ -1,0 +1,19 @@
+<div class="col-md-4 mt-2rem">
+  <div class="box group-box">
+    <div class="group-box-image card card-inverse text-center">
+
+      <%= image_tag group.image_url(:thumb), class: "img-fluid card-img-top" %>
+      <a href="<%= group_path(group) %>">
+        <div class="card-img-overlay card-img-overlay--group">
+          <div class="card-title card-title--group mb-0">
+            <h2 class="h4 mb-1 event-box-title">
+            <%= group.name %>
+            </h2>
+            <p class="mb-0">Members: <%= group.members.count %></p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>

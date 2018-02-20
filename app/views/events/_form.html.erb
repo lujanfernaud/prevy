@@ -2,7 +2,39 @@
   <%= render "error_messages", object: @event %>
 
   <div class="form-group box p-4 mt-2rem mb-2rem">
-    <h3 class="mb-4">1. Event info</h3>
+    <h3 class="mb-4">1. Select event group</h3>
+
+    <div class="form-group mt-2rem mb-0">
+      <% if current_user.owned_groups %>
+        <div class="d-flex flex-column">
+          <% current_user.owned_groups.each do |group| %>
+
+            <%= f.label :group_id, value: group.id, class: "mb-0" do %>
+              <div class="row d-flex event-group">
+                <div class="mr-2">
+                  <%= f.radio_button :group_id, group.id, class: "group-radio-button" %>
+                  <%= image_tag group.image.thumb, width: "100" %>
+                </div>
+                <div class="flex-column">
+                  <h4 class="h5"><%= group.name %></h4>
+                  <p class="mb-0"><%= "Members: #{group.members.count}" %></p>
+                </div>
+              </div>
+            <% end %>
+            <hr class="event-group-list-hr">
+
+          <% end %>
+        </div>
+        <%= link_to "Create another group", new_group_path, class: "d-block" %>
+      <% else %>
+        <p>Events need to belong to a group.</p>
+        <%= link_to "Create group", new_group_path %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group box p-4 mt-2rem mb-2rem">
+    <h3 class="mb-4">2. Event info</h3>
 
     <div class="form-group">
       <%= f.label :title %>
@@ -27,7 +59,7 @@
   </div>
 
   <div class="form-group box p-4 mb-2rem">
-    <h3 class="mb-4">2. Location</h3>
+    <h3 class="mb-4">3. Location</h3>
 
     <%= f.fields_for :address do |address_form| %>
       <div class="form-group">
@@ -79,7 +111,7 @@
   </div>
 
   <div class="form-group box p-4 mb-2rem">
-    <h3 class="mb-4">3. Date</h3>
+    <h3 class="mb-4">4. Date</h3>
 
     <div class="form-group event-start-date row">
       <div class="col">
@@ -107,7 +139,7 @@
 
   <div class="form-group box p-4 mb-2rem">
     <h3 class="mb-4">
-      4. Image
+      5. Image
       <small class="text-muted ml-010rem">Required *</small>
     </h3>
 

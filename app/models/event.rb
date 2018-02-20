@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
   belongs_to :organizer, class_name: "User"
+  belongs_to :group, optional: true
 
   has_one :address
   accepts_nested_attributes_for :address, update_only: true

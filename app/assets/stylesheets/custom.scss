@@ -190,6 +190,54 @@ $shadow: #989999;
 }
 
 
+// User Group List
+
+
+.user-group-list-hr {
+  margin-top: .6rem;
+  margin-bottom: .6rem;
+  width: 98.6%;
+}
+
+.user-group-list-hr:last-child {
+  display: none;
+}
+
+
+// Groups
+
+
+.group-box {
+  border-bottom: 3px solid #6610f2;
+}
+
+.card-img-overlay--group {
+  padding: .4rem;
+  background-image: linear-gradient(to top, rgba(33, 4, 81, .9) 9%, rgba(33, 4, 81, .3) 50%, rgba(33, 4, 81, .1) 60%, transparent 72%) !important;
+  opacity: 1;
+}
+
+.card-title--group {
+  bottom: .3rem !important;
+}
+
+.radio-button-list {
+  padding-left: 2rem;
+}
+
+.group-box-title {
+  bottom: .7rem;
+  left: 1.1rem;
+  margin-bottom: 0;
+  position: absolute;
+  text-align: left;
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .35);
+}
+
+
 // Trix Editor Specific
 
 
@@ -213,4 +261,28 @@ trix-editor {
 
 small {
   font-size: .8rem;
+}
+
+.card {
+  border: 0;
+  border-radius: 0;
+}
+
+.card-img-top {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.card-img-overlay {
+  padding: 0.5rem;
+  background-image: linear-gradient(to top, rgba(33, 4, 81, .9) 9%, rgba(33, 4, 81, .3) 33%, rgba(33, 4, 81, .1) 43%, transparent 55%);
+  opacity: 1;
+}
+
+.card-title {
+  bottom: .67rem;
+  margin-bottom: 0;
+  position: absolute;
+  text-align: left;
+  color: $white;
 }

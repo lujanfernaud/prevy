@@ -12,6 +12,13 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
               <%= link_to "Create event", new_event_path,
                 class: "dropdown-item" %>
+              <%= link_to "Create group", new_group_path,
+                class: "dropdown-item" %>
+              <% if current_user.groups %>
+                <div class="dropdown-divider"></div>
+                <%= link_to "My groups", user_groups_path(current_user),
+                  class: "dropdown-item" %>
+              <% end %>
               <div class="dropdown-divider"></div>
               <%= link_to "Profile", current_user,
                 class: "dropdown-item" %>

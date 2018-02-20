@@ -33,7 +33,7 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
   end
 
   test "profile does not show 'Organized'" do
-    user = users(:woodell)
+    user = users(:onitsuka)
 
     visit user_path(user)
 

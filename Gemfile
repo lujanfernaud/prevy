@@ -25,7 +25,7 @@ gem 'jquery-rails',                    '4.3.1'
 
 # Pagination and breadcrumbs.
 gem 'bootstrap-will_paginate',         '1.0.0'
-gem 'will_paginate',                   '3.1.5'
+gem 'will_paginate',                   '~> 3.1', '>= 3.1.6'
 gem 'breadcrumbs_on_rails',            '~> 3.0', '>= 3.0.1'
 
 # Upload and resize images.

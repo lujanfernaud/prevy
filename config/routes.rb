@@ -7,11 +7,19 @@ Rails.application.routes.draw do
   post   "login",  to: "sessions#create"
   delete "logout", to: "sessions#destroy"
 
-  resources :users
+  resources :users do
+    get "groups", to: "group_memberships#index", as: :groups
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
   resource  :search, only: :show
 
   resources :events do
     resources :attendances
+  end
+
+  resources :groups do
+    resources :events
+    resources :group_members, as: :members
   end
 end

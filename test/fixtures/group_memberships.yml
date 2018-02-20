@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: penny
+  group: one
+
+two:
+  user: penny
+  group: four
+
+three:
+  user: phil
+  group: two
+
+four:
+  user: woodell
+  group: one

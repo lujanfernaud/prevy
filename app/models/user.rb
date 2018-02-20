@@ -1,6 +1,11 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :owned_groups, class_name: "Group", foreign_key: "user_id"
+
+  has_many :group_memberships
+  has_many :associated_groups, through: :group_memberships, source: "group"
+
   has_many :organized_events, class_name: "Event", foreign_key: "organizer_id"
 
   has_many :attendances, foreign_key: "attendee_id"
@@ -19,6 +24,15 @@ class User < ApplicationRecord
   scope :recent, -> {
     order("created_at DESC").limit(5)
   }
+
+  def groups
+    Group.includes(:group_memberships)
+         .where(
+           'groups.user_id = :user OR group_memberships.user_id = :user',
+            user: self
+         )
+         .references(:group_memberships)
+  end
 
   def past_attended_events
     attended_events.past.three

@@ -1,16 +1,6 @@
-# Users.
-27.times do |n|
-  puts "Creating user #{n + 1} of 27"
-
-  User.create!(name: Faker::Internet.user_name.capitalize + "xyz",
-               email: Faker::Internet.email,
-               password: "password",
-               password_confirmation: "password",
-               location: Faker::Address.city,
-               bio: Faker::BackToTheFuture.quote)
-
-end
-
+#
+# SETUP
+#
 def titles
   [Faker::RockBand.name, Faker::BossaNova.artist, Faker::Book.title]
 end
@@ -42,7 +32,81 @@ def address
     longitude:  latlon[:longitude] }
 end
 
-# Previous events.
+IMAGE_PLACEHOLDER = "http://via.placeholder.com/730x411"
+#
+#
+#
+
+#
+# Users
+#
+27.times do |n|
+  puts "Creating user #{n + 1} of 27"
+
+  User.create!(name: Faker::Internet.user_name.capitalize + "#{n}",
+               email: Faker::Internet.email,
+               password: "password",
+               password_confirmation: "password",
+               location: Faker::Address.city,
+               bio: Faker::BackToTheFuture.quote)
+
+end
+
+def random_users(number = 5)
+  users = []
+
+  number.times do
+    users << User.limit(1).offset(rand(User.all.count)).take
+  end
+
+  users
+end
+#
+#
+#
+
+#
+# Unhidden Groups
+#
+random_users(9).each_with_index do |user, index|
+  puts "Creating unhidden group #{index + 1} of 27"
+
+  user.owned_groups.create!(
+    name: Faker::Lorem.words(2).join(" "),
+    description: Faker::Lorem.paragraph * 2,
+    image: File.new("test/fixtures/files/sample.jpeg"),
+    private: true,
+    hidden: false,
+    all_members_can_create_events: false
+  )
+end
+#
+#
+#
+
+#
+# Group Members
+#
+groups_number = Group.all.count
+
+groups_number.times do |n|
+  puts "Adding group members to group #{n + 1} of #{groups_number}"
+
+  Group.all.each do |group|
+    random_users(rand(1..9)).each do |user|
+      group.members << user
+    end
+
+    group.save!
+  end
+end
+#
+#
+#
+
+#
+# Previous Events
+#
 27.times do |n|
   puts "Creating previous event #{n + 1} of 27"
 
@@ -55,15 +119,20 @@ end
   event.website          = "website.com"
   event.start_date       = start_date
   event.end_date         = end_date
-  event.remote_image_url = "http://via.placeholder.com/730x411"
+  event.remote_image_url = IMAGE_PLACEHOLDER
   event.organizer_id     = User.all.sample.id
   event.build_address(address)
   event.save(validate: false)
 end
+#
+#
+#
 
-# Upcoming events.
-54.times do |n|
-  puts "Creating upcoming event #{n + 1} of 54"
+#
+# Upcoming Events
+#
+27.times do |n|
+  puts "Creating upcoming event #{n + 1} of 27"
 
   start_date = Faker::Date.between(1.day.from_now, 6.months.from_now)
   end_date   = start_date + 1.day
@@ -73,13 +142,35 @@ end
                     website:          "website.com",
                     start_date:       start_date,
                     end_date:         end_date,
-                    remote_image_url: "http://via.placeholder.com/730x411",
+                    remote_image_url: IMAGE_PLACEHOLDER,
                     organizer_id:     User.all.sample.id )
 
   event.build_address(address)
   event.save!
 end
+#
+#
+#
 
+#
+# Assign Events to Groups
+#
+def random_group
+  Group.limit(1).offset(rand(Group.all.count)).take
+end
+
+Event.all.each_with_index do |event, index|
+  puts "Assigning event #{index + 1} of #{Event.all.count}"
+
+  random_group.events << event
+end
+#
+#
+#
+
+#
+# Add Attendees to Events
+#
 def pick_attendee_for(event)
   loop do
     attendee = User.all.sample
@@ -90,9 +181,11 @@ def pick_attendee_for(event)
   end
 end
 
-# Add attendees to events.
 Event.all.each do |event|
   puts "Picking attendees for event #{event.id} of #{Event.all.count}"
 
   rand(20).times { pick_attendee_for(event) }
 end
+# -------------------------------------------------------------------
+#
+#

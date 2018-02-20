@@ -94,6 +94,13 @@ class EventTest < ActiveSupport::TestCase
     assert_equal event.short_address, short_address
   end
 
+  test "#group" do
+    event = events(:one)
+    group = groups(:one)
+
+    assert_equal event.group, group
+  end
+
   def fake_event(params = {})
     @fake_event ||= Event.new(
       title:       params[:title]       || "Test event",

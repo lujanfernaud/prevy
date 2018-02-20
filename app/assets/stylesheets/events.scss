@@ -50,6 +50,16 @@ a.event-box-title:hover {
 // Forms
 
 
+.event-group-list-hr {
+  margin-top: .6rem;
+  margin-bottom: .6rem;
+  width: 98.6%;
+}
+
+.event-group-list-hr:last-child {
+  visibility: hidden;
+}
+
 .event-date-label {
   margin-top: 0.38rem;
 }
@@ -85,31 +95,4 @@ a.event-box-title:hover {
 [id*="event_end_date"]:focus {
   border-color: #b389f9;
   outline: none;
-}
-
-
-// Bootstrap Specific
-
-
-.card {
-  border: 0;
-  border-radius: 0;
-}
-
-.card-img-top {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.card-img-overlay {
-  padding: 0.5rem;
-  background-image: linear-gradient(to top, rgba(33, 4, 81, .9) 9%, rgba(33, 4, 81, .3) 33%, rgba(33, 4, 81, .1) 43%, transparent 55%);
-  opacity: 1;
-}
-
-.card-title {
-  bottom: .67rem;
-  margin-bottom: 0;
-  position: absolute;
-  text-align: left;
 }

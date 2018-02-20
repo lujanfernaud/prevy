@@ -1,0 +1,46 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Nike
+  description: <%= Faker::Lorem.paragraph %>
+  image: sample.jpeg
+  private: true
+  hidden: false
+  all_members_can_create_events: true
+  owner: phil
+
+two:
+  name: Private Group
+  description: <%= Faker::Lorem.paragraph %>
+  image: sample.jpeg
+  private: true
+  hidden: false
+  all_members_can_create_events: true
+  owner: penny
+
+three:
+  name: Private & Hidden Group
+  description: <%= Faker::Lorem.paragraph %>
+  image: sample.jpeg
+  private: true
+  hidden: true
+  all_members_can_create_events: true
+  owner: penny
+
+four:
+  name: Private & Hidden Group 2
+  description: <%= Faker::Lorem.paragraph %>
+  image: sample.jpeg
+  private: true
+  hidden: true
+  all_members_can_create_events: true
+  owner: woodell
+
+public:
+  name: Public Group
+  description: <%= Faker::Lorem.paragraph %>
+  image: sample.jpeg
+  private: false
+  hidden: false
+  all_members_can_create_events: true
+  owner: woodell
