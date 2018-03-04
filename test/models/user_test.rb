@@ -49,16 +49,6 @@ class UserTest < ActiveSupport::TestCase
     refute user.valid?
   end
 
-  test ".recent returns newest 5 users" do
-    newest_users = [users(:penny),
-                    users(:woodell),
-                    users(:onitsuka),
-                    users(:user_0),
-                    users(:phil)]
-
-    assert_equal User.recent, newest_users
-  end
-
   test "#past_attended_events" do
     user = users(:phil)
     past_attended_events = user.past_attended_events

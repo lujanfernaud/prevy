@@ -16,7 +16,7 @@ penny:
 
 woodell:
   name: Woodell
-  email: penny@sample.com
+  email: woodell@sample.com
   password_digest: <%= BCrypt::Password.create("password") %>
   location: Portland, Oregon
   bio: Chief Operating Officer.
@@ -27,6 +27,13 @@ onitsuka:
   password_digest: <%= BCrypt::Password.create("password") %>
   location: Kobe
   bio: Onitsuka Tiger founder.
+
+stranger:
+  name: Stranger
+  email: somestranger@hotmail.test
+  password_digest: <%= BCrypt::Password.create("password") %>
+  location: Somewhere
+  bio: It's a mistery.
 
 <% 10.times do |n| %>
 user_<%= n %>:

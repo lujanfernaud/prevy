@@ -18,6 +18,10 @@
                 <div class="dropdown-divider"></div>
                 <%= link_to "My groups", user_groups_path(current_user),
                   class: "dropdown-item" %>
+                <%= link_to user_membership_requests_path(current_user),
+                  class: "dropdown-item" do %>
+                  Membership requests <%= membership_requests_badge %>
+                <% end %>
               <% end %>
               <div class="dropdown-divider"></div>
               <%= link_to "Profile", current_user,
@@ -28,6 +32,8 @@
               <%= link_to "Log out", logout_path, method: :delete,
                 class: "dropdown-item" %>
             </div>
+
+            <%= membership_requests_badge %>
           </li>
         <% else %>
           <li class="nav-item">

@@ -238,6 +238,24 @@ $shadow: #989999;
 }
 
 
+// Membership requests
+
+
+.row-membership-request {
+  background-color: rgba(33, 4, 81, .02);
+}
+
+.membership-request-info {
+  flex-basis: 85%;
+}
+
+.membership-request-group-image {
+  background-size: cover;
+  width: 85px;
+  height: 85px;
+}
+
+
 // Trix Editor Specific
 
 

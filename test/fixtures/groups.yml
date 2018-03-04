@@ -36,6 +36,15 @@ four:
   all_members_can_create_events: true
   owner: woodell
 
+strangers_group:
+  name: Strangers Group
+  description: <%= Faker::Lorem.paragraph %>
+  image: sample.jpeg
+  private: true
+  hidden: true
+  all_members_can_create_events: true
+  owner: stranger
+
 public:
   name: Public Group
   description: <%= Faker::Lorem.paragraph %>

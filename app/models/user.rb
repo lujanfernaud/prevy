@@ -2,6 +2,10 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :owned_groups, class_name: "Group", foreign_key: "user_id"
+  has_many :received_requests, through: :owned_groups
+
+  has_many :membership_requests, dependent: :destroy
+  has_many :sent_requests, through: :membership_requests, source: "group"
 
   has_many :group_memberships
   has_many :associated_groups, through: :group_memberships, source: "group"

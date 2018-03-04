@@ -63,6 +63,11 @@ class ActionDispatch::IntegrationTest
     end
   end
 
+  def log_out_as(user)
+    click_on user.name
+    click_on "Log out"
+  end
+
   def select_date_and_time(date, **options)
     return nil unless date
 

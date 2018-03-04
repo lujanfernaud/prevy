@@ -1,10 +1,11 @@
 class Group < ApplicationRecord
-  belongs_to :owner,
-    class_name:  "User",
-    foreign_key: "user_id"
+  belongs_to :owner, class_name: "User", foreign_key: "user_id"
 
   has_many :group_memberships, dependent: :destroy
   has_many :members, through: :group_memberships, source: "user"
+
+  has_many :membership_requests, dependent: :destroy
+  has_many :received_requests, through: :membership_requests, source: "user"
 
   has_many :events, dependent: :destroy
 

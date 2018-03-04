@@ -13,10 +13,15 @@ module GroupsHelper
 
   def membership_button(group)
     if group.private? && logged_in?
-      link_to "Request invite", "#",
-        class: "btn btn-primary btn-block btn-lg mt-3"
+      if current_user.sent_requests.include?(group)
+        button_tag "Membership requested", disabled: true,
+          class: "btn btn-primary btn-block btn-lg mt-3"
+      else
+        link_to "Request membership", new_group_membership_request_path(group),
+          class: "btn btn-primary btn-block btn-lg mt-3"
+      end
     elsif group.private?
-      link_to "Log in to request invite", "#",
+      link_to "Log in to request membership", "#",
         class: "btn btn-primary btn-block btn-lg mt-3"
     elsif !group.private? && logged_in?
       link_to "Join group", "#",

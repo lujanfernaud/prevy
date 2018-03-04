@@ -8,18 +8,22 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
 
   resources :users do
-    get "groups", to: "group_memberships#index", as: :groups
+    get       "groups", to: "user_memberships#index"
+    resources :membership_requests, only: :index
   end
 
   resources :sessions, only: [:new, :create, :destroy]
-  resource  :search, only: :show
+  resource  :search,   only: :show
 
   resources :events do
     resources :attendances
   end
 
   resources :groups do
+    resources :group_memberships, as: :members,
+      only: [:index, :create, :destroy]
+    resources :membership_requests,
+      only: [:index, :new, :create, :destroy]
     resources :events
-    resources :group_members, as: :members
   end
 end

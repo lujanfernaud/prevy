@@ -40,16 +40,17 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
   end
 
   test "logged in user visits private group" do
+    user   = users(:stranger)
     @group = groups(:one)
 
-    log_in_as(@onitsuka)
+    log_in_as(user)
 
     visit group_path(@group)
 
     assert_group_info_and_image
     assert_owner
     assert_members_preview_shows_count
-    assert_membership "Request invite"
+    assert_membership "Request membership"
 
     refute_upcoming_events
     refute_members
@@ -79,7 +80,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_group_info_and_image
     assert_owner
     assert_members_preview_shows_count
-    assert_membership "Log in to request invite"
+    assert_membership "Log in to request membership"
 
     refute_upcoming_events
     refute_members
