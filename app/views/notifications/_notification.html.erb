@@ -1,0 +1,14 @@
+<tr id="notification-<%= notification.id %>">
+  <th scope="row"></th>
+  <td>
+    <%= notification.message %>
+  </td>
+  <td>
+    <%= see_notification_link(notification) %>
+  </td>
+  <td>
+    <%= link_to "Mark as read",
+      user_notification_path(current_user, notification),
+      method: :delete %>
+  </td>
+</tr>

@@ -10,7 +10,7 @@ require 'capybara/minitest'
 require 'capybara-screenshot/minitest'
 
 require 'minitest/reporters'
-Minitest::Reporters.use!
+Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::DefaultReporter.new]
 
 Capybara::Webkit.configure do |config|
   config.allow_url("gravatar.com")

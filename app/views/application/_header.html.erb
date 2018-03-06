@@ -4,6 +4,9 @@
     <%= link_to "Private Events", root_path, id: "logo", class: "navbar-brand" %>
     <div id="navbarCollapse" class="navbar-collapse collapse show">
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item mr-3">
+          <%= notifications_button %>
+        </li>
         <% if logged_in? %>
           <li class="nav-item dropdown">
             <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -18,10 +21,7 @@
                 <div class="dropdown-divider"></div>
                 <%= link_to "My groups", user_groups_path(current_user),
                   class: "dropdown-item" %>
-                <%= link_to user_membership_requests_path(current_user),
-                  class: "dropdown-item" do %>
-                  Membership requests <%= membership_requests_badge %>
-                <% end %>
+                <%= membership_requests_link %>
               <% end %>
               <div class="dropdown-divider"></div>
               <%= link_to "Profile", current_user,
@@ -32,8 +32,6 @@
               <%= link_to "Log out", logout_path, method: :delete,
                 class: "dropdown-item" %>
             </div>
-
-            <%= membership_requests_badge %>
           </li>
         <% else %>
           <li class="nav-item">

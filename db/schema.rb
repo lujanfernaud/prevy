@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227215334) do
+ActiveRecord::Schema.define(version: 20180305210623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,19 @@ ActiveRecord::Schema.define(version: 20180227215334) do
     t.index ["user_id"], name: "index_membership_requests_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "membership_request_id"
+    t.bigint "group_membership_id"
+    t.string "type"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_membership_id"], name: "index_notifications_on_group_membership_id"
+    t.index ["membership_request_id"], name: "index_notifications_on_membership_request_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -103,4 +116,5 @@ ActiveRecord::Schema.define(version: 20180227215334) do
   add_foreign_key "groups", "users"
   add_foreign_key "membership_requests", "groups"
   add_foreign_key "membership_requests", "users"
+  add_foreign_key "notifications", "users"
 end

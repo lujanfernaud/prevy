@@ -11,7 +11,7 @@ class GroupsEditTest < ActionDispatch::IntegrationTest
     log_in_as(user)
     visit edit_group_path(group)
 
-    fill_in "Name", with: Faker::Lorem.words(3)
+    fill_in "Name", with: "Test group"
     fill_in_description(Faker::Lorem.paragraph)
 
     attach_valid_image

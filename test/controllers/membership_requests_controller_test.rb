@@ -32,6 +32,8 @@ class MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy membership_request" do
+    log_in_as(@user)
+
     assert_difference('MembershipRequest.count', -1) do
       delete group_membership_request_url(@group, @membership_request),
         headers: { "HTTP_REFERER" => "back" }

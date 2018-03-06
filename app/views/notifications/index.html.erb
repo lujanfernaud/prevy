@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-8 mt-4">
+
+        <% unless @notifications.empty? %>
+
+          <h2 class="text-center mb-4">Notifications</h2>
+
+          <table class="table table-stripped">
+            <tbody>
+              <%= render partial: "notification", collection: @notifications %>
+            </tbody>
+          </table>
+
+        <% else %>
+          <h3 class="text-center">There are no notifications.</h3>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

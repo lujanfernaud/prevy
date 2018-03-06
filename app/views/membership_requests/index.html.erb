@@ -4,7 +4,7 @@
       <div class="col-md-8">
 
         <% if @membership_requests_received.any? %>
-          <h2 class="text-center mt-5 mb-2rem">Membership Requests Received</h2>
+          <h2 class="text-center mt-4 mb-2rem">Membership Requests Received</h2>
           <div class="d-flex flex-column mt-4">
             <% @membership_requests_received.each do |membership_request| %>
 
@@ -51,7 +51,7 @@
         <% end %>
 
         <% if @membership_requests_sent.any? %>
-          <h2 class="text-center mt-5 mb-2rem">Membership Requests Sent</h2>
+          <h2 class="text-center mt-4 mb-2rem">Membership Requests Sent</h2>
           <div class="d-flex flex-column mt-4">
             <% @membership_requests_sent.each do |membership_request| %>
 

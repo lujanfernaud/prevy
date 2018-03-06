@@ -1,6 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  message: Hey! It's Mr. Onitsuka
-  group: one
-  user: onitsuka
+phil_notification:
+  user: phil
+  message: Test notification

@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-8">
+
+        <h2 class="text-center mt-4 mb-2rem">Membership Request</h2>
+        <div class="d-flex flex-column mt-4">
+
+          <div id="<%= @membership_request.id %>"
+            class="row row-membership-request d-flex mb-3">
+            <div class="mr-2">
+              <%= gravatar_image_tag @membership_request.user.email,
+                gravatar: { size: 85 } %>
+            </div>
+            <div class="d-flex flex-column justify-content-between
+              membership-request-info">
+              <h3 class="h6 font-weight-bold mt-1 mb-1">
+                <%= link_to @membership_request.user.name,
+                  user_path(@membership_request.user) %>
+                <span class="font-weight-normal">in</span>
+                <span class="font-italic">
+                  <%= link_to @membership_request.group.name,
+                    group_path(@membership_request.group) %>
+                </span>
+              </h3>
+              <p class="mb-0">
+                <%= message_for(@membership_request) %>
+              </p>
+              <div class="request-links">
+                <%= link_to "Accept",
+                  group_members_path(
+                    group_id: @membership_request.group,
+                    user_id:  @membership_request.user,
+                    request_id: @membership_request),
+                  method: :post %>
+                <span class="mx-1"> · </span>
+                <%= link_to "Decline",
+                  group_membership_request_path(
+                    @membership_request.group,
+                    @membership_request),
+                  method: :delete,
+                  data: { confirm: "Are you sure to delete this person's request?" } %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

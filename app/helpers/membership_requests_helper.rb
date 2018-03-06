@@ -14,4 +14,29 @@ module MembershipRequestsHelper
       </h2>".html_safe
     end
   end
+
+  def membership_requests_link
+    return unless membership_requests?
+
+    link_to user_membership_requests_path(current_user),
+      class: "dropdown-item" do
+      "Membership requests #{membership_requests_badge}".html_safe
+    end
+  end
+
+  def membership_requests_badge
+    return unless membership_requests?
+
+    "<span class='ml-2 badge badge-pill badge-primary align-middle'>
+      #{membership_requests_count}
+    </span>".html_safe
+  end
+
+  def membership_requests?
+    current_user.total_membership_requests.count > 0
+  end
+
+  def membership_requests_count
+    current_user.total_membership_requests.count
+  end
 end
