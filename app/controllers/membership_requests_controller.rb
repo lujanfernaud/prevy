@@ -65,6 +65,8 @@ class MembershipRequestsController < ApplicationController
         membership_request: @membership_request,
         message: "New membership request from #{@user.name} in #{@group.name}."
       )
+
+      NotificationMailer.new_membership_request(@user, @group).deliver_now
     end
 
     def notify_requester
@@ -73,5 +75,7 @@ class MembershipRequestsController < ApplicationController
         membership_request: @membership_request,
         message: "You membership request for #{@group.name} was declined."
       )
+
+      NotificationMailer.declined_membership_request(@user, @group).deliver_now
     end
 end

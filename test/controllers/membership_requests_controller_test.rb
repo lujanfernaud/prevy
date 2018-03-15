@@ -5,6 +5,9 @@ class MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     @membership_request = membership_requests(:one)
     @user  = @membership_request.user
     @group = @membership_request.group
+    @owner = @group.owner
+
+    ActionMailer::Base.deliveries.clear
   end
 
   test "should get index" do
@@ -28,17 +31,19 @@ class MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
         params: membership_requests_params
     end
 
+    assert_equal 1, ActionMailer::Base.deliveries.size
     assert_redirected_to group_path(group_two)
   end
 
   test "should destroy membership_request" do
-    log_in_as(@user)
+    log_in_as(@owner)
 
     assert_difference('MembershipRequest.count', -1) do
       delete group_membership_request_url(@group, @membership_request),
         headers: { "HTTP_REFERER" => "back" }
     end
 
+    assert_equal 1, ActionMailer::Base.deliveries.size
     assert_redirected_to user_membership_requests_url(@user)
   end
 

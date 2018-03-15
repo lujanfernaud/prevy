@@ -10,16 +10,13 @@ class GroupMembershipsController < ApplicationController
 
   def create
     @user_session = User.find(session[:user_id])
-    @user = User.find(params[:user_id])
-    @membership = GroupMembership.create(group: @group, user: @user)
-    @request = MembershipRequest.find(params[:request_id])
+    @user         = User.find(params[:user_id])
+    @membership   = GroupMembership.create(group: @group, user: @user)
 
-    if @request
-      @request.destroy
-    end
+    destroy_membership_request_if_it_exists
 
     flash[:success] = "#{@user.name} was accepted as a member of #{@group.name}."
-    notify_user "You have been accepted as a member of #{@group.name}!"
+    notify_user_accepted
 
     redirect_to user_notifications_path(@user_session)
   end
@@ -27,15 +24,15 @@ class GroupMembershipsController < ApplicationController
   def destroy
     @user_session = User.find(session[:user_id])
     @user         = User.find(params[:id])
-    @membership   = GroupMembership.where(group: @group, user: @user)
+    @membership   = GroupMembership.find_by(group: @group, user: @user)
 
-    @membership.destroy_all
+    @membership.destroy
 
     if @user_session == @user
       flash[:success] = "Your membership to '#{@group.name}' has been cancelled."
     else
       flash[:success] = "#{@user.name} was removed as a member of '#{@group.name}'."
-      notify_user "Your membership to #{@group.name} has been cancelled."
+      notify_user_deleted
     end
 
     redirect_back fallback_location: root_path
@@ -47,7 +44,29 @@ class GroupMembershipsController < ApplicationController
       @group = Group.find(params[:group_id])
     end
 
-    def notify_user(message)
+    def destroy_membership_request_if_it_exists
+      if params_request_id = params[:request_id]
+        MembershipRequest.find(params_request_id).destroy
+      end
+    end
+
+    def notify_user_accepted
+      group_membership_notification(
+        "You have been accepted as a member of #{@group.name}!"
+      )
+
+      NotificationMailer.new_group_membership(@user, @group).deliver_now
+    end
+
+    def notify_user_deleted
+      group_membership_notification(
+        "Your membership to #{@group.name} has been cancelled."
+      )
+
+      NotificationMailer.deleted_group_membership(@user, @group).deliver_now
+    end
+
+    def group_membership_notification(message)
       GroupMembershipNotification.create(
         user: @user,
         group_membership: @membership,
