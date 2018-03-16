@@ -5,6 +5,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     stub_geocoder
 
     @user    = users(:phil)
+    @group   = groups(:one)
     @event   = events(:one)
     @address = addresses(:one)
     @event.build_address(@address.attributes)
@@ -14,7 +15,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :webkit
     Capybara.raise_server_errors = false
 
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in_valid_information
     fill_in_valid_address
@@ -28,7 +34,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event with invalid title" do
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in "Title", with: "T"
     fill_in_description
@@ -42,7 +53,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event with invalid description" do
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in "Title", with: @event.title
     fill_in_description("Too short description.")
@@ -56,7 +72,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event with missing street" do
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in_valid_information
 
@@ -75,7 +96,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event with missing city" do
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in_valid_information
 
@@ -94,7 +120,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event with missing post code" do
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in_valid_information
 
@@ -113,7 +144,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event with missing country" do
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in_valid_information
 
@@ -131,7 +167,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event with start date in the past" do
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in_valid_information
     fill_in_valid_address
@@ -146,7 +187,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event with end date earlier than start date" do
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in_valid_information
     fill_in_valid_address
@@ -161,7 +207,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event without start date" do
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in_valid_information
     fill_in_valid_address
@@ -176,7 +227,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event without end date" do
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in_valid_information
     fill_in_valid_address
@@ -191,7 +247,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event without image" do
-    visit_new_event_path
+    log_in_as(@user)
+    visit group_path(@group)
+
+    within ".group-info-box" do
+      click_on "Create event"
+    end
 
     fill_in_valid_information
     fill_in_valid_address
@@ -202,11 +263,6 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   private
-
-    def visit_new_event_path
-      log_in_as(@user)
-      visit new_event_path
-    end
 
     def fill_in_valid_information
       fill_in "Title", with: @event.title
@@ -242,12 +298,12 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     end
 
     def assert_valid
-      assert current_path, event_path(@event)
+      assert current_path, group_event_path(@group, @event)
       assert page.has_content? "created"
     end
 
     def assert_invalid
-      assert current_path, new_event_path
+      assert current_path, new_group_event_path(@group)
       assert page.has_content? "error"
     end
 end

@@ -26,8 +26,10 @@
                 <p><%= sanitize @event.description %></p>
                 <% if author?(@event) %>
                   <p>
-                    <%= link_to "Edit event", edit_event_path(@event) %> |
-                     <%= link_to "Delete event", event_path(@event),
+                    <%= link_to "Edit event",
+                      edit_group_event_path(@group, @event) %> |
+                     <%= link_to "Delete event",
+                      group_event_path(@group, @event),
                       method: :delete, data: { confirm: "Are you sure?"} %>
                   </p>
                 <% end %>

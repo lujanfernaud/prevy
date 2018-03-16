@@ -4,7 +4,8 @@
       <%= image_tag event.image_url(:thumb), class: "img-fluid card-img-top" %>
       <div class="card-img-overlay">
         <h2 class="h4 card-title">
-        <%= link_to event.title, event_path(event), class: "event-box-title" %>
+        <%= link_to event.title, group_event_path(event.group, event),
+          class: "event-box-title" %>
         </h2>
       </div>
     </div>

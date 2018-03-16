@@ -5,11 +5,12 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     stub_geocoder
 
     @user  = users(:phil)
+    @group = groups(:one)
     @event = events(:one)
   end
 
   test "update event with valid title" do
-    visit_edit_event_path
+    visit_edit_group_event_path
 
     fill_in "Title",       with: @event.title
     find("trix-editor").click.set(@event.description)
@@ -23,7 +24,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
   end
 
   test "update event with valid description" do
-    visit_edit_event_path
+    visit_edit_group_event_path
 
     fill_in "Title",       with: @event.title
     find("trix-editor").click.set(Faker::Lorem.paragraph)
@@ -37,7 +38,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
   end
 
   test "update event with valid date" do
-    visit_edit_event_path
+    visit_edit_group_event_path
 
     fill_in "Title",       with: @event.title
     find("trix-editor").click.set(@event.description)
@@ -51,7 +52,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
   end
 
   test "update event with invalid start date" do
-    visit_edit_event_path
+    visit_edit_group_event_path
 
     fill_in "Title",       with: @event.title
     find("trix-editor").click.set(@event.description)
@@ -64,7 +65,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
   end
 
   test "update event with invalid end date" do
-    visit_edit_event_path
+    visit_edit_group_event_path
 
     fill_in "Title",       with: @event.title
     find("trix-editor").click.set(@event.description)
@@ -78,9 +79,9 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
 
   private
 
-    def visit_edit_event_path
+    def visit_edit_group_event_path
       log_in_as(@user)
-      visit edit_event_path(@event)
+      visit edit_group_event_path(@group, @event)
     end
 
     def click_on_update_event
@@ -90,12 +91,12 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     end
 
     def assert_valid
-      assert current_path, event_path(@event)
+      assert current_path, group_event_path(@group, @event)
       assert page.has_content? "updated"
     end
 
     def assert_invalid
-      assert current_path, edit_event_path(@event)
+      assert current_path, edit_group_event_path(@group, @event)
       assert page.has_content? "error"
     end
 end

@@ -3,57 +3,76 @@ class EventsController < ApplicationController
 
   before_action :find_event, only: [:show, :edit, :update]
 
-  add_breadcrumb "Events", :events_path
-
   def index
-    @events = Event.upcoming.includes(:address)
-                   .paginate(page: params[:page], per_page: 15)
+    if params[:group_id]
+      @group  = Group.find(params[:group_id])
+      @events = @group.events.paginate(page: params[:page], per_page: 15)
+
+      add_breadcrumb @group.name, group_path(@group)
+      add_breadcrumb "Events", group_events_path(@group)
+    else
+      @events = Event.upcoming.includes(:address)
+                     .paginate(page: params[:page], per_page: 15)
+    end
   end
 
   def new
-    @event = Event.new
+    @group = Group.find(params[:group_id])
+    @event = @group.events.build
     @event.build_address
   end
 
   def create
-    @event = current_user.organized_events.build(event_params)
+    @group = Group.find(params[:group_id])
+    @event = @group.events.build(event_params)
+    @event.organizer = current_user
 
     if @event.save
       flash[:success] = "Event successfully created."
-      redirect_to event_path(@event)
+      redirect_to group_event_path(@group, @event)
     else
       render :new
     end
   end
 
   def show
-    add_breadcrumb @event.title, event_path(@event)
+    @group = Group.find(params[:group_id])
+
+    add_breadcrumb @group.name, group_path(@group)
+    add_breadcrumb @event.title
 
     @organizer = @event.organizer
     @attendees = @event.attendees.recent
   end
 
   def edit
-    add_breadcrumb @event.title, event_path(@event)
-    add_breadcrumb "Edit event", edit_event_path(@event)
+    @group = Group.find(params[:group_id])
+
+    add_breadcrumb @group.name, group_path(@group)
+    add_breadcrumb @event.title, group_event_path(@group, @event)
+    add_breadcrumb "Edit event"
   end
 
   def update
+    @group = Group.find(params[:group_id])
+
     if @event.update_attributes(event_params)
       flash[:success] = "Event updated."
-      redirect_to event_path(@event)
+      redirect_to group_event_path(@group, @event)
     else
       render :edit
     end
   end
 
   def destroy
+    @group = Group.find(params[:group_id])
     @event = current_user.organized_events.find_by(id: params[:id])
+
     redirect_to root_url unless @event
 
     @event.destroy
     flash[:success] = "Event deleted."
-    redirect_to user_path(current_user)
+    redirect_to group_path(@group)
   end
 
   private

@@ -73,8 +73,10 @@ class UsersController < ApplicationController
     end
 
     def add_breadcrumbs_for(title, path = nil)
-      add_breadcrumb "Events", events_path
-      add_breadcrumb @event.title, event_path(@event)
+      @group = @event.group
+
+      add_breadcrumb @group.name, group_path(@group)
+      add_breadcrumb @event.title, group_event_path(@group, @event)
       add_breadcrumb title, path
       add_breadcrumb @user.name
     end

@@ -2,12 +2,13 @@ require 'test_helper'
 
 class EventsAttendeesTest < ActionDispatch::IntegrationTest
   test "user visits attendees" do
+    group     = groups(:one)
     event     = events(:one)
     attendees = event.attendees.count
 
     visit event_attendances_path(event)
 
-    assert_breadcrumbs(event)
+    assert_breadcrumbs(group, event)
 
     assert page.has_content? event.title
     assert page.has_content? "Attendees (#{attendees})"
@@ -35,14 +36,14 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
 
   private
 
-    def assert_breadcrumbs(event)
+    def assert_breadcrumbs(group, event)
       assert page.has_css?  ".breadcrumb"
       assert page.has_link? "Events"
       assert page.has_link? event.title
 
       within ".breadcrumb" do
         click_on event.title
-        assert current_path == event_path(event)
+        assert current_path == group_event_path(group, event)
       end
 
       click_on "See all attendees"

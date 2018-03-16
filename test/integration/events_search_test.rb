@@ -36,7 +36,7 @@ class EventsSearchTest < ActionDispatch::IntegrationTest
     fill_in "Event", with: "Test event"
     click_on "Search"
 
-    assert page.has_content? "23 events found"
+    assert page.has_content? "24 events found"
   end
 
   test "user can search for an event using the city and event's name" do

@@ -2,10 +2,11 @@ require 'test_helper'
 
 class EventsOrganizerTest < ActionDispatch::IntegrationTest
   test "user visits organizer" do
+    group     = groups(:one)
     event     = events(:one)
     organizer = event.organizer
 
-    visit event_path(event)
+    visit group_event_path(group, event)
 
     click_on organizer.name
 
@@ -16,6 +17,6 @@ class EventsOrganizerTest < ActionDispatch::IntegrationTest
       click_on event.title
     end
 
-    assert current_path == event_path(event)
+    assert current_path == group_event_path(group, event)
   end
 end

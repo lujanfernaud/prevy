@@ -9,7 +9,6 @@ class DropdownMenuTest < ActionDispatch::IntegrationTest
     click_on user.name
 
     within ".dropdown-menu" do
-      assert page.has_content? "Create event"
       assert page.has_content? "Create group"
       assert page.has_content? "Profile"
       assert page.has_content? "Account settings"

@@ -21,7 +21,7 @@ class AttendancesController < ApplicationController
         "Please refresh the page and try again."
     end
 
-    redirect_to event_path(@event)
+    redirect_to group_event_path(@event.group, @event)
   end
 
   def destroy
@@ -30,15 +30,16 @@ class AttendancesController < ApplicationController
     flash[:success] = "Your attendance to this event has been cancelled."
 
     @event = Event.find(params[:event_id])
-    redirect_to event_path(@event)
+    redirect_to group_event_path(@event.group, @event)
   end
 
   private
 
     def add_root_breadcrumbs
       @event = Event.find(params[:event_id])
+      @group = @event.group
 
-      add_breadcrumb "Events", events_path
-      add_breadcrumb @event.title, event_path(@event)
+      add_breadcrumb @group.name, group_path(@group)
+      add_breadcrumb @event.title, group_event_path(@group, @event)
     end
 end

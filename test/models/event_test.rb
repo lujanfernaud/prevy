@@ -103,6 +103,7 @@ class EventTest < ActiveSupport::TestCase
 
   def fake_event(params = {})
     @fake_event ||= Event.new(
+      group:       groups(:two),
       title:       params[:title]       || "Test event",
       description: params[:description] || Faker::Lorem.paragraph,
       website:     params[:website]     || "",

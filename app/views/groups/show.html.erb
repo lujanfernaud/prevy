@@ -22,7 +22,7 @@
           </div>
 
           <div class="col-md-4">
-            <div class="box p-3">
+            <div class="box group-info-box p-3">
 
               <div class="group-owner">
                 <h3 class="h4 mb-3">
@@ -48,7 +48,12 @@
                 <% end %>
               </div>
 
-              <% unless authorized?(current_user, @group) %>
+              <% if authorized?(current_user, @group) %>
+                <div class="group-options">
+                  <%= link_to "Create event", new_group_event_path(@group),
+                    class: "btn btn-primary btn-block btn-lg mt-3" %>
+                </div>
+              <% else %>
                 <div class="group-membership">
                   <h4 class="h5">Would you like to be part?</h4>
                   <%= membership_button(@group) %>
@@ -107,7 +112,8 @@
               <% if @group.events.upcoming.count > 9 %>
                 <div class="row">
                   <div class="col-auto mx-auto mt-2rem mb-2rem">
-                    <%= link_to "See more upcoming events", group_events_path,
+                    <%= link_to "See more upcoming events",
+                      group_events_path(@group),
                       class: "btn btn-primary btn-lg" %>
                   </div>
                 </div>

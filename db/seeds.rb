@@ -34,7 +34,7 @@ end
 
 IMAGE_PLACEHOLDER = "http://via.placeholder.com/730x411"
 #
-#
+# ------
 #
 
 #
@@ -62,26 +62,26 @@ def random_users(number = 5)
   users
 end
 #
-#
+# ------
 #
 
 #
 # Unhidden Groups
 #
 random_users(9).each_with_index do |user, index|
-  puts "Creating unhidden group #{index + 1} of 27"
+  puts "Creating unhidden group #{index + 1} of 9"
 
   user.owned_groups.create!(
     name: Faker::Lorem.words(2).join(" "),
     description: Faker::Lorem.paragraph * 2,
     image: File.new("test/fixtures/files/sample.jpeg"),
-    private: true,
+    private: [true, false].sample,
     hidden: false,
     all_members_can_create_events: false
   )
 end
 #
-#
+# ------
 #
 
 #
@@ -101,7 +101,7 @@ groups_number.times do |n|
   end
 end
 #
-#
+# ------
 #
 
 #
@@ -113,7 +113,8 @@ end
   start_date = Faker::Date.between(6.months.ago, 1.month.ago)
   end_date   = 1.month.ago + rand(7).day
 
-  event = Event.new
+  group = Group.all.sample
+  event = group.events.build
   event.title            = titles.sample + " ##{n}"
   event.description      = Faker::Lorem.paragraphs.join(" ")
   event.website          = "website.com"
@@ -125,7 +126,7 @@ end
   event.save(validate: false)
 end
 #
-#
+# ------
 #
 
 #
@@ -137,35 +138,22 @@ end
   start_date = Faker::Date.between(1.day.from_now, 6.months.from_now)
   end_date   = start_date + 1.day
 
-  event = Event.new(title:            titles.sample + " ##{n}",
-                    description:      Faker::Lorem.paragraphs.join(" "),
-                    website:          "website.com",
-                    start_date:       start_date,
-                    end_date:         end_date,
-                    remote_image_url: IMAGE_PLACEHOLDER,
-                    organizer_id:     User.all.sample.id )
+  group = Group.all.sample
+  event = group.events.build(
+    title:            titles.sample + " ##{n}",
+    description:      Faker::Lorem.paragraphs.join(" "),
+    website:          "website.com",
+    start_date:       start_date,
+    end_date:         end_date,
+    remote_image_url: IMAGE_PLACEHOLDER,
+    organizer_id:     User.all.sample.id
+  )
 
   event.build_address(address)
   event.save!
 end
 #
-#
-#
-
-#
-# Assign Events to Groups
-#
-def random_group
-  Group.limit(1).offset(rand(Group.all.count)).take
-end
-
-Event.all.each_with_index do |event, index|
-  puts "Assigning event #{index + 1} of #{Event.all.count}"
-
-  random_group.events << event
-end
-#
-#
+# ------
 #
 
 #
@@ -186,6 +174,6 @@ Event.all.each do |event|
 
   rand(20).times { pick_attendee_for(event) }
 end
-# -------------------------------------------------------------------
 #
+# ------
 #

@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: Hatsumode
+  title: Hatsumode Test Event
   description: <%= Faker::Lorem.paragraph %>
   website: www.event.com
   start_date: <%= Time.zone.now + 6.days %>
@@ -54,4 +54,5 @@ event_<%= n %>:
   end_date: <%= Time.zone.now + 1.week %>
   image: sample.jpeg
   organizer: phil
+  group: public
 <% end %>

@@ -3,18 +3,19 @@ require 'test_helper'
 class AttendancesCreationTest < ActionDispatch::IntegrationTest
   def setup
     @user  = users(:penny)
+    @group = groups(:one)
     @event = events(:one)
   end
 
   test "user not logged in can't attend an event" do
-    visit event_path(@event)
+    visit group_event_path(@group, @event)
 
     assert page.has_no_link? "Attend"
   end
 
   test "user can attend an event" do
     log_in_as(@user)
-    visit event_path(@event)
+    visit group_event_path(@group, @event)
 
     click_on "Attend"
 
@@ -24,7 +25,7 @@ class AttendancesCreationTest < ActionDispatch::IntegrationTest
 
   test "user can cancel it's attendance to an event" do
     log_in_as(@user)
-    visit event_path(@event)
+    visit group_event_path(@group, @event)
 
     click_on "Attend"
     click_on "Cancel attendance"

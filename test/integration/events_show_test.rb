@@ -1,34 +1,20 @@
 require 'test_helper'
 
 class EventsShowTest < ActionDispatch::IntegrationTest
-  test "logged out user visits event" do
-    event     = events(:one)
-    attendees = event.attendees.count
-
-    visit event_path(event)
-
-    assert_breadcrumbs(event)
-    assert_event_information(event)
-
-    assert page.has_content? "Organizer"
-    assert page.has_link?    event.organizer.name
-
-    assert page.has_content? "Attendees (#{attendees})"
-    assert page.has_link?    "See all attendees"
-
-    refute page.has_content? "Would you like to attend?"
-    refute page.has_link?    "Attend"
-  end
-
-  test "logged in user visits event" do
+  test "user visits event" do
     penny     = users(:penny)
+    group     = groups(:one)
     event     = events(:one)
     attendees = event.attendees.count
 
     log_in_as(penny)
-    visit event_path(event)
+    visit group_event_path(group, event)
 
-    assert_breadcrumbs(event)
+    within ".breadcrumb" do
+      assert page.has_link? group.name
+      assert page.has_content? event.title
+    end
+
     assert_event_information(event)
 
     assert page.has_content? "Attendees (#{attendees})"
@@ -38,12 +24,13 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     assert page.has_link?    "Attend"
   end
 
-  test "logged in user attends and cancels attendance" do
+  test "user attends and cancels attendance" do
     penny = users(:penny)
+    group = groups(:one)
     event = events(:one)
 
     log_in_as(penny)
-    visit event_path(event)
+    visit group_event_path(group, event)
 
     click_on "Attend"
 
@@ -59,37 +46,26 @@ class EventsShowTest < ActionDispatch::IntegrationTest
 
   test "event organizer does not see 'attend' button" do
     phil  = users(:phil)
+    group = groups(:one)
     event = events(:one)
 
     log_in_as(phil)
-    visit event_path(event)
+    visit group_event_path(group, event)
 
     refute page.has_content? "Would you like to attend?"
     refute page.has_link?    "Attend"
   end
 
   test "website url is not shown if the event has no website" do
+    group = groups(:one)
     event = events(:two)
 
-    visit event_path(event)
+    visit group_event_path(group, event)
 
     refute page.has_link? "https://"
   end
 
   private
-
-    def assert_breadcrumbs(event)
-      assert page.has_css?  ".breadcrumb"
-      assert page.has_link? "Events"
-
-      within ".breadcrumb" do
-        click_on "Events"
-        assert current_path == events_path
-      end
-
-      click_on event.title
-      assert current_path == event_path(event)
-    end
 
     def assert_event_information(event)
       assert page.has_content? event.title
