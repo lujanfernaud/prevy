@@ -51,30 +51,10 @@ class GroupMembershipsController < ApplicationController
     end
 
     def notify_user_accepted
-      group_membership_notification(
-        "You have been accepted as a member of #{@group.name}!"
-      )
-
-      return unless @user.group_membership_emails?
-
-      NotificationMailer.new_group_membership(@user, @group).deliver_now
+      NewGroupMembership.call(@membership)
     end
 
     def notify_user_deleted
-      group_membership_notification(
-        "Your membership to #{@group.name} has been cancelled."
-      )
-
-      return unless @user.group_membership_emails?
-
-      NotificationMailer.deleted_group_membership(@user, @group).deliver_now
-    end
-
-    def group_membership_notification(message)
-      GroupMembershipNotification.create(
-        user: @user,
-        group_membership: @membership,
-        message: message
-      )
+      DeletedGroupMembership.call(@membership)
     end
 end
