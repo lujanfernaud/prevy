@@ -29,7 +29,7 @@ class GroupMembershipsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal 1, ActionMailer::Base.deliveries.size
-    assert_redirected_to user_notifications_url(owner)
+    assert_redirected_to user_membership_requests_url(owner)
   end
 
   test "should destroy group_membership" do

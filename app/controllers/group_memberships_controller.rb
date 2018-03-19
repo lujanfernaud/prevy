@@ -1,4 +1,5 @@
 class GroupMembershipsController < ApplicationController
+  before_action :find_logged_in_user, only: [:create, :destroy]
   before_action :find_group
 
   def index
@@ -9,33 +10,35 @@ class GroupMembershipsController < ApplicationController
   end
 
   def create
-    @user_session = User.find(session[:user_id])
-    @user         = User.find(params[:user_id])
-    @membership   = GroupMembership.create(group: @group, user: @user)
+    @user       = User.find(params[:user_id])
+    @membership = GroupMembership.create(group: @group, user: @user)
 
     destroy_membership_request_if_it_exists
 
-    flash[:success] = "#{@user.name} was accepted as a member of #{@group.name}."
-    notify_user_accepted
-
-    redirect_to user_notifications_path(@user_session)
+    if @logged_in_user == @user
+      flash[:success] = "You are now a member of #{@group.name}!"
+      redirect_to group_path(@group)
+    else
+      flash[:success] = "#{@user.name} was accepted as a member of #{@group.name}."
+      notify_user_accepted
+      redirect_to user_membership_requests_path(@logged_in_user)
+    end
   end
 
   def destroy
-    @user_session = User.find(session[:user_id])
-    @user         = User.find(params[:id])
-    @membership   = GroupMembership.find_by(group: @group, user: @user)
+    @user       = User.find(params[:id])
+    @membership = GroupMembership.find_by(group: @group, user: @user)
 
     @membership.destroy
 
-    if @user_session == @user
+    if @logged_in_user == @user
       flash[:success] = "Your membership to '#{@group.name}' has been cancelled."
+      redirect_to group_path(@group)
     else
       flash[:success] = "#{@user.name} was removed as a member of '#{@group.name}'."
       notify_user_deleted
+      redirect_back fallback_location: root_path
     end
-
-    redirect_back fallback_location: root_path
   end
 
   private
@@ -44,9 +47,13 @@ class GroupMembershipsController < ApplicationController
       @group = Group.find(params[:group_id])
     end
 
+    def find_logged_in_user
+      @logged_in_user = User.find(session[:user_id])
+    end
+
     def destroy_membership_request_if_it_exists
-      if params_request_id = params[:request_id]
-        MembershipRequest.find(params_request_id).destroy
+      if request_id = params[:request_id]
+        MembershipRequest.find(request_id).destroy
       end
     end
 

@@ -24,8 +24,8 @@ module GroupsHelper
       link_to "Log in to request membership", "#",
         class: "btn btn-primary btn-block btn-lg mt-3"
     elsif !group.private? && logged_in?
-      link_to "Join group", "#",
-        class: "btn btn-primary btn-block btn-lg mt-3"
+      link_to "Join group", group_members_path(group, user_id: current_user),
+        method: :post, class: "btn btn-primary btn-block btn-lg mt-3"
     else
       link_to "Log in to join group", "#",
         class: "btn btn-primary btn-block btn-lg mt-3"
