@@ -59,32 +59,10 @@ class MembershipRequestsController < ApplicationController
     end
 
     def notify_group_owner
-      membership_request_notification_for(
-        @group.owner,
-        "New membership request from #{@user.name} in #{@group.name}."
-      )
-
-      return unless @group.owner.membership_request_emails?
-
-      NotificationMailer.new_membership_request(@user, @group).deliver_now
+      NewMembershipRequest.call(@membership_request)
     end
 
     def notify_requester
-      membership_request_notification_for(
-        @user,
-        "You membership request for #{@group.name} was declined."
-      )
-
-      return unless @user.membership_request_emails?
-
-      NotificationMailer.declined_membership_request(@user, @group).deliver_now
-    end
-
-    def membership_request_notification_for(user, message)
-      MembershipRequestNotification.create(
-        user: user,
-        membership_request: @membership_request,
-        message: message
-      )
+      DeclinedMembershipRequest.call(@membership_request)
     end
 end
