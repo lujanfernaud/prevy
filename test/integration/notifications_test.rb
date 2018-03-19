@@ -5,6 +5,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     @phil         = users(:phil)
     @onitsuka     = users(:onitsuka)
     @stranger     = users(:stranger)
+    @unnotifiable = users(:unnotifiable)
     @nike_group   = groups(:one)
     @notification = membership_request_notifications(:one)
   end
@@ -33,6 +34,42 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     click_on "Notifications"
 
     assert page.has_content? "There are no notifications."
+  end
+
+  test "user doesn't receive membership request email notifications" do
+    request_membership_as_unnotifiable
+
+    log_in_as @phil
+    ActionMailer::Base.deliveries.clear
+
+    visit user_membership_requests_url(@phil)
+
+    within last_membership_request do
+      click_on "Decline"
+    end
+
+    log_out_as @phil
+
+    assert_that_unnotifiable_has_regular_notifications
+    assert_equal 0, ActionMailer::Base.deliveries.size
+  end
+
+  test "user doesn't receive group membership email notifications" do
+    request_membership_as_unnotifiable
+
+    log_in_as @phil
+    ActionMailer::Base.deliveries.clear
+
+    visit user_membership_requests_url(@phil)
+
+    within last_membership_request do
+      click_on "Accept"
+    end
+
+    log_out_as @phil
+
+    assert_that_unnotifiable_has_regular_notifications
+    assert_equal 0, ActionMailer::Base.deliveries.size
   end
 
   private
@@ -68,5 +105,29 @@ class NotificationsTest < ActionDispatch::IntegrationTest
       refute page.has_content? @onitsuka.name
       refute page.has_content? @nike_group.name
       refute page.has_content? notification_message(@onitsuka, @nike_group)
+    end
+
+    def last_membership_request
+      "##{MembershipRequest.last.id}"
+    end
+
+    def request_membership_as_unnotifiable
+      log_in_as @unnotifiable
+
+      visit group_path(@nike_group)
+
+      click_on "Request membership"
+      fill_in "Message", with: "Hey! I'm Unnotifiable!"
+      click_on "Send request"
+
+      log_out_as @unnotifiable
+    end
+
+    def assert_that_unnotifiable_has_regular_notifications
+      log_in_as @unnotifiable
+
+      click_on "Notifications"
+
+      refute page.has_content? "There are no notifications"
     end
 end

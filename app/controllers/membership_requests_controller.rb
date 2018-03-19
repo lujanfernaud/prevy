@@ -21,8 +21,7 @@ class MembershipRequestsController < ApplicationController
     @user  = User.find(session[:user_id])
     @group = Group.find(params[:group_id])
     @membership_request = MembershipRequest.new(
-      { user: @user, group: @group }.merge(membership_request_params)
-    )
+      { user: @user, group: @group }.merge(membership_request_params))
 
     if @membership_request.save
       flash[:success] = "Your request has been sent. " \
@@ -60,22 +59,32 @@ class MembershipRequestsController < ApplicationController
     end
 
     def notify_group_owner
-      MembershipRequestNotification.create(
-        user: @group.owner,
-        membership_request: @membership_request,
-        message: "New membership request from #{@user.name} in #{@group.name}."
+      membership_request_notification_for(
+        @group.owner,
+        "New membership request from #{@user.name} in #{@group.name}."
       )
+
+      return unless @group.owner.membership_request_emails?
 
       NotificationMailer.new_membership_request(@user, @group).deliver_now
     end
 
     def notify_requester
-      MembershipRequestNotification.create(
-        user: @user,
-        membership_request: @membership_request,
-        message: "You membership request for #{@group.name} was declined."
+      membership_request_notification_for(
+        @user,
+        "You membership request for #{@group.name} was declined."
       )
 
+      return unless @user.membership_request_emails?
+
       NotificationMailer.declined_membership_request(@user, @group).deliver_now
+    end
+
+    def membership_request_notification_for(user, message)
+      MembershipRequestNotification.create(
+        user: user,
+        membership_request: @membership_request,
+        message: message
+      )
     end
 end

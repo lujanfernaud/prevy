@@ -6,6 +6,10 @@ phil:
   password_digest: <%= BCrypt::Password.create("password") %>
   location: Portland, Oregon
   bio: Business magnate and philanthropist.
+  settings: {
+    "membership_request_emails": true,
+    "group_membership_emails": true
+  }
 
 penny:
   name: Penny
@@ -13,6 +17,10 @@ penny:
   password_digest: <%= BCrypt::Password.create("password") %>
   location: Portland, Oregon
   bio: Philanthropist.
+  settings: {
+    "membership_request_emails": true,
+    "group_membership_emails": true
+  }
 
 woodell:
   name: Woodell
@@ -20,6 +28,10 @@ woodell:
   password_digest: <%= BCrypt::Password.create("password") %>
   location: Portland, Oregon
   bio: Chief Operating Officer.
+  settings: {
+    "membership_request_emails": true,
+    "group_membership_emails": true
+  }
 
 onitsuka:
   name: Mr. Onitsuka
@@ -27,6 +39,10 @@ onitsuka:
   password_digest: <%= BCrypt::Password.create("password") %>
   location: Kobe
   bio: Onitsuka Tiger founder.
+  settings: {
+    "membership_request_emails": true,
+    "group_membership_emails": true
+  }
 
 stranger:
   name: Stranger
@@ -34,6 +50,21 @@ stranger:
   password_digest: <%= BCrypt::Password.create("password") %>
   location: Somewhere
   bio: It's a mistery.
+  settings: {
+    "membership_request_emails": true,
+    "group_membership_emails": true
+  }
+
+unnotifiable:
+  name: Unnotifiable Stranger
+  email: unnotifiable.stranger@hotmail.test
+  password_digest: <%= BCrypt::Password.create("password") %>
+  location: Somewhere
+  bio: It's a mistery.
+  settings: {
+    "membership_request_emails": false,
+    "group_membership_emails": false
+  }
 
 <% 10.times do |n| %>
 user_<%= n %>:
@@ -41,4 +72,8 @@ user_<%= n %>:
   email: user<%= n %>@sample.com
   password_digest: <%= BCrypt::Password.create("password") %>
   location: Portland, Oregon
+  settings: {
+    "membership_request_emails": true,
+    "group_membership_emails": true
+  }
 <% end %>

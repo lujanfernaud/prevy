@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305210623) do
+ActiveRecord::Schema.define(version: 20180317201525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 20180305210623) do
     t.string "password_digest"
     t.string "location"
     t.string "bio"
+    t.jsonb "settings", default: {}, null: false
   end
 
   add_foreign_key "events", "groups"

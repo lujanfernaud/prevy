@@ -1,4 +1,11 @@
 class User < ApplicationRecord
+  include Storext.model
+
+  store_attributes :settings do
+    membership_request_emails Boolean, default: true
+    group_membership_emails   Boolean, default: true
+  end
+
   has_secure_password
 
   has_many :owned_groups, class_name: "Group", foreign_key: "user_id"

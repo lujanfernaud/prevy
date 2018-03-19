@@ -47,6 +47,39 @@
     </div>
   </div>
 
+  <div class="email-notifications d-flex align-items-baseline mt-2rem mb-4"
+    id="email-notifications">
+    <hr class="email-notifications__hr d-inline-block">
+    <h3 class="email-notifications__heading h5 font-italic">
+      Email Notifications
+    </h3>
+    <hr class="email-notifications__hr d-inline-block">
+  </div>
+
+  <div class="form-group mb-2">
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.label :membership_request_emails, "Membership requests" %>
+      </div>
+
+      <div class="col-md-6">
+        <%= f.check_box :membership_request_emails %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group mb-2rem">
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.label :group_membership_emails, "Group memberships" %>
+      </div>
+
+      <div class="col-md-6">
+        <%= f.check_box :group_membership_emails %>
+      </div>
+    </div>
+  </div>
+
   <%= f.submit yield(:button_text),
     class: "btn btn-primary btn-block btn-lg mt-4 mb-4" %>
 <% end %>

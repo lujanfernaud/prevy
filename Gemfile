@@ -19,6 +19,9 @@ gem 'bcrypt',                          '~> 3.1.7'
 gem 'figaro',                          '~> 1.1', '>= 1.1.1'
 gem 'gravatar_image_tag',              '~> 1.2'
 
+# Add type-casting and other features on top of ActiveRecord::Store.store_accessor
+gem 'storext',                         '~> 2.2', '>= 2.2.2'
+
 # Bootstrap.
 gem 'bootstrap',                       '~> 4.0.0.beta2.1'
 gem 'jquery-rails',                    '4.3.1'

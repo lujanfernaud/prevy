@@ -50,7 +50,9 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email,
                                    :password, :password_confirmation,
-                                   :location, :bio)
+                                   :location, :bio,
+                                   :membership_request_emails,
+                                   :group_membership_emails)
     end
 
     def set_event_if_coming_from_event

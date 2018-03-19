@@ -168,7 +168,8 @@ $shadow: #989999;
 // Edit User Profile
 
 
-.edit-profile__heading {
+.edit-profile__heading,
+.email-notifications__heading {
   position: relative;
   bottom: -.4rem;
 }
@@ -182,6 +183,18 @@ $shadow: #989999;
 
   @include media-breakpoint-up(lg) {
     flex-basis: 35%;
+  }
+}
+
+.email-notifications__hr {
+  flex-basis: 18%;
+
+  @include media-breakpoint-up(md) {
+    flex-basis: 21%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    flex-basis: 28%;
   }
 }
 

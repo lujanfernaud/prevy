@@ -55,6 +55,8 @@ class GroupMembershipsController < ApplicationController
         "You have been accepted as a member of #{@group.name}!"
       )
 
+      return unless @user.group_membership_emails?
+
       NotificationMailer.new_group_membership(@user, @group).deliver_now
     end
 
@@ -62,6 +64,8 @@ class GroupMembershipsController < ApplicationController
       group_membership_notification(
         "Your membership to #{@group.name} has been cancelled."
       )
+
+      return unless @user.group_membership_emails?
 
       NotificationMailer.deleted_group_membership(@user, @group).deliver_now
     end
