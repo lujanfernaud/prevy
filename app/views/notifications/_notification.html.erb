@@ -1,6 +1,9 @@
 <tr id="notification-<%= notification.id %>">
   <th scope="row"></th>
   <td>
+    <%= notification.created_at.strftime("%d %b") %>
+  </td>
+  <td>
     <%= notification.message %>
   </td>
   <td>

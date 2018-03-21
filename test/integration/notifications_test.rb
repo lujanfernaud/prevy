@@ -118,6 +118,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
 
     def assert_membership_request_notification(&block)
       within "#notification-#{@notification.id}" do
+        assert page.has_content? formatted_date
         assert page.has_content? @onitsuka.name
         assert page.has_content? @nike_group.name
         assert page.has_content? notification_message(@onitsuka, @nike_group)
@@ -126,6 +127,10 @@ class NotificationsTest < ActionDispatch::IntegrationTest
 
         yield if block_given?
       end
+    end
+
+    def formatted_date
+      @notification.created_at.strftime("%d %b")
     end
 
     def notification_message(user, group)
