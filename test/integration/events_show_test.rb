@@ -10,11 +10,6 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     log_in_as(penny)
     visit group_event_path(group, event)
 
-    within ".breadcrumb" do
-      assert page.has_link? group.name
-      assert page.has_content? event.title
-    end
-
     assert_event_information(event)
 
     assert page.has_content? "Attendees (#{attendees})"

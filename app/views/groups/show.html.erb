@@ -24,14 +24,15 @@
           <div class="col-md-4">
             <div class="box group-info-box p-3">
 
-              <div class="group-owner">
+              <div class="organizers-preview">
                 <h3 class="h4 mb-3">
                   <%= organizer_title %>
                 </h3>
                 <ul>
                   <% @group.organizers.last(5).each do |organizer| %>
                     <li>
-                      <%= link_to organizer.name, user_path(organizer) %>
+                      <%= link_to organizer.name,
+                        user_path(organizer, organizer_of: @group) %>
                     </li>
                   <% end %>
                 </ul>
@@ -45,7 +46,8 @@
                   <ul>
                     <% @group.members_with_role.last(5).each do |member| %>
                       <li>
-                        <%= link_to member.name, user_path(member) %>
+                        <%= link_to member.name,
+                          user_path(member, member_of: @group) %>
                       </li>
                     <% end %>
                   </ul>
@@ -168,7 +170,10 @@
           </h2>
           <ul>
             <% @group.members_with_role.last(12).each do |member| %>
-              <li><%= link_to member.name, user_path(member) %></li>
+              <li>
+                <%= link_to member.name,
+                  user_path(member, member_of: @group) %>
+              </li>
             <% end %>
           </ul>
           <%= see_all_members_link(@group, quantity: 12) %>

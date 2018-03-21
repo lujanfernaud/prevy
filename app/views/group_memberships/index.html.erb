@@ -13,33 +13,37 @@
                   <%= @group.name %>
                 </h2>
 
-                <h3 class="h4 mb-3">
-                  <%= organizer_title %>
-                </h3>
-                <ul>
-                  <% @organizers.reverse.each_with_index do |organizer, i| %>
-                    <li id="user-<%= organizer.id %>">
-                      <%= i + 1 %>
-                      <%= link_to organizer.name,
-                        user_path(organizer, organizer_of: @group) %>
-                      <%= add_or_delete_organizer(organizer, @group) %>
-                    </li>
-                  <% end %>
-                </ul>
+                <div class="organizers">
+                  <h3 class="h4 mb-3">
+                    <%= organizer_title %>
+                  </h3>
+                  <ul>
+                    <% @organizers.reverse.each_with_index do |organizer, i| %>
+                      <li id="user-<%= organizer.id %>">
+                        <%= i + 1 %>
+                        <%= link_to organizer.name,
+                          user_path(organizer, organizer_of: @group) %>
+                        <%= add_or_delete_organizer(organizer, @group) %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
 
-                <h3 class="h4 mb-3">
-                  <%= members_title_with_count %>
-                </h3>
-                <ul>
-                  <% @members.reverse.each_with_index do |member, i| %>
-                    <li id="user-<%= member.id %>">
-                      <%= i + 1 %>
-                      <%= link_to member.name,
-                        user_path(member, member_of: @group) %>
-                      <%= add_or_delete_organizer(member, @group) %>
-                    </li>
-                  <% end %>
-                </ul>
+                <div class="members">
+                  <h3 class="h4 mb-3">
+                    <%= members_title_with_count %>
+                  </h3>
+                  <ul>
+                    <% @members.reverse.each_with_index do |member, i| %>
+                      <li id="user-<%= member.id %>">
+                        <%= i + 1 %>
+                        <%= link_to member.name,
+                          user_path(member, member_of: @group) %>
+                        <%= add_or_delete_organizer(member, @group) %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
 
                 <%= link_to "Go back to group", group_path(@group) %>
               </div>

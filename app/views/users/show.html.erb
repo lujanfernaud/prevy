@@ -1,10 +1,10 @@
 <div class="container">
-  <% if @organized_event || @attending_event %>
+  <% if @group || @event %>
     <%= render partial: "breadcrumbs" %>
   <% end %>
 
   <div class="row mb-2">
-    <div class="col-md-12 mt-4">
+    <div class="col-md-12">
       <h2 class="mt-1 mb-4 d-inline-block font-italic">
         <%= @user.name %>
       </h2>

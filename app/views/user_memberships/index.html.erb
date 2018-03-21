@@ -8,7 +8,7 @@
           <div class="d-flex flex-column mt-4">
             <% @owned_groups.each do |group| %>
 
-              <div class="row d-flex event-group">
+              <div class="row d-flex event-group" id="group-<%= group.id %> ">
                 <div class="mr-2">
                   <a href="<%= group_path(group) %>">
                     <%= image_tag group.image.thumb, width: "170" %>

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update]
   before_action :set_event_if_coming_from_event, only: :show
+  before_action :set_group_if_coming_from_group, only: :show
 
   def new
     @user = User.new
@@ -20,7 +21,7 @@ class UsersController < ApplicationController
   def show
     redirect_to root_url unless @user
 
-    if @event
+    if @group || @event
       add_breadcrumbs
     end
 
@@ -64,21 +65,41 @@ class UsersController < ApplicationController
       end
     end
 
-    def add_breadcrumbs
-      if @organized_event
-        add_breadcrumbs_for "Organizer"
-      end
+    def set_group_if_coming_from_group
+      @organizer_of = params[:organizer_of] || false
+      @member_of    = params[:member_of] || false
 
-      if @attending_event
-        add_breadcrumbs_for "Attendees", event_attendances_path(@event)
+      if @organizer_of || @member_of
+        @group = Group.find(@organizer_of || @member_of)
       end
     end
 
-    def add_breadcrumbs_for(title, path = nil)
+    def add_breadcrumbs
+      if @organized_event
+        add_event_breadcrumbs_for "Organizer"
+      end
+
+      if @attending_event
+        add_event_breadcrumbs_for "Attendees", event_attendances_path(@event)
+      end
+
+      if @organizer_of || @member_of
+        add_group_breadcrumbs_for "Organizers & Members",
+          group_members_path(@group)
+      end
+    end
+
+    def add_event_breadcrumbs_for(title, path = nil)
       @group = @event.group
 
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb @event.title, group_event_path(@group, @event)
+      add_breadcrumb title, path
+      add_breadcrumb @user.name
+    end
+
+    def add_group_breadcrumbs_for(title, path = nil)
+      add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb title, path
       add_breadcrumb @user.name
     end
