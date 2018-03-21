@@ -1,9 +1,12 @@
 class User < ApplicationRecord
+  rolify
+
   include Storext.model
 
   store_attributes :settings do
     membership_request_emails Boolean, default: true
     group_membership_emails   Boolean, default: true
+    group_role_emails         Boolean, default: true
   end
 
   has_secure_password

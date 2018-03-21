@@ -42,7 +42,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     log_in_as @phil
     ActionMailer::Base.deliveries.clear
 
-    visit user_membership_requests_url(@phil)
+    visit user_membership_requests_url @phil
 
     within last_membership_request do
       click_on "Decline"
@@ -50,7 +50,9 @@ class NotificationsTest < ActionDispatch::IntegrationTest
 
     log_out_as @phil
 
-    assert_that_unnotifiable_has_regular_notifications
+    log_in_as @unnotifiable
+
+    assert_regular_notifications
     assert_equal 0, ActionMailer::Base.deliveries.size
   end
 
@@ -60,7 +62,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     log_in_as @phil
     ActionMailer::Base.deliveries.clear
 
-    visit user_membership_requests_url(@phil)
+    visit user_membership_requests_url @phil
 
     within last_membership_request do
       click_on "Accept"
@@ -68,7 +70,47 @@ class NotificationsTest < ActionDispatch::IntegrationTest
 
     log_out_as @phil
 
-    assert_that_unnotifiable_has_regular_notifications
+    log_in_as @unnotifiable
+
+    assert_regular_notifications
+    assert_equal 0, ActionMailer::Base.deliveries.size
+  end
+
+  test "user doesn't receive group role email notifications" do
+    @unnotifiable.add_role(:member, @nike_group)
+
+    log_in_as @phil
+    ActionMailer::Base.deliveries.clear
+
+    visit group_members_url @nike_group
+
+    within "#user-#{@unnotifiable.id}" do
+      click_on "Add to organizers"
+    end
+
+    log_out_as @phil
+
+    log_in_as @unnotifiable
+
+    assert_regular_notifications
+    assert_equal 0, ActionMailer::Base.deliveries.size
+
+    log_out_as @unnotifiable
+
+    log_in_as @phil
+    ActionMailer::Base.deliveries.clear
+
+    visit group_members_url @nike_group
+
+    within "#user-#{@unnotifiable.id}" do
+      click_on "Delete from organizers"
+    end
+
+    log_out_as @phil
+
+    log_in_as @unnotifiable
+
+    assert_regular_notifications
     assert_equal 0, ActionMailer::Base.deliveries.size
   end
 
@@ -123,11 +165,8 @@ class NotificationsTest < ActionDispatch::IntegrationTest
       log_out_as @unnotifiable
     end
 
-    def assert_that_unnotifiable_has_regular_notifications
-      log_in_as @unnotifiable
-
+    def assert_regular_notifications
       click_on "Notifications"
-
       refute page.has_content? "There are no notifications"
     end
 end

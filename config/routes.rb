@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       only: [:index, :create, :destroy]
     resources :membership_requests,
       only: [:index, :new, :create, :destroy]
+    resources :group_organizers, as: :organizers,
+      only: [:create, :destroy]
     resources :events
   end
 end

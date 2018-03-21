@@ -15,6 +15,7 @@ class GroupsMembershipsTest < ActionDispatch::IntegrationTest
 
     click_on "Join group"
 
+    assert user.has_role? :member, @public_group
     assert page.has_content? "You are now a member of #{@public_group.name}!"
     assert current_path == group_path(@public_group)
   end

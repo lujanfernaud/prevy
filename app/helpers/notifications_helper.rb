@@ -43,7 +43,7 @@ module NotificationsHelper
     case notification.type
     when "MembershipRequestNotification"
       go_to_request_link(notification)
-    when "GroupMembershipNotification"
+    when "GroupMembershipNotification", "GroupRoleNotification"
       go_to_group_link(notification)
     end
   end

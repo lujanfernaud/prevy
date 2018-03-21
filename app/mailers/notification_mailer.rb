@@ -31,6 +31,20 @@ class NotificationMailer < ApplicationMailer
     )
   end
 
+  def added_to_organizers(user, group)
+    default_notification_email(
+      user, group,
+      subject: "You are now an organizer in #{group.name}!"
+    )
+  end
+
+  def deleted_from_organizers(user, group)
+    default_notification_email(
+      user, group,
+      subject: "You are no longer an organizer in #{group.name}"
+    )
+  end
+
   private
 
     def default_notification_email(user, group, subject:)

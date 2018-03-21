@@ -9,6 +9,8 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     @event   = events(:one)
     @address = addresses(:one)
     @event.build_address(@address.attributes)
+
+    @user.add_role(:organizer, @group)
   end
 
   test "create event with valid data" do

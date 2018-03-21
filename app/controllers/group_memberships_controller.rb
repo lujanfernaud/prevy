@@ -4,14 +4,17 @@ class GroupMembershipsController < ApplicationController
 
   def index
     add_breadcrumb @group.name, group_path(@group)
-    add_breadcrumb "Members"
+    add_breadcrumb "Organizers & Members"
 
-    @members = @group.members
+    @organizers = @group.organizers
+    @members    = @group.members_with_role
   end
 
   def create
     @user       = User.find(params[:user_id])
     @membership = GroupMembership.create(group: @group, user: @user)
+
+    @user.add_role :member, @group
 
     destroy_membership_request_if_it_exists
 
@@ -28,6 +31,8 @@ class GroupMembershipsController < ApplicationController
   def destroy
     @user       = User.find(params[:id])
     @membership = GroupMembership.find_by(group: @group, user: @user)
+
+    @user.remove_role :member, @group
 
     @membership.destroy
 

@@ -59,4 +59,31 @@ class NotificationMailerTest < ActionMailer::TestCase
                  "#{@group.name} membership was cancelled.", email.body.encoded
     assert_match "Go to notifications", email.body.encoded
   end
+
+  test "#added_to_organizers" do
+    email = NotificationMailer.added_to_organizers(@user, @group)
+
+    assert_equal [@user.email], email.to
+    assert_equal ["notifications@letsmeet.com"], email.from
+    assert_equal "You are now an organizer in #{@group.name}!", email.subject
+
+    assert_match "Congratulations #{@user.name}!", email.body.encoded
+    assert_match "You are now an organizer in #{@group.name}!",
+                  email.body.encoded
+    assert_match "Go to notifications", email.body.encoded
+  end
+
+  test "#deleted_from_organizers" do
+    email = NotificationMailer.deleted_from_organizers(@user, @group)
+
+    assert_equal [@user.email], email.to
+    assert_equal ["notifications@letsmeet.com"], email.from
+    assert_equal "You are no longer an organizer in #{@group.name}",
+                  email.subject
+
+    assert_match "Hello #{@user.name},", email.body.encoded
+    assert_match "We're sorry to say that you are no longer " \
+                 "an organizer in #{@group.name}.", email.body.encoded
+    assert_match "Go to notifications", email.body.encoded
+  end
 end

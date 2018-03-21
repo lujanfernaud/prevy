@@ -26,34 +26,48 @@
 
               <div class="group-owner">
                 <h3 class="h4 mb-3">
-                  Owner
+                  <%= organizer_title %>
                 </h3>
-                <%= link_to @group.owner.name, user_path(@group.owner) %>
+                <ul>
+                  <% @group.organizers.last(5).each do |organizer| %>
+                    <li>
+                      <%= link_to organizer.name, user_path(organizer) %>
+                    </li>
+                  <% end %>
+                </ul>
               </div>
 
               <div class="members-preview mt-3">
-                <% if authorized?(current_user, @group) %>
+                <% if has_membership?(current_user, @group) %>
                   <h3 class="h4 mb-3">
-                    Members (<%= @group.members.count %>)
+                    <%= members_title_with_count %>
                   </h3>
                   <ul>
-                    <% @group.members.last(5).each do |member| %>
-                      <li><%= link_to member.name, user_path(member) %></li>
+                    <% @group.members_with_role.last(5).each do |member| %>
+                      <li>
+                        <%= link_to member.name, user_path(member) %>
+                      </li>
                     <% end %>
                   </ul>
                   <%= see_all_members_link(@group, quantity: 5) %>
-                <% else %>
-                  <h3 class="h4 mb-3">Members</h3>
-                  <p class="h5"><%= @group.members.count %></p>
+                <% elsif @group.members_with_role.count > 0 %>
+                  <h3 class="h4 mb-3">
+                    <%= "Member".pluralize(@group.members_with_role.count) %>
+                  </h3>
+                  <p class="h5">
+                    <%= @group.members_with_role.count %>
+                  </p>
                 <% end %>
               </div>
 
-              <% if authorized?(current_user, @group) %>
+              <% if has_organizer_role?(current_user, @group) %>
                 <div class="group-options">
                   <%= link_to "Create event", new_group_event_path(@group),
                     class: "btn btn-primary btn-block btn-lg mt-3" %>
                 </div>
-              <% else %>
+              <% end %>
+
+              <% unless has_membership?(current_user, @group) %>
                 <div class="group-membership">
                   <h4 class="h5">Would you like to be part?</h4>
                   <%= membership_button(@group) %>
@@ -90,7 +104,7 @@
 <!-- Upcoming Events -->
 
 
-<% if authorized?(current_user, @group) || !@group.private %>
+<% if has_membership?(current_user, @group) || !@group.private %>
   <div class="container-fluid bg-light">
     <div class="container">
 
@@ -143,15 +157,17 @@
 <!-- Members -->
 
 
-<% if authorized?(current_user, @group) %>
+<% if has_membership?(current_user, @group) %>
   <div class="container-fluid members-container">
     <div class="container">
 
       <div class="row mt-4 mb-4">
         <div class="col-md-12">
-          <h2 class="text-center">Members</h2>
+          <h2 class="text-center">
+            <%= "Member".pluralize(@group.members_with_role.count) %>
+          </h2>
           <ul>
-            <% @group.members.last(12).each do |member| %>
+            <% @group.members_with_role.last(12).each do |member| %>
               <li><%= link_to member.name, user_path(member) %></li>
             <% end %>
           </ul>

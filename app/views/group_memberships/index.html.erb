@@ -9,19 +9,38 @@
           <div class="col">
             <div class="box">
               <div class="event-box-big-text">
-                <h2 class="mb-3 font-italic"><%= @group.name %></h2>
+                <h2 class="mb-3 font-italic">
+                  <%= @group.name %>
+                </h2>
+
                 <h3 class="h4 mb-3">
-                  Members (<%= @members.count %>)
+                  <%= organizer_title %>
                 </h3>
                 <ul>
-                  <% @members.reverse.each_with_index do |member, i| %>
-                    <li>
+                  <% @organizers.reverse.each_with_index do |organizer, i| %>
+                    <li id="user-<%= organizer.id %>">
                       <%= i + 1 %>
-                      <%= link_to member.name,
-                        user_path(member, member_of: @group) %>
+                      <%= link_to organizer.name,
+                        user_path(organizer, organizer_of: @group) %>
+                      <%= add_or_delete_organizer(organizer, @group) %>
                     </li>
                   <% end %>
                 </ul>
+
+                <h3 class="h4 mb-3">
+                  <%= members_title_with_count %>
+                </h3>
+                <ul>
+                  <% @members.reverse.each_with_index do |member, i| %>
+                    <li id="user-<%= member.id %>">
+                      <%= i + 1 %>
+                      <%= link_to member.name,
+                        user_path(member, member_of: @group) %>
+                      <%= add_or_delete_organizer(member, @group) %>
+                    </li>
+                  <% end %>
+                </ul>
+
                 <%= link_to "Go back to group", group_path(@group) %>
               </div>
             </div>

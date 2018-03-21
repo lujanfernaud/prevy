@@ -18,7 +18,12 @@
                   <h3 class="h4 mb-0">
                     <%= link_to group.name, group_path(group) %>
                   </h3>
-                  <p class="mb-0"><%= "Members: #{group.members.count}" %></p>
+                  <p class="mb-0">
+                    <%= group_organizers(group) %>
+                    <span> | </span>
+                    <%= group_members(group) %>
+                    <%= link_to "(See all)", group_members_path(group) %>
+                  </p>
                   <%= link_to "Edit group", edit_group_path(group) %>
                 </div>
               </div>
@@ -42,8 +47,16 @@
                 <div class="d-flex flex-column justify-content-between">
                   <h3 class="h4 mb-0">
                     <%= link_to group.name, group_path(group) %>
+                    <% if @user.has_role?(:organizer, group) %>
+                      <span class="h6 d-inline-block">[Organizer]</span>
+                    <% end %>
                   </h3>
-                  <p class="mb-0"><%= "Members: #{group.members.count}" %></p>
+                  <p class="mb-0">
+                    <%= group_organizers(group) %>
+                    <span> | </span>
+                    <%= group_members(group) %>
+                    <%= link_to "(See all)", group_members_path(group) %>
+                  </p>
                   <%= link_to "Cancel membership",
                     group_member_path(group, current_user),
                     method: :delete,

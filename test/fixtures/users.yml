@@ -8,7 +8,8 @@ phil:
   bio: Business magnate and philanthropist.
   settings: {
     "membership_request_emails": true,
-    "group_membership_emails": true
+    "group_membership_emails": true,
+    "group_role_emails": true
   }
 
 penny:
@@ -19,7 +20,8 @@ penny:
   bio: Philanthropist.
   settings: {
     "membership_request_emails": true,
-    "group_membership_emails": true
+    "group_membership_emails": true,
+    "group_role_emails": true
   }
 
 woodell:
@@ -30,7 +32,8 @@ woodell:
   bio: Chief Operating Officer.
   settings: {
     "membership_request_emails": true,
-    "group_membership_emails": true
+    "group_membership_emails": true,
+    "group_role_emails": true
   }
 
 onitsuka:
@@ -41,7 +44,8 @@ onitsuka:
   bio: Onitsuka Tiger founder.
   settings: {
     "membership_request_emails": true,
-    "group_membership_emails": true
+    "group_membership_emails": true,
+    "group_role_emails": true
   }
 
 stranger:
@@ -52,7 +56,8 @@ stranger:
   bio: It's a mistery.
   settings: {
     "membership_request_emails": true,
-    "group_membership_emails": true
+    "group_membership_emails": true,
+    "group_role_emails": true
   }
 
 unnotifiable:
@@ -63,7 +68,8 @@ unnotifiable:
   bio: It's a mistery.
   settings: {
     "membership_request_emails": false,
-    "group_membership_emails": false
+    "group_membership_emails": false,
+    "group_role_emails": false
   }
 
 <% 10.times do |n| %>
@@ -74,6 +80,7 @@ user_<%= n %>:
   location: Portland, Oregon
   settings: {
     "membership_request_emails": true,
-    "group_membership_emails": true
+    "group_membership_emails": true,
+    "group_role_emails": true
   }
 <% end %>

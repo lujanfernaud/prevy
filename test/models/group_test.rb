@@ -50,6 +50,16 @@ class GroupTest < ActiveSupport::TestCase
     assert group.events.count > 1
   end
 
+  test "adds owner as organizer after creation" do
+    owner = fake_group.owner
+
+    assert_empty fake_group.organizers
+
+    fake_group.save
+
+    assert_equal owner, fake_group.organizers.last
+  end
+
   private
 
     def fake_group(params = {})
