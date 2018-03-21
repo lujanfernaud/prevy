@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
-    @notifications = Notification.where(user: @user)
+    @notifications = Notification.where(user: @user).reverse
   end
 
   def destroy
