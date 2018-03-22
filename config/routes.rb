@@ -8,9 +8,10 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
 
   resources :users do
-    get       "groups",             to: "user_memberships#index"
-    resources :membership_requests, only: [:index, :show]
-    resources :notifications,       only: [:index, :destroy]
+    get       "groups",                to: "user_memberships#index"
+    resources :membership_requests,    only: [:index, :show]
+    resources :notifications,          only: [:index, :destroy, :destroy_all]
+    post      "notification_cleaners", to: "notification_cleaners#create"
   end
 
   resources :sessions, only: [:new, :create, :destroy]

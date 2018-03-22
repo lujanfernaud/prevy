@@ -114,6 +114,18 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     assert_equal 0, ActionMailer::Base.deliveries.size
   end
 
+  test "user marks all notifications as read" do
+    log_in_as @onitsuka
+
+    visit user_notifications_url @onitsuka
+
+    click_on "Mark all as read"
+
+    assert page.current_path == user_notifications_path(@onitsuka)
+    assert page.has_content? "There are no notifications"
+    refute page.has_link?    "Mark all as read"
+  end
+
   private
 
     def assert_membership_request_notification(&block)

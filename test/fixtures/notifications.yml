@@ -3,3 +3,9 @@
 phil_notification:
   user: phil
   message: Test notification
+
+<% 3.times do |number| %>
+onitsuka_notification_<%= number %>:
+  user: onitsuka
+  message: Test notification <%= number %>
+<% end %>

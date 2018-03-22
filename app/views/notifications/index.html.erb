@@ -7,6 +7,11 @@
 
           <h2 class="text-center mb-4">Notifications</h2>
 
+          <div class="mb-4 text-center">
+            <%= link_to "Mark all as read",
+              user_notification_cleaners_path(@user), method: :post %>
+          </div>
+
           <table class="table table-stripped">
             <tbody>
               <%= render partial: "notification", collection: @notifications %>
