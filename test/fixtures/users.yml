@@ -36,6 +36,18 @@ woodell:
     "group_role_emails": true
   }
 
+carolyn:
+  name: Carolyn
+  email: carolyn@hotmail.test
+  password_digest: <%= BCrypt::Password.create("password") %>
+  location: Portland, Oregon
+  bio: Artist.
+  settings: {
+    "membership_request_emails": true,
+    "group_membership_emails": true,
+    "group_role_emails": true
+  }
+
 onitsuka:
   name: Mr. Onitsuka
   email: onitsuka@onitsuka.jp

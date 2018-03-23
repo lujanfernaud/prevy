@@ -5,3 +5,9 @@ one:
   membership_request: one
   type: MembershipRequestNotification
   message: New membership request from Mr. Onitsuka in Nike.
+
+two:
+  user: phil
+  membership_request: two
+  type: MembershipRequestNotification
+  message: New membership request from Carolyn in Nike.

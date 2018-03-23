@@ -4,3 +4,8 @@ one:
   message: Hey! It's Mr. Onitsuka
   group: one
   user: onitsuka
+
+two:
+  message: Hey, I'm Carolyn.
+  group: one
+  user: carolyn

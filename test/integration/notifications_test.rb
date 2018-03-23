@@ -3,19 +3,20 @@ require 'test_helper'
 class NotificationsTest < ActionDispatch::IntegrationTest
   def setup
     @phil         = users(:phil)
+    @carolyn      = users(:carolyn)
     @onitsuka     = users(:onitsuka)
     @stranger     = users(:stranger)
     @unnotifiable = users(:unnotifiable)
     @nike_group   = groups(:one)
-    @notification = membership_request_notifications(:one)
+    @notification = membership_request_notifications(:two)
   end
 
-  test "group owner with requests visits notifications" do
+  test "group owner visits notifications and accepts request" do
     log_in_as @phil
 
     click_on "Notifications"
 
-    assert_membership_request_notification do
+    assert_membership_request_notification(@carolyn) do
       click_on "Go to request"
     end
 
@@ -23,9 +24,30 @@ class NotificationsTest < ActionDispatch::IntegrationTest
 
     click_on "Notifications"
 
-    mark_notification_as_read
+    refute_membership_request_notification(@carolyn)
 
-    refute_membership_request_notification
+    click_on @phil.name
+    click_on "Membership requests"
+
+    within membership_request_from(@carolyn) do
+      click_on "Accept"
+    end
+
+    log_out_as @phil
+
+    log_in_as @carolyn
+
+    click_on "Notifications"
+
+    within last_notification_for(@carolyn) do
+      click_on "Go to group"
+    end
+
+    assert page.current_path == group_path(@nike_group)
+
+    click_on "Notifications"
+
+    assert page.has_content? "There are no notifications."
   end
 
   test "user without notifications visits notifications" do
@@ -128,12 +150,12 @@ class NotificationsTest < ActionDispatch::IntegrationTest
 
   private
 
-    def assert_membership_request_notification(&block)
+    def assert_membership_request_notification(user, &block)
       within "#notification-#{@notification.id}" do
         assert page.has_content? formatted_date
-        assert page.has_content? @onitsuka.name
+        assert page.has_content? user.name
         assert page.has_content? @nike_group.name
-        assert page.has_content? notification_message(@onitsuka, @nike_group)
+        assert page.has_content? notification_message(user, @nike_group)
         assert page.has_link?    "Go to request"
         assert page.has_link?    "Mark as read"
 
@@ -150,8 +172,12 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     end
 
     def assert_membership_request_url
-      assert page.current_url ==
-        user_membership_request_url(@phil, @notification.membership_request)
+      assert page.current_url == user_membership_request_url(
+        @phil, @notification)
+    end
+
+    def last_notification_for(user)
+      "#notification-#{user.notifications.last.id}"
     end
 
     def mark_notification_as_read
@@ -160,10 +186,13 @@ class NotificationsTest < ActionDispatch::IntegrationTest
       end
     end
 
-    def refute_membership_request_notification
-      refute page.has_content? @onitsuka.name
-      refute page.has_content? @nike_group.name
-      refute page.has_content? notification_message(@onitsuka, @nike_group)
+    def refute_membership_request_notification(user)
+      refute page.has_content? user.name
+      refute page.has_content? notification_message(user, @nike_group)
+    end
+
+    def membership_request_from(user)
+      "##{user.membership_requests.last.id}"
     end
 
     def last_membership_request

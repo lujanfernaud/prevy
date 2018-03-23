@@ -52,11 +52,15 @@ module NotificationsHelper
     return unless notification.membership_request
 
     link_to "Go to request",
-      user_membership_request_path(
-        current_user, notification.membership_request)
+      user_notification_redirecter_path(
+        notification: notification,
+        membership_request: notification.membership_request)
   end
 
   def go_to_group_link(notification)
-    link_to "Go to group", group_path(notification.group)
+    link_to "Go to group",
+      user_notification_redirecter_path(
+        notification: notification,
+        group: notification.group)
   end
 end
