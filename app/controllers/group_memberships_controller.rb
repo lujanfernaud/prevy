@@ -32,7 +32,7 @@ class GroupMembershipsController < ApplicationController
     @user       = User.find(params[:id])
     @membership = GroupMembership.find_by(group: @group, user: @user)
 
-    @user.remove_role :member, @group
+    remove_all_user_roles_for_group
 
     @membership.destroy
 
@@ -68,5 +68,17 @@ class GroupMembershipsController < ApplicationController
 
     def notify_user_deleted
       DeletedGroupMembership.call(@membership)
+    end
+
+    def remove_all_user_roles_for_group
+      user_roles.each do |role|
+        @user.remove_role role, @group
+      end
+    end
+
+    def user_roles
+      @user.roles.where(resource: @group).map do |role|
+        role.name.to_sym
+      end
     end
 end

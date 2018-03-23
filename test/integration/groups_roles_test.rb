@@ -63,4 +63,21 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
     assert page.current_path == group_path(@group)
     refute page.has_link? "Create event"
   end
+
+  test "member with organizer role cancels membership to group" do
+    @woodell.add_role :organizer, @group
+
+    log_in_as @woodell
+
+    click_on @woodell.name
+    click_on "My groups"
+
+    within "#group-#{@group.id}" do
+      click_on "Cancel membership"
+    end
+
+    visit group_path(@group)
+
+    refute page.has_link? "Create event"
+  end
 end
