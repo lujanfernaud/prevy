@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  after_action :verify_authorized, except: [:index]
+
   def index
     @groups = Group.where(hidden: false)
                    .paginate(page: params[:page], per_page: 15)
@@ -6,11 +8,13 @@ class GroupsController < ApplicationController
 
   def new
     @group = Group.new
+    authorize @group
   end
 
   def create
     @user  = User.find(session[:user_id])
     @group = @user.owned_groups.new(group_params)
+    authorize @group
 
     if @group.save
       flash[:success] = "Yay! You created a group!"
@@ -23,14 +27,17 @@ class GroupsController < ApplicationController
   def show
     @group  = Group.find(params[:id])
     @events = @group.events.upcoming.includes(:address).limit(9)
+    authorize @group
   end
 
   def edit
     @group = Group.find(params[:id])
+    authorize @group
   end
 
   def update
     @group = Group.find(params[:id])
+    authorize @group
 
     if @group.update_attributes(group_params)
       flash[:success] = "The group has been updated."
@@ -43,6 +50,7 @@ class GroupsController < ApplicationController
   def destroy
     @user  = User.find(params[:user_id])
     @group = Group.find(params[:id])
+    authorize @group
 
     @group.destroy
 

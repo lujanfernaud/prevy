@@ -2,9 +2,10 @@ require 'test_helper'
 
 class AttendancesCreationTest < ActionDispatch::IntegrationTest
   def setup
-    @user  = users(:penny)
     @group = groups(:one)
     @event = events(:one)
+    @user  = users(:penny)
+    @user.add_role :member, @group
   end
 
   test "user not logged in can't attend an event" do

@@ -34,16 +34,22 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
+    log_in_as(@user)
+
     get edit_group_url(@group)
     assert_response :success
   end
 
   test "should update group" do
+    log_in_as(@user)
+
     patch group_url(@group), params: { group: group_params }
     assert_redirected_to group_url(@group)
   end
 
   test "should destroy group" do
+    log_in_as(@user)
+
     assert_difference("Group.count", -1) do
       delete group_url(@group, user_id: @user)
     end

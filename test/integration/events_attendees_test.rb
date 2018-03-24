@@ -17,8 +17,11 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
   end
 
   test "user visit attendee" do
+    stranger = users(:stranger)
     event    = events(:one)
     attendee = event.attendees.first
+
+    log_in_as stranger
 
     visit event_attendances_path(event)
 

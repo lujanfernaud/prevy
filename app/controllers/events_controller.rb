@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   include ApplicationHelper
 
   before_action :find_event, only: [:show, :edit, :update]
+  after_action  :verify_authorized, except: [:index]
 
   def index
     if params[:group_id]
@@ -20,12 +21,14 @@ class EventsController < ApplicationController
     @group = Group.find(params[:group_id])
     @event = @group.events.build
     @event.build_address
+    authorize @event
   end
 
   def create
     @group = Group.find(params[:group_id])
     @event = @group.events.build(event_params)
     @event.organizer = current_user
+    authorize @event
 
     if @event.save
       flash[:success] = "Event successfully created."
@@ -67,6 +70,7 @@ class EventsController < ApplicationController
   def destroy
     @group = Group.find(params[:group_id])
     @event = current_user.organized_events.find_by(id: params[:id])
+    authorize @event
 
     redirect_to root_url unless @event
 
@@ -79,6 +83,7 @@ class EventsController < ApplicationController
 
     def find_event
       @event = Event.find(params[:id])
+      authorize @event
     end
 
     def event_params

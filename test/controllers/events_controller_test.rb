@@ -5,6 +5,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     @group = groups(:one)
     @event = events(:one)
     @user  = users(:phil)
+    @user.add_role :organizer, @group
   end
 
   test "should get index" do

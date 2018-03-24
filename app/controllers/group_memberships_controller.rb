@@ -1,6 +1,7 @@
 class GroupMembershipsController < ApplicationController
   before_action :find_logged_in_user, only: [:create, :destroy]
   before_action :find_group
+  after_action  :verify_authorized
 
   def index
     add_breadcrumb @group.name, group_path(@group)
@@ -8,11 +9,13 @@ class GroupMembershipsController < ApplicationController
 
     @organizers = @group.organizers
     @members    = @group.members_with_role
+    authorize GroupMembership
   end
 
   def create
     @user       = User.find(params[:user_id])
     @membership = GroupMembership.create(group: @group, user: @user)
+    authorize @membership
 
     @user.add_role :member, @group
 
@@ -31,6 +34,7 @@ class GroupMembershipsController < ApplicationController
   def destroy
     @user       = User.find(params[:id])
     @membership = GroupMembership.find_by(group: @group, user: @user)
+    authorize @membership
 
     remove_all_user_roles_for_group
 

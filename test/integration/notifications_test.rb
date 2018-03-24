@@ -2,13 +2,22 @@ require 'test_helper'
 
 class NotificationsTest < ActionDispatch::IntegrationTest
   def setup
-    @phil         = users(:phil)
-    @carolyn      = users(:carolyn)
-    @onitsuka     = users(:onitsuka)
-    @stranger     = users(:stranger)
-    @unnotifiable = users(:unnotifiable)
-    @nike_group   = groups(:one)
-    @notification = membership_request_notifications(:two)
+    @phil          = users(:phil)
+    @carolyn       = users(:carolyn)
+    @onitsuka      = users(:onitsuka)
+    @stranger      = users(:stranger)
+    @unnotifiable  = users(:unnotifiable)
+    @nike_group    = groups(:one)
+    @notification  = membership_request_notifications(:two)
+    @phil.add_role :organizer, @nike_group
+  end
+
+  test "user tries to visit other user's notifications" do
+    log_in_as @carolyn
+
+    visit user_notifications_path(@phil)
+
+    refute page.current_path == user_notifications_path(@phil)
   end
 
   test "group owner visits notifications and accepts request" do

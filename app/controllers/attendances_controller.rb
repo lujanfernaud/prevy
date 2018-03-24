@@ -2,6 +2,7 @@ class AttendancesController < ApplicationController
   include ApplicationHelper
 
   before_action :add_root_breadcrumbs, only: :index
+  after_action  :verify_authorized, except: :index
 
   def index
     add_breadcrumb "Attendees", event_attendances_path
@@ -13,6 +14,7 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.new(attended_event_id: params[:event_id])
     @attendance.attendee_id = current_user.id
     @event = Event.find(params[:event_id])
+    authorize @attendance
 
     if @attendance.save
       flash[:success] = "Yay! You are attending this event!"
@@ -25,8 +27,13 @@ class AttendancesController < ApplicationController
   end
 
   def destroy
-    Attendance.find_by(attended_event_id: params[:event_id],
-                       attendee_id: current_user.id).destroy
+    @attendance = Attendance.find_by(attended_event_id: params[:event_id],
+                                     attendee_id: current_user.id)
+
+    authorize @attendance
+
+    @attendance.destroy
+
     flash[:success] = "Your attendance to this event has been cancelled."
 
     @event = Event.find(params[:event_id])

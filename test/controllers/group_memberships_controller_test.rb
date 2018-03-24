@@ -7,6 +7,10 @@ class GroupMembershipsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index" do
     group = groups(:one)
+    user  = users(:woodell)
+    user.add_role :member, group
+
+    log_in_as(user)
 
     get group_members_url(group)
 

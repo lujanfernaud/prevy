@@ -19,6 +19,7 @@ gem 'bcrypt',                          '~> 3.1.7'
 gem 'figaro',                          '~> 1.1', '>= 1.1.1'
 gem 'gravatar_image_tag',              '~> 1.2'
 gem 'rolify',                          '~> 5.2'
+gem 'pundit',                          '~> 1.1'
 
 # Add type-casting and other features on top of ActiveRecord::Store.store_accessor
 gem 'storext',                         '~> 2.2', '>= 2.2.2'

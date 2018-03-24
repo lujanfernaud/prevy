@@ -2,9 +2,12 @@ require 'test_helper'
 
 class EventsOrganizerTest < ActionDispatch::IntegrationTest
   test "user visits organizer" do
+    stranger  = users(:stranger)
     group     = groups(:one)
     event     = events(:one)
     organizer = event.organizer
+
+    log_in_as stranger
 
     visit group_event_path(group, event)
 

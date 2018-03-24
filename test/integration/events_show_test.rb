@@ -20,9 +20,10 @@ class EventsShowTest < ActionDispatch::IntegrationTest
   end
 
   test "user attends and cancels attendance" do
-    penny = users(:penny)
     group = groups(:one)
     event = events(:one)
+    penny = users(:penny)
+    penny.add_role :member, group
 
     log_in_as(penny)
     visit group_event_path(group, event)

@@ -6,6 +6,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "update with valid name" do
+    log_in_as @user
+
     visit edit_user_path(@user)
 
     fill_in  "Name", with: "Philip"
@@ -15,6 +17,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "update with valid email" do
+    log_in_as @user
+
     visit edit_user_path(@user)
 
     fill_in  "Email", with: "philip@sample.com"
@@ -24,6 +28,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "update with valid password" do
+    log_in_as @user
+
     visit edit_user_path(@user)
 
     fill_in  "Password",              with: "more secure password"
@@ -34,6 +40,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "update with invalid name" do
+    log_in_as @user
+
     visit edit_user_path(@user)
 
     fill_in  "Name", with: "Ph"
@@ -43,6 +51,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "update with invalid email" do
+    log_in_as @user
+
     visit edit_user_path(@user)
 
     fill_in  "Email", with: "philip@sample"
@@ -52,6 +62,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "update with invalid password" do
+    log_in_as @user
+
     visit edit_user_path(@user)
 
     fill_in  "Password",              with: "pass"
@@ -62,6 +74,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "update with empty location" do
+    log_in_as @user
+
     visit edit_user_path(@user)
 
     fill_in  "Location", with: ""
@@ -71,6 +85,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "update with invalid location" do
+    log_in_as @user
+
     visit edit_user_path(@user)
 
     fill_in  "Location", with: "A"

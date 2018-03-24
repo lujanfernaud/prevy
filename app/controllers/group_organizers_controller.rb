@@ -1,7 +1,9 @@
 class GroupOrganizersController < ApplicationController
   before_action :find_group
+  after_action  :verify_authorized
 
   def create
+    authorize :group_organizer
     @user = User.find(params[:user_id])
 
     AddGroupOrganizer.call(user: @user, group: @group)
@@ -10,6 +12,7 @@ class GroupOrganizersController < ApplicationController
   end
 
   def destroy
+    authorize :group_organizer
     @user = User.find(params[:id])
 
     DeleteGroupOrganizer.call(user: @user, group: @group)

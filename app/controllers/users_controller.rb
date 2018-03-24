@@ -2,17 +2,20 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update]
   before_action :set_event_if_coming_from_event, only: :show
   before_action :set_group_if_coming_from_group, only: :show
+  after_action  :verify_authorized
 
   def new
     @user = User.new
+    authorize @user
   end
 
   def create
     @user = User.new(user_params)
+    authorize @user
 
     if @user.save
-      flash[:success] = "Account created. Welcome!"
-      redirect_to user_path(@user)
+      flash[:success] = "Welcome! Please log in :)"
+      redirect_to login_path
     else
       render :new
     end
@@ -20,6 +23,7 @@ class UsersController < ApplicationController
 
   def show
     redirect_to root_url unless @user
+    authorize @user
 
     if @group || @event
       add_breadcrumbs
@@ -31,9 +35,12 @@ class UsersController < ApplicationController
   end
 
   def edit
+    authorize @user
   end
 
   def update
+    authorize @user
+
     if @user.update_attributes(user_params)
       flash[:success] = "Your details have been updated."
       redirect_to user_path(@user)

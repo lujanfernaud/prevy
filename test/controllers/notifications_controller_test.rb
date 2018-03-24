@@ -14,6 +14,8 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy notification" do
+    log_in_as @user
+
     assert_difference('Notification.count', -1) do
       delete user_notification_url(@user, @notification)
     end

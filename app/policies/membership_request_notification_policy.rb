@@ -1,0 +1,2 @@
+class MembershipRequestNotificationPolicy < NotificationPolicy
+end
