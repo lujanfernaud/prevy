@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :confirmable,
+         :recoverable, :rememberable, :trackable, :validatable
+
   rolify
 
   include Storext.model
@@ -8,8 +13,6 @@ class User < ApplicationRecord
     group_membership_emails   Boolean, default: true
     group_role_emails         Boolean, default: true
   end
-
-  has_secure_password
 
   has_many :owned_groups, class_name: "Group", foreign_key: "user_id"
   has_many :received_requests, through: :owned_groups
@@ -27,7 +30,7 @@ class User < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
-  validates :name,  presence: true, length: { in: 3..50 }
+  validates :name, presence: true, length: { in: 3..50 }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
@@ -35,7 +38,6 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
 
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-  validates :location, presence: true, length: { minimum: 2 }
 
   scope :recent, -> {
     order("created_at DESC").limit(5)

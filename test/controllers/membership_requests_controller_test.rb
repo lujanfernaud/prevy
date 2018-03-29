@@ -24,7 +24,7 @@ class MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     woodell   = users(:woodell)
     group_two = groups(:two)
 
-    log_in_as(woodell)
+    sign_in(woodell)
 
     assert_difference('MembershipRequest.count') do
       post group_membership_requests_url(group_two),
@@ -36,7 +36,7 @@ class MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy membership_request" do
-    log_in_as(@owner)
+    sign_in(@owner)
 
     assert_difference('MembershipRequest.count', -1) do
       delete group_membership_request_url(@group, @membership_request),
@@ -48,11 +48,6 @@ class MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
   end
 
   private
-
-    def log_in_as(user)
-      post login_url,
-        params: { session: { email: user.email, password: "password" } }
-    end
 
     def membership_requests_params
       { membership_request:

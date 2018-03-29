@@ -9,7 +9,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    log_in_as(@user)
+    sign_in(@user)
 
     get group_events_url(@group)
 
@@ -17,7 +17,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    log_in_as(@user)
+    sign_in(@user)
 
     get new_group_event_url(@group)
 
@@ -25,7 +25,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create event" do
-    log_in_as(@user)
+    sign_in(@user)
 
     assert_difference('Event.count') do
       post group_events_url(@group), params: event_params
@@ -35,7 +35,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show event" do
-    log_in_as(@user)
+    sign_in(@user)
 
     get group_event_url(@group, @event)
 
@@ -43,7 +43,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    log_in_as(@user)
+    sign_in(@user)
 
     get edit_group_event_url(@group, @event)
 
@@ -51,7 +51,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update event" do
-    log_in_as(@user)
+    sign_in(@user)
 
     patch group_event_url(@group, @event),
       params: { event: { image: sample_image } }
@@ -60,7 +60,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy event" do
-    log_in_as(@user)
+    sign_in(@user)
 
     assert_difference('Event.count', -1) do
       delete group_event_url(@group, @event)
@@ -70,11 +70,6 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   private
-
-    def log_in_as(user)
-      post login_url,
-        params: { session: { email: user.email, password: "password" } }
-    end
 
     def event_params
       { event:

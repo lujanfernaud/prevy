@@ -1,10 +1,38 @@
-<% provide :button_text, "Update" %>
-
 <div class="container">
   <div class="row justify-content-md-center">
     <div class="col-md-6 mt-4">
-      <h2 class="text-center mb-4 font-italic">Account settings</h2>
-      <%= render "form" %>
+      <%= render "user_settings_tabs", user: @user %>
+
+      <%= form_for @user do |f| %>
+        <%= render "error_messages", object: @user %>
+
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :location %>
+          <%= f.text_field :location, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :bio %>
+          <%= f.text_area :bio, rows:"6", class: "form-control" %>
+        </div>
+
+        <div class="form-group mt-4">
+          <div class="avatar-container border rounded text-center pt-3 pb-2">
+            <%= gravatar_image_tag @user.email, alt: @user.name,
+                class: "avatar__image" %>
+            <%= link_to "Change Gravatar", "https://en.gravatar.com/emails/",
+              target: "blank", class: "d-block mt-2" %>
+          </div>
+        </div>
+
+        <%= f.submit "Update",
+          class: "btn btn-primary btn-block btn-lg mt-4 mb-4" %>
+      <% end %>
     </div>
   </div>
 </div>

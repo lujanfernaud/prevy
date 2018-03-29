@@ -10,7 +10,7 @@ class GroupMembershipsControllerTest < ActionDispatch::IntegrationTest
     user  = users(:woodell)
     user.add_role :member, group
 
-    log_in_as(user)
+    sign_in(user)
 
     get group_members_url(group)
 
@@ -23,7 +23,7 @@ class GroupMembershipsControllerTest < ActionDispatch::IntegrationTest
     user  = users(:stranger)
     membership_request = MembershipRequest.new(group: group, user: user)
 
-    log_in_as(owner)
+    sign_in(owner)
 
     assert_difference('GroupMembership.count') do
       post group_members_url(
@@ -41,7 +41,7 @@ class GroupMembershipsControllerTest < ActionDispatch::IntegrationTest
     owner = group.owner
     user  = users(:penny)
 
-    log_in_as(owner)
+    sign_in(owner)
 
     assert_difference('GroupMembership.count', -1) do
       delete group_member_url(group, user.id),
@@ -53,11 +53,6 @@ class GroupMembershipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   private
-
-    def log_in_as(user)
-      post login_url,
-        params: { session: { email: user.email, password: "password" } }
-    end
 
     def group_membership_params
       { group_membership:

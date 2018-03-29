@@ -8,7 +8,7 @@ class MembershipRequestsController < ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
+    @user = current_user
     @membership_request = MembershipRequest.find(params[:id])
   end
 
@@ -18,7 +18,7 @@ class MembershipRequestsController < ApplicationController
   end
 
   def create
-    @user  = User.find(session[:user_id])
+    @user  = current_user
     @group = Group.find(params[:group_id])
     @membership_request = MembershipRequest.new(
       { user: @user, group: @group }.merge(membership_request_params))
@@ -38,7 +38,7 @@ class MembershipRequestsController < ApplicationController
     @membership_request = MembershipRequest.find(params[:id])
     @user  = @membership_request.user
     @group = @membership_request.group
-    @user_session = User.find(session[:user_id])
+    @user_session = current_user
 
     @membership_request.destroy
 

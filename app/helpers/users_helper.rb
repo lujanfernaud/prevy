@@ -6,11 +6,4 @@ module UsersHelper
       "Organized"
     end
   end
-
-  def edit_profile_link(user)
-    if user == current_user
-      "(#{link_to "Edit profile",
-          edit_user_path(user) + "#edit-profile" })".html_safe
-    end
-  end
 end

@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @user  = User.find(session[:user_id])
+    @user  = current_user
     @group = @user.owned_groups.new(group_params)
     authorize @group
 

@@ -1,26 +1,10 @@
 class UsersController < ApplicationController
-  before_action :find_user, only: [:show, :edit, :update]
+  before_action :find_user
   before_action :set_event_if_coming_from_event, only: :show
   before_action :set_group_if_coming_from_group, only: :show
   after_action  :verify_authorized
 
-  def new
-    @user = User.new
-    authorize @user
-  end
-
-  def create
-    @user = User.new(user_params)
-    authorize @user
-
-    if @user.save
-      flash[:success] = "Welcome! Please log in :)"
-      redirect_to login_path
-    else
-      render :new
-    end
-  end
-
+  # User profile
   def show
     redirect_to root_url unless @user
     authorize @user
@@ -34,10 +18,12 @@ class UsersController < ApplicationController
     @last_organized_events = @user.last_organized_events
   end
 
+  # Profile settings
   def edit
     authorize @user
   end
 
+  # Profile settings
   def update
     authorize @user
 
@@ -56,11 +42,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name, :email,
-                                   :password, :password_confirmation,
-                                   :location, :bio,
-                                   :membership_request_emails,
-                                   :group_membership_emails)
+      params.require(:user).permit(:name, :location, :bio)
     end
 
     def set_event_if_coming_from_event

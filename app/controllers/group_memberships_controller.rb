@@ -1,5 +1,4 @@
 class GroupMembershipsController < ApplicationController
-  before_action :find_logged_in_user, only: [:create, :destroy]
   before_action :find_group
   after_action  :verify_authorized
 
@@ -21,13 +20,13 @@ class GroupMembershipsController < ApplicationController
 
     destroy_membership_request_if_it_exists
 
-    if @logged_in_user == @user
+    if current_user == @user
       flash[:success] = "You are now a member of #{@group.name}!"
       redirect_to group_path(@group)
     else
       flash[:success] = "#{@user.name} was accepted as a member of #{@group.name}."
       notify_user_accepted
-      redirect_to user_membership_requests_path(@logged_in_user)
+      redirect_to user_membership_requests_path(current_user)
     end
   end
 
@@ -40,7 +39,7 @@ class GroupMembershipsController < ApplicationController
 
     @membership.destroy
 
-    if @logged_in_user == @user
+    if current_user == @user
       flash[:success] = "Your membership to '#{@group.name}' has been cancelled."
       redirect_to group_path(@group)
     else
@@ -54,10 +53,6 @@ class GroupMembershipsController < ApplicationController
 
     def find_group
       @group = Group.find(params[:group_id])
-    end
-
-    def find_logged_in_user
-      @logged_in_user = User.find(session[:user_id])
     end
 
     def destroy_membership_request_if_it_exists

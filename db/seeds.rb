@@ -47,6 +47,7 @@ IMAGE_PLACEHOLDER = "http://via.placeholder.com/730x411"
                email: Faker::Internet.email,
                password: "password",
                password_confirmation: "password",
+               confirmed_at: Time.zone.now - 1.day,
                location: Faker::Address.city,
                bio: Faker::BackToTheFuture.quote)
 

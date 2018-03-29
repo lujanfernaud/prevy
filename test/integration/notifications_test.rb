@@ -13,7 +13,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
   end
 
   test "user tries to visit other user's notifications" do
-    log_in_as @carolyn
+    log_in_as(@carolyn)
 
     visit user_notifications_path(@phil)
 
@@ -21,7 +21,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
   end
 
   test "group owner visits notifications and accepts request" do
-    log_in_as @phil
+    log_in_as(@phil)
 
     click_on "Notifications"
 
@@ -42,9 +42,9 @@ class NotificationsTest < ActionDispatch::IntegrationTest
       click_on "Accept"
     end
 
-    log_out_as @phil
+    log_out_as(@phil)
 
-    log_in_as @carolyn
+    log_in_as(@carolyn)
 
     click_on "Notifications"
 
@@ -60,7 +60,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
   end
 
   test "user without notifications visits notifications" do
-    log_in_as @stranger
+    log_in_as(@stranger)
 
     click_on "Notifications"
 
@@ -70,18 +70,18 @@ class NotificationsTest < ActionDispatch::IntegrationTest
   test "user doesn't receive membership request email notifications" do
     request_membership_as_unnotifiable
 
-    log_in_as @phil
+    log_in_as(@phil)
     ActionMailer::Base.deliveries.clear
 
-    visit user_membership_requests_url @phil
+    visit user_membership_requests_url(@phil)
 
     within last_membership_request do
       click_on "Decline"
     end
 
-    log_out_as @phil
+    log_out_as(@phil)
 
-    log_in_as @unnotifiable
+    log_in_as(@unnotifiable)
 
     assert_regular_notifications
     assert_equal 0, ActionMailer::Base.deliveries.size
@@ -90,18 +90,18 @@ class NotificationsTest < ActionDispatch::IntegrationTest
   test "user doesn't receive group membership email notifications" do
     request_membership_as_unnotifiable
 
-    log_in_as @phil
+    log_in_as(@phil)
     ActionMailer::Base.deliveries.clear
 
-    visit user_membership_requests_url @phil
+    visit user_membership_requests_url(@phil)
 
     within last_membership_request do
       click_on "Accept"
     end
 
-    log_out_as @phil
+    log_out_as(@phil)
 
-    log_in_as @unnotifiable
+    log_in_as(@unnotifiable)
 
     assert_regular_notifications
     assert_equal 0, ActionMailer::Base.deliveries.size
@@ -110,51 +110,83 @@ class NotificationsTest < ActionDispatch::IntegrationTest
   test "user doesn't receive group role email notifications" do
     @unnotifiable.add_role(:member, @nike_group)
 
-    log_in_as @phil
+    log_in_as(@phil)
     ActionMailer::Base.deliveries.clear
 
-    visit group_members_url @nike_group
+    visit group_members_url(@nike_group)
 
     within "#user-#{@unnotifiable.id}" do
       click_on "Add to organizers"
     end
 
-    log_out_as @phil
+    log_out_as(@phil)
 
-    log_in_as @unnotifiable
+    log_in_as(@unnotifiable)
 
     assert_regular_notifications
     assert_equal 0, ActionMailer::Base.deliveries.size
 
-    log_out_as @unnotifiable
+    log_out_as(@unnotifiable)
 
-    log_in_as @phil
+    log_in_as(@phil)
     ActionMailer::Base.deliveries.clear
 
-    visit group_members_url @nike_group
+    visit group_members_url(@nike_group)
 
     within "#user-#{@unnotifiable.id}" do
       click_on "Delete from organizers"
     end
 
-    log_out_as @phil
+    log_out_as(@phil)
 
-    log_in_as @unnotifiable
+    log_in_as(@unnotifiable)
 
     assert_regular_notifications
     assert_equal 0, ActionMailer::Base.deliveries.size
   end
 
   test "user marks all notifications as read" do
-    log_in_as @onitsuka
+    log_in_as(@onitsuka)
 
-    visit user_notifications_url @onitsuka
+    visit user_notifications_url(@onitsuka)
 
     click_on "Mark all as read"
 
     assert page.current_path == user_notifications_path(@onitsuka)
     assert page.has_content? "There are no notifications"
     refute page.has_link?    "Mark all as read"
+  end
+
+  test "active tab in notification settings is 'Notifications' tab" do
+    log_in_as(@onitsuka)
+
+    visit user_notification_settings_url(@onitsuka)
+
+    within ".nav-item-notifications" do
+      assert page.has_css? ".nav-link.active"
+    end
+  end
+
+  test "user modifies notification settings" do
+    log_in_as(@onitsuka)
+
+    visit user_notification_settings_url(@onitsuka)
+
+    assert page.has_checked_field? "user_membership_request_emails"
+    assert page.has_checked_field? "user_group_membership_emails"
+    assert page.has_checked_field? "user_group_role_emails"
+
+    uncheck "user_membership_request_emails"
+    uncheck "user_group_membership_emails"
+    uncheck "user_group_role_emails"
+
+    click_on "Update"
+
+    assert page.has_content? "updated"
+
+    assert page.has_no_checked_field? "user_membership_request_emails"
+    assert page.has_no_checked_field? "user_group_membership_emails"
+    assert page.has_no_checked_field? "user_group_role_emails"
   end
 
   private

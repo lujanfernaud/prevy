@@ -2,49 +2,32 @@ require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:phil)
-  end
-
-  test "should get new" do
-    get signup_url
-    assert_response :success
-  end
-
-  test "should create user" do
-    assert_difference('User.count') do
-      post signup_url, params: user_params
-    end
-
-    assert_redirected_to login_url
+    @phil  = users(:phil)
+    @penny = users(:penny)
   end
 
   test "should show user" do
-    log_in_as users(:penny)
+    sign_in(@penny)
 
-    get user_url(@user)
+    get user_url(@phil)
     assert_response :success
   end
 
   test "should get edit" do
-    log_in_as @user
+    sign_in(@phil)
 
-    get edit_user_url(@user)
+    get edit_user_url(@phil)
     assert_response :success
   end
 
   test "should update user" do
-    log_in_as @user
+    sign_in(@phil)
 
-    patch user_url(@user), params: user_params
-    assert_redirected_to user_url(@user)
+    patch user_url(@phil), params: user_params
+    assert_redirected_to user_url(@phil)
   end
 
   private
-
-    def log_in_as(user)
-      post login_url,
-        params: { session: { email: user.email, password: "password" } }
-    end
 
     def user_params
       { user:

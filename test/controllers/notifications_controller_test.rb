@@ -7,14 +7,28 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    log_in_as @user
+    sign_in(@user)
 
     get user_notifications_url(@user)
     assert_response :success
   end
 
+  test "should get edit notification settings" do
+    sign_in(@user)
+
+    get user_notification_settings_url(@user)
+    assert_response :success
+  end
+
+  test "should update notification settings" do
+    sign_in(@user)
+
+    put user_notification_settings_url(@user), params: notification_params
+    assert_response :success
+  end
+
   test "should destroy notification" do
-    log_in_as @user
+    sign_in(@user)
 
     assert_difference('Notification.count', -1) do
       delete user_notification_url(@user, @notification)
@@ -25,8 +39,13 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-    def log_in_as(user)
-      post login_url,
-        params: { session: { email: user.email, password: "password" } }
+    def notification_params
+      {
+        user: {
+          membership_request_emails: true,
+          group_membership_emails: true,
+          group_role_emails: true
+        }
+      }
     end
 end

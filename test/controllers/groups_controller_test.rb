@@ -12,14 +12,14 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    log_in_as(@user)
+    sign_in(@user)
 
     get new_group_url
     assert_response :success
   end
 
   test "should create group" do
-    log_in_as(@user)
+    sign_in(@user)
 
     assert_difference("Group.count") do
       post groups_url, params: { group: group_params }
@@ -34,21 +34,21 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    log_in_as(@user)
+    sign_in(@user)
 
     get edit_group_url(@group)
     assert_response :success
   end
 
   test "should update group" do
-    log_in_as(@user)
+    sign_in(@user)
 
     patch group_url(@group), params: { group: group_params }
     assert_redirected_to group_url(@group)
   end
 
   test "should destroy group" do
-    log_in_as(@user)
+    sign_in(@user)
 
     assert_difference("Group.count", -1) do
       delete group_url(@group, user_id: @user)
@@ -58,11 +58,6 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
   end
 
   private
-
-    def log_in_as(user)
-      post login_url,
-        params: { session: { email: user.email, password: "password" } }
-    end
 
     def upload_valid_image
       fixture_file_upload("test/fixtures/files/sample.jpeg", "image/jpeg")

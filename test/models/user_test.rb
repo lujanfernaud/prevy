@@ -49,18 +49,31 @@ class UserTest < ActiveSupport::TestCase
     refute user.valid?
   end
 
-  test "#past_attended_events" do
-    user = users(:phil)
-    past_attended_events = user.past_attended_events
+  test "#membership_request_emails?" do
+    phil  = users(:phil)
+    penny = users(:penny)
+    penny.membership_request_emails = false
 
-    assert past_attended_events.count, 3
+    assert phil.membership_request_emails?
+    refute penny.membership_request_emails?
   end
 
-  test "#upcoming_attended_events" do
-    user = users(:phil)
-    upcoming_attended_events = user.upcoming_attended_events
+  test "#group_membership_emails?" do
+    phil  = users(:phil)
+    penny = users(:penny)
+    penny.group_membership_emails = false
 
-    assert upcoming_attended_events.count, 3
+    assert phil.group_membership_emails?
+    refute penny.group_membership_emails?
+  end
+
+  test "#group_role_emails?" do
+    phil  = users(:phil)
+    penny = users(:penny)
+    penny.group_role_emails = false
+
+    assert phil.group_role_emails?
+    refute penny.group_role_emails?
   end
 
   test "#owned_groups" do
@@ -77,5 +90,37 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal penny.associated_groups, [groups(:one), groups(:four)]
     assert_equal phil.associated_groups,  [groups(:two)]
+  end
+
+  test "#received_requests" do
+    phil = users(:phil)
+
+    assert_equal phil.received_requests.count, 2
+  end
+
+  test "#sent_requests" do
+    onitsuka = users(:onitsuka)
+
+    assert_equal onitsuka.sent_requests.count, 1
+  end
+
+  test "#notifications" do
+    phil = users(:phil)
+
+    assert_equal phil.notifications.count, 3
+  end
+
+  test "#past_attended_events" do
+    user = users(:phil)
+    past_attended_events = user.past_attended_events
+
+    assert past_attended_events.count, 3
+  end
+
+  test "#upcoming_attended_events" do
+    user = users(:phil)
+    upcoming_attended_events = user.upcoming_attended_events
+
+    assert upcoming_attended_events.count, 3
   end
 end

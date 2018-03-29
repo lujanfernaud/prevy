@@ -15,7 +15,7 @@ class AttendancesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create attendance" do
-    log_in_as @user
+    sign_in(@user)
 
     assert_difference('Attendance.count') do
       post event_attendances_url(@event), params: attendance_params
@@ -25,7 +25,7 @@ class AttendancesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy attendance" do
-    log_in_as @user
+    sign_in(@user)
 
     assert_difference('Attendance.count', -1) do
       delete event_attendance_url(@event, @attendance)
@@ -35,11 +35,6 @@ class AttendancesControllerTest < ActionDispatch::IntegrationTest
   end
 
   private
-
-    def log_in_as(user)
-      post login_url,
-        params: { session: { email: user.email, password: "password" } }
-    end
 
     def attendance_params
       { attendance:

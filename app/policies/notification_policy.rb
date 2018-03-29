@@ -3,6 +3,10 @@ class NotificationPolicy < ApplicationPolicy
     user == params_user
   end
 
+  def update?
+    user == params_user
+  end
+
   def destroy?
     record.user == user
   end

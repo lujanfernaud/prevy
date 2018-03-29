@@ -9,6 +9,7 @@ require 'capybara/rails'
 require 'capybara/minitest'
 require 'capybara-screenshot/minitest'
 
+require 'minitest/fail_fast'
 require 'minitest/reporters'
 Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::DefaultReporter.new]
 
@@ -22,6 +23,8 @@ class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Minitest::Assertions
   include Capybara::Screenshot::MiniTestPlugin
+
+  include Devise::Test::IntegrationHelpers
 
   include ApplicationHelper
   include EventsHelper
@@ -53,7 +56,7 @@ class ActionDispatch::IntegrationTest
   end
 
   def log_in_as(user)
-    visit login_path
+    visit new_user_session_path
 
     fill_in "Email",    with: user.email
     fill_in "Password", with: "password"

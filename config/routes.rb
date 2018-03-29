@@ -1,25 +1,18 @@
 Rails.application.routes.draw do
-  root   "static_pages#home"
+  devise_for :users, controllers: { registrations: "user/registrations" }
 
-  get    "signup", to: "users#new"
-  post   "signup", to: "users#create"
-  get    "login",  to: "sessions#new"
-  post   "login",  to: "sessions#create"
-  delete "logout", to: "sessions#destroy"
+  root "static_pages#home"
 
-  resources :users do
-    get       "groups",             to: "user_memberships#index"
-    resources :membership_requests, only: [:index, :show]
-    resources :notifications,       only: [:index, :destroy]
+  resource :search, only: :show
+
+  resources :users, only: [:show, :edit, :update] do
+    get       "groups",                  to: "user_memberships#index"
+    resources :membership_requests,      only: [:index, :show]
+    resources :notifications,            only: [:index, :destroy]
+    get       "notification_settings",   to: "notifications#edit"
+    put       "notification_settings",   to: "notifications#update"
     post      "notification_cleaners",   to: "notification_cleaners#create"
     get       "notification_redirecter", to: "notification_redirecters#new"
-  end
-
-  resources :sessions, only: [:new, :create, :destroy]
-  resource  :search,   only: :show
-
-  resources :events do
-    resources :attendances
   end
 
   resources :groups do
@@ -30,5 +23,9 @@ Rails.application.routes.draw do
     resources :group_organizers, as: :organizers,
       only: [:create, :destroy]
     resources :events
+  end
+
+  resources :events do
+    resources :attendances
   end
 end

@@ -3,9 +3,10 @@
 phil:
   name: Phil
   email: phil@sample.com
-  password_digest: <%= BCrypt::Password.create("password") %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   location: Portland, Oregon
   bio: Business magnate and philanthropist.
+  confirmed_at: <%= Time.zone.now - 1.day %>
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
@@ -15,9 +16,10 @@ phil:
 penny:
   name: Penny
   email: penny@sample.com
-  password_digest: <%= BCrypt::Password.create("password") %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   location: Portland, Oregon
   bio: Philanthropist.
+  confirmed_at: <%= Time.zone.now - 1.day %>
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
@@ -27,9 +29,10 @@ penny:
 woodell:
   name: Woodell
   email: woodell@sample.com
-  password_digest: <%= BCrypt::Password.create("password") %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   location: Portland, Oregon
   bio: Chief Operating Officer.
+  confirmed_at: <%= Time.zone.now - 1.day %>
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
@@ -39,9 +42,10 @@ woodell:
 carolyn:
   name: Carolyn
   email: carolyn@hotmail.test
-  password_digest: <%= BCrypt::Password.create("password") %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   location: Portland, Oregon
   bio: Artist.
+  confirmed_at: <%= Time.zone.now - 1.day %>
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
@@ -51,9 +55,10 @@ carolyn:
 onitsuka:
   name: Mr. Onitsuka
   email: onitsuka@onitsuka.jp
-  password_digest: <%= BCrypt::Password.create("password") %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   location: Kobe
   bio: Onitsuka Tiger founder.
+  confirmed_at: <%= Time.zone.now - 1.day %>
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
@@ -63,9 +68,10 @@ onitsuka:
 stranger:
   name: Stranger
   email: somestranger@hotmail.test
-  password_digest: <%= BCrypt::Password.create("password") %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   location: Somewhere
   bio: It's a mistery.
+  confirmed_at: <%= Time.zone.now - 1.day %>
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
@@ -75,9 +81,10 @@ stranger:
 unnotifiable:
   name: Unnotifiable Stranger
   email: unnotifiable.stranger@hotmail.test
-  password_digest: <%= BCrypt::Password.create("password") %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   location: Somewhere
   bio: It's a mistery.
+  confirmed_at: <%= Time.zone.now - 1.day %>
   settings: {
     "membership_request_emails": false,
     "group_membership_emails": false,
@@ -88,8 +95,9 @@ unnotifiable:
 user_<%= n %>:
   name: User <%= n %>
   email: user<%= n %>@sample.com
-  password_digest: <%= BCrypt::Password.create("password") %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   location: Portland, Oregon
+  confirmed_at: <%= Time.zone.now - 1.day %>
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,

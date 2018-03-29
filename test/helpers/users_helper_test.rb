@@ -16,22 +16,4 @@ class UsersHelperTest < ActionView::TestCase
     assert_equal "Organized",
       organized_events_header(user_organized_events)
   end
-
-  test "user can edit it's own profile" do
-    user = users(:penny)
-
-    refute_nil edit_profile_link(user)
-  end
-
-  test "user can not edit other people's profiles" do
-    user = users(:phil)
-
-    assert_nil edit_profile_link(user)
-  end
-
-  private
-
-    def current_user
-      users(:penny)
-    end
 end
