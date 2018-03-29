@@ -16,7 +16,10 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     end
 
     assert current_path == root_path
-    assert page.has_content? "igned in successfully."
+
+    within ".navbar-nav" do
+      assert page.has_content? @user.name
+    end
   end
 
   test "login with invalid email" do
@@ -62,6 +65,9 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     click_on "Log out"
 
     assert current_path == root_path
-    assert page.has_content? "Log in"
+
+    within ".navbar-nav" do
+      assert page.has_content? "Log in"
+    end
   end
 end
