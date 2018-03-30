@@ -11,6 +11,7 @@ require 'capybara-screenshot/minitest'
 
 require 'minitest/autorun'
 require 'minitest/reporters'
+require 'sucker_punch/testing/inline'
 Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::DefaultReporter.new]
 
 Capybara::Webkit.configure do |config|
