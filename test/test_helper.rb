@@ -9,7 +9,7 @@ require 'capybara/rails'
 require 'capybara/minitest'
 require 'capybara-screenshot/minitest'
 
-require 'minitest/fail_fast'
+require 'minitest/autorun'
 require 'minitest/reporters'
 Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::DefaultReporter.new]
 
@@ -18,6 +18,7 @@ Capybara::Webkit.configure do |config|
   config.allow_url("api.mapbox.com")
   config.allow_url("api.tiles.mapbox.com")
 end
+
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL

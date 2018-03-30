@@ -19,6 +19,6 @@ class NewMembershipRequest
 
     return unless @owner.membership_request_emails?
 
-    NotificationMailer.new_membership_request(@user, @group).deliver_now
+    NewMembershipRequestJob.perform_async(@user, @group)
   end
 end

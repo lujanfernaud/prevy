@@ -31,6 +31,6 @@ class AddGroupOrganizer
 
       return unless @user.group_role_emails?
 
-      NotificationMailer.added_to_organizers(@user, @group).deliver_now
+      AddGroupOrganizerJob.perform_async(@user, @group)
     end
 end

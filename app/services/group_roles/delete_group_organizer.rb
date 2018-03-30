@@ -31,6 +31,6 @@ class DeleteGroupOrganizer
 
       return unless @user.group_role_emails?
 
-      NotificationMailer.deleted_from_organizers(@user, @group).deliver_now
+      DeleteGroupOrganizerJob.perform_async(@user, @group)
     end
 end
