@@ -4,7 +4,7 @@ class EventsShowTest < ActionDispatch::IntegrationTest
   test "user visits event" do
     penny     = users(:penny)
     group     = groups(:one)
-    event     = events(:one)
+    event     = EventDecorator.new(events(:one))
     attendees = event.attendees.count
 
     log_in_as(penny)

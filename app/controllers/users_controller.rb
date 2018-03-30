@@ -13,9 +13,9 @@ class UsersController < ApplicationController
       add_breadcrumbs
     end
 
-    @attended_events = @user.past_attended_events
-    @upcoming_events = @user.upcoming_attended_events
-    @last_organized_events = @user.last_organized_events
+    @attended_events = decorators_for(@user.past_attended_events)
+    @upcoming_events = decorators_for(@user.upcoming_attended_events)
+    @last_organized_events = decorators_for(@user.last_organized_events)
   end
 
   # Profile settings
@@ -91,5 +91,9 @@ class UsersController < ApplicationController
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb title, path
       add_breadcrumb @user.name
+    end
+
+    def decorators_for(events)
+      EventDecorator.collection(events)
     end
 end

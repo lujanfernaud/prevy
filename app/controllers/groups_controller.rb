@@ -25,9 +25,11 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group  = Group.find(params[:id])
-    @events = @group.events.upcoming.includes(:address).limit(9)
+    @group = Group.find(params[:id])
     authorize @group
+
+    upcoming = @group.events.upcoming.includes(:address).limit(9)
+    @events  = EventDecorator.collection(upcoming)
   end
 
   def edit

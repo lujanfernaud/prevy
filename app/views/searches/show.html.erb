@@ -4,7 +4,8 @@
   <div class="row">
     <div class="col-md-12 mt-4">
       <h2 class="text-center">
-        <%= @events.count %> <%= "event".pluralize(@events.count) %> found
+        <%= @events_found.count %>
+          <%= "event".pluralize(@events_found.count) %> found
       </h2>
       <div class="row">
         <%= render @events %>

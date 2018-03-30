@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  require "will_paginate/array"
   include ApplicationHelper
 
   before_action :find_event, only: [:show, :edit, :update]
@@ -7,13 +8,15 @@ class EventsController < ApplicationController
   def index
     if params[:group_id]
       @group  = Group.find(params[:group_id])
-      @events = @group.events.paginate(page: params[:page], per_page: 15)
+      @events = EventDecorator.collection(@group.events)
+                              .paginate(page: params[:page], per_page: 15)
 
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb "Events", group_events_path(@group)
     else
-      @events = Event.upcoming.includes(:address)
-                     .paginate(page: params[:page], per_page: 15)
+      upcoming = Event.upcoming.includes(:address)
+      @events  = EventDecorator.collection(upcoming)
+                               .paginate(page: params[:page], per_page: 15)
     end
   end
 
@@ -82,8 +85,9 @@ class EventsController < ApplicationController
   private
 
     def find_event
-      @event = Event.find(params[:id])
-      authorize @event
+      event = Event.find(params[:id])
+      authorize event
+      @event = EventDecorator.new(event)
     end
 
     def event_params
