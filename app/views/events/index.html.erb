@@ -3,15 +3,26 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12 mt-4">
+
       <div class="row">
-        <%= render @events %>
+        <% if !@events.empty? %>
+          <%= render @events %>
+        <% else %>
+          <h3 class="h5 text-center mt-4">
+            There are no upcoming events in your groups.
+          </h3>
+        <% end %>
       </div>
-      <div class="row">
-        <div class="mx-auto mt-2rem mb-2rem">
-          <%= will_paginate @events,
-            :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+
+      <% if @events %>
+        <div class="row">
+          <div class="mx-auto mt-2rem mb-2rem">
+            <%= will_paginate @events,
+              :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+          </div>
         </div>
-      </div>
+      <% end %>
+
     </div>
   </div>
 </div>

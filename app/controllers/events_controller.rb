@@ -13,10 +13,12 @@ class EventsController < ApplicationController
 
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb "Events", group_events_path(@group)
-    else
-      upcoming = Event.upcoming.includes(:address)
-      @events  = EventDecorator.collection(upcoming)
-                               .paginate(page: params[:page], per_page: 15)
+    end
+
+    if signed_in?
+      user    = User.find(current_user.id)
+      @events = EventDecorator.collection(user.events_from_groups)
+                              .paginate(page: params[:page], per_page: 15)
     end
   end
 

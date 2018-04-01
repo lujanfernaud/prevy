@@ -46,6 +46,17 @@ five:
   organizer: woodell
   group: public
 
+<% 11.times do |n| %>
+nike_event_<%= n %>:
+  title: Nike Test Event <%= n %>
+  description: <%= Faker::Lorem.paragraph %>
+  start_date: <%= Time.zone.now + 6.days %>
+  end_date: <%= Time.zone.now + 1.week %>
+  image: sample.jpeg
+  organizer: phil
+  group: one
+<% end %>
+
 <% 22.times do |n| %>
 event_<%= n %>:
   title: Test event <%= n %>

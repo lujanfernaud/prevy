@@ -52,6 +52,12 @@ class User < ApplicationRecord
          .references(:group_memberships)
   end
 
+  def events_from_groups
+    Event.where(group_id: groups.map(&:id))
+         .includes(:address)
+         .upcoming
+  end
+
   def total_membership_requests
     received_requests + sent_requests
   end

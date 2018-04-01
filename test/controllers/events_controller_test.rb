@@ -8,10 +8,18 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     @user.add_role :organizer, @group
   end
 
-  test "should get index" do
+  test "should get index for groups" do
     sign_in(@user)
 
     get group_events_url(@group)
+
+    assert_response :success
+  end
+
+  test "should get index for users" do
+    sign_in(@user)
+
+    get user_events_url(@group)
 
     assert_response :success
   end

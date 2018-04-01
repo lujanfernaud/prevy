@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resource :search, only: :show
 
   resources :users, only: [:show, :edit, :update] do
+    resources :events,                   only: :index
     get       "groups",                  to: "user_memberships#index"
     resources :membership_requests,      only: [:index, :show]
     resources :notifications,            only: [:index, :destroy]

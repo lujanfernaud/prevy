@@ -1,0 +1,30 @@
+<div class="container-fluid bg-light">
+  <div class="container upcoming-events-container">
+    <div class="row">
+      <div class="col-md-12 mt-4 mb-2rem">
+
+        <h2 class="text-center">Upcoming Events</h2>
+        <div class="row justify-content-center">
+          <% if !events.empty? %>
+            <%= render events %>
+          <% else %>
+            <h3 class="h5 text-center mt-4">
+              There are no upcoming events in your groups.
+            </h3>
+          <% end %>
+        </div>
+
+        <% if events_count > 6 %>
+          <div class="row">
+            <div class="col-auto mx-auto mt-2rem">
+              <%= link_to "See more upcoming events",
+                user_events_path(current_user),
+                class: "btn btn-primary btn-lg" %>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

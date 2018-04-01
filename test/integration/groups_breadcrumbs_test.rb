@@ -124,6 +124,8 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
   test "user visits event from group 'show' view" do
     log_in_as @phil
 
+    visit group_path @group
+
     click_on @event.title
 
     assert page.has_css? ".breadcrumb"

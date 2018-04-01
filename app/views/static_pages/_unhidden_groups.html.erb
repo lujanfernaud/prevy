@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="container unhidden-groups-container">
+    <div class="row">
+      <div class="col-md-12 mt-4">
+
+        <h2 class="text-center">Unhidden Groups</h2>
+        <div class="row">
+          <%= render groups %>
+        </div>
+
+        <div class="row">
+          <div class="col-auto mx-auto mt-2rem mb-2rem">
+            <%= link_to "See more unhidden groups", groups_path,
+              class: "btn btn-primary btn-lg" %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
