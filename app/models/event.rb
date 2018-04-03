@@ -47,6 +47,14 @@ class Event < ApplicationRecord
     address.longitude if address
   end
 
+  def very_short_description
+    TextShortener.call(text: description, characters: 85)
+  end
+
+  def short_description
+    TextShortener.call(text: description, characters: 200)
+  end
+
   private
 
     def no_past_date

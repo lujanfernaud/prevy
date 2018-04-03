@@ -1,23 +1,39 @@
-<div class="col-md-4 mt-2rem">
-  <div class="box event-box">
-    <div class="event-box-image card card-inverse text-center">
-      <%= image_tag event.image_url(:thumb), class: "img-fluid card-img-top" %>
-      <div class="card-img-overlay">
-        <h2 class="h4 card-title">
-        <%= link_to event.title, group_event_path(event.group, event),
-          class: "event-box-title" %>
-        </h2>
-      </div>
+<div class="container mt-2rem">
+  <div class="row box event-box">
+
+    <div class="event-box-image card card-inverse text-center col-md-4">
+      <%= link_to group_event_path(event.group, event) do %>
+        <%= image_tag event.image_url(:thumb),
+          class: "img-fluid card-img-top" %>
+      <% end %>
     </div>
-    <div class="event-box-text card-body">
-      <p class="event-box-date">
+
+    <div class="event-box-text card-body col-md-8 d-flex flex-column justify-content-between">
+      <h2 class="h4 event-box__event-title">
+        <%= link_to event.title, group_event_path(event.group, event),
+          class: "font-weight-bold" %>
+      </h2>
+      <p class="event-box__date">
         <% if event.start_date.year == Time.now.year %>
           <%= event.start_date.strftime("%A, %B %d") %>
         <% else %>
           <%= event.start_date.strftime("%A, %B %d, %Y") %>
         <% end %>
       </p>
-      <p class="mb-0"><%= event.short_address %></p>
+      <% if controller_name == "groups" %>
+        <p class="event-box__short-description mb-0">
+          <%= event.short_description %>
+        </p>
+      <% else %>
+        <p class="event-box__group mb-0">Group: <%= event.group.name %></p>
+        <p class="event-box__short-description mb-0">
+          <%= event.very_short_description %>
+        </p>
+      <% end %>
+      <p class="event-box__attending mb-2">
+        Attending: <%= event.attendees.count %>
+      </p>
     </div>
+
   </div>
 </div>

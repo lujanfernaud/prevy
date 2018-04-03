@@ -17,16 +17,75 @@ a.event-box-title:hover {
   color: #fff;
 }
 
-.event-box-text {
-  padding: 0.5rem;
-  border-top: 3px solid $indigo;
-  .event-box-date {
-    margin-bottom: 0;
-    font-size: 1rem;
-    font-style: italic;
+.event-box-image {
+  border-bottom: 3px solid $indigo;
+  padding-left: 0;
+  padding-right: 0;
+
+  @include media-breakpoint-up(md) {
+    padding-right: 15px;
   }
 }
 
+.card-img-overlay--event {
+  right: 15px;
+}
+
+.event-box-text {
+  padding: 1rem;
+
+  @include media-breakpoint-up(md) {
+    padding: 0.9rem 0.5rem;
+    border-bottom: 3px solid $indigo;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding: 1rem 0.5rem;
+  }
+
+  @include media-breakpoint-up(xl) {
+    padding: 0.5rem;
+  }
+}
+
+.event-box__date {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-style: italic;
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 0;
+  }
+}
+
+.event-box__event-title {
+  font-size: 1.3rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.4rem;
+  }
+
+  @include media-breakpoint-up(xl) {
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+  }
+}
+
+.event-box__short-description {
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    display: block;
+  }
+}
+
+.event-box__attending {
+  display: none;
+
+  @include media-breakpoint-up(xl) {
+    display: block;
+  }
+}
 
 // Show view
 
