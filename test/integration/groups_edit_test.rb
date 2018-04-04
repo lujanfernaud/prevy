@@ -12,6 +12,7 @@ class GroupsEditTest < ActionDispatch::IntegrationTest
     visit edit_group_path(group)
 
     fill_in "Name", with: "Test group"
+    fill_in "City", with: Faker::Address.city
     fill_in_description(Faker::Lorem.paragraph)
 
     attach_valid_image

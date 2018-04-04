@@ -65,7 +65,7 @@ class GroupsController < ApplicationController
     def group_params
       params.require(:group)
             .permit(
-              :name, :description, :image,
+              :name, :city, :description, :image,
               :private, :hidden, :all_members_can_create_events
             )
     end

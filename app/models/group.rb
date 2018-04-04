@@ -17,6 +17,7 @@ class Group < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   validates :name,        presence: true, length: { minimum: 3 }
+  validates :city,        presence: true, length: { minimum: 3 }
   validates :description, presence: true, length: { minimum: 70 }
   validates :image,       presence: true
 

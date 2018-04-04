@@ -5,6 +5,11 @@ class GroupTest < ActiveSupport::TestCase
     assert fake_group.valid?
   end
 
+  test "is invalid without city" do
+    group = fake_group(city: "")
+    refute group.valid?
+  end
+
   test "is invalid without name" do
     group = fake_group(name: "")
     refute group.valid?
@@ -66,6 +71,7 @@ class GroupTest < ActiveSupport::TestCase
       @fake_group ||= Group.new(
         owner:       params[:owner]       || users(:phil),
         name:        params[:name]        || "Test group",
+        city:        params[:city]        || Faker::Address.city,
         description: params[:description] || Faker::Lorem.paragraph,
         image:       params[:image]       || valid_image,
         private:     params[:private]     || true,

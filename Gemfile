@@ -41,7 +41,7 @@ gem 'mini_magick',                     '4.7.0'
 gem 'fog',                             '1.40.0'
 
 # Forms country select.
-gem 'country_select'
+gem 'country_select',                  '~> 3.1', '>= 3.1.1'
 
 # Geolocalization.
 gem 'geocoder',                        '~> 1.4', '>= 1.4.5'

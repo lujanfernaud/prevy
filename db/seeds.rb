@@ -43,13 +43,15 @@ IMAGE_PLACEHOLDER = "http://via.placeholder.com/730x411"
 27.times do |n|
   puts "Creating user #{n + 1} of 27"
 
-  User.create!(name: Faker::Internet.user_name.capitalize + "#{n}",
-               email: Faker::Internet.email,
-               password: "password",
+  user_name = Faker::Internet.user_name.capitalize + "#{n}"
+
+  User.create!(name:                  user_name,
+               email:                 Faker::Internet.email,
+               password:              "password",
                password_confirmation: "password",
-               confirmed_at: Time.zone.now - 1.day,
-               location: Faker::Address.city,
-               bio: Faker::BackToTheFuture.quote)
+               confirmed_at:          Time.zone.now - 1.day,
+               location:              Faker::Address.city,
+               bio:                   Faker::BackToTheFuture.quote)
 
 end
 
@@ -73,11 +75,12 @@ random_users(9).each_with_index do |user, index|
   puts "Creating unhidden group #{index + 1} of 9"
 
   user.owned_groups.create!(
-    name: Faker::Lorem.words(2).join(" "),
+    name:        Faker::Lorem.words(2).join(" "),
     description: Faker::Lorem.paragraph * 2,
-    image: File.new("test/fixtures/files/sample.jpeg"),
-    private: [true, false].sample,
-    hidden: false,
+    city:        Faker::Address.city,
+    image:       File.new("test/fixtures/files/sample.jpeg"),
+    private:     [true, false].sample,
+    hidden:      false,
     all_members_can_create_events: false
   )
 end
