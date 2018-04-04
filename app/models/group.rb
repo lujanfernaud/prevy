@@ -21,6 +21,11 @@ class Group < ApplicationRecord
   validates :description, presence: true, length: { minimum: 70 }
   validates :image,       presence: true
 
+  scope :search, -> (city, group_name) {
+    where("lower(city) LIKE :city AND lower(name) LIKE :name",
+      city: "%#{city.downcase}%", name: "%#{group_name.downcase}%")
+  }
+
   def organizers
     User.with_role(:organizer, self).reverse
   end

@@ -41,7 +41,7 @@ four:
   owner: woodell
 
 strangers_group:
-  name: Strangers Group
+  name: Stranger's Group
   city: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
@@ -59,3 +59,13 @@ public:
   hidden: false
   all_members_can_create_events: true
   owner: woodell
+
+kyoto_group:
+  name: Sakura
+  city: Kyoto
+  description: <%= Faker::Lorem.paragraph %>
+  image: sample.jpeg
+  private: true
+  hidden: false
+  all_members_can_create_events: true
+  owner: onitsuka

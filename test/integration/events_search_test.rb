@@ -1,70 +1,70 @@
 require 'test_helper'
 
-class EventsSearchTest < ActionDispatch::IntegrationTest
+class GroupsSearchTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:penny)
   end
 
-  test "user can search for an event using only the city" do
+  test "user can search for a group using only the city" do
+    log_in_as(@user)
+    visit root_path
+
+    fill_in "City", with: "Portland"
+    fill_in "Group", with: ""
+    click_on "Search"
+
+    assert page.has_content? "6 groups found"
+
+    fill_in "City", with: "Kyoto"
+    fill_in "Group", with: ""
+    click_on "Search"
+
+    assert page.has_content? "1 group found"
+  end
+
+  test "user can search for a group using only the group's name" do
+    log_in_as(@user)
+    visit root_path
+
+    fill_in "City", with: ""
+    fill_in "Group", with: "Nike"
+    click_on "Search"
+
+    assert page.has_content? "1 group found"
+
+    fill_in "City", with: ""
+    fill_in "Group", with: "Stranger's Group"
+    click_on "Search"
+
+    assert page.has_content? "1 group found"
+  end
+
+  test "user can search for a group using the city and group's name" do
     log_in_as(@user)
     visit root_path
 
     fill_in "City", with: "Kyoto"
-    fill_in "Event", with: ""
+    fill_in "Group", with: "Sakura"
     click_on "Search"
 
-    assert page.has_content? "2 events found"
-
-    fill_in "City", with: "Osaka"
-    fill_in "Event", with: ""
-    click_on "Search"
-
-    assert page.has_content? "22 events found"
+    assert page.has_content? "1 group found"
   end
 
-  test "user can search for an event using only the event's name" do
+  test "user can search for a group using a partial string" do
     log_in_as(@user)
     visit root_path
 
-    fill_in "City", with: ""
-    fill_in "Event", with: "Hatsumode"
+    fill_in "City", with: "Port"
+    fill_in "Group", with: "Gr"
     click_on "Search"
 
-    assert page.has_content? "1 event found"
+    assert page.has_content? "5 groups found"
 
-    fill_in "City", with: ""
-    fill_in "Event", with: "Test event"
+    fill_in "City", with: "Kyo"
+    fill_in "Group", with: ""
     click_on "Search"
 
-    assert page.has_content? "24 events found"
-  end
-
-  test "user can search for an event using the city and event's name" do
-    log_in_as(@user)
-    visit root_path
-
-    fill_in "City", with: "Tokyo"
-    fill_in "Event", with: "Test"
-    click_on "Search"
-
-    assert page.has_content? "1 event found"
-  end
-
-  test "user can search for an event using a partial string" do
-    log_in_as(@user)
-    visit root_path
-
-    fill_in "City", with: "Tok"
-    fill_in "Event", with: "Test"
-    click_on "Search"
-
-    assert page.has_content? "1 event found"
-
-    fill_in "City", with: "saka"
-    fill_in "Event", with: ""
-    click_on "Search"
-
-    assert page.has_content? "22 events found"
+    assert page.has_content? "1 group found"
   end
 
   test "user can search in a different case" do
@@ -72,15 +72,15 @@ class EventsSearchTest < ActionDispatch::IntegrationTest
     visit root_path
 
     fill_in "City", with: ""
-    fill_in "Event", with: "hatsumode"
+    fill_in "Group", with: "Sakura"
     click_on "Search"
 
-    assert page.has_content? "1 event found"
+    assert page.has_content? "1 group found"
 
     fill_in "City", with: ""
-    fill_in "Event", with: "HATSUMODE"
+    fill_in "Group", with: "Stranger"
     click_on "Search"
 
-    assert page.has_content? "1 event found"
+    assert page.has_content? "1 group found"
   end
 end

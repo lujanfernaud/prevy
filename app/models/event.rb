@@ -26,13 +26,6 @@ class Event < ApplicationRecord
     where("start_date > ?", Time.zone.now).order("start_date ASC")
   }
 
-  scope :search, -> (city, event) {
-    joins(:address).
-    where("lower(addresses.city) LIKE ?
-           AND lower(events.title) LIKE ?",
-           "%#{city.downcase}%", "%#{event.downcase}%")
-  }
-
   scope :three, -> {
     limit(3)
   }
