@@ -44,7 +44,7 @@ five:
   end_date: <%= Time.zone.now + 1.week %>
   image: sample.jpeg
   organizer: woodell
-  group: public
+  group: woodells_group
 
 <% 11.times do |n| %>
 nike_event_<%= n %>:
@@ -65,5 +65,5 @@ event_<%= n %>:
   end_date: <%= Time.zone.now + 1.week %>
   image: sample.jpeg
   organizer: phil
-  group: public
+  group: woodells_group
 <% end %>

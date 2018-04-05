@@ -44,7 +44,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_members
   end
 
-  test "logged in user visits private group" do
+  test "logged in user visits group" do
     user   = users(:stranger)
     @group = groups(:one)
     add_group_owner_to_organizers
@@ -63,25 +63,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     refute_members
   end
 
-  test "logged in user visits public group" do
-    @group = groups(:public)
-    add_group_owner_to_organizers
-    add_to_members(@penny)
-
-    log_in_as(@phil)
-
-    visit group_path(@group)
-
-    assert_group_info_and_image
-    assert_organizers
-    assert_members_preview_title
-    assert_membership "Join group"
-
-    assert_upcoming_events
-    refute_members
-  end
-
-  test "logged out user visits private group" do
+  test "logged out user visits group" do
     @group = groups(:one)
     add_group_owner_to_organizers
     add_to_members(@penny)
@@ -95,23 +77,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_membership "Log in to request membership"
 
     refute_upcoming_events
-    refute_members
-  end
-
-  test "logged out user visits public group" do
-    @group = groups(:public)
-    add_group_owner_to_organizers
-    add_to_members(@penny)
-
-    visit group_path(@group)
-
-    assert_group_info_and_image
-    assert_organizers
-    assert_members_preview_title
-    assert_members_count(1)
-    assert_membership "Log in to join group"
-
-    assert_upcoming_events
     refute_members
   end
 

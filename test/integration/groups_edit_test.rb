@@ -17,7 +17,6 @@ class GroupsEditTest < ActionDispatch::IntegrationTest
 
     attach_valid_image
 
-    choose "group_private_false"
     choose "group_hidden_false"
     choose "group_all_members_can_create_events_true"
 

@@ -5,7 +5,6 @@ one:
   city: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
-  private: true
   hidden: false
   all_members_can_create_events: true
   owner: phil
@@ -15,7 +14,6 @@ two:
   city: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
-  private: true
   hidden: false
   all_members_can_create_events: true
   owner: penny
@@ -25,7 +23,6 @@ three:
   city: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
-  private: true
   hidden: true
   all_members_can_create_events: true
   owner: penny
@@ -35,8 +32,16 @@ four:
   city: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
-  private: true
   hidden: true
+  all_members_can_create_events: true
+  owner: woodell
+
+woodells_group:
+  name: Woodell's Group
+  city: Portland, Oregon
+  description: <%= Faker::Lorem.paragraph %>
+  image: sample.jpeg
+  hidden: false
   all_members_can_create_events: true
   owner: woodell
 
@@ -45,27 +50,15 @@ strangers_group:
   city: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
-  private: true
   hidden: true
   all_members_can_create_events: true
   owner: stranger
-
-public:
-  name: Public Group
-  city: Portland, Oregon
-  description: <%= Faker::Lorem.paragraph %>
-  image: sample.jpeg
-  private: false
-  hidden: false
-  all_members_can_create_events: true
-  owner: woodell
 
 kyoto_group:
   name: Sakura
   city: Kyoto
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
-  private: true
   hidden: false
   all_members_can_create_events: true
   owner: onitsuka

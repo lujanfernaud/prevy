@@ -1,6 +1,6 @@
 class AttendancePolicy < ApplicationPolicy
   def create?
-    logged_in? && is_a_group_member || group_is_public
+    logged_in? && is_a_group_member
   end
 
   def destroy?
@@ -11,10 +11,6 @@ class AttendancePolicy < ApplicationPolicy
 
     def is_a_group_member
       user.has_role? :member, group
-    end
-
-    def group_is_public
-      !group.private?
     end
 
     def group

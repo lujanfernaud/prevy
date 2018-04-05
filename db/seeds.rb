@@ -79,7 +79,6 @@ random_users(9).each_with_index do |user, index|
     description: Faker::Lorem.paragraph * 2,
     city:        Faker::Address.city,
     image:       File.new("test/fixtures/files/sample.jpeg"),
-    private:     [true, false].sample,
     hidden:      false,
     all_members_can_create_events: false
   )

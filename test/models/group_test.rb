@@ -74,7 +74,6 @@ class GroupTest < ActiveSupport::TestCase
         city:        params[:city]        || Faker::Address.city,
         description: params[:description] || Faker::Lorem.paragraph,
         image:       params[:image]       || valid_image,
-        private:     params[:private]     || true,
         hidden:      params[:hidden]      || true,
         all_members_can_create_events:
           params[:all_members_can_create_events] || true

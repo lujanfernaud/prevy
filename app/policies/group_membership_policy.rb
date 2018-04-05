@@ -1,32 +1,20 @@
 class GroupMembershipPolicy < ApplicationPolicy
   def index?
-    logged_in? && is_a_group_member || group_is_public
+    logged_in? && is_a_group_member
   end
 
   def create?
-    if group.private?
-      logged_in? && group.owner
-    else
-      logged_in?
-    end
+    logged_in? && group.owner
   end
 
   def destroy?
-    if group.private?
-      logged_in? && group.owner
-    else
-      logged_in?
-    end
+    logged_in? && group.owner
   end
 
   private
 
     def is_a_group_member
       user.has_role?(:member, group) || user.has_role?(:organizer, group)
-    end
-
-    def group_is_public
-      !group.private?
     end
 
     def group

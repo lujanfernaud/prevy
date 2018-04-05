@@ -69,7 +69,6 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
         description: Faker::Lorem.paragraph,
         city:        Faker::Address.city,
         image:       upload_valid_image,
-        private:     true,
         hidden:      true,
         all_members_can_create_events: true
       }
