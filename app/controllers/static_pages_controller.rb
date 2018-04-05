@@ -7,6 +7,6 @@ class StaticPagesController < ApplicationController
       @events       = EventDecorator.collection(user_events.limit(6))
     end
 
-    @groups = Group.where(hidden: false).limit(6)
+    @groups = Group.where(hidden: false).random_selection
   end
 end

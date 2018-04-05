@@ -26,6 +26,13 @@ class Group < ApplicationRecord
       location: "%#{location.downcase}%", name: "%#{group_name.downcase}%")
   }
 
+  scope :random_selection, -> {
+    groups_number = 6
+    offset_number = rand(1..self.count - groups_number)
+
+    offset(offset_number).limit(groups_number)
+  }
+
   def organizers
     User.with_role(:organizer, self).reverse
   end
