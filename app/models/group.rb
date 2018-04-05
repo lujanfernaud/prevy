@@ -17,13 +17,13 @@ class Group < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   validates :name,        presence: true, length: { minimum: 3 }
-  validates :city,        presence: true, length: { minimum: 3 }
+  validates :location,    presence: true, length: { minimum: 3 }
   validates :description, presence: true, length: { minimum: 70 }
   validates :image,       presence: true
 
-  scope :search, -> (city, group_name) {
-    where("lower(city) LIKE :city AND lower(name) LIKE :name",
-      city: "%#{city.downcase}%", name: "%#{group_name.downcase}%")
+  scope :search, -> (location, group_name) {
+    where("lower(location) LIKE :location AND lower(name) LIKE :name",
+      location: "%#{location.downcase}%", name: "%#{group_name.downcase}%")
   }
 
   def organizers

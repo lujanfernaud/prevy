@@ -77,7 +77,7 @@ random_users(9).each_with_index do |user, index|
   user.owned_groups.create!(
     name:        Faker::Lorem.words(2).join(" "),
     description: Faker::Lorem.paragraph * 2,
-    city:        Faker::Address.city,
+    location:    Faker::Address.city,
     image:       File.new("test/fixtures/files/sample.jpeg"),
     hidden:      false,
     all_members_can_create_events: false

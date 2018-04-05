@@ -9,13 +9,13 @@ class GroupsSearchTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit root_path
 
-    fill_in "City", with: "Portland"
+    fill_in "Location", with: "Portland"
     fill_in "Group", with: ""
     click_on "Search"
 
     assert page.has_content? "6 groups found"
 
-    fill_in "City", with: "Kyoto"
+    fill_in "Location", with: "Kyoto"
     fill_in "Group", with: ""
     click_on "Search"
 
@@ -26,13 +26,13 @@ class GroupsSearchTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit root_path
 
-    fill_in "City", with: ""
+    fill_in "Location", with: ""
     fill_in "Group", with: "Nike"
     click_on "Search"
 
     assert page.has_content? "1 group found"
 
-    fill_in "City", with: ""
+    fill_in "Location", with: ""
     fill_in "Group", with: "Stranger's Group"
     click_on "Search"
 
@@ -43,7 +43,7 @@ class GroupsSearchTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit root_path
 
-    fill_in "City", with: "Kyoto"
+    fill_in "Location", with: "Kyoto"
     fill_in "Group", with: "Sakura"
     click_on "Search"
 
@@ -54,13 +54,13 @@ class GroupsSearchTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit root_path
 
-    fill_in "City", with: "Port"
+    fill_in "Location", with: "Port"
     fill_in "Group", with: "Gr"
     click_on "Search"
 
     assert page.has_content? "5 groups found"
 
-    fill_in "City", with: "Kyo"
+    fill_in "Location", with: "Kyo"
     fill_in "Group", with: ""
     click_on "Search"
 
@@ -71,13 +71,13 @@ class GroupsSearchTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit root_path
 
-    fill_in "City", with: ""
+    fill_in "Location", with: ""
     fill_in "Group", with: "Sakura"
     click_on "Search"
 
     assert page.has_content? "1 group found"
 
-    fill_in "City", with: ""
+    fill_in "Location", with: ""
     fill_in "Group", with: "Stranger"
     click_on "Search"
 

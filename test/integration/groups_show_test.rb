@@ -95,7 +95,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     def assert_group_info_and_image
       assert page.has_css?     ".group-image"
       assert page.has_content? @group.name
-      assert page.has_content? @group.city
+      assert page.has_content? @group.location
       assert page.has_content? @group.description
     end
 

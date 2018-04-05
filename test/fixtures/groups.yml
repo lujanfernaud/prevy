@@ -2,7 +2,7 @@
 
 one:
   name: Nike
-  city: Portland, Oregon
+  location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
   hidden: false
@@ -11,7 +11,7 @@ one:
 
 two:
   name: Private Group
-  city: Portland, Oregon
+  location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
   hidden: false
@@ -20,7 +20,7 @@ two:
 
 three:
   name: Private & Hidden Group
-  city: Portland, Oregon
+  location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
   hidden: true
@@ -29,7 +29,7 @@ three:
 
 four:
   name: Private & Hidden Group 2
-  city: Portland, Oregon
+  location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
   hidden: true
@@ -38,7 +38,7 @@ four:
 
 woodells_group:
   name: Woodell's Group
-  city: Portland, Oregon
+  location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
   hidden: false
@@ -47,7 +47,7 @@ woodells_group:
 
 strangers_group:
   name: Stranger's Group
-  city: Portland, Oregon
+  location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
   hidden: true
@@ -56,7 +56,7 @@ strangers_group:
 
 kyoto_group:
   name: Sakura
-  city: Kyoto
+  location: Kyoto
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
   hidden: false

@@ -5,8 +5,8 @@
         <%= form_tag search_path, method: :get,
           class: "form-inline search-form" do %>
           <div class="form-group search-group">
-            <%= label_tag :city, nil, class: "search-label" %>
-            <%= text_field_tag :city, params[:city],
+            <%= label_tag :location, nil, class: "search-label" %>
+            <%= text_field_tag :location, params[:location],
               class: "form-control search-input" %>
           </div>
 

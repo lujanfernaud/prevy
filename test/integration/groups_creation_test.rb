@@ -18,8 +18,8 @@ class GroupsCreationTest < ActionDispatch::IntegrationTest
       click_on "Create group"
     end
 
-    fill_in "Name", with: "Test group"
-    fill_in "City", with: Faker::Address.city
+    fill_in "Name",     with: "Test group"
+    fill_in "Location", with: Faker::Address.city
     fill_in_description(Faker::Lorem.paragraph)
 
     attach_valid_image

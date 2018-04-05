@@ -67,7 +67,7 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
       {
         name:        "Test group",
         description: Faker::Lorem.paragraph,
-        city:        Faker::Address.city,
+        location:    Faker::Address.city,
         image:       upload_valid_image,
         hidden:      true,
         all_members_can_create_events: true
