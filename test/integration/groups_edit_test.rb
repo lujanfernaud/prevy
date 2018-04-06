@@ -17,7 +17,7 @@ class GroupsEditTest < ActionDispatch::IntegrationTest
 
     attach_valid_image
 
-    choose "group_hidden_false"
+    choose "group_hidden_true"
     choose "group_all_members_can_create_events_true"
 
     click_on "Update group"
@@ -25,6 +25,8 @@ class GroupsEditTest < ActionDispatch::IntegrationTest
 
     visit edit_group_path(group)
 
+    assert page.has_checked_field? "group_hidden_true"
+    assert page.has_checked_field? "group_all_members_can_create_events_true"
     assert page.has_content? "Danger zone"
     assert page.has_link?    "Delete group"
 

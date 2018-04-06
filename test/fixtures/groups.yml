@@ -10,7 +10,7 @@ one:
   owner: phil
 
 two:
-  name: Private Group
+  name: Penny's Group
   location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
@@ -19,16 +19,16 @@ two:
   owner: penny
 
 three:
-  name: Private & Hidden Group
+  name: Penny's Hidden Group
   location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
   hidden: true
-  all_members_can_create_events: true
+  all_members_can_create_events: false
   owner: penny
 
 four:
-  name: Private & Hidden Group 2
+  name: Woodell's Hidden Group
   location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
@@ -51,14 +51,14 @@ strangers_group:
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
   hidden: true
-  all_members_can_create_events: true
+  all_members_can_create_events: false
   owner: stranger
 
-kyoto_group:
+kyoto:
   name: Sakura
   location: Kyoto
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
   hidden: false
-  all_members_can_create_events: true
+  all_members_can_create_events: false
   owner: onitsuka

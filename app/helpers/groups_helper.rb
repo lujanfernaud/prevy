@@ -34,4 +34,8 @@ module GroupsHelper
         class: "btn btn-primary btn-block btn-lg mt-3"
     end
   end
+
+  def checked_if_not_set(attribute)
+    attribute ? false : true
+  end
 end

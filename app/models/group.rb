@@ -1,6 +1,7 @@
 class Group < ApplicationRecord
   resourcify
   after_create :add_owner_as_organizer
+  after_update :update_members_role
 
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
 
@@ -45,5 +46,32 @@ class Group < ApplicationRecord
 
     def add_owner_as_organizer
       owner.add_role(:organizer, self)
+    end
+
+    def update_members_role
+      return unless saved_change_to_all_members_can_create_events?
+
+      if all_members_can_create_events
+        add_members_to_organizers
+      else
+        remove_members_from_organizers
+      end
+    end
+
+    def add_members_to_organizers
+      members.each do |member|
+        change_role_for member, remove_as: :member, add_as: :organizer
+      end
+    end
+
+    def remove_members_from_organizers
+      members.each do |member|
+        change_role_for member, remove_as: :organizer, add_as: :member
+      end
+    end
+
+    def change_role_for(member, remove_as:, add_as:)
+      member.remove_role remove_as, self
+      member.add_role add_as, self
     end
 end

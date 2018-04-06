@@ -71,7 +71,7 @@ class GroupTest < ActiveSupport::TestCase
       @fake_group ||= Group.new(
         owner:       params[:owner]       || users(:phil),
         name:        params[:name]        || "Test group",
-        location:    params[:location]        || Faker::Address.city,
+        location:    params[:location]    || Faker::Address.city,
         description: params[:description] || Faker::Lorem.paragraph,
         image:       params[:image]       || valid_image,
         hidden:      params[:hidden]      || true,

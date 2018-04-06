@@ -67,7 +67,7 @@ class GroupsController < ApplicationController
       params.require(:group)
             .permit(
               :name, :location, :description, :image,
-              :private, :hidden, :all_members_can_create_events
+              :hidden, :all_members_can_create_events
             )
     end
 end

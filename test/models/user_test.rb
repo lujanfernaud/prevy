@@ -89,7 +89,7 @@ class UserTest < ActiveSupport::TestCase
     phil  = users(:phil)
 
     assert_equal penny.associated_groups, [groups(:one), groups(:four)]
-    assert_equal phil.associated_groups,  [groups(:two)]
+    assert_equal phil.associated_groups,  [groups(:two), groups(:three)]
   end
 
   test "#received_requests" do

@@ -5,6 +5,49 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
     @phil  = users(:phil)
     @group = groups(:one)
     @woodell = users(:woodell)
+    @penny = users(:penny)
+    @pennys_group = groups(:three)
+  end
+
+  test "group owner allows all members to create events" do
+    add_members [@phil, @woodell], group: @pennys_group
+
+    refute_user_can_create_events @phil,    group: @pennys_group
+    refute_user_can_create_events @woodell, group: @pennys_group
+
+    log_in_as @penny
+
+    visit edit_group_path @pennys_group
+    set_all_members_can_create_events_to true
+
+    log_out_as @penny
+
+    assert_user_can_create_events @phil,    group: @pennys_group
+    assert_user_can_create_events @woodell, group: @pennys_group
+  end
+
+  test "group owner disallows all members to create events" do
+    add_members [@phil, @woodell], group: @pennys_group
+
+    log_in_as @penny
+
+    visit edit_group_path @pennys_group
+    set_all_members_can_create_events_to true
+
+    log_out_as @penny
+
+    assert_user_can_create_events @phil,    group: @pennys_group
+    assert_user_can_create_events @woodell, group: @pennys_group
+
+    log_in_as @penny
+
+    visit edit_group_path @pennys_group
+    set_all_members_can_create_events_to false
+
+    log_out_as @penny
+
+    refute_user_can_create_events @phil,    group: @pennys_group
+    refute_user_can_create_events @woodell, group: @pennys_group
   end
 
   test "group owner adds organizer" do
@@ -83,4 +126,35 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
 
     refute page.has_link? "Create event"
   end
+
+  private
+
+    def assert_user_can_create_events(user, group:)
+      log_in_as(user)
+      visit group_path(group)
+      assert page.has_link? "Create event"
+      log_out_as(user)
+    end
+
+    def refute_user_can_create_events(user, group:)
+      log_in_as(user)
+      visit group_path(group)
+      refute page.has_link? "Create event"
+      log_out_as(user)
+    end
+
+    def set_all_members_can_create_events_to(option)
+      attach_valid_image
+      choose "group_all_members_can_create_events_#{option}"
+      click_on "Update group"
+      assert page.has_content? "The group has been updated."
+    end
+
+    def attach_valid_image
+      attach_file "group_image", "test/fixtures/files/sample.jpeg"
+    end
+
+    def add_members(users, group:)
+      [users].flatten.each { |user| user.add_role :member, group }
+    end
 end

@@ -16,8 +16,7 @@ class GroupMembershipsController < ApplicationController
     @membership = GroupMembership.create(group: @group, user: @user)
     authorize @membership
 
-    @user.add_role :member, @group
-
+    add_role_to_user
     destroy_membership_request_if_it_exists
 
     if current_user == @user
@@ -53,6 +52,14 @@ class GroupMembershipsController < ApplicationController
 
     def find_group
       @group = Group.find(params[:group_id])
+    end
+
+    def add_role_to_user
+      if @group.all_members_can_create_events?
+        @user.add_role :organizer, @group
+      else
+        @user.add_role :member, @group
+      end
     end
 
     def destroy_membership_request_if_it_exists
