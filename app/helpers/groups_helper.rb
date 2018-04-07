@@ -30,7 +30,7 @@ module GroupsHelper
           class: "btn btn-primary btn-block btn-lg mt-3"
       end
     else
-      link_to "Log in to request membership", "#",
+      link_to "Log in to request membership", new_user_session_path,
         class: "btn btn-primary btn-block btn-lg mt-3"
     end
   end

@@ -2,7 +2,8 @@ require 'test_helper'
 
 class UserLoginTest < ActionDispatch::IntegrationTest
   def setup
-    @user = users(:phil)
+    @user  = users(:phil)
+    @group = groups(:strangers_group)
   end
 
   test "login with valid data" do
@@ -58,6 +59,16 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     assert page.has_content? "You are already signed in."
   end
 
+  test "user is redirected to the previous location after logging in" do
+    visit group_path(@group)
+
+    click_on "Log in to request membership"
+
+    introduce_log_in_information_as(@user)
+
+    assert current_path == group_path(@group)
+  end
+
   test "logout" do
     log_in_as(@user)
 
@@ -70,4 +81,15 @@ class UserLoginTest < ActionDispatch::IntegrationTest
       assert page.has_content? "Log in"
     end
   end
+
+  private
+
+    def introduce_log_in_information_as(user)
+      fill_in "Email",    with: user.email
+      fill_in "Password", with: "password"
+
+      within "form" do
+        click_on "Log in"
+      end
+    end
 end
