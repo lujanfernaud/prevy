@@ -6,4 +6,8 @@
   <%= render "promo" %>
 <% end %>
 
+<% if logged_in? %>
+  <%= render "user_groups", user_groups: @user_groups %>
+<% end %>
+
 <%= render "unhidden_groups", groups: @groups %>

@@ -2,8 +2,9 @@ require 'test_helper'
 
 class HomePageTest < ActionDispatch::IntegrationTest
   def setup
-    @phil = users(:phil)
+    @phil     = users(:phil)
     @onitsuka = users(:onitsuka)
+    @carolyn  = users(:carolyn)
   end
 
   test "logged out user visits home page" do
@@ -11,6 +12,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
 
     assert_promotional_section
     refute_upcoming_events
+    refute_user_groups
     assert_unhidden_groups
   end
 
@@ -20,9 +22,17 @@ class HomePageTest < ActionDispatch::IntegrationTest
     visit root_path
 
     refute_promotional_section
-    assert_upcoming_events
-    refute page.has_content? "There are no upcoming events"
-    assert page.has_link? "See more upcoming events"
+
+    assert_upcoming_events do
+      refute page.has_content? no_events
+      assert page.has_link?    more_events
+    end
+
+    assert_user_groups do
+      refute page.has_content? no_group_memberships
+      assert_groups_for(@phil)
+    end
+
     assert_unhidden_groups
   end
 
@@ -32,8 +42,36 @@ class HomePageTest < ActionDispatch::IntegrationTest
     visit root_path
 
     refute_promotional_section
-    assert_upcoming_events
-    assert page.has_content? "There are no upcoming events"
+
+    assert_upcoming_events do
+      assert page.has_content? no_events
+      refute page.has_link?    more_events
+    end
+
+    assert_user_groups do
+      refute page.has_content? no_group_memberships
+      assert_groups_for(@onitsuka)
+    end
+
+    assert_unhidden_groups
+  end
+
+  test "logged in user without groups visits home page" do
+    log_in_as(@carolyn)
+
+    visit root_path
+
+    refute_promotional_section
+
+    assert_upcoming_events do
+      assert page.has_content? no_events
+      refute page.has_link?    more_events
+    end
+
+    assert_user_groups do
+      assert page.has_content? no_group_memberships
+    end
+
     assert_unhidden_groups
   end
 
@@ -55,12 +93,47 @@ class HomePageTest < ActionDispatch::IntegrationTest
 
     def assert_upcoming_events
       assert page.has_css? ".upcoming-events-container"
-      assert page.has_content? "Upcoming Events"
+
+      within ".upcoming-events-container" do
+        assert page.has_content? "Upcoming Events"
+        yield if block_given?
+      end
     end
 
     def refute_upcoming_events
       refute page.has_css? ".upcoming-events-container"
       refute page.has_content? "Upcoming Events"
+    end
+
+    def no_events
+      "There are no upcoming events"
+    end
+
+    def more_events
+      "See more upcoming events"
+    end
+
+    def assert_user_groups
+      assert page.has_css? ".user-groups-container"
+
+      within ".user-groups-container" do
+        assert page.has_content? "Your Groups"
+        yield if block_given?
+        assert page.has_link? "Create a group"
+      end
+    end
+
+    def assert_groups_for(user)
+      user.groups { |group| assert page.has_link? group.name }
+    end
+
+    def refute_user_groups
+      refute page.has_css? ".user-groups-container"
+      refute page.has_content? "Your Groups"
+    end
+
+    def no_group_memberships
+      "You still don't have membership to any group."
     end
 
     def assert_unhidden_groups
