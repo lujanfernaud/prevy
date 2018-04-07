@@ -2,6 +2,8 @@
 
 <% if logged_in? %>
   <%= render "events", events: @events, events_count: @events_count %>
+<% else %>
+  <%= render "promo" %>
 <% end %>
 
 <%= render "unhidden_groups", groups: @groups %>
