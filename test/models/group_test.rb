@@ -79,8 +79,4 @@ class GroupTest < ActiveSupport::TestCase
           params[:all_members_can_create_events] || true
       )
     end
-
-    def valid_image
-      File.open(Rails.root.join("test/fixtures/files/sample.jpeg"))
-    end
 end

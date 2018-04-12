@@ -2,15 +2,13 @@ require 'test_helper'
 
 class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
   def setup
-    @group    = groups(:one)
-    @event    = @group.events.first
-    @phil     = users(:phil)
-    @penny    = users(:penny)
-    @woodell  = users(:woodell)
-    @stranger = users(:stranger)
+    @group = groups(:one)
+    @event = @group.events.first
+    @phil  = users(:phil)
+    @penny = users(:penny)
 
-    add_group_owner_to_organizers
-    add_to_members @penny
+    add_group_owner_to_organizers @group
+    add_members_to_group @group, @penny
   end
 
   test "user visits group organizer from group 'show' view" do
@@ -22,13 +20,9 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
       click_on @phil.name
     end
 
-    assert page.has_css? ".breadcrumb"
+    assert_organizer_and_members_breadcrumbs_for @group, @phil
 
     within ".breadcrumb" do
-      assert page.has_link? @group.name
-      assert page.has_link? "Organizers & Members"
-      assert page.has_content? @phil.name
-
       click_on @group.name
     end
 
@@ -54,13 +48,9 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
       click_on @penny.name
     end
 
-    assert page.has_css? ".breadcrumb"
+    assert_organizer_and_members_breadcrumbs_for @group, @penny
 
     within ".breadcrumb" do
-      assert page.has_link? @group.name
-      assert page.has_link? "Organizers & Members"
-      assert page.has_content? @penny.name
-
       click_on @group.name
     end
 
@@ -86,13 +76,9 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
       click_on @phil.name
     end
 
-    assert page.has_css? ".breadcrumb"
+    assert_organizer_and_members_breadcrumbs_for @group, @phil
 
     within ".breadcrumb" do
-      assert page.has_link? @group.name
-      assert page.has_link? "Organizers & Members"
-      assert page.has_content? @phil.name
-
       click_on "Organizers & Members"
     end
 
@@ -108,13 +94,9 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
       click_on @penny.name
     end
 
-    assert page.has_css? ".breadcrumb"
+    assert_organizer_and_members_breadcrumbs_for @group, @penny
 
     within ".breadcrumb" do
-      assert page.has_link? @group.name
-      assert page.has_link? "Organizers & Members"
-      assert page.has_content? @penny.name
-
       click_on "Organizers & Members"
     end
 
@@ -127,8 +109,6 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
     visit group_path @group
 
     click_on @event.title
-
-    assert page.has_css? ".breadcrumb"
 
     within ".breadcrumb" do
       assert page.has_link? @group.name
@@ -149,14 +129,12 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
       click_on @phil.name
     end
 
-    assert page.has_css? ".breadcrumb"
-
-    within ".breadcrumb" do
-      assert page.has_link? @group.name
-      assert page.has_link? @event.title
+    assert_event_breadcrumbs_for @group, @event do
       assert page.has_content? "Organizer"
       assert page.has_content? @phil.name
+    end
 
+    within ".breadcrumb" do
       click_on @event.title
     end
 
@@ -164,24 +142,23 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
   end
 
   test "user visits event attendee from event 'show' view" do
-    @event.attendees << @woodell
+    woodell = users(:woodell)
+    @event.attendees << woodell
 
     log_in_as @phil
 
     visit group_event_path @group, @event
 
     within ".attendees-preview" do
-      click_on @woodell.name
+      click_on woodell.name
     end
 
-    assert page.has_css? ".breadcrumb"
+    assert_event_breadcrumbs_for @group, @event do
+      assert page.has_content? "Attendees"
+      assert page.has_content? woodell.name
+    end
 
     within ".breadcrumb" do
-      assert page.has_link? @group.name
-      assert page.has_link? @event.title
-      assert page.has_content? "Attendees"
-      assert page.has_content? @woodell.name
-
       click_on @group.name
     end
 
@@ -189,24 +166,23 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
   end
 
   test "user visits event attendee from event attendees 'index' view" do
-    @event.attendees << @woodell
+    woodell = users(:woodell)
+    @event.attendees << woodell
 
     log_in_as @phil
 
     visit event_attendances_path @event
 
     within ".attendees" do
-      click_on @woodell.name
+      click_on woodell.name
     end
 
-    assert page.has_css? ".breadcrumb"
+    assert_event_breadcrumbs_for @group, @event do
+      assert page.has_content? "Attendees"
+      assert page.has_content? woodell.name
+    end
 
     within ".breadcrumb" do
-      assert page.has_link? @group.name
-      assert page.has_link? @event.title
-      assert page.has_content? "Attendees"
-      assert page.has_content? @woodell.name
-
       click_on @group.name
     end
 
@@ -215,13 +191,22 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
 
   private
 
-    # We need to do this because Rolify doesn't seem to work very well with
-    # fixtures for scoped roles.
-    def add_group_owner_to_organizers
-      @group.owner.add_role(:organizer, @group)
+    def assert_organizer_and_members_breadcrumbs_for(group, user)
+      within ".breadcrumb" do
+        assert page.has_link? group.name
+        assert page.has_link? "Organizers & Members"
+        assert page.has_content? user.name
+
+        yield if block_given?
+      end
     end
 
-    def add_to_members(*users)
-      users.each { |user| user.add_role(:member, @group) }
+    def assert_event_breadcrumbs_for(group, event)
+      within ".breadcrumb" do
+        assert page.has_link? group.name
+        assert page.has_link? event.title
+
+        yield if block_given?
+      end
     end
 end

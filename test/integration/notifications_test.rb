@@ -172,21 +172,15 @@ class NotificationsTest < ActionDispatch::IntegrationTest
 
     visit user_notification_settings_url(@onitsuka)
 
-    assert page.has_checked_field? "user_membership_request_emails"
-    assert page.has_checked_field? "user_group_membership_emails"
-    assert page.has_checked_field? "user_group_role_emails"
+    assert_checked_fields
 
-    uncheck "user_membership_request_emails"
-    uncheck "user_group_membership_emails"
-    uncheck "user_group_role_emails"
+    uncheck_fields
 
     click_on "Update"
 
     assert page.has_content? "updated"
 
-    assert page.has_no_checked_field? "user_membership_request_emails"
-    assert page.has_no_checked_field? "user_group_membership_emails"
-    assert page.has_no_checked_field? "user_group_role_emails"
+    assert_unchecked_fields
   end
 
   private
@@ -255,5 +249,31 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     def assert_regular_notifications
       click_on "Notifications"
       refute page.has_content? "There are no notifications"
+    end
+
+    def assert_checked_fields
+      checkbox_fields.each do |field|
+        assert page.has_checked_field? field
+      end
+    end
+
+    def uncheck_fields
+      checkbox_fields.each do |field|
+        uncheck field
+      end
+    end
+
+    def assert_unchecked_fields
+      checkbox_fields.each do |field|
+        assert page.has_no_checked_field? field
+      end
+    end
+
+    def checkbox_fields
+      [
+        "user_membership_request_emails",
+        "user_group_membership_emails",
+        "user_group_role_emails"
+      ]
     end
 end

@@ -11,6 +11,10 @@ require 'capybara-screenshot/minitest'
 
 require 'minitest/autorun'
 require 'minitest/reporters'
+
+require 'webmock/minitest'
+WebMock.disable_net_connect!(allow_localhost: true)
+
 require 'sucker_punch/testing/inline'
 Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::DefaultReporter.new]
 
@@ -19,7 +23,6 @@ Capybara::Webkit.configure do |config|
   config.allow_url("api.mapbox.com")
   config.allow_url("api.tiles.mapbox.com")
 end
-
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
@@ -85,8 +88,65 @@ class ActionDispatch::IntegrationTest
     select date.strftime("%H"),  from: "#{field}_4i" # Hour.
     select date.strftime("%M"),  from: "#{field}_5i" # Minutes.
   end
+
+  def fill_in_description(description)
+    find("trix-editor").click.set(description)
+  end
+
+  def attach_valid_image_for(field)
+    attach_file field, "test/fixtures/files/sample.jpeg"
+  end
+
+  def upload_valid_image
+    fixture_file_upload("test/fixtures/files/sample.jpeg", "image/jpeg")
+  end
+
+  # We need to do this because Rolify doesn't seem to work very well with
+  # fixtures for scoped roles.
+  def add_group_owner_to_organizers(group)
+    group.owner.add_role(:organizer, group)
+  end
+
+  def add_members_to_group(group, *users)
+    users.each { |user| user.add_role(:member, group) }
+  end
 end
 
 class ActiveSupport::TestCase
   fixtures :all
+
+  def stub_requests_to_googleapis
+    WebMock.stub_request(:get, /maps.googleapis.com/)
+           .to_return(status: 200, body: "", headers: {})
+  end
+
+  def fake_event(params = {})
+    Event.new(
+      group:       params[:group]       || groups(:two),
+      title:       params[:title]       || "Test event",
+      description: params[:description] || Faker::Lorem.paragraph,
+      website:     params[:website]     || "",
+      start_date:  params[:start_date]  || 6.days.from_now,
+      end_date:    params[:end_date]    || 1.week.from_now,
+      image:       params[:image]       || valid_image,
+      organizer:   params[:user]        || users(:phil),
+      address_attributes: address(params)
+    )
+  end
+
+  def address(params = {})
+    {
+      place_name: params[:place_name] || "Obento",
+      street1:    params[:street1]    || "Matsubara-dori, 8",
+      street2:    params[:street2]    || "",
+      city:       params[:city]       || "Kyoto",
+      state:      params[:state]      || "",
+      post_code:  params[:post_code]  || "6050856",
+      country:    params[:country]    || "Japan"
+    }
+  end
+
+  def valid_image
+    File.open(Rails.root.join("test/fixtures/files/sample.jpeg"))
+  end
 end

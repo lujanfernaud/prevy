@@ -22,7 +22,7 @@ class GroupsCreationTest < ActionDispatch::IntegrationTest
     fill_in "Location", with: Faker::Address.city
     fill_in_description(Faker::Lorem.paragraph)
 
-    attach_valid_image
+    attach_valid_image_for "group_image"
 
     choose "group_hidden_false"
     choose "group_all_members_can_create_events_false"
@@ -37,14 +37,4 @@ class GroupsCreationTest < ActionDispatch::IntegrationTest
       click_on user.name
     end
   end
-
-  private
-
-    def fill_in_description(description)
-      find("trix-editor").click.set(description)
-    end
-
-    def attach_valid_image
-      attach_file "group_image", "test/fixtures/files/sample.jpeg"
-    end
 end

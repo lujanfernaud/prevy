@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
+  def setup
+    stub_requests_to_googleapis
+  end
+
   test "is valid" do
     event = fake_event
     assert event.valid?
@@ -32,12 +36,12 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test "is invalid with a start date that has already passed" do
-    event = fake_event(start_date: Time.zone.now - 1.day)
+    event = fake_event(start_date: 1.day.ago)
     refute event.valid?
   end
 
   test "is invalid with an end date that has already passed" do
-    event = fake_event(end_date: Time.zone.now - 1.day)
+    event = fake_event(end_date: 1.day.ago)
     refute event.valid?
   end
 
@@ -86,36 +90,4 @@ class EventTest < ActiveSupport::TestCase
 
     assert_equal event.group, group
   end
-
-  private
-
-    def fake_event(params = {})
-      @fake_event ||= Event.new(
-        group:       groups(:two),
-        title:       params[:title]       || "Test event",
-        description: params[:description] || Faker::Lorem.paragraph,
-        website:     params[:website]     || "",
-        start_date:  params[:start_date]  || Time.zone.now + 6.days,
-        end_date:    params[:end_date]    || Time.zone.now + 1.week,
-        image:       params[:image]       || image,
-        organizer:   users(:phil),
-        address_attributes: address(params)
-      )
-    end
-
-    def image
-      File.open(Rails.root.join('test/fixtures/files/sample.jpeg'))
-    end
-
-    def address(params = {})
-      {
-        place_name: params[:place_name] || "Obento",
-        street1:    params[:street1]    || "Matsubara-dori, 8",
-        street2:    params[:street2]    || "",
-        city:       params[:city]       || "Kyoto",
-        state:      params[:state]      || "",
-        post_code:  params[:post_code]  || "6050856",
-        country:    params[:country]    || "Japan"
-      }
-    end
 end

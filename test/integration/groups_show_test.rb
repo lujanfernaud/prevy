@@ -6,75 +6,70 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     @penny    = users(:penny)
     @woodell  = users(:woodell)
     @onitsuka = users(:onitsuka)
+    @group    = groups(:one)
+
+    add_group_owner_to_organizers(@group)
   end
 
   test "group owner visits group" do
-    @group = groups(:one)
-    add_group_owner_to_organizers
-    add_to_members(@penny, @woodell)
+    add_members_to_group(@group, @penny, @woodell)
 
     log_in_as(@phil)
 
     visit group_path(@group)
 
-    assert_group_info_and_image
-    assert_organizers
-    assert_members_preview
+    assert_group_info_and_image(@group)
+    assert_organizers(@group)
+    assert_members_preview(@group)
     refute_membership
 
     assert_upcoming_events
-    assert_members
+    assert_members(@group)
   end
 
   test "group member visits group" do
-    @group = groups(:one)
-    add_group_owner_to_organizers
-    add_to_members(@penny, @woodell)
+    add_members_to_group(@group, @penny, @woodell)
 
     log_in_as(@penny)
 
     visit group_path(@group)
 
-    assert_group_info_and_image
-    assert_organizers
-    assert_members_preview
+    assert_group_info_and_image(@group)
+    assert_organizers(@group)
+    assert_members_preview(@group)
     refute_membership
 
     assert_upcoming_events
-    assert_members
+    assert_members(@group)
   end
 
   test "logged in user visits group" do
-    user   = users(:stranger)
-    @group = groups(:one)
-    add_group_owner_to_organizers
-    add_to_members(@penny)
+    stranger = users(:stranger)
+    add_members_to_group(@group, @penny)
 
-    log_in_as(user)
+    log_in_as(stranger)
 
     visit group_path(@group)
 
-    assert_group_info_and_image
-    assert_organizers
-    assert_members_preview_title
-    assert_membership "Request membership"
+    assert_group_info_and_image(@group)
+    assert_organizers(@group)
+    assert_members_preview_title(@group)
+    assert_membership_button "Request membership"
 
     refute_upcoming_events
     refute_members
   end
 
   test "logged out user visits group" do
-    @group = groups(:one)
-    add_group_owner_to_organizers
-    add_to_members(@penny)
+    add_members_to_group(@group, @penny)
 
     visit group_path(@group)
 
-    assert_group_info_and_image
-    assert_organizers
-    assert_members_preview_title
+    assert_group_info_and_image(@group)
+    assert_organizers(@group)
+    assert_members_preview_title(@group)
     assert_members_count(1)
-    assert_membership "Log in to request membership"
+    assert_membership_button "Log in to request membership"
 
     refute_upcoming_events
     refute_members
@@ -82,35 +77,25 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
   private
 
-    # We need to do this because Rolify doesn't seem to work very well with
-    # fixtures for scoped roles.
-    def add_group_owner_to_organizers
-      @group.owner.add_role(:organizer, @group)
-    end
-
-    def add_to_members(*users)
-      users.each { |user| user.add_role(:member, @group) }
-    end
-
-    def assert_group_info_and_image
+    def assert_group_info_and_image(group)
       assert page.has_css?     ".group-image"
-      assert page.has_content? @group.name
-      assert page.has_content? @group.location
-      assert page.has_content? @group.description
+      assert page.has_content? group.name
+      assert page.has_content? group.location
+      assert page.has_content? group.description
     end
 
-    def assert_organizers
+    def assert_organizers(group)
       assert page.has_content? "Organizer"
-      assert page.has_link?     @group.owner.name
+      assert page.has_link?    group.owner.name
     end
 
-    def assert_members_preview
-      assert_members_preview_title
-      assert_members_preview_shows_members
+    def assert_members_preview(group)
+      assert_members_preview_title(group)
+      assert_members_preview_shows_members(group)
     end
 
-    def assert_members_preview_title
-      count = @group.members_with_role.count
+    def assert_members_preview_title(group)
+      count = group.members_with_role.count
 
       within ".members-preview" do
         if count > 1
@@ -123,9 +108,9 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
       end
     end
 
-    def assert_members_preview_shows_members
+    def assert_members_preview_shows_members(group)
       within ".members-preview" do
-        last_members_names = @group.members_with_role.last(5).map(&:name)
+        last_members_names = group.members_with_role.last(5).map(&:name)
         last_members_names.each do |name|
           assert page.has_link? name
         end
@@ -138,8 +123,8 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
       end
     end
 
-    def assert_membership(button_text)
-      assert page.has_css? ".group-membership"
+    def assert_membership_button(button_text)
+      assert page.has_css?     ".group-membership"
       assert page.has_content? button_text
     end
 
@@ -157,10 +142,10 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
       refute page.has_css?     ".event-box"
     end
 
-    def assert_members
+    def assert_members(group)
       within ".members-container" do
         assert page.has_content? "Members"
-        last_members_names = @group.members.last(12).map(&:name)
+        last_members_names = group.members.last(12).map(&:name)
         last_members_names.each do |name|
           assert page.has_link? name
         end

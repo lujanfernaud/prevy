@@ -61,6 +61,7 @@ group :test do
   gem 'guard',                         '2.14.0'
   gem 'guard-minitest',                '2.4.6'
   gem 'minitest-reporters',            '1.1.14'
+  gem 'webmock',                       '~> 3.3'
   gem 'simplecov', :require => false
 end
 

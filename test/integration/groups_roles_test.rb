@@ -2,15 +2,15 @@ require 'test_helper'
 
 class GroupsRolesTest < ActionDispatch::IntegrationTest
   def setup
-    @phil  = users(:phil)
-    @group = groups(:one)
+    @phil    = users(:phil)
+    @group   = groups(:one)
     @woodell = users(:woodell)
-    @penny = users(:penny)
+    @penny   = users(:penny)
     @pennys_group = groups(:three)
   end
 
   test "group owner allows all members to create events" do
-    add_members [@phil, @woodell], group: @pennys_group
+    add_members_to_group(@pennys_group, @phil, @woodell)
 
     refute_user_can_create_events @phil,    group: @pennys_group
     refute_user_can_create_events @woodell, group: @pennys_group
@@ -27,7 +27,7 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
   end
 
   test "group owner disallows all members to create events" do
-    add_members [@phil, @woodell], group: @pennys_group
+    add_members_to_group(@pennys_group, @phil, @woodell)
 
     log_in_as @penny
 
@@ -144,17 +144,9 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
     end
 
     def set_all_members_can_create_events_to(option)
-      attach_valid_image
+      attach_valid_image_for "group_image"
       choose "group_all_members_can_create_events_#{option}"
       click_on "Update group"
       assert page.has_content? "The group has been updated."
-    end
-
-    def attach_valid_image
-      attach_file "group_image", "test/fixtures/files/sample.jpeg"
-    end
-
-    def add_members(users, group:)
-      [users].flatten.each { |user| user.add_role :member, group }
     end
 end

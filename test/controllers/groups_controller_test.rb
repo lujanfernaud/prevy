@@ -59,10 +59,6 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-    def upload_valid_image
-      fixture_file_upload("test/fixtures/files/sample.jpeg", "image/jpeg")
-    end
-
     def group_params
       {
         name:        "Test group",

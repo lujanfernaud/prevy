@@ -24,10 +24,10 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
       click_on "Create event"
     end
 
-    fill_in_valid_information
+    fill_in_valid_information(@event.description)
     fill_in_valid_address
     fill_in_valid_dates
-    attach_valid_image
+    attach_valid_image_for "event_image"
 
     click_on_create_event
     assert_valid
@@ -44,11 +44,11 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     end
 
     fill_in "Title", with: "T"
-    fill_in_description
+    fill_in_description(@event.description)
 
     fill_in_valid_address
     fill_in_valid_dates
-    attach_valid_image
+    attach_valid_image_for "event_image"
 
     click_on_create_event
     assert_invalid
@@ -67,7 +67,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
 
     fill_in_valid_address
     fill_in_valid_dates
-    attach_valid_image
+    attach_valid_image_for "event_image"
 
     click_on_create_event
     assert_invalid
@@ -81,7 +81,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
       click_on "Create event"
     end
 
-    fill_in_valid_information
+    fill_in_valid_information(@event.description)
 
     fill_in "Address 1", with: ""
     fill_in "Address 2", with: @event.street2
@@ -91,7 +91,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     select  "Spain",     from: "Country"
 
     fill_in_valid_dates
-    attach_valid_image
+    attach_valid_image_for "event_image"
 
     click_on_create_event
     assert_invalid
@@ -105,7 +105,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
       click_on "Create event"
     end
 
-    fill_in_valid_information
+    fill_in_valid_information(@event.description)
 
     fill_in "Address 1", with: @event.street1
     fill_in "Address 2", with: @event.street2
@@ -115,7 +115,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     select  "Spain",     from: "Country"
 
     fill_in_valid_dates
-    attach_valid_image
+    attach_valid_image_for "event_image"
 
     click_on_create_event
     assert_invalid
@@ -129,7 +129,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
       click_on "Create event"
     end
 
-    fill_in_valid_information
+    fill_in_valid_information(@event.description)
 
     fill_in "Address 1", with: @event.street1
     fill_in "Address 2", with: @event.street2
@@ -139,7 +139,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     select  "Spain",     from: "Country"
 
     fill_in_valid_dates
-    attach_valid_image
+    attach_valid_image_for "event_image"
 
     click_on_create_event
     assert_invalid
@@ -153,7 +153,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
       click_on "Create event"
     end
 
-    fill_in_valid_information
+    fill_in_valid_information(@event.description)
 
     fill_in "Address 1", with: @event.street1
     fill_in "Address 2", with: @event.street2
@@ -162,7 +162,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     select  "",          from: "Country"
 
     fill_in_valid_dates
-    attach_valid_image
+    attach_valid_image_for "event_image"
 
     click_on_create_event
     assert_invalid
@@ -176,13 +176,13 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
       click_on "Create event"
     end
 
-    fill_in_valid_information
+    fill_in_valid_information(@event.description)
     fill_in_valid_address
 
     select_date_and_time 1.week.ago,      from: "event_start_date"
     select_date_and_time @event.end_date, from: "event_end_date"
 
-    attach_valid_image
+    attach_valid_image_for "event_image"
 
     click_on_create_event
     assert_invalid
@@ -196,13 +196,13 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
       click_on "Create event"
     end
 
-    fill_in_valid_information
+    fill_in_valid_information(@event.description)
     fill_in_valid_address
 
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time 1.week.ago,        from: "event_end_date"
 
-    attach_valid_image
+    attach_valid_image_for "event_image"
 
     click_on_create_event
     assert_invalid
@@ -216,13 +216,13 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
       click_on "Create event"
     end
 
-    fill_in_valid_information
+    fill_in_valid_information(@event.description)
     fill_in_valid_address
 
     select_date_and_time nil,             from: "event_start_date"
     select_date_and_time @event.end_date, from: "event_end_date"
 
-    attach_valid_image
+    attach_valid_image_for "event_image"
 
     click_on_create_event
     assert_invalid
@@ -236,13 +236,13 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
       click_on "Create event"
     end
 
-    fill_in_valid_information
+    fill_in_valid_information(@event.description)
     fill_in_valid_address
 
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time nil,               from: "event_end_date"
 
-    attach_valid_image
+    attach_valid_image_for "event_image"
 
     click_on_create_event
     assert_invalid
@@ -256,7 +256,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
       click_on "Create event"
     end
 
-    fill_in_valid_information
+    fill_in_valid_information(@event.description)
     fill_in_valid_address
     fill_in_valid_dates
 
@@ -266,13 +266,9 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
 
   private
 
-    def fill_in_valid_information
+    def fill_in_valid_information(event_description)
       fill_in "Title", with: @event.title
-      fill_in_description
-    end
-
-    def fill_in_description(description = @event.description)
-      find("trix-editor").click.set(description)
+      fill_in_description(event_description)
     end
 
     def fill_in_valid_address
@@ -287,10 +283,6 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     def fill_in_valid_dates
       select_date_and_time @event.start_date, from: "event_start_date"
       select_date_and_time @event.end_date,   from: "event_end_date"
-    end
-
-    def attach_valid_image
-      attach_file "event_image", "test/fixtures/files/sample.jpeg"
     end
 
     def click_on_create_event

@@ -62,7 +62,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     sign_in(@user)
 
     patch group_event_url(@group, @event),
-      params: { event: { image: sample_image } }
+      params: { event: { image: upload_valid_image } }
 
     assert_redirected_to group_event_url(@group, @event)
   end
@@ -87,12 +87,8 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
           website: "www.event.com",
           start_date: Time.zone.now + 6.days,
           end_date: Time.zone.now + 1.week,
-          image: sample_image
+          image: upload_valid_image
         }
       }
-    end
-
-    def sample_image
-      fixture_file_upload("test/fixtures/files/sample.jpeg", "image/jpeg")
     end
 end

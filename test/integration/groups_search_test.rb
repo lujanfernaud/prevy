@@ -5,48 +5,36 @@ class GroupsSearchTest < ActionDispatch::IntegrationTest
     @user = users(:penny)
   end
 
-  test "user can search for a group using only the city" do
+  test "user can search for a group using only the location" do
     log_in_as(@user)
     visit root_path
 
-    fill_in "Location", with: "Portland"
-    fill_in "Group", with: ""
-    click_on "Search"
+    search_using_only_location "Portland"
+    assert page.has_content?   "6 groups found"
 
-    assert page.has_content? "6 groups found"
-
-    fill_in "Location", with: "Kyoto"
-    fill_in "Group", with: ""
-    click_on "Search"
-
-    assert page.has_content? "1 group found"
+    search_using_only_location "Kyoto"
+    assert page.has_content?   "1 group found"
   end
 
   test "user can search for a group using only the group's name" do
     log_in_as(@user)
     visit root_path
 
-    fill_in "Location", with: ""
-    fill_in "Group", with: "Nike"
-    click_on "Search"
-
+    search_using_only_group  "Nike"
     assert page.has_content? "1 group found"
 
-    fill_in "Location", with: ""
-    fill_in "Group", with: "Stranger's Group"
-    click_on "Search"
-
+    search_using_only_group  "Stranger's Group"
     assert page.has_content? "1 group found"
   end
 
-  test "user can search for a group using the city and group's name" do
+  test "user can search for a group using the location and group's name" do
     log_in_as(@user)
     visit root_path
 
-    fill_in "Location", with: "Kyoto"
-    fill_in "Group", with: "Sakura"
-    click_on "Search"
+    search location: "Kyoto", group: "Sakura"
+    assert page.has_content? "1 group found"
 
+    search location: "Portland", group: "Woodell's Group"
     assert page.has_content? "1 group found"
   end
 
@@ -54,16 +42,10 @@ class GroupsSearchTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit root_path
 
-    fill_in "Location", with: "Port"
-    fill_in "Group", with: "Gr"
-    click_on "Search"
-
+    search location: "Port", group: "Gr"
     assert page.has_content? "5 groups found"
 
-    fill_in "Location", with: "Kyo"
-    fill_in "Group", with: ""
-    click_on "Search"
-
+    search location: "Kyo", group: ""
     assert page.has_content? "1 group found"
   end
 
@@ -71,16 +53,26 @@ class GroupsSearchTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit root_path
 
-    fill_in "Location", with: ""
-    fill_in "Group", with: "Sakura"
-    click_on "Search"
-
+    search location: "", group: "sakura"
     assert page.has_content? "1 group found"
 
-    fill_in "Location", with: ""
-    fill_in "Group", with: "Stranger"
-    click_on "Search"
-
-    assert page.has_content? "1 group found"
+    search location: "portland", group: ""
+    assert page.has_content? "6 groups found"
   end
+
+  private
+
+    def search_using_only_location(location)
+      search location: location, group: ""
+    end
+
+    def search_using_only_group(group)
+      search location: "", group: group
+    end
+
+    def search(location:, group:)
+      fill_in "Location", with: location
+      fill_in "Group", with: group
+      click_on "Search"
+    end
 end
