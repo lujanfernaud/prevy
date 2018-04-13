@@ -1,19 +1,21 @@
 class GroupMembershipsController < ApplicationController
-  before_action :find_group
-  after_action  :verify_authorized
+  after_action :verify_authorized
 
   def index
-    add_breadcrumb @group.name, group_path(@group)
-    add_breadcrumb "Organizers & Members"
-
-    @organizers = @group.organizers
-    @members    = @group.members_with_role
     authorize GroupMembership
+
+    @group = find_group
+    @organizers = @group.organizers
+    @members = @group.members_with_role
+
+    add_breadcrumbs_for_index
   end
 
   def create
-    @user       = User.find(params[:user_id])
+    @group = find_group
+    @user  = User.find(params[:user_id])
     @membership = GroupMembership.create(group: @group, user: @user)
+
     authorize @membership
 
     add_role_to_user
@@ -23,15 +25,18 @@ class GroupMembershipsController < ApplicationController
       flash[:success] = "You are now a member of #{@group.name}!"
       redirect_to group_path(@group)
     else
-      flash[:success] = "#{@user.name} was accepted as a member of #{@group.name}."
+      flash[:success] = "#{@user.name} was accepted " \
+                        "as a member of #{@group.name}."
       notify_user_accepted
       redirect_to user_membership_requests_path(current_user)
     end
   end
 
   def destroy
-    @user       = User.find(params[:id])
+    @group = find_group
+    @user  = User.find(params[:id])
     @membership = GroupMembership.find_by(group: @group, user: @user)
+
     authorize @membership
 
     remove_all_user_roles_for_group
@@ -39,10 +44,12 @@ class GroupMembershipsController < ApplicationController
     @membership.destroy
 
     if current_user == @user
-      flash[:success] = "Your membership to '#{@group.name}' has been cancelled."
+      flash[:success] = "Your membership to '#{@group.name}' " \
+                        "has been cancelled."
       redirect_to group_path(@group)
     else
-      flash[:success] = "#{@user.name} was removed as a member of '#{@group.name}'."
+      flash[:success] = "#{@user.name} was removed " \
+                        "as a member of '#{@group.name}'."
       notify_user_deleted
       redirect_back fallback_location: root_path
     end
@@ -51,7 +58,12 @@ class GroupMembershipsController < ApplicationController
   private
 
     def find_group
-      @group = Group.find(params[:group_id])
+      Group.find(params[:group_id])
+    end
+
+    def add_breadcrumbs_for_index
+      add_breadcrumb @group.name, group_path(@group)
+      add_breadcrumb "Organizers & Members"
     end
 
     def add_role_to_user

@@ -1,30 +1,31 @@
 class UsersController < ApplicationController
-  before_action :find_user
   before_action :set_event_if_coming_from_event, only: :show
   before_action :set_group_if_coming_from_group, only: :show
   after_action  :verify_authorized
 
   # User profile
   def show
-    redirect_to root_url unless @user
+    @user = find_user
+    store_events
+
     authorize @user
 
-    if @group || @event
+    if coming_from_group_or_event
       add_breadcrumbs
     end
-
-    @attended_events = decorators_for(@user.past_attended_events)
-    @upcoming_events = decorators_for(@user.upcoming_attended_events)
-    @last_organized_events = decorators_for(@user.last_organized_events)
   end
 
   # Profile settings
   def edit
+    @user = find_user
+
     authorize @user
   end
 
   # Profile settings
   def update
+    @user = find_user
+
     authorize @user
 
     if @user.update_attributes(user_params)
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
   private
 
     def find_user
-      @user = User.find(params[:id])
+      User.find(params[:id])
     end
 
     def user_params
@@ -61,6 +62,10 @@ class UsersController < ApplicationController
       if @organizer_of || @member_of
         @group = Group.find(@organizer_of || @member_of)
       end
+    end
+
+    def coming_from_group_or_event
+      @group || @event
     end
 
     def add_breadcrumbs
@@ -91,6 +96,12 @@ class UsersController < ApplicationController
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb title, path
       add_breadcrumb @user.name
+    end
+
+    def store_events
+      @attended_events = decorators_for(@user.past_attended_events)
+      @upcoming_events = decorators_for(@user.upcoming_attended_events)
+      @last_organized_events = decorators_for(@user.last_organized_events)
     end
 
     def decorators_for(events)

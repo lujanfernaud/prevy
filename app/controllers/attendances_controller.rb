@@ -1,19 +1,21 @@
 class AttendancesController < ApplicationController
   include ApplicationHelper
 
-  before_action :add_root_breadcrumbs, only: :index
-  after_action  :verify_authorized, except: :index
+  after_action :verify_authorized, except: :index
 
   def index
-    add_breadcrumb "Attendees", event_attendances_path
-
+    @event = find_event
+    @group = @event.group
     @attendees = @event.attendees
+
+    add_breadcrumbs
   end
 
   def create
     @attendance = Attendance.new(attended_event_id: params[:event_id])
     @attendance.attendee_id = current_user.id
-    @event = Event.find(params[:event_id])
+    @event = find_event
+
     authorize @attendance
 
     if @attendance.save
@@ -27,8 +29,8 @@ class AttendancesController < ApplicationController
   end
 
   def destroy
-    @attendance = Attendance.find_by(attended_event_id: params[:event_id],
-                                     attendee_id: current_user.id)
+    @attendance = find_attendance
+    @event = find_event
 
     authorize @attendance
 
@@ -36,17 +38,23 @@ class AttendancesController < ApplicationController
 
     flash[:success] = "Your attendance to this event has been cancelled."
 
-    @event = Event.find(params[:event_id])
     redirect_to group_event_path(@event.group, @event)
   end
 
   private
 
-    def add_root_breadcrumbs
-      @event = Event.find(params[:event_id])
-      @group = @event.group
+    def find_attendance
+      Attendance.find_by(attended_event_id: params[:event_id],
+                         attendee_id: current_user.id)
+    end
 
+    def find_event
+      Event.find(params[:event_id])
+    end
+
+    def add_breadcrumbs
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb @event.title, group_event_path(@group, @event)
+      add_breadcrumb "Attendees", event_attendances_path
     end
 end

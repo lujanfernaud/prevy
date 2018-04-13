@@ -3,23 +3,22 @@ class MembershipRequestsController < ApplicationController
     @user   = params[:user_id]
     @groups = Group.where(owner: @user)
 
-    @membership_requests_received = MembershipRequest.where(group: @groups)
-    @membership_requests_sent     = MembershipRequest.where(user: @user)
+    store_membership_requests
   end
 
   def show
+    @membership_request = find_membership_request
     @user = current_user
-    @membership_request = MembershipRequest.find(params[:id])
   end
 
   def new
-    @group = Group.find(params[:group_id])
     @membership_request = MembershipRequest.new
+    @group = find_group
   end
 
   def create
     @user  = current_user
-    @group = Group.find(params[:group_id])
+    @group = find_group
     @membership_request = MembershipRequest.new(
       { user: @user, group: @group }.merge(membership_request_params))
 
@@ -35,7 +34,7 @@ class MembershipRequestsController < ApplicationController
   end
 
   def destroy
-    @membership_request = MembershipRequest.find(params[:id])
+    @membership_request = find_membership_request
     @user  = @membership_request.user
     @group = @membership_request.group
     @user_session = current_user
@@ -53,6 +52,19 @@ class MembershipRequestsController < ApplicationController
   end
 
   private
+
+    def store_membership_requests
+      @membership_requests_received = MembershipRequest.where(group: @groups)
+      @membership_requests_sent     = MembershipRequest.where(user: @user)
+    end
+
+    def find_membership_request
+      MembershipRequest.find(params[:id])
+    end
+
+    def find_group
+      Group.find(params[:group_id])
+    end
 
     def membership_request_params
       params.require(:membership_request).permit(:message)

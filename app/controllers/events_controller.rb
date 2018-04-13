@@ -2,37 +2,35 @@ class EventsController < ApplicationController
   require "will_paginate/array"
   include ApplicationHelper
 
-  before_action :find_event, only: [:show, :edit, :update]
-  after_action  :verify_authorized, except: [:index]
+  after_action :verify_authorized, except: :index
 
   def index
     if params[:group_id]
-      @group  = Group.find(params[:group_id])
-      @events = EventDecorator.collection(@group.events)
-                              .paginate(page: params[:page], per_page: 15)
+      @group  = find_group
+      @events = events_decorators_for @group.events
 
-      add_breadcrumb @group.name, group_path(@group)
-      add_breadcrumb "Events", group_events_path(@group)
+      add_breadcrumbs_for_index
     end
 
     if signed_in?
-      user    = User.find(current_user.id)
-      @events = EventDecorator.collection(user.events_from_groups)
-                              .paginate(page: params[:page], per_page: 15)
+      user    = User.find current_user.id
+      @events = events_decorators_for user.events_from_groups
     end
   end
 
   def new
-    @group = Group.find(params[:group_id])
+    @group = find_group
     @event = @group.events.build
     @event.build_address
+
     authorize @event
   end
 
   def create
-    @group = Group.find(params[:group_id])
-    @event = @group.events.build(event_params)
+    @group = find_group
+    @event = @group.events.build event_params
     @event.organizer = current_user
+
     authorize @event
 
     if @event.save
@@ -44,27 +42,26 @@ class EventsController < ApplicationController
   end
 
   def show
-    @group = Group.find(params[:group_id])
-
-    add_breadcrumb @group.name, group_path(@group)
-    add_breadcrumb @event.title
-
+    @group = find_group
+    @event = find_event
     @organizer = @event.organizer
     @attendees = @event.attendees.recent
+
+    add_breadcrumbs_for_show
   end
 
   def edit
-    @group = Group.find(params[:group_id])
+    @group = find_group
+    @event = find_event
 
-    add_breadcrumb @group.name, group_path(@group)
-    add_breadcrumb @event.title, group_event_path(@group, @event)
-    add_breadcrumb "Edit event"
+    add_breadcrumbs_for_edit
   end
 
   def update
-    @group = Group.find(params[:group_id])
+    @group = find_group
+    @event = find_event
 
-    if @event.update_attributes(event_params)
+    if @event.update_attributes event_params
       flash[:success] = "Event updated."
       redirect_to group_event_path(@group, @event)
     else
@@ -73,8 +70,9 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @group = Group.find(params[:group_id])
+    @group = find_group
     @event = current_user.organized_events.find_by(id: params[:id])
+
     authorize @event
 
     redirect_to root_url unless @event
@@ -89,7 +87,32 @@ class EventsController < ApplicationController
     def find_event
       event = Event.find(params[:id])
       authorize event
-      @event = EventDecorator.new(event)
+      EventDecorator.new(event)
+    end
+
+    def find_group
+      Group.find(params[:group_id])
+    end
+
+    def events_decorators_for(concern)
+      EventDecorator.collection(concern)
+                    .paginate(page: params[:page], per_page: 15)
+    end
+
+    def add_breadcrumbs_for_index
+      add_breadcrumb @group.name, group_path(@group)
+      add_breadcrumb "Events", group_events_path(@group)
+    end
+
+    def add_breadcrumbs_for_show
+      add_breadcrumb @group.name, group_path(@group)
+      add_breadcrumb @event.title
+    end
+
+    def add_breadcrumbs_for_edit
+      add_breadcrumb @group.name, group_path(@group)
+      add_breadcrumb @event.title, group_event_path(@group, @event)
+      add_breadcrumb "Edit event"
     end
 
     def event_params

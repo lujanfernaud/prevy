@@ -2,19 +2,19 @@ class GroupsController < ApplicationController
   after_action :verify_authorized, except: [:index]
 
   def index
-    @groups = Group.where(hidden: false)
-                   .order(created_at: :desc)
-                   .paginate(page: params[:page], per_page: 15)
+    @groups = store_unhidden_groups
   end
 
   def new
     @group = Group.new
+
     authorize @group
   end
 
   def create
     @user  = current_user
     @group = @user.owned_groups.new(group_params)
+
     authorize @group
 
     if @group.save
@@ -26,20 +26,21 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.find(params[:id])
-    authorize @group
+    @group  = find_group
+    @events = store_upcoming_events
 
-    upcoming = @group.events.upcoming.includes(:address).limit(9)
-    @events  = EventDecorator.collection(upcoming)
+    authorize @group
   end
 
   def edit
-    @group = Group.find(params[:id])
+    @group = find_group
+
     authorize @group
   end
 
   def update
-    @group = Group.find(params[:id])
+    @group = find_group
+
     authorize @group
 
     if @group.update_attributes(group_params)
@@ -51,8 +52,9 @@ class GroupsController < ApplicationController
   end
 
   def destroy
+    @group = find_group
     @user  = User.find(params[:user_id])
-    @group = Group.find(params[:id])
+
     authorize @group
 
     @group.destroy
@@ -62,6 +64,21 @@ class GroupsController < ApplicationController
   end
 
   private
+
+    def find_group
+      Group.find(params[:id])
+    end
+
+    def store_unhidden_groups
+      Group.where(hidden: false)
+           .order(created_at: :desc)
+           .paginate(page: params[:page], per_page: 15)
+    end
+
+    def store_upcoming_events
+      upcoming = @group.events.upcoming.includes(:address).limit(9)
+      EventDecorator.collection(upcoming)
+    end
 
     def group_params
       params.require(:group)
