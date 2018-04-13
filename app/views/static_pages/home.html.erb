@@ -1,7 +1,8 @@
 <%= render "searches/search_bar" %>
 
 <% if logged_in? %>
-  <%= render "events", events: @events, events_count: @events_count %>
+  <%= render "events",
+    events: @events, events_count: @events_count, user_groups: @user_groups %>
 <% else %>
   <%= render "promo" %>
 <% end %>

@@ -64,7 +64,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     refute_promotional_section
 
     assert_upcoming_events do
-      assert page.has_content? no_events
+      assert page.has_content? membership_needed_to_see_events
       refute page.has_link?    more_events
     end
 
@@ -107,6 +107,10 @@ class HomePageTest < ActionDispatch::IntegrationTest
 
     def no_events
       "There are no upcoming events"
+    end
+
+    def membership_needed_to_see_events
+      "You need to be a member of a group to see events here"
     end
 
     def more_events
