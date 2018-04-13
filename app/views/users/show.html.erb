@@ -18,12 +18,14 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12 mt-4">
-      <h3 class="h4 profile-heading">Location</h3>
-      <%= @user.location %>
+  <% if @user.location %>
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <h3 class="h4 profile-heading">Location</h3>
+        <%= @user.location %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <% if @user.bio %>
     <div class="row">
