@@ -90,7 +90,8 @@ a.event-box-title:hover {
 // Show view
 
 
-.event-box-big-text {
+.event-box-big-text,
+.group-box-big-text {
   padding: 1rem;
   border-top: 6px solid $indigo;
   .event-box-big-date {

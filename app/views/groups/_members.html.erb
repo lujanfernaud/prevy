@@ -1,0 +1,36 @@
+<div class="container-fluid bg-light">
+  <div class="container members-container pt-3 pb-5">
+
+    <div class="row mt-2">
+      <div class="col-md-12">
+
+        <h2 class="text-center">
+          <%= members_title_with_count %>
+        </h2>
+
+        <div class="row d-flex justify-content-center mt-2rem">
+          <% group.members_with_role.last(12).each do |member| %>
+            <div class="col-md-2 mt-2">
+              <div class="box member-box d-flex flex-column justify-content-center align-items-center pt-4 pb-3">
+                <div class="member-image">
+                  <%= link_to user_path(member, member_of: group) do %>
+                    <%= gravatar_image_tag member.email,
+                      gravatar: { size: 95 }, alt: member.name %>
+                  <% end %>
+                </div>
+                <div class="member-name mt-2">
+                  <%= link_to member.name,
+                    user_path(member, member_of: group) %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <%= see_all_members_link(group, quantity: 12) %>
+
+      </div>
+    </div>
+
+  </div>
+</div>
