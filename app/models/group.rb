@@ -28,7 +28,7 @@ class Group < ApplicationRecord
   }
 
   scope :random_selection, -> {
-    groups_number = 6
+    groups_number = 3
     offset_number = rand(1..self.count - groups_number)
 
     offset(offset_number).limit(groups_number)
