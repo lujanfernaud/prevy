@@ -116,7 +116,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     visit group_members_url(@nike_group)
 
     within "#user-#{@unnotifiable.id}" do
-      click_on "Add to organizers"
+      click_on "Organizer [ + ]"
     end
 
     log_out_as(@phil)
@@ -134,7 +134,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     visit group_members_url(@nike_group)
 
     within "#user-#{@unnotifiable.id}" do
-      click_on "Delete from organizers"
+      click_on "Organizer [ - ]"
     end
 
     log_out_as(@phil)

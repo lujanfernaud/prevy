@@ -1,56 +1,45 @@
 <div class="container-fluid bg-light">
   <div class="container">
+
     <%= render partial: "breadcrumbs" %>
 
     <div class="row">
       <div class="col-md-12 mt-2">
+
         <div class="row mb-2rem">
-
           <div class="col">
-            <div class="box">
-              <div class="event-box-big-text">
-                <h2 class="mb-3 font-italic">
-                  <%= @group.name %>
-                </h2>
 
-                <div class="organizers">
-                  <h3 class="h4 mb-3">
-                    <%= organizer_title %>
-                  </h3>
-                  <ul>
-                    <% @organizers.reverse.each_with_index do |organizer, i| %>
-                      <li id="user-<%= organizer.id %>">
-                        <%= i + 1 %>
-                        <%= link_to organizer.name,
-                          user_path(organizer, organizer_of: @group) %>
-                        <%= add_or_delete_organizer(organizer, @group) %>
-                      </li>
-                    <% end %>
-                  </ul>
-                </div>
-
-                <div class="members">
-                  <h3 class="h4 mb-3">
-                    <%= members_title_with_count %>
-                  </h3>
-                  <ul>
-                    <% @members.reverse.each_with_index do |member, i| %>
-                      <li id="user-<%= member.id %>">
-                        <%= i + 1 %>
-                        <%= link_to member.name,
-                          user_path(member, member_of: @group) %>
-                        <%= add_or_delete_organizer(member, @group) %>
-                      </li>
-                    <% end %>
-                  </ul>
-                </div>
-
-                <%= link_to "Go back to group", group_path(@group) %>
+            <div class="organizers mb-4">
+              <h2 class="mb-3">
+                <%= organizer_title %>
+              </h3>
+              <div class="row">
+                <% @organizers.reverse.each do |organizer| %>
+                  <%= render "groups/user", user: organizer, group: @group do %>
+                    <%= add_or_delete_organizer(organizer, @group) %>
+                  <% end %>
+                <% end %>
               </div>
             </div>
-          </div>
 
+            <div class="members mb-4">
+              <h2 class="mb-3">
+                <%= members_title_with_count %>
+              </h3>
+              <div class="row">
+                <% @members.reverse.each do |member| %>
+                  <%= render "groups/user", user: member, group: @group do %>
+                    <%= add_or_delete_organizer(member, @group) %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+
+            <%= link_to "Go back to group", group_path(@group) %>
+
+          </div>
         </div>
+
       </div>
     </div>
   </div>

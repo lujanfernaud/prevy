@@ -8,6 +8,7 @@ require 'rails/test_help'
 require 'capybara/rails'
 require 'capybara/minitest'
 require 'capybara-screenshot/minitest'
+Capybara.match = :prefer_exact
 
 require 'minitest/autorun'
 require 'minitest/reporters'

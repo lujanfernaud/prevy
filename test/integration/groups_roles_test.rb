@@ -61,7 +61,7 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
     assert_equal 1, @group.organizers.count
 
     within "#user-#{@woodell.id}" do
-      click_on "Add to organizers"
+      click_on "Organizer [ + ]"
     end
 
     assert_equal 2, @group.organizers.count
@@ -91,7 +91,7 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
     assert_equal 2, @group.organizers.count
 
     within "#user-#{@woodell.id}" do
-      click_on "Delete from organizers"
+      click_on "Organizer [ - ]"
     end
 
     assert_equal 1, @group.organizers.count
