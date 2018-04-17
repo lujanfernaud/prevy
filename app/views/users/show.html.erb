@@ -1,52 +1,60 @@
-<div class="container">
-  <% if @group || @event %>
-    <%= render partial: "breadcrumbs" %>
-  <% end %>
+<div class="container-fluid bg-light">
+  <div class="container pb-4">
+      <% if @group || @event %>
+        <%= render partial: "breadcrumbs" %>
+      <% end %>
 
-  <div class="row mb-2">
-    <div class="col-md-12">
-      <h2 class="mt-1 mb-4 d-inline-block font-italic">
-        <%= @user.name %>
-      </h2>
-      <% if @user == current_user %>
-        <div class="edit-profile-link d-inline-block ml-1">
-          <%= link_to "Edit profile", edit_user_path(@user) %>
+    <div class="box p-4">
+
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <h2 class="mb-4 d-inline-block font-italic">
+            <%= @user.name %>
+          </h2>
+          <% if @user == current_user %>
+            <div class="edit-profile-link d-inline-block ml-1">
+              <%= link_to "Edit profile", edit_user_path(@user) %>
+            </div>
+          <% end %>
+          <%= gravatar_image_tag @user.email, alt: @user.name,
+            class: "avatar__image d-block" %>
+        </div>
+      </div>
+
+      <% if @user.location %>
+        <div class="row">
+          <div class="col-md-12 mt-4">
+            <h3 class="h4 profile-heading">Location</h3>
+            <%= @user.location %>
+          </div>
         </div>
       <% end %>
-      <%= gravatar_image_tag @user.email, alt: @user.name,
-        class: "avatar__image d-block" %>
-    </div>
-  </div>
 
-  <% if @user.location %>
-    <div class="row">
-      <div class="col-md-12 mt-4">
-        <h3 class="h4 profile-heading">Location</h3>
-        <%= @user.location %>
-      </div>
-    </div>
-  <% end %>
-
-  <% if @user.bio %>
-    <div class="row">
-      <div class="col-md-12 mt-4">
-        <h3 class="h4 profile-heading">Bio</h3>
-        <%= @user.bio %>
-      </div>
-    </div>
-  <% end %>
-
-  <% unless @last_organized_events.empty? %>
-    <div class="row">
-      <div class="col-md-12 mt-4">
-        <h3 class="h4 profile-heading organized-events-heading">
-          <%= organized_events_header(@user.organized_events) %>
-        </h3>
-        <div class="row mb-4">
-          <%= render @last_organized_events %>
+      <% if @user.bio %>
+        <div class="row">
+          <div class="col-md-12 mt-4">
+            <h3 class="h4 profile-heading">Bio</h3>
+            <%= @user.bio %>
+          </div>
         </div>
-      </div>
-    </div>
-  <% end %>
+      <% end %>
 
+      <% unless @last_organized_events.empty? %>
+        <div class="row">
+          <div class="col-md-12 mt-4">
+            <h3 class="h4 profile-heading organized-events-heading">
+              <%= organized_events_header(@user.organized_events) %>
+            </h3>
+            <div class="row">
+              <div class="col-md-12">
+                <%= render @last_organized_events %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+
+  </div>
 </div>
