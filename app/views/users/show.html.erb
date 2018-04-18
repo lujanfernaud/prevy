@@ -1,8 +1,11 @@
 <div class="container-fluid bg-light">
   <div class="container pb-4">
-      <% if @group || @event %>
-        <%= render partial: "breadcrumbs" %>
-      <% end %>
+
+    <% if @group || @event %>
+      <%= render partial: "breadcrumbs" %>
+    <% else %>
+      <div class="mt-4"></div>
+    <% end %>
 
     <div class="box p-4">
 
