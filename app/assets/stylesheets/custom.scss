@@ -31,6 +31,14 @@ $shadow: #989999;
 // Body & General
 
 
+body {
+  min-height: 100vh;
+}
+
+.main-container {
+  flex: 1;
+}
+
 .bg-light {
   background-color: $light-background !important;
 }
@@ -271,6 +279,42 @@ $shadow: #989999;
 }
 
 
+// Footer
+
+
+.footer {
+  min-height: 400px;
+}
+
+.container-footer {
+  padding: 4rem;
+}
+
+.footer__hr {
+  width: 50%;
+
+  @include media-breakpoint-up(md) {
+    width: 40%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    width: 30%;
+  }
+}
+
+.footer-nav {
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    width: 40%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    width: 30%;
+  }
+}
+
+
 // Trix Editor Specific
 
 
@@ -318,4 +362,17 @@ small {
   position: absolute;
   text-align: left;
   color: $white;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid darken(#dee2e6, 20%);
+}
+
+.nav-link.active {
+  background-color: unset !important;
+  border-color: darken(#dee2e6, 15%) darken(#dee2e6, 15%) $light-background !important;
+}
+
+.nav-link:hover {
+  border-color: darken(#dee2e6, 15%) darken(#dee2e6, 15%) $light-background !important;
 }

@@ -1,0 +1,30 @@
+<footer class="container-fluid footer bg-dark text-light
+  d-flex flex-column justify-content-center align-items-center">
+
+  <div class="container container-footer
+    d-flex flex-column justify-content-center align-items-center">
+
+    <h2 class="text-center">PRIVATE EVENTS</h2>
+
+    <% unless signed_in? %>
+      <hr class="footer__hr bg-light mb-4">
+
+      <nav class="footer-nav row">
+        <div class="col-md-12 d-flex justify-content-center">
+          <ul class="list-unstyled text-center">
+            <li>
+              <%= link_to "Sign Up", new_user_registration_path,
+                class: "text-light" %>
+            </li>
+            <li class="mt-1">
+              <%= link_to "Login", new_user_session_path,
+                class: "text-light" %>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <% end %>
+
+  </div>
+
+</footer>

@@ -8,7 +8,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column bg-light">
     <%= render "header" %>
 
     <% flash.each do |message_type, message| %>
@@ -16,6 +16,10 @@
         class: "alert alert-#{message_type} text-center" %>
     <% end %>
 
-    <%= yield %>
+    <main class="main-container">
+      <%= yield %>
+    </main>
+
+    <%= render "footer" %>
   </body>
 </html>
