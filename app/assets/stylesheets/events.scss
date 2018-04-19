@@ -29,6 +29,7 @@ a.event-box-title:hover {
 
 .card-img-overlay--event {
   right: 15px;
+  border-bottom: 3px solid #6610f2;
 }
 
 .event-box-text {
@@ -36,7 +37,6 @@ a.event-box-title:hover {
 
   @include media-breakpoint-up(md) {
     padding: 0.9rem 0.5rem;
-    border-bottom: 3px solid $indigo;
   }
 
   @include media-breakpoint-up(lg) {
@@ -45,6 +45,12 @@ a.event-box-title:hover {
 
   @include media-breakpoint-up(xl) {
     padding: 0.5rem;
+  }
+}
+
+.event-box-text--accented {
+  @include media-breakpoint-up(md) {
+    border-bottom: 3px solid $indigo;
   }
 }
 
