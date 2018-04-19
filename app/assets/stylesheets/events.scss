@@ -112,6 +112,11 @@ a.event-box-title:hover {
   border-top: 1px solid #989999;
 }
 
+.event-box-big__img {
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+}
+
 
 // Forms
 
