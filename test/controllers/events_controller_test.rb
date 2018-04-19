@@ -39,6 +39,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
       post group_events_url(@group), params: event_params
     end
 
+    assert_equal sent_to_emails, members_emails
     assert_redirected_to group_event_url(@group, Event.last)
   end
 
@@ -90,5 +91,13 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
           image: upload_valid_image
         }
       }
+    end
+
+    def sent_to_emails
+      ActionMailer::Base.deliveries.map(&:to).flatten
+    end
+
+    def members_emails
+      @group.members.map(&:email)
     end
 end

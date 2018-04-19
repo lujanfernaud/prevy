@@ -35,6 +35,7 @@ class EventsController < ApplicationController
 
     if @event.save
       flash[:success] = "Event successfully created."
+      send_new_event_email
       redirect_to group_event_path(@group, @event)
     else
       render :new
@@ -113,6 +114,10 @@ class EventsController < ApplicationController
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb @event.title, group_event_path(@group, @event)
       add_breadcrumb "Edit event"
+    end
+
+    def send_new_event_email
+      NewEventEmail.call(@event)
     end
 
     def event_params

@@ -2,6 +2,8 @@ require 'test_helper'
 
 class NotificationsTest < ActionDispatch::IntegrationTest
   def setup
+    stub_geocoder
+
     @phil          = users(:phil)
     @carolyn       = users(:carolyn)
     @onitsuka      = users(:onitsuka)
@@ -145,6 +147,22 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     assert_equal 0, ActionMailer::Base.deliveries.size
   end
 
+  test "user doesn't receive new events email notifications" do
+    @nike_group.members << @unnotifiable
+    event = events(:one)
+
+    log_in_as(@phil)
+    ActionMailer::Base.deliveries.clear
+
+    visit group_url(@nike_group)
+
+    create_event(event)
+
+    log_out_as(@phil)
+
+    assert_equal 0, ActionMailer::Base.deliveries.size
+  end
+
   test "user marks all notifications as read" do
     log_in_as(@onitsuka)
 
@@ -273,7 +291,35 @@ class NotificationsTest < ActionDispatch::IntegrationTest
       [
         "user_membership_request_emails",
         "user_group_membership_emails",
-        "user_group_role_emails"
+        "user_group_role_emails",
+        "user_new_event_emails"
       ]
+    end
+
+    def create_event(event)
+      click_on "Create event"
+      fill_in_valid_information(event)
+      fill_in_valid_address(event)
+      click_on_create_event
+    end
+
+    def fill_in_valid_information(event)
+      fill_in "Title", with: event.title
+      fill_in_description(event.description)
+    end
+
+    def fill_in_valid_address(event)
+      fill_in "Address 1", with: event.street1
+      fill_in "Address 2", with: event.street2
+      fill_in "City",      with: event.city
+      fill_in "State",     with: event.state
+      fill_in "Post code", with: event.post_code
+      select  "Spain",     from: "Country"
+    end
+
+    def click_on_create_event
+      within "form" do
+        click_on "Create event"
+      end
     end
 end

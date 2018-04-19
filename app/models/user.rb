@@ -12,6 +12,7 @@ class User < ApplicationRecord
     membership_request_emails Boolean, default: true
     group_membership_emails   Boolean, default: true
     group_role_emails         Boolean, default: true
+    new_event_emails          Boolean, default: true
   end
 
   has_many :owned_groups, class_name: "Group", foreign_key: "user_id"

@@ -1,0 +1,9 @@
+<p>
+  Hello <%= @user.name %>,
+</p>
+<p>
+  There is a new event in <%= @group.name %>.
+</p>
+<p>
+  <%= link_to @event.title, group_event_url(@group, @event) %>
+</p>

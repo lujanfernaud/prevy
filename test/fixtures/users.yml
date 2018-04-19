@@ -10,7 +10,8 @@ phil:
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
-    "group_role_emails": true
+    "group_role_emails": true,
+    "new_event_emails": true
   }
 
 penny:
@@ -23,7 +24,8 @@ penny:
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
-    "group_role_emails": true
+    "group_role_emails": true,
+    "new_event_emails": true
   }
 
 woodell:
@@ -36,7 +38,8 @@ woodell:
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
-    "group_role_emails": true
+    "group_role_emails": true,
+    "new_event_emails": true
   }
 
 carolyn:
@@ -49,7 +52,8 @@ carolyn:
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
-    "group_role_emails": true
+    "group_role_emails": true,
+    "new_event_emails": true
   }
 
 onitsuka:
@@ -62,7 +66,8 @@ onitsuka:
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
-    "group_role_emails": true
+    "group_role_emails": true,
+    "new_event_emails": true
   }
 
 stranger:
@@ -75,7 +80,8 @@ stranger:
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
-    "group_role_emails": true
+    "group_role_emails": true,
+    "new_event_emails": true
   }
 
 unnotifiable:
@@ -88,7 +94,8 @@ unnotifiable:
   settings: {
     "membership_request_emails": false,
     "group_membership_emails": false,
-    "group_role_emails": false
+    "group_role_emails": false,
+    "new_event_emails": false
   }
 
 <% 10.times do |n| %>
@@ -101,6 +108,7 @@ user_<%= n %>:
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,
-    "group_role_emails": true
+    "group_role_emails": true,
+    "new_event_emails": true
   }
 <% end %>

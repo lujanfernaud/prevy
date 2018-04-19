@@ -15,19 +15,22 @@ class NotificationMailer < ApplicationMailer
 
   def declined_membership_request(user, group)
     default_notification_email(
-      user, group, subject: "Membership request declined"
+      user, group,
+      subject: "Membership request declined"
     )
   end
 
   def new_group_membership(user, group)
     default_notification_email(
-      user, group, subject: "#{group.name} membership"
+      user, group,
+      subject: "#{group.name} membership"
     )
   end
 
   def deleted_group_membership(user, group)
     default_notification_email(
-      user, group, subject: "Your #{group.name} membership was cancelled"
+      user, group,
+      subject: "Your #{group.name} membership was cancelled"
     )
   end
 
@@ -42,6 +45,17 @@ class NotificationMailer < ApplicationMailer
     default_notification_email(
       user, group,
       subject: "You are no longer an organizer in #{group.name}"
+    )
+  end
+
+  def new_event(user, group, event)
+    @user  = user
+    @event = event
+    @group = group
+
+    mail(
+      to: @user.email,
+      subject: "New event in #{@group.name}: #{@event.title}"
     )
   end
 

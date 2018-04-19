@@ -38,7 +38,7 @@
 
           <hr class="mt-3 mb-3">
 
-          <div class="form-group mb-2rem">
+          <div class="form-group mb-2">
             <div class="row">
               <div class="col-md-10">
                 <%= f.label :group_role_emails,
@@ -47,6 +47,21 @@
 
               <div class="col-md-2 d-flex justify-content-end">
                 <%= f.check_box :group_role_emails %>
+              </div>
+            </div>
+          </div>
+
+          <hr class="mt-3 mb-3">
+
+          <div class="form-group mb-2rem">
+            <div class="row">
+              <div class="col-md-10">
+                <%= f.label :new_event_emails,
+                  "New event", class: "m-0" %>
+              </div>
+
+              <div class="col-md-2 d-flex justify-content-end">
+                <%= f.check_box :new_event_emails %>
               </div>
             </div>
           </div>
