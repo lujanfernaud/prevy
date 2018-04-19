@@ -1,6 +1,7 @@
 $(document).on "turbolinks:load", ->
   preventTrixFromAcceptingImageAttachments()
   setEventMap()
+  startSmoothScroll()
 
 
 # ----------------------------------------
@@ -49,3 +50,12 @@ setEventMap = ->
     .bindPopup(eventTitle)
 
   map.scrollWheelZoom.disable()
+
+
+# -----------------
+# startSmoothScroll
+# -----------------
+
+
+startSmoothScroll = ->
+  new SmoothScroll('a[href*="#"]')

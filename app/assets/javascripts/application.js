@@ -16,5 +16,6 @@
 //= require bootstrap
 //= require turbolinks
 //= require trix/dist/trix
+//= require smooth-scroll/dist/js/smooth-scroll.polyfills
 //= require leaflet/dist/leaflet
 //= require_tree .
