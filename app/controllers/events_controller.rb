@@ -24,6 +24,8 @@ class EventsController < ApplicationController
     @event.build_address
 
     authorize @event
+
+    add_breadcrumbs_for_new
   end
 
   def create
@@ -103,6 +105,11 @@ class EventsController < ApplicationController
     def add_breadcrumbs_for_index
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb "Events", group_events_path(@group)
+    end
+
+    def add_breadcrumbs_for_new
+      add_breadcrumb @group.name, group_path(@group)
+      add_breadcrumb "Create event"
     end
 
     def add_breadcrumbs_for_show
