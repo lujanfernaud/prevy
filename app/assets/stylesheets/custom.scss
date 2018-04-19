@@ -54,6 +54,22 @@ body {
   border-bottom: 3px solid $indigo;
 }
 
+.icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: sub;
+}
+
+.icon-location,
+.icon-calendar {
+  margin-right: .1rem;
+}
+
+.icon-link {
+  margin-right: .13rem;
+}
+
+
 // Event Map
 
 

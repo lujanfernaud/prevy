@@ -22,6 +22,7 @@ gem 'rolify',                          '~> 5.2'
 gem 'sucker_punch',                    '~> 2.0', '>= 2.0.4'
 gem 'figaro',                          '~> 1.1', '>= 1.1.1'
 gem 'gravatar_image_tag',              '~> 1.2'
+gem 'inline_svg',                      '~> 1.3', '>= 1.3.1'
 
 # Add type-casting and other features on top of ActiveRecord::Store.store_accessor
 gem 'storext',                         '~> 2.2', '>= 2.2.2'
