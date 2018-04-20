@@ -28,7 +28,7 @@
                   <%= link_to @event.full_address, "#map",
                     data: { turbolinks: false } %>
                 </p>
-                <% if !@event.website.empty? %>
+                <% if website? %>
                   <p>
                     <%= link_icon %>
                     <%= link_to @event.website, @event.website %>

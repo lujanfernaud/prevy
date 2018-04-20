@@ -1,4 +1,8 @@
 module EventsHelper
+  def website?
+    @event.website && !@event.website.empty?
+  end
+
   def author?(event)
     return unless logged_in?
 
