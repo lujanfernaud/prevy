@@ -2,8 +2,7 @@ require 'test_helper'
 
 class GroupsEditTest < ActionDispatch::IntegrationTest
   test "user edits a group" do
-    Capybara.current_driver = :webkit
-    Capybara.raise_server_errors = false
+    prepare_javascript_driver
 
     user  = users(:phil)
     group = groups(:one)

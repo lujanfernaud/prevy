@@ -14,8 +14,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "create event with valid data" do
-    Capybara.current_driver = :webkit
-    Capybara.raise_server_errors = false
+    prepare_javascript_driver
 
     log_in_as(@user)
     visit group_path(@group)

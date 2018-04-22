@@ -1,4 +1,9 @@
 module IntegrationSupport
+  def prepare_javascript_driver
+    Capybara.current_driver = :webkit
+    Capybara.raise_server_errors = false
+  end
+
   def log_in_as(user)
     visit new_user_session_path
 
