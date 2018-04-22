@@ -10,6 +10,7 @@ require 'capybara/rails'
 require 'capybara/minitest'
 require 'capybara-screenshot/minitest'
 Capybara.match = :prefer_exact
+Capybara.asset_host = 'http://localhost:3000'
 
 require 'minitest/autorun'
 require 'minitest/reporters'
