@@ -18,6 +18,7 @@ class GroupsController < ApplicationController
     authorize @group
 
     if @group.save
+      destroy_user_sample_group
       flash[:success] = "Yay! You created a group!"
       redirect_to group_path(@group)
     else
@@ -70,9 +71,15 @@ class GroupsController < ApplicationController
     end
 
     def store_unhidden_groups
-      Group.where(hidden: false)
+      Group.unhidden
            .order(created_at: :desc)
            .paginate(page: params[:page], per_page: 15)
+    end
+
+    def destroy_user_sample_group
+      if sample_group = @user.sample_group
+        sample_group.destroy
+      end
     end
 
     def store_upcoming_events

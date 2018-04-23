@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  after_create :create_user_sample_group
+
   rolify
 
   include Storext.model
@@ -45,6 +47,10 @@ class User < ApplicationRecord
     order("created_at DESC").limit(5)
   }
 
+  def sample_group
+    groups.where(sample_group: true).first
+  end
+
   def groups
     Group.includes(:group_memberships)
          .where(
@@ -75,4 +81,12 @@ class User < ApplicationRecord
   def last_organized_events
     organized_events.three
   end
+
+  private
+
+    def create_user_sample_group
+      return if sample_user?
+
+      SampleGroup.create_for_user(self)
+    end
 end

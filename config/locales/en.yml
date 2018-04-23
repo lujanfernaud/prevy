@@ -30,4 +30,28 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  sample_group:
+    name: "Your group"
+    description: >
+      <p>Welcome to %{user_name}'s group!</p>
+      <p>This is how your group could look like.</p>
+      <p>Once you have your group, you can:</p>
+      <ul>
+      <li>
+      Send the link to the people you want so they can request membership
+      </li>
+      <li>Create events that would only be seen by your group members</li>
+      <li>Add organizer role to whomever you want, or to all by default!</li>
+      <li>Make the group hidden so that it doesn't appear in groups listing</li>
+      </ul>
+      <a href='%{new_group_link}'>Click here to create your first group!</a>
+    location: "The Internet"
+
+  sample_event:
+    title: "Your event"
+    description: >
+      <p>This is how your event could look like.</p>
+      <p>When you create an event all members of the group receive a notification email.</p>
+      <p>Using the address provided, the event is automatically located in a nice map that you can see below, or by clicking on the event location.</p>
+      <p>If the event has a website you can add it too, but that's optional :)</p>
+    website: "www.youreventwebsite.com"

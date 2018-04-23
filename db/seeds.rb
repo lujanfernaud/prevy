@@ -43,15 +43,12 @@ IMAGE_PLACEHOLDER = "http://via.placeholder.com/730x411"
 27.times do |n|
   puts "Creating user #{n + 1} of 27"
 
-  user_name = Faker::Internet.user_name.capitalize + "#{n}"
-
-  User.create!(name:                  user_name,
-               email:                 Faker::Internet.email,
-               password:              "password",
-               password_confirmation: "password",
-               confirmed_at:          Time.zone.now - 1.day,
-               location:              Faker::Address.city,
-               bio:                   Faker::BackToTheFuture.quote)
+  SampleUser.create!(name:                  Faker::Name.name,
+                     email:                 Faker::Internet.email,
+                     password:              "password",
+                     password_confirmation: "password",
+                     location:              Faker::Address.city,
+                     bio:                   Faker::BackToTheFuture.quote)
 
 end
 
@@ -78,9 +75,7 @@ random_users(9).each_with_index do |user, index|
     name:        Faker::Lorem.words(2).join(" "),
     description: Faker::Lorem.paragraph * 2,
     location:    Faker::Address.city,
-    image:       File.new("test/fixtures/files/sample.jpeg"),
-    hidden:      false,
-    all_members_can_create_events: false
+    image:       File.new("test/fixtures/files/sample.jpeg")
   )
 end
 #

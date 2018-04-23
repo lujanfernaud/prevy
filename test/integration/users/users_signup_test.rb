@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class UserSignupTest < ActionDispatch::IntegrationTest
+  def setup
+    stub_geocoder
+  end
+
   test "sign up with valid data" do
     visit root_path
 

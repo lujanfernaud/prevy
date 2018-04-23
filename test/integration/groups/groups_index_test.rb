@@ -2,7 +2,7 @@ require 'test_helper'
 
 class GroupsIndexTest < ActionDispatch::IntegrationTest
   test "user visits groups index" do
-    groups = Group.where(hidden: false)
+    groups = Group.unhidden
 
     visit groups_path
 

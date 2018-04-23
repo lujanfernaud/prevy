@@ -75,6 +75,25 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     refute_members
   end
 
+  test "logged in user visits sample group" do
+    group    = groups(:sample_group)
+    stranger = users(:stranger)
+
+    log_in_as(stranger)
+
+    visit group_path(group)
+
+    assert page.has_button? "Request membership", disabled: true
+  end
+
+  test "logged out user visits sample group" do
+    group = groups(:sample_group)
+
+    visit group_path(group)
+
+    assert page.has_button? "Request membership", disabled: true
+  end
+
   private
 
     def assert_group_info_and_image(group)

@@ -18,8 +18,9 @@ class GroupMembershipsController < ApplicationController
 
     authorize @membership
 
+    destroy_user_sample_group
+    destroy_membership_request
     add_role_to_user
-    destroy_membership_request_if_it_exists
 
     if current_user == @user
       flash[:success] = "You are now a member of #{@group.name}!"
@@ -74,7 +75,13 @@ class GroupMembershipsController < ApplicationController
       end
     end
 
-    def destroy_membership_request_if_it_exists
+    def destroy_user_sample_group
+      if sample_group = @user.sample_group
+        sample_group.destroy
+      end
+    end
+
+    def destroy_membership_request
       if request_id = params[:request_id]
         MembershipRequest.find(request_id).destroy
       end

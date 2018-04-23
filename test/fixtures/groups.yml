@@ -62,3 +62,13 @@ kyoto:
   hidden: false
   all_members_can_create_events: false
   owner: onitsuka
+
+sample_group:
+  name: Sample Group
+  location: The Internet
+  description: <%= Faker::Lorem.paragraph %>
+  image: sample.jpeg
+  owner: user_1
+  hidden: false
+  all_members_can_create_events: false
+  sample_group: true

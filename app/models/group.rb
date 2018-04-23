@@ -27,6 +27,10 @@ class Group < ApplicationRecord
       location: "%#{location.downcase}%", name: "%#{group_name.downcase}%")
   }
 
+  scope :unhidden, -> {
+    where(hidden: false, sample_group: false)
+  }
+
   scope :random_selection, -> {
     groups_number = 3
     offset_number = rand(1..self.count - groups_number)

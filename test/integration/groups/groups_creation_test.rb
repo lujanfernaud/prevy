@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class GroupsCreationTest < ActionDispatch::IntegrationTest
+  def setup
+    stub_geocoder
+  end
+
   test "user creates a group" do
     prepare_javascript_driver
 

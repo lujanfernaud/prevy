@@ -98,7 +98,7 @@ unnotifiable:
     "new_event_emails": false
   }
 
-<% 10.times do |n| %>
+<% 21.times do |n| %>
 user_<%= n %>:
   name: User <%= n %>
   email: user<%= n %>@sample.com
@@ -111,4 +111,5 @@ user_<%= n %>:
     "group_role_emails": true,
     "new_event_emails": true
   }
+  sample_user: true
 <% end %>

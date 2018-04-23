@@ -22,6 +22,6 @@ class StaticPagesController < ApplicationController
     end
 
     def store_unhidden_groups
-      @unhidden_groups = Group.where(hidden: false).random_selection
+      @unhidden_groups = Group.unhidden.random_selection
     end
 end

@@ -21,7 +21,10 @@ module GroupsHelper
   end
 
   def membership_button(group)
-    if logged_in?
+    if group.sample_group?
+      button_tag "Request membership", disabled: true,
+        class: "btn btn-primary btn-block btn-lg mt-3"
+    elsif logged_in?
       if current_user.sent_requests.include?(group)
         button_tag "Membership requested", disabled: true,
           class: "btn btn-primary btn-block btn-lg mt-3"
