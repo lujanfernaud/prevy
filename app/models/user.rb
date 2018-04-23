@@ -15,7 +15,8 @@ class User < ApplicationRecord
     new_event_emails          Boolean, default: true
   end
 
-  has_many :owned_groups, class_name: "Group", foreign_key: "user_id"
+  has_many :owned_groups, class_name: "Group", foreign_key: "user_id",
+    dependent: :destroy
   has_many :received_requests, through: :owned_groups
 
   has_many :membership_requests, dependent: :destroy
