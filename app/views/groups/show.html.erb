@@ -19,7 +19,7 @@
               </div>
 
               <div class="event-box-big-text">
-                <p><%= sanitize @group.description %></p>
+                <%= sanitize @group.description %>
               </div>
 
             </div>
@@ -42,7 +42,7 @@
                 <h3 class="h4 mb-3">
                   <%= organizer_title %>
                 </h3>
-                <ul class="list-unstyled">
+                <ul>
                   <% @group.organizers.last(5).each do |organizer| %>
                     <li>
                       <%= link_to organizer.name,
@@ -57,7 +57,7 @@
                   <h3 class="h4 mb-3">
                     <%= members_title_with_count %>
                   </h3>
-                  <ul class="list-unstyled">
+                  <ul>
                     <% @group.members_with_role.last(5).each do |member| %>
                       <li>
                         <%= link_to member.name,
@@ -66,6 +66,7 @@
                     <% end %>
                   </ul>
                   <%= see_all_members_link(@group, quantity: 5) %>
+
                 <% elsif @group.members_with_role.count > 0 %>
                   <h3 class="h4 mb-3">
                     <%= "Member".pluralize(@group.members_with_role.count) %>

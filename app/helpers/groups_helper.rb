@@ -15,12 +15,6 @@ module GroupsHelper
     group.owner == user || group.members.include?(user)
   end
 
-  def see_all_members_link(group, quantity:)
-    if group.members.count > quantity
-      link_to "See all members", group_members_path(group)
-    end
-  end
-
   def checked_if_not_set(attribute)
     attribute ? false : true
   end

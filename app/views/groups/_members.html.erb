@@ -8,13 +8,15 @@
           <%= members_title_with_count %>
         </h2>
 
-        <div class="row d-flex justify-content-center mt-2rem">
+        <div class="row d-flex justify-content-center mt-1rem mb-2rem">
           <% group.members_with_role.last(12).each do |member| %>
             <%= render "user", user: member, group: group %>
           <% end %>
         </div>
 
-        <%= see_all_members_link(group, quantity: 12) %>
+        <div class="text-center">
+          <%= see_all_members_button(group, quantity: 12) %>
+        </div>
 
       </div>
     </div>

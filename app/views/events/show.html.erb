@@ -16,6 +16,7 @@
               </div>
               <div class="event-box-big-text">
                 <h2 class="mb-3 font-italic"><%= @event.title %></h2>
+
                 <p>
                   <%= calendar_icon %>
                   <%= @event.start_date_prettyfied %>
@@ -23,20 +24,21 @@
                     - <%= @event.end_date_prettyfied %>
                   <% end %>
                 </p>
+
                 <p>
                   <%= location_icon %>
                   <%= link_to @event.full_address, "#map",
                     data: { turbolinks: false } %>
                 </p>
+
                 <% if website? %>
                   <p>
                     <%= link_icon %>
                     <%= link_to @event.website, @event.website %>
                   </p>
                 <% end %>
-                <p>
-                  <%= sanitize @event.description %>
-                </p>
+
+                <%= sanitize @event.description %>
 
                 <% if author?(@event) %>
                   <p>
