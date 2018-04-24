@@ -8,11 +8,21 @@
           <%= members_title_with_count %>
         </h2>
 
-        <div class="row d-flex justify-content-center mt-1rem mb-2rem">
-          <% group.members_with_role.last(12).each do |member| %>
-            <%= render "user", user: member, group: group %>
-          <% end %>
-        </div>
+        <% if !@group.members_with_role.empty? %>
+
+          <div class="row d-flex justify-content-center mt-1rem mb-2rem">
+            <% group.members_with_role.last(12).each do |member| %>
+              <%= render "user", user: member, group: group %>
+            <% end %>
+          </div>
+
+        <% else %>
+
+          <h3 class="h5 text-center mt-5">
+            There are still no members.
+          </h3>
+
+        <% end %>
 
         <div class="text-center">
           <%= see_all_members_link(group, quantity: 12) %>

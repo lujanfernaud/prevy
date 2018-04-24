@@ -58,10 +58,16 @@
                     <%= members_title_with_count %>
                   </h3>
                   <ul>
-                    <% @group.members_with_role.last(5).each do |member| %>
+                    <% if !@group.members_with_role.empty? %>
+                      <% @group.members_with_role.last(5).each do |member| %>
+                        <li>
+                          <%= link_to member.name,
+                            user_path(member, member_of: @group) %>
+                        </li>
+                      <% end %>
+                    <% else %>
                       <li>
-                        <%= link_to member.name,
-                          user_path(member, member_of: @group) %>
+                        There are still no members.
                       </li>
                     <% end %>
                   </ul>
