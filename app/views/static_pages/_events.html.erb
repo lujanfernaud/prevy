@@ -4,21 +4,19 @@
       <div class="col-md-12 mt-2rem mb-2rem">
 
         <h2 class="text-center">Upcoming Events</h2>
-        <div class="d-flex justify-content-center">
-          <% if !events.empty? %>
-            <div class="col-md-4 mt-2rem">
-              <%= render events %>
-            </div>
-          <% elsif !user_groups.empty? %>
-            <h3 class="h5 text-center mt-4">
-              There are no upcoming events in your groups.
-            </h3>
-          <% else %>
-            <h3 class="h5 text-center mt-4">
-              You need to be a member of a group to see events here.
-            </h3>
-          <% end %>
-        </div>
+        <% if !events.empty? %>
+          <div class="row d-flex justify-content-center">
+            <%= render events %>
+          </div>
+        <% elsif !user_groups.empty? %>
+          <h3 class="h5 text-center mt-4">
+            There are no upcoming events in your groups.
+          </h3>
+        <% else %>
+          <h3 class="h5 text-center mt-4">
+            You need to be a member of a group to see events here.
+          </h3>
+        <% end %>
 
         <% if events_count > 6 %>
           <div class="row">
