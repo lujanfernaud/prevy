@@ -69,6 +69,12 @@
           </div>
         <% end %>
 
+        <% if @user.groups.empty? %>
+          <h3 class="h5 text-center mt-5">
+            You don't have membership to any group. Why don't you create one? :)
+          </h3>
+        <% end %>
+
         <div class="row mt-4">
           <%= link_to "Create group", new_group_path,
             class: "btn btn-primary btn-lg btn-block mt-2rem mb-4" %>
