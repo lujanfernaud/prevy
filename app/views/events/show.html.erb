@@ -61,9 +61,13 @@
                 <h3 class="h4 mb-3">
                   Organizer
                 </h3>
-                <%= link_to @event.organizer.name,
-                  user_path(@event.organizer, organized_event: @event),
-                  class: "mb-2rem" %>
+                <ul>
+                  <li>
+                    <%= link_to @event.organizer.name,
+                      user_path(@event.organizer, organized_event: @event),
+                      class: "mb-2rem" %>
+                  </li>
+                </ul>
               </div>
 
               <div class="attendees-preview">
