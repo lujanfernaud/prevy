@@ -39,11 +39,4 @@ module GroupButtonsHelper
       link_to "See all members", group_members_path(group)
     end
   end
-
-  def see_all_members_button(group, quantity:)
-    if group.members.count > quantity
-      link_to "See all members", group_members_path(group),
-        class: "btn btn-primary btn-lg"
-    end
-  end
 end
