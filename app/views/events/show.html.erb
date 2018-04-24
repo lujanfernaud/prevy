@@ -41,7 +41,7 @@
                 <%= sanitize @event.description %>
 
                 <% if author?(@event) && !@group.sample_group? %>
-                  <p>
+                  <p class="mt-4 mb-0">
                     <%= link_to "Edit event",
                       edit_group_event_path(@group, @event) %> |
                      <%= link_to "Delete event",
