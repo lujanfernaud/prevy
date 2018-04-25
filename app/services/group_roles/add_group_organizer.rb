@@ -14,8 +14,7 @@ class AddGroupOrganizer
         "#{@user.name} is already an organizer in #{@group.name}"
     end
 
-    @user.remove_role :member, @group
-    @user.add_role    :organizer, @group
+    @group.add_to_organizers(@user)
 
     notify_user
   end

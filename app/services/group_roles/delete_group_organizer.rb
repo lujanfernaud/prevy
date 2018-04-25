@@ -14,8 +14,7 @@ class DeleteGroupOrganizer
         "#{@user.name} is not an organizer in #{@group.name}"
     end
 
-    @user.remove_role :organizer, @group
-    @user.add_role    :member, @group
+    @group.remove_from_organizers(@user)
 
     notify_user
   end
