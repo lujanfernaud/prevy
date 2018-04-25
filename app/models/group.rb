@@ -31,8 +31,7 @@ class Group < ApplicationRecord
     where(hidden: false, sample_group: false)
   }
 
-  scope :random_selection, -> {
-    groups_number = 3
+  scope :random_selection, -> (groups_number) {
     offset_number = rand(1..self.count - groups_number)
 
     offset(offset_number).limit(groups_number)
