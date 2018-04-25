@@ -13,6 +13,7 @@ class SampleGroup
   def create_sample_group
     create_group
     add_sample_members
+    add_sample_organizers
     build_sample_event
   end
 
@@ -55,6 +56,17 @@ class SampleGroup
         group.members << user
         user.add_role :member, group
       end
+    end
+
+    def add_sample_organizers
+      random_members(2).each { |member| group.add_to_organizers(member) }
+    end
+
+    def random_members(number)
+      members = group.members
+      random_offset = rand(members.count - number)
+
+      members.offset(random_offset).limit(number)
     end
 
     def build_sample_event

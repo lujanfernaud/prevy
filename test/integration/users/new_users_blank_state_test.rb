@@ -11,7 +11,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     click_on sample_group_name
 
     assert page.has_content? "Welcome to #{new_user.name}'s group!"
-    assert_organizer
+    assert_organizers
     assert_members
     assert page.has_link? sample_event_name
   end
@@ -69,10 +69,16 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
       "Your event"
     end
 
-    def assert_organizer
+    def assert_organizers
       within ".organizers-preview" do
-        assert page.has_link? new_user.name, count: 1
+        group_organizers.each do |organizer|
+          assert page.has_link? organizer.name, count: 1
+        end
       end
+    end
+
+    def group_organizers
+      @group_organizers ||= new_user.sample_group.organizers
     end
 
     def assert_members
@@ -84,7 +90,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     end
 
     def group_members
-      @group_members ||= new_user.owned_groups.first.members
+      @group_members ||= new_user.sample_group.members_with_role
     end
 
     def assert_attendees

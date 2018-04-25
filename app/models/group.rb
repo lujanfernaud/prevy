@@ -32,9 +32,9 @@ class Group < ApplicationRecord
   }
 
   scope :random_selection, -> (groups_number) {
-    offset_number = rand(1..self.count - groups_number)
+    random_offset = rand(1..self.count - groups_number)
 
-    offset(offset_number).limit(groups_number)
+    offset(random_offset).limit(groups_number)
   }
 
   def organizers
@@ -43,6 +43,14 @@ class Group < ApplicationRecord
 
   def members_with_role
     User.with_role(:member, self).reverse
+  end
+
+  def add_to_organizers(member)
+    change_role_for member, remove_as: :member, add_as: :organizer
+  end
+
+  def remove_from_organizers(member)
+    change_role_for member, remove_as: :organizer, add_as: :member
   end
 
   private
@@ -62,15 +70,11 @@ class Group < ApplicationRecord
     end
 
     def add_members_to_organizers
-      members.each do |member|
-        change_role_for member, remove_as: :member, add_as: :organizer
-      end
+      members.each { |member| add_to_organizers(member) }
     end
 
     def remove_members_from_organizers
-      members.each do |member|
-        change_role_for member, remove_as: :organizer, add_as: :member
-      end
+      members.each { |member| remove_from_organizers(member) }
     end
 
     def change_role_for(member, remove_as:, add_as:)

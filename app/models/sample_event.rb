@@ -71,7 +71,7 @@ class SampleEvent
     end
 
     def add_sample_attendees
-      group.members.each do |member|
+      group.members_with_role.each do |member|
         @event.attendees << member
       end
     end
