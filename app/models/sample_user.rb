@@ -7,6 +7,12 @@ class SampleUser < User
     User.where(sample_user: true)
   end
 
+  def self.select_random(users_number)
+    random_offset = rand(SampleUser.all.count - users_number)
+
+    SampleUser.offset(random_offset).limit(users_number)
+  end
+
   private
 
     def set_as_confirmed
