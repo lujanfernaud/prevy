@@ -1,0 +1,148 @@
+# This is data to be shown in production.
+# It is meant to be as real as possible.
+
+-
+  name: Tenerife Ruby Group
+  description: |-
+    We’re a software users group interested in the programming language, Ruby. Our talks range from specific aspects of Ruby on Rails to metaprogamming to anything else in the Ruby world. Occasionally we may talk about software topics not directly tied to Ruby.
+  location: Tenerife
+  image: app/assets/images/samples/sample_groups/tenerife.jpg
+
+-
+  name: Code & Tea
+  description: |-
+    Code & tea is an informal get together to write some code Friday morning. There are no requirements other than the willingness to sit down, pair up, and learn something new. We're going with mornings because the evenings are full enough as it is. Why add to the chaos of user groups, soccer games, and lawn mowing?
+  location: Kiskunhalas
+  image: app/assets/images/samples/sample_groups/coding.jpg
+
+-
+  name: Wellness Thursdays
+  description: |-
+    Humans interested in Wellness from Vienna and surrounding areas are welcome to Wellness Thursdays. Wellness Thursdays is focused on bringing wellness to the community every Thursday, connecting talented facilitators of wellness-based practices such as meditation and yoga to interested people for FREE! All contained in the absolutely stunning spaces in Innovation Center in the heart of downtown Vienna.
+  location: Vienna
+  image: app/assets/images/samples/sample_groups/emily-sea-198689-unsplash.jpg
+
+-
+  name: Dreams Work
+  description: |-
+    This is a group for people interested in lucid dreaming from an ethical point of view. Lucid dreaming doesn't just mean you have nice clear dreams - it means being consciously aware that you are having a dream, and learning how to take charge of the experience. All skill levels are welcome. Let's get together and help each other have amazing experiences, and learn more about ourselves and our inner worlds. Lucid dreaming has many benefits, particularly self-healing - whether physical or psychological problems exist - and it offers the chance to tackle inner demons which may get in the way of a full and enjoyable life.
+  location: Adeje
+  image: app/assets/images/samples/sample_groups/bruce-christianson-558321-unsplash.jpg
+
+-
+  name: Spanish & Tapas
+  description: |-
+    This group is focused on members interested in improving their Spanish language skills and having a good time enjoying Spanish food.
+  location: San Antonio, Texas
+  image: app/assets/images/samples/sample_groups/ingrid-hofstra-527954-unsplash.jpg
+
+-
+  name: Stoics Gran Canaria
+  description: |-
+    Stoicism is a philosophy geared towards living the best life possible for your own well being as well as that of others. Stoicism is not about cold detachment but about joyful engagement with your circumstances and freedom from anxiety and other negative emotions. Stoic ideas have never been more relevant than in our complex and ever-changing modern world. Whether you're just curious or have been reading Epictetus, Seneca, and Marcus Aurelius for years, please come join us as we discuss our practices and share resources with each other to try to become a little bit better at living each day. Fellow travelers from other contemplative traditions such as Buddhism are more than welcome to share in this journey, too.
+  location: Gran Canaria
+  image: app/assets/images/samples/sample_groups/clem-onojeghuo-143466-unsplash.jpg
+
+-
+  name: Essential Oils
+  description: |-
+    This group is for anyone interested in learning more about Essential Oils. Each week we will look at a different system of the body that can be supported with EO's, and learn how to uncover the information that you may be looking for. We will take a look at how the oils can be used aromatically, topically and internally to improve our wellness baseline. Did you know that EO's can be used as a way of green cleaning, to support our pets wellness, to support a calm environment in the home or the classroom, to energize us during a workout, or to support our digestive, respiratory, circulatory and musculoskeletal systems?! Each week we will choose a theme and dig in! Come bring your questions, curiosity or just join us for a relaxing night out of the house. Hope to see you there!
+  location: Zurich
+  image: app/assets/images/samples/sample_groups/christin-hume-505815-unsplash.jpg
+
+-
+  name: The Portland Running Club
+  description: |-
+    Our aim is to promote running for as wide an ability range as possible, while encouraging new Portland Running Club members to start running and support each other to improve or just to enjoy running!
+    <br><br>
+    This is more than a running club. Its a way of meeting other runners and arranging runs together. This can be done by participating in runs, becoming an assistant organiser, or by emailing a suggestion to an organiser or the group.
+  location: Portland, Oregon
+  image: app/assets/images/samples/sample_groups/tomasz-wozniak-484204-unsplash.jpg
+
+-
+  name: Valencia UX Designers
+  description: |-
+    Valencia UX Designers is a group that discusses the role of design in software development. From visual design, user interface design, front-end development to backend programming, the role of design is essential. Learn how to improve the visual appearance or functionality of your application through User Experience Design.
+  location: Valencia
+  image: app/assets/images/samples/sample_groups/taras-shypka-424932-unsplash.jpg
+
+-
+  name: Vancouver Urban Sketchers
+  description: |-
+    We get together on weekends to wander around Vancouver, sketching people and places, natural and urban. We usually sketch for 2-3 hours, then sit down in a cafe to share sketches and chat. Sometimes we join up with other sketching groups or do field trips outside the city.
+  location: Vancouver
+  image: app/assets/images/samples/sample_groups/sketching.jpg
+
+-
+  name: Tea Sketchers
+  description: |-
+    Are you an artist free to sketch on a Friday? Like to draw from life but a bit shy about doing it alone? Meet other artists for a casual lunch and sketch :) Venue-based for comfort and sociability, but informal and inexpensive. We gather every Friday in various relaxed eateries and tea shops, to draw our surroundings and chat through the afternoon. You're welcome to join us - just bring a small sketchbook and some food money.
+  location: Vancouver
+  image: app/assets/images/samples/sample_groups/tea-sketchers.jpg
+
+-
+  name: Plein Air Portland
+  description: |-
+    Plein Air Portland coordinates monthly paint outs in Portland and around. We enjoy painting the scenery of many local parks and natural areas for which Oregon is so well-known. If you are interested in painting outdoors come out and join us for our next paint out!
+  location: Portland, Oregon
+  image: app/assets/images/samples/sample_groups/plain-air-oregon.jpg
+
+-
+  name: Watermarbling Lisbon
+  description: |-
+    Join us if you want to learn the ancient art of watermarbling also known as Ebru and Suminagashi. We have monthly meet-ups in Lisbon that are similar to paint nights. All materials are provided. Just show up and paint while meeting new, fun, creative friends. Think of it as your art studio once a month; a creative outlet you never knew you needed.
+  location: Lisbon
+  image: app/assets/images/samples/sample_groups/watermarbling.jpg
+
+-
+  name: Canal Book Club
+  description: |-
+    We’re a second-hand bookstore close to Aveiro’s city centre. We organise cultural events in English in a relaxed & friendly atmosphere, from writing workshops to various kinds of book clubs and other social events for meeting new people. Even though our events are in English, we have a good mix of international and local participants - so you’re welcome to come regardless of nationality or command of the language.
+  location: Aveiro
+  image: app/assets/images/samples/sample_groups/bookshop.jpg
+
+-
+  name: Kyoto EDM
+  description: |-
+    This is an open group for lovers of EDM. We are committed to the ideals of Peace, Love, Unity, and Respect. Therefore, I encourage each and every one of you to respect your fellow music lovers as well as the communal nature of the group. Keep it PLUR, and you'll fit right in!
+    <br><br>
+    If you have any complaints regarding your experience within our group, please do not hesitate to contact me, and I will do everything in my power to address your needs. We want every member of our group to feel comfortable and included, whether they are at events or visiting this page.
+  location: Kyoto
+  image: app/assets/images/samples/sample_groups/edm.jpg
+
+-
+  name: Bass Music Guild
+  description: |-
+    We organize private events at EGG, Lightbox, Studio 338, Ministry of Sound, Tobacco Dock and the new and upcoming Printworks! Everything in Bass Music; from Dubstep to Drum & Bass. We are hoping to meet nice people and have a great time together.
+  location: Brighton
+  image: app/assets/images/samples/sample_groups/bass-music-guild.jpg
+
+-
+  name: Progressive Santa Cruz
+  description: |-
+    For those who've been listening to Progressive House since the hey day of Sasha & John Digweed. If you like Hernan Cattaneo, Guy J, Nick Warren, Marcelo Vasami, Danny Howells, Guy Gerber, Nick Muir, Jeremy Olander, Guy Mantzur, Cid Inc, Quivver, Amber Long, Dmitry Molosh, Darin Epsilon... and many more like these people, then join up.
+  location: Santa Cruz, California
+  image: app/assets/images/samples/sample_groups/progressive.jpg
+
+-
+  name: The Jazz Hop Collective
+  description: |-
+    Private events in Tokyo for those who love the relaxed moods of Jazz Hop.
+  location: Tokyo
+  image: app/assets/images/samples/sample_groups/chillhop.jpg
+
+-
+  name: Tenerife South EDM
+  description: |-
+    This group is for young professionals in Tenerife South who love electronic music and for those who want to learn more about it. Join us for electronic music shows all over Tenerife South and meet people who love the same music as you!
+    <br><br>
+    It can be hard to find people to go to shows with so this meetup is a means for people link up and enjoy some great music together. This group will offer meetup at clubs for electronic shows and also offer happy hour type events that will enable people to get to know each other outside of the club as well.
+  location: Tenerife South
+  image: app/assets/images/samples/sample_groups/tenerife-edm.jpg
+
+-
+  name: RaveUp
+  description: |-
+    Are you ready to meet, greet, dance, repeat? Well then, you've come to the right place! Our group shares a common passion - we live for Electronic Dance Music (EDM). We are overwhelmed by stunning lights, sounds, and we are part of a growing unique and eclectic community. At RaveUp, we come together to live and enjoy the pulsating rhythms and melodies of electronica. Become a part of our group and discover why raves and electronic festivals have been growing strong for over 20 years. Our mantra has - and always will be of - PEACE, LOVE, UNITY, and RESPECT so sign-up and join our family.
+  location: California
+  image: app/assets/images/samples/sample_groups/raveup.jpg
