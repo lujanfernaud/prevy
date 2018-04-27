@@ -10,7 +10,10 @@ class AttendancesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
+    sign_in(@user)
+
     get event_attendances_url(@event)
+
     assert_response :success
   end
 

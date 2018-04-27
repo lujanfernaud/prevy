@@ -4,6 +4,8 @@ class AttendancesController < ApplicationController
   after_action :verify_authorized, except: :index
 
   def index
+    authorize :attendance
+
     @event = find_event
     @group = @event.group
     @attendees = @event.attendees

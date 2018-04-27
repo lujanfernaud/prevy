@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class EventsShowTest < ActionDispatch::IntegrationTest
-  test "user visits event" do
+  test "logged in user visits event" do
     penny = users(:penny)
     group = groups(:one)
     event = EventDecorator.new(events(:one))
@@ -16,6 +16,17 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     assert page.has_link?    "Attend"
 
     assert_attendees(event)
+  end
+
+  test "logged out user visits event" do
+    group = groups(:one)
+    event = EventDecorator.new(events(:one))
+
+    visit group_event_path(group, event)
+
+    assert page.has_content? "You are not authorized to perform this action"
+
+    assert_equal current_path, root_path
   end
 
   test "user attends and cancels attendance" do

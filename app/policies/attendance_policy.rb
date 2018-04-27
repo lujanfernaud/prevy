@@ -1,4 +1,8 @@
 class AttendancePolicy < ApplicationPolicy
+  def index?
+    logged_in?
+  end
+
   def create?
     logged_in? && is_a_group_member
   end

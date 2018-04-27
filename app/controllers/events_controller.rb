@@ -50,6 +50,8 @@ class EventsController < ApplicationController
     @organizer = @event.organizer
     @attendees = @event.attendees
 
+    authorize @event
+
     add_breadcrumbs_for_show
   end
 
@@ -63,6 +65,8 @@ class EventsController < ApplicationController
   def update
     @group = find_group
     @event = find_event
+
+    authorize @event
 
     if @event.update_attributes event_params
       flash[:success] = "Event updated."

@@ -1,10 +1,13 @@
 require 'test_helper'
 
 class EventsAttendeesTest < ActionDispatch::IntegrationTest
-  test "user visits attendees" do
+  test "logged in user visits attendees" do
+    stranger  = users(:stranger)
     group     = groups(:one)
     event     = events(:one)
     attendees = event.attendees.count
+
+    log_in_as stranger
 
     visit event_attendances_path(event)
 
@@ -14,6 +17,17 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Attendees (#{attendees})"
 
     assert_attendees_links(event)
+  end
+
+  test "logged out user visits attendees" do
+    event     = events(:one)
+    attendees = event.attendees.count
+
+    visit event_attendances_path(event)
+
+    assert page.has_content? "You are not authorized to perform this action"
+
+    assert_equal current_path, root_path
   end
 
   test "user visit attendee" do

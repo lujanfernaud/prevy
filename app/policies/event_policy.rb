@@ -1,4 +1,8 @@
 class EventPolicy < ApplicationPolicy
+  def show?
+    logged_in?
+  end
+
   def create?
     user.has_role? :organizer, record.group
   end
