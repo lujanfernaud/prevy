@@ -2,21 +2,20 @@ require 'test_helper'
 
 class EventsShowTest < ActionDispatch::IntegrationTest
   test "user visits event" do
-    penny     = users(:penny)
-    group     = groups(:one)
-    event     = EventDecorator.new(events(:one))
-    attendees = event.attendees.count
+    penny = users(:penny)
+    group = groups(:one)
+    event = EventDecorator.new(events(:one))
 
     log_in_as(penny)
     visit group_event_path(group, event)
 
     assert_event_information(event)
-
-    assert page.has_content? "Attendees (#{attendees})"
-    assert page.has_content? "See all attendees"
+    assert_attendees_preview(event)
 
     assert page.has_content? "Would you like to attend?"
     assert page.has_link?    "Attend"
+
+    assert_attendees(event)
   end
 
   test "user attends and cancels attendance" do
@@ -69,5 +68,23 @@ class EventsShowTest < ActionDispatch::IntegrationTest
       assert page.has_content? event.full_address
       assert page.has_content? event.website
       assert page.has_content? event.description
+    end
+
+    def assert_attendees_preview(event)
+      attendees_number = event.attendees.count
+
+      within ".attendees-preview" do
+        assert page.has_content? "Attendees (#{attendees_number})"
+        assert page.has_content? "See all attendees"
+      end
+    end
+
+    def assert_attendees(event)
+      attendees_number = event.attendees.count
+
+      within ".attendees-container" do
+        assert page.has_content? "Attendees (#{attendees_number})"
+        assert page.has_css?     ".attendee-box"
+      end
     end
 end

@@ -280,11 +280,13 @@ body {
   padding: .5rem .5rem .31rem .5rem;
 }
 
-.member-box {
+.member-box,
+.attendee-box {
   height: 100%;
 }
 
-.member-name {
+.member-name,
+.attendee-name {
   flex: 1;
 }
 

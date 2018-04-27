@@ -24,4 +24,10 @@ module EventsHelper
   def same_time?(event)
     event.start_date.strftime("%H:%M") == event.end_date.strftime("%H:%M")
   end
+
+  def see_all_attendees_link(event, quantity:)
+    if event.attendees.count > quantity
+      link_to "See all attendees", event_attendances_path(event)
+    end
+  end
 end

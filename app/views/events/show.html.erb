@@ -76,7 +76,7 @@
                 </h3>
                 <% unless no_attendees?(@event) %>
                   <ul>
-                  <% @attendees.each do |attendee| %>
+                  <% @attendees.recent.each do |attendee| %>
                     <li>
                       <%= link_to attendee.name,
                         user_path(attendee, attending_event: @event) %>
@@ -121,6 +121,42 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="container-fluid bg-light">
+  <div class="container attendees-container pt-3 pb-5">
+
+    <div class="row mt-2">
+      <div class="col-md-12">
+
+        <h2 class="text-center">
+          <%= attendees_title_with_count %>
+        </h2>
+
+        <% if !@attendees.empty? %>
+
+          <div class="row d-flex justify-content-center mt-1rem mb-2rem">
+            <% @attendees.last(12).each do |attendee| %>
+              <%= render "attendances/attendee", user: attendee, event: @event %>
+            <% end %>
+          </div>
+
+        <% else %>
+
+          <h3 class="h5 text-center mt-5">
+            There are still no attendees.
+          </h3>
+
+        <% end %>
+
+        <div class="text-center">
+          <%= see_all_attendees_link(@event, quantity: 12) %>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>
 

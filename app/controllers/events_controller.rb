@@ -48,7 +48,7 @@ class EventsController < ApplicationController
     @group = find_group
     @event = find_event
     @organizer = @event.organizer
-    @attendees = @event.attendees.recent
+    @attendees = @event.attendees
 
     add_breadcrumbs_for_show
   end
