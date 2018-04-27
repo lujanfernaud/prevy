@@ -71,7 +71,9 @@ class SampleEvent
     end
 
     def add_sample_attendees
-      group.members_with_role.each do |member|
+      random_members = group.members_with_role.shuffle[0..29]
+
+      random_members.each do |member|
         @event.attendees << member
       end
     end
