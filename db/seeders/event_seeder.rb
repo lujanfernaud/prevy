@@ -39,7 +39,7 @@ class EventSeeder
         website:          "website.com",
         start_date:       start_date,
         end_date:         end_date,
-        remote_image_url: image_placeholder,
+        image:            image_placeholder,
         organizer_id:     group.members.sample.id
       )
 
@@ -96,7 +96,7 @@ class EventSeeder
     end
 
     def image_placeholder
-      "http://via.placeholder.com/730x411"
+      File.open("app/assets/images/samples/sample_events/borna-bevanda-377277-unsplash.jpg")
     end
 
   end
