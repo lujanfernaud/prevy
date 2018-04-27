@@ -22,6 +22,10 @@ preventTrixFromAcceptingImageAttachments = ->
 
 
 setEventMap = ->
+  mapIsPresent = document.querySelector("#map")
+
+  return false unless mapIsPresent
+
   token        = $("#map").data("token")
   latitude     = $("#map").data("latitude")
   longitude    = $("#map").data("longitude")
