@@ -21,6 +21,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_group_info_and_image(@group)
     assert_organizers(@group)
     assert_members_preview(@group)
+    assert_copy_group_link
     refute_membership
 
     assert_upcoming_events
@@ -37,6 +38,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_group_info_and_image(@group)
     assert_organizers(@group)
     assert_members_preview(@group)
+    assert_copy_group_link
     refute_membership
 
     assert_upcoming_events
@@ -54,6 +56,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_group_info_and_image(@group)
     assert_organizers(@group)
     assert_members_preview_title(@group)
+    refute_copy_group_link
     assert_membership_button "Request membership"
 
     refute_upcoming_events
@@ -69,6 +72,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_organizers(@group)
     assert_members_preview_title(@group)
     assert_members_count(1)
+    refute_copy_group_link
     assert_membership_button "Log in to request membership"
 
     refute_upcoming_events
@@ -83,6 +87,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     visit group_path(group)
 
+    refute_copy_group_link
     assert page.has_button? "Request membership", disabled: true
   end
 
@@ -91,6 +96,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     visit group_path(group)
 
+    refute_copy_group_link
     assert page.has_button? "Request membership", disabled: true
   end
 
@@ -140,6 +146,14 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
       within ".members-preview" do
         assert page.has_content? number
       end
+    end
+
+    def assert_copy_group_link
+      assert page.has_button? "Copy group link"
+    end
+
+    def refute_copy_group_link
+      refute page.has_button? "Copy group link"
     end
 
     def assert_membership_button(button_text)

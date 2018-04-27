@@ -83,8 +83,23 @@
                 <% end %>
               </div>
 
+              <% if has_membership?(current_user, @group) %>
+                <div class="group-link mt-4">
+                  <%= button_tag "Copy group link", id: "btn-group-link",
+                    class: "btn btn-outline-primary btn-block btn-lg mt-3",
+                    data:
+                      {
+                        "clipboard-text": request.url,
+                        toggle:           "tooltip",
+                        placement:        "top",
+                        delay:            { hide: 200 }
+                      },
+                    title: "Copied!" %>
+                </div>
+              <% end %>
+
               <% if has_organizer_role?(current_user, @group) %>
-                <div class="group-options mt-4">
+                <div class="group-options">
                   <%= link_to "Create event", new_group_event_path(@group),
                     class: "btn btn-primary btn-block btn-lg mt-3" %>
                 </div>
