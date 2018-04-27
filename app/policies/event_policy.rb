@@ -1,4 +1,8 @@
 class EventPolicy < ApplicationPolicy
+  def index?
+    logged_in?
+  end
+
   def show?
     logged_in?
   end

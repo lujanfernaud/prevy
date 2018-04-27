@@ -5,6 +5,8 @@ class EventsController < ApplicationController
   after_action :verify_authorized, except: :index
 
   def index
+    authorize :event
+
     @group  = find_group
     @events = events_decorators_for @group.events
 
