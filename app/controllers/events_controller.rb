@@ -5,17 +5,10 @@ class EventsController < ApplicationController
   after_action :verify_authorized, except: :index
 
   def index
-    if params[:group_id]
-      @group  = find_group
-      @events = events_decorators_for @group.events
+    @group  = find_group
+    @events = events_decorators_for @group.events
 
-      add_breadcrumbs_for_index
-    end
-
-    if signed_in?
-      user    = User.find current_user.id
-      @events = events_decorators_for user.events_from_groups
-    end
+    add_breadcrumbs_for_index
   end
 
   def new
