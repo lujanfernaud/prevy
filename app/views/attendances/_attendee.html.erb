@@ -1,0 +1,18 @@
+<div class="col-md-2 mt-2rem" id="user-<%= user.id %>">
+  <div class="box member-box d-flex flex-column align-items-center pt-4 pb-3">
+
+    <div class="member-image pl-4 pr-4">
+      <%= link_to user_path(user, attending_event: event) do %>
+        <%= gravatar_image_tag user.email,
+          class: "img-fluid", alt: user.name %>
+      <% end %>
+    </div>
+
+    <div class="member-name mt-2 pl-4 pr-4 text-center">
+      <%= link_to user.name,
+        user_path(user, attending_event: event) %>
+    </div>
+
+    <%= yield if block_given? %>
+  </div>
+</div>

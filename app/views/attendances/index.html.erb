@@ -1,34 +1,32 @@
 <div class="container-fluid bg-light">
   <div class="container">
+
     <%= render partial: "breadcrumbs" %>
 
     <div class="row">
-      <div class="col-md-12 mt-2">
-        <div class="row mb-2rem">
+      <div class="col-md-12 mt-3">
 
+        <div class="row mb-2rem">
           <div class="col">
-            <div class="box attendees">
-              <div class="event-box-big-text">
-                <h2 class="mb-3 font-italic"><%= @event.title %></h2>
-                <h3 class="h4 mb-3">
-                  Attendees (<%= @event.attendees.count %>)
-                </h3>
-                <ul>
-                  <% @attendees.reverse.each_with_index do |attendee, i| %>
-                    <li>
-                      <%= i + 1 %>
-                      <%= link_to attendee.name,
-                        user_path(attendee, attending_event: @event) %>
-                    </li>
-                  <% end %>
-                </ul>
-                <%= link_to "Go back to event", event_path(@event) %>
+
+            <div class="attendees mb-4">
+              <h2 class="mt-0 mb-0">
+                <%= attendees_title_with_count %>
+              </h3>
+              <div class="row">
+                <% @attendees.reverse.each do |attendee| %>
+                  <%= render "attendee", user: attendee, event: @event %>
+                <% end %>
               </div>
             </div>
-          </div>
 
+            <%= link_to "Go back to event", group_event_path(@group, @event) %>
+
+          </div>
         </div>
+
       </div>
     </div>
+
   </div>
 </div>

@@ -13,6 +13,14 @@ module GroupCountersHelper
     "Member".pluralize(@group.members_with_role.count)
   end
 
+  def attendees_title_with_count
+    attendees_title + role_count(@event.attendees.count)
+  end
+
+  def attendees_title
+    "Attendee".pluralize(@event.attendees.count)
+  end
+
   def role_count(count)
     return "" unless count > 1
 
