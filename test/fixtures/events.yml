@@ -9,6 +9,11 @@ one:
   image: sample.jpeg
   organizer: phil
   group: one
+  updated_fields: {
+    start_date: "",
+    end_date: "",
+    address: ""
+  }
 
 two:
   title: Fushimi Inari-taisha Shrine Tour
@@ -18,6 +23,11 @@ two:
   image: sample.jpeg
   organizer: phil
   group: one
+  updated_fields: {
+    start_date: "",
+    end_date: "",
+    address: ""
+  }
 
 three:
   title: Test event in Tokyo
@@ -27,6 +37,11 @@ three:
   image: sample.jpeg
   organizer: phil
   group: one
+  updated_fields: {
+    start_date: "",
+    end_date: "",
+    address: ""
+  }
 
 four:
   title: Test event in Tokyo 2
@@ -36,6 +51,11 @@ four:
   image: sample.jpeg
   organizer: penny
   group: two
+  updated_fields: {
+    start_date: "",
+    end_date: "",
+    address: ""
+  }
 
 five:
   title: Test event in Tokyo 3
@@ -45,6 +65,11 @@ five:
   image: sample.jpeg
   organizer: woodell
   group: woodells_group
+  updated_fields: {
+    start_date: "",
+    end_date: "",
+    address: ""
+  }
 
 <% 11.times do |n| %>
 nike_event_<%= n %>:
@@ -55,6 +80,11 @@ nike_event_<%= n %>:
   image: sample.jpeg
   organizer: phil
   group: one
+  updated_fields: {
+    start_date: "",
+    end_date: "",
+    address: ""
+  }
 <% end %>
 
 <% 22.times do |n| %>
@@ -66,4 +96,9 @@ event_<%= n %>:
   image: sample.jpeg
   organizer: phil
   group: woodells_group
+  updated_fields: {
+    start_date: "",
+    end_date: "",
+    address: ""
+  }
 <% end %>

@@ -1,0 +1,9 @@
+Hello <%= @user.name %>,
+
+The following information was updated in <%= @event.title %>:
+
+<% @updated_data.each do |data| %>
+  - <%= data.capitalize %>
+<% end %>
+
+Go to event: <%= group_event_url(@event.group, @event) %>

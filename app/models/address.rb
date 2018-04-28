@@ -9,15 +9,13 @@ class Address < ApplicationRecord
   validates :post_code, presence: true
   validates :country,   presence: true
 
-  private
+  def full_address
+    attributes = [place_name, street1, street2, city, state, post_code]
 
-    def full_address
-      attributes = [place_name, street1, street2, city, state, post_code]
+    attributes.reject(&:blank?).map(&:strip).join(", ")
+  end
 
-      attributes.reject(&:blank?).map(&:strip).join(", ")
-    end
-
-    def full_address_changed?
-      changed
-    end
+  def full_address_changed?
+    !changed.empty?
+  end
 end

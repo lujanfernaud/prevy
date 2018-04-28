@@ -10,7 +10,7 @@ class NewEventEmail
 
   def call
     @group.members.each do |member|
-      next unless member.new_event_emails?
+      next unless member.group_event_emails?
 
       NewEventJob.perform_async(member, @group, @event)
     end

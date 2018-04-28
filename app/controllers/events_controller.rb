@@ -65,6 +65,7 @@ class EventsController < ApplicationController
 
     if @event.update_attributes event_params
       flash[:success] = "Event updated."
+      send_updated_event_email
       redirect_to group_event_path(@group, @event)
     else
       render :edit
@@ -124,6 +125,10 @@ class EventsController < ApplicationController
 
     def send_new_event_email
       NewEventEmail.call(@event)
+    end
+
+    def send_updated_event_email
+      UpdatedEventEmail.call(@event)
     end
 
     def event_params

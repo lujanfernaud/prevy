@@ -292,7 +292,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
         "user_membership_request_emails",
         "user_group_membership_emails",
         "user_group_role_emails",
-        "user_new_event_emails"
+        "user_group_event_emails"
       ]
     end
 

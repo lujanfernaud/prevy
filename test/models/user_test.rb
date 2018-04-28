@@ -76,13 +76,13 @@ class UserTest < ActiveSupport::TestCase
     refute penny.group_role_emails?
   end
 
-  test "#new_event_emails?" do
+  test "#group_event_emails?" do
     phil  = users(:phil)
     penny = users(:penny)
-    penny.new_event_emails = false
+    penny.group_event_emails = false
 
-    assert phil.new_event_emails?
-    refute penny.new_event_emails?
+    assert phil.group_event_emails?
+    refute penny.group_event_emails?
   end
 
   test "#owned_groups" do

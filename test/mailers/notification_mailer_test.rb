@@ -93,6 +93,22 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_notifications_link(email)
   end
 
+  test "#updated_event" do
+    event = events(:one)
+    updated_data = ["start date", "end date", "event address"]
+    email = NotificationMailer.updated_event(@user, event, updated_data)
+
+    assert_email_to(email, @user)
+    assert_email_from(email)
+    assert_email_subject(email, "Update in #{event.title}")
+
+    assert_match "Hello #{@user.name},", email.body.encoded
+    assert_match "The following information " \
+                 "was updated in #{event.title}:", email.body.encoded
+
+    assert_match "Go to event", email.body.encoded
+  end
+
   private
 
     def assert_email_to(email, user)

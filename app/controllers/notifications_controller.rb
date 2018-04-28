@@ -53,6 +53,6 @@ class NotificationsController < ApplicationController
       params.require(:user).permit(:membership_request_emails,
                                    :group_membership_emails,
                                    :group_role_emails,
-                                   :new_event_emails)
+                                   :group_event_emails)
     end
 end

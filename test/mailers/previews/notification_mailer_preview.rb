@@ -20,4 +20,10 @@ class NotificationMailerPreview < ActionMailer::Preview
   def new_event
     NotificationMailer.new_event(User.last, Group.last, Event.last)
   end
+
+  def updated_event
+    updated_data = ["start date", "end date", "event address"]
+
+    NotificationMailer.updated_event(User.last, Event.last, updated_data)
+  end
 end

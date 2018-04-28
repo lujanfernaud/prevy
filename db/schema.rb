@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423072910) do
+ActiveRecord::Schema.define(version: 20180428065602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180423072910) do
     t.string "image"
     t.string "website"
     t.bigint "group_id"
+    t.jsonb "updated_fields", default: {}, null: false
     t.index ["group_id"], name: "index_events_on_group_id"
     t.index ["organizer_id"], name: "index_events_on_organizer_id"
   end

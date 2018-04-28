@@ -82,6 +82,7 @@ class EventTest < ActiveSupport::TestCase
     assert event.state
     assert event.post_code
     assert event.country
+    assert event.full_address
   end
 
   test "#group" do
@@ -89,5 +90,27 @@ class EventTest < ActiveSupport::TestCase
     group = groups(:one)
 
     assert_equal event.group, group
+  end
+
+  test "stores updated fields" do
+    event = fake_event
+    event.save
+
+    assert event.updated_fields.empty?
+
+    event.start_date = 1.month.from_now
+    event.end_date   = 1.month.from_now + 1.hour
+    event.save
+
+    assert event.updated_fields.include?("updated_start_date")
+    assert event.updated_fields.include?("updated_end_date")
+    refute event.updated_fields.include?("updated_address")
+
+    event.address.city = "Santa Cruz de Tenerife"
+    event.save
+
+    refute event.updated_fields.include?("updated_start_date")
+    refute event.updated_fields.include?("updated_end_date")
+    assert event.updated_fields.include?("updated_address")
   end
 end

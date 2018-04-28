@@ -39,7 +39,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
       post group_events_url(@group), params: event_params
     end
 
-    assert_equal sent_to_emails, members_emails
+    assert_emails_sent_to members_emails
     assert_redirected_to group_event_url(@group, Event.last)
   end
 
@@ -62,9 +62,9 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   test "should update event" do
     sign_in(@user)
 
-    patch group_event_url(@group, @event),
-      params: { event: { image: upload_valid_image } }
+    patch group_event_url(@group, @event), params: event_params_updated
 
+    assert_emails_sent_to attendees_emails
     assert_redirected_to group_event_url(@group, @event)
   end
 
@@ -93,11 +93,29 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
+    def event_params_updated
+      { event:
+        {
+          start_date: 1.week.from_now,
+          end_date: 1.week.from_now + 1.hour,
+          image: upload_valid_image
+        }
+      }
+    end
+
+    def assert_emails_sent_to(members)
+      assert_equal sent_to_emails, members
+    end
+
     def sent_to_emails
       ActionMailer::Base.deliveries.map(&:to).flatten
     end
 
     def members_emails
       @group.members.map(&:email)
+    end
+
+    def attendees_emails
+      @event.attendees.map(&:email)
     end
 end

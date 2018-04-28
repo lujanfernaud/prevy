@@ -59,6 +59,17 @@ class NotificationMailer < ApplicationMailer
     )
   end
 
+  def updated_event(user, event, updated_data)
+    @user  = user
+    @event = event
+    @updated_data = updated_data
+
+    mail(
+      to: @user.email,
+      subject: "Update in #{@event.title}"
+    )
+  end
+
   private
 
     def default_notification_email(user, group, subject:)
