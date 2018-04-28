@@ -10,7 +10,7 @@ module UserSettingsHelper
   end
 
   def link_to_notification_settings_for(user)
-    link_to "Notifications", user_notification_settings_path(user),
+    link_to "Email Notifications", user_notification_settings_path(user),
       class: "nav-link #{'active' if notifications_controller?}"
   end
 
