@@ -17,6 +17,14 @@ class NotificationMailerPreview < ActionMailer::Preview
     NotificationMailer.deleted_group_membership(User.last, Group.last)
   end
 
+  def added_to_organizers
+    NotificationMailer.added_to_organizers(User.last, Group.last)
+  end
+
+  def deleted_from_organizers
+    NotificationMailer.deleted_from_organizers(User.last, Group.last)
+  end
+
   def new_event
     NotificationMailer.new_event(User.last, Group.last, Event.last)
   end
