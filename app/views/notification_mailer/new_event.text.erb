@@ -2,4 +2,4 @@ Hello <%= @user.name %>,
 
 There is a new event in <%= @group.name %>.
 
-<%= link_to @event.title, group_event_url(@group, @event) %>
+Go to event: <%= group_event_url(@group, @event) %>
