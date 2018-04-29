@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GroupMembershipsControllerTest < ActionDispatch::IntegrationTest
+class Groups::MembershipsControllerTest < ActionDispatch::IntegrationTest
   setup do
     ActionMailer::Base.deliveries.clear
   end

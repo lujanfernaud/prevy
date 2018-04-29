@@ -1,4 +1,4 @@
-class UserEventsController < ApplicationController
+class Users::EventsController < ApplicationController
   require "will_paginate/array"
 
   def index

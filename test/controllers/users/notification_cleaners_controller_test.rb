@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NotificationCleanersControllerTest < ActionDispatch::IntegrationTest
+class Users::NotificationCleanersControllerTest < ActionDispatch::IntegrationTest
   test "should create notifications_cleaner" do
     user = users(:onitsuka)
 

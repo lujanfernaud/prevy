@@ -1,4 +1,4 @@
-class NotificationCleanersController < ApplicationController
+class Users::NotificationCleanersController < ApplicationController
   after_action :verify_authorized
 
   def create

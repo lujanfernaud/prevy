@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
+class Groups::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @membership_request = membership_requests(:one)
     @user  = @membership_request.user
@@ -8,11 +8,6 @@ class MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
     @owner = @group.owner
 
     ActionMailer::Base.deliveries.clear
-  end
-
-  test "should get index" do
-    get group_membership_requests_url(@group)
-    assert_response :success
   end
 
   test "should get new" do

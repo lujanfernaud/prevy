@@ -1,4 +1,4 @@
-class NotificationsController < ApplicationController
+class Users::NotificationsController < ApplicationController
   after_action :verify_authorized
 
   # User notifications

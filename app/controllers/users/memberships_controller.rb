@@ -1,4 +1,4 @@
-class UserMembershipsController < ApplicationController
+class Users::MembershipsController < ApplicationController
   after_action :verify_authorized
 
   def index

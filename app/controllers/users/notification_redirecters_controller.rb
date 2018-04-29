@@ -1,4 +1,4 @@
-class NotificationRedirectersController < ApplicationController
+class Users::NotificationRedirectersController < ApplicationController
   def new
     @user               = User.find(params[:user_id])
     @notification       = Notification.find(params[:notification])

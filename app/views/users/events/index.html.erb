@@ -4,7 +4,7 @@
 
       <div class="row">
         <% if !@events.empty? %>
-          <%= render @events %>
+          <%= render partial: "events/event", collection: @events %>
         <% else %>
           <h3 class="h5 text-center mt-4">
             There are no upcoming events in your groups.

@@ -1,4 +1,4 @@
-class GroupMembershipsController < ApplicationController
+class Groups::MembershipsController < ApplicationController
   after_action :verify_authorized
 
   def index

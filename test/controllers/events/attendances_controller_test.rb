@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AttendancesControllerTest < ActionDispatch::IntegrationTest
+class Events::AttendancesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @attendance = attendances(:attendance_1)
     @event = @attendance.attended_event

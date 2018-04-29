@@ -1,4 +1,4 @@
-class GroupOrganizersController < ApplicationController
+class Groups::OrganizersController < ApplicationController
   after_action :verify_authorized
 
   def create

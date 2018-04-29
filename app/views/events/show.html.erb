@@ -138,7 +138,8 @@
 
           <div class="row d-flex justify-content-center mt-1rem mb-2rem">
             <% @attendees.last(12).each do |attendee| %>
-              <%= render "attendances/attendee", user: attendee, event: @event %>
+              <%= render "events/attendances/attendee",
+                user: attendee, event: @event %>
             <% end %>
           </div>
 

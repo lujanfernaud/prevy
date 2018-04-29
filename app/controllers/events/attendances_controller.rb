@@ -1,4 +1,4 @@
-class AttendancesController < ApplicationController
+class Events::AttendancesController < ApplicationController
   include ApplicationHelper
 
   after_action :verify_authorized, except: :index
