@@ -1,4 +1,4 @@
-module UserMembershipsHelper
+module User::UserMembershipsHelper
   def group_organizers(group)
     pluralize_with_count("Organizer", scope: group.organizers)
   end

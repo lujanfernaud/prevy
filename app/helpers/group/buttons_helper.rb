@@ -1,4 +1,4 @@
-module GroupButtonsHelper
+module Group::ButtonsHelper
   def membership_button(group)
     return request_membership_button_disabled if group.sample_group?
     return log_in_to_request_membership_link  if !logged_in?

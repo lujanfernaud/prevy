@@ -1,5 +1,5 @@
-module GroupMembershipsHelper
-  include GroupCountersHelper
+module Group::GroupMembershipsHelper
+  include Group::CountersHelper
 
   def add_or_delete_organizer(user, group)
     return unless group.owner == current_user

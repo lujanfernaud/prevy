@@ -1,4 +1,4 @@
-module MembershipRequestsHelper
+module User::MembershipRequestsHelper
   def message_for(membership_request)
     if membership_request.message.empty?
       "No message."

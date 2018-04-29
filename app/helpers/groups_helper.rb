@@ -1,7 +1,7 @@
 module GroupsHelper
   include SessionsHelper
-  include GroupCountersHelper
-  include GroupButtonsHelper
+  include Group::CountersHelper
+  include Group::ButtonsHelper
 
   def has_organizer_role?(user, group)
     user&.has_role? :organizer, group

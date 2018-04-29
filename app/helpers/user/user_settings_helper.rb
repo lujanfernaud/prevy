@@ -1,4 +1,4 @@
-module UserSettingsHelper
+module User::UserSettingsHelper
   def link_to_account_settings_for(user)
     link_to "Account", edit_user_registration_path(user),
       class: "nav-link #{'active' if registrations_controller?}"

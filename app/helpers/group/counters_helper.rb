@@ -1,4 +1,4 @@
-module GroupCountersHelper
+module Group::CountersHelper
   def organizer_title
     count = @group.organizers.count
 
