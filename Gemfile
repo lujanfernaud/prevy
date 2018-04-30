@@ -67,6 +67,7 @@ group :test do
 end
 
 group :development do
+  gem 'bullet',                        '~> 5.7', '>= 5.7.5'
   gem 'guard-livereload',              '~> 2.5', '>= 2.5.2'
   gem 'rails-erd',                     '~> 1.5', '>= 1.5.2', require: false
   gem 'web-console',                   '>= 3.3.0'
