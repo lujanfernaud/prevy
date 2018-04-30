@@ -6,7 +6,10 @@ module IntegrationSupport
 
   def log_in_as(user)
     visit new_user_session_path
+    introduce_log_in_information_as(user)
+  end
 
+  def introduce_log_in_information_as(user)
     fill_in "Email",    with: user.email
     fill_in "Password", with: "password"
 
