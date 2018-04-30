@@ -51,7 +51,7 @@ group :development, :test do
   gem 'faker',                         '~> 1.8', '>= 1.8.7'
   gem 'pry-byebug',                    '~> 3.6'
   gem 'pry-rails',                     '~> 0.3.6'
-  gem 'rubocop-rails',                 '~> 1.2', '>= 1.2.1'
+  gem 'rubocop-rails',                 '~> 1.3'
 end
 
 group :test do
