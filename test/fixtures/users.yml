@@ -98,13 +98,25 @@ unnotifiable:
     "new_event_emails": false
   }
 
+unconfirmed:
+  name: Unconfirmed Stranger
+  email: unconfirmed.stranger@hotmail.test
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+  location: Somewhere
+  bio: It's a mistery.
+  settings: {
+    "membership_request_emails": true,
+    "group_membership_emails": true,
+    "group_role_emails": true,
+    "new_event_emails": true
+  }
+
 <% 21.times do |n| %>
 user_<%= n %>:
   name: User <%= n %>
   email: user<%= n %>@sample.com
   encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   location: Portland, Oregon
-  confirmed_at: <%= Time.zone.now - 1.day %>
   settings: {
     "membership_request_emails": true,
     "group_membership_emails": true,

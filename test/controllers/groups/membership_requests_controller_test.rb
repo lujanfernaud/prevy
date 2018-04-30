@@ -11,6 +11,10 @@ class Groups::MembershipRequestsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
+    woodell = users(:woodell)
+
+    sign_in(woodell)
+
     get new_group_membership_request_url(@group)
     assert_response :success
   end

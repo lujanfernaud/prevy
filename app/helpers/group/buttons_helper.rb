@@ -1,7 +1,6 @@
 module Group::ButtonsHelper
   def membership_button(group)
     return request_membership_button_disabled if group.sample_group?
-    return log_in_to_request_membership_link  if !logged_in?
 
     if requested_membership_for group
       membership_requested_button
@@ -25,12 +24,9 @@ module Group::ButtonsHelper
       class: "btn btn-primary btn-block btn-lg mt-3"
   end
 
-  def log_in_to_request_membership_link
-    link_to "Log in to request membership", new_user_session_path,
-      class: "btn btn-primary btn-block btn-lg mt-3"
-  end
-
   def requested_membership_for(group)
+    return unless current_user
+
     current_user.sent_requests.include?(group)
   end
 

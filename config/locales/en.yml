@@ -38,13 +38,12 @@ en:
       <p>Once you have your group, you can:</p>
       <ul>
       <li>
-      Send the link to the people you want so they can request membership
+      Send the group link to the people you want so they can request membership
       </li>
       <li>Create events that would only be seen by your group members</li>
       <li>Add organizer role to whomever you want, or to all by default!</li>
       <li>Make the group hidden so that it doesn't appear in groups listing</li>
       </ul>
-      <a href='%{new_group_link}'>Click here to create your first group!</a>
     location: "The Internet"
 
   sample_event:

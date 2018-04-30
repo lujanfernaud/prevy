@@ -1,0 +1,7 @@
+en:
+ pundit:
+   default: "You are not authorized to perform this action."
+   group_policy:
+     create?: "You need to activate your account to be able to create your own group. Please follow the link we sent to your email address to activate it"
+     show?: "You need to activate your account to have full access to this group. Please follow the link we sent to your email address to activate it"
+     confirmation_link: ", <a href='%{confirmation_path}' class='alert-link'>or click here to resend confirmation instructions</a>."

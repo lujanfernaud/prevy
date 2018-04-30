@@ -75,9 +75,19 @@
           </h3>
         <% end %>
 
-        <div class="row mt-4">
-          <%= link_to "Create group", new_group_path,
-            class: "btn btn-primary btn-lg btn-block mt-2rem mb-4" %>
+        <div class="row mt-2rem">
+          <div class="col-md-12 pl-0 pr-0">
+
+            <% if current_user&.confirmed? %>
+              <%= link_to "Create group", new_group_path,
+                class: "btn btn-primary btn-lg btn-block mt-4 mb-4" %>
+            <% else %>
+              <%= create_group_unconfirmed_account_alert %>
+              <%= button_tag "Create group", disabled: true,
+                class: "btn btn-primary btn-lg btn-block mt-4 mb-4" %>
+            <% end %>
+
+          </div>
         </div>
 
       </div>

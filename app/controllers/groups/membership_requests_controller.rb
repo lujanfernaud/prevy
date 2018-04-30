@@ -2,6 +2,8 @@ class Groups::MembershipRequestsController < ApplicationController
   def new
     @membership_request = MembershipRequest.new
     @group = find_group
+
+    authorize @membership_request
   end
 
   def create
@@ -59,5 +61,9 @@ class Groups::MembershipRequestsController < ApplicationController
 
     def notify_requester
       DeclinedMembershipRequest.call(@membership_request)
+    end
+
+    def user_not_authorized
+      redirect_to new_user_registration_path
     end
 end

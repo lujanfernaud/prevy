@@ -13,7 +13,7 @@
 
     <% flash.each do |message_type, message| %>
       <%= content_tag :div, message,
-        class: "alert alert-#{message_type} text-center" %>
+        class: "alert alert-primary alert-#{message_type} text-center" %>
     <% end %>
 
     <main class="main-container">

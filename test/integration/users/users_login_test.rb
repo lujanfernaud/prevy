@@ -62,11 +62,22 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   test "user is redirected to the previous location after logging in" do
     visit group_path(@group)
 
-    click_on "Log in to request membership"
+    click_on "Log in"
 
     introduce_log_in_information_as(@user)
 
     assert current_path == group_path(@group)
+  end
+
+  test "user is redirected to new membership request after logging in" do
+    visit group_path(@group)
+
+    click_on "Request membership"
+    click_on "Log in"
+
+    introduce_log_in_information_as(@user)
+
+    assert current_path == new_group_membership_request_path(@group)
   end
 
   test "logout" do

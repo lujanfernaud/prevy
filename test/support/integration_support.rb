@@ -57,4 +57,34 @@ module IntegrationSupport
   def add_members_to_group(group, *users)
     users.each { |user| user.add_role(:member, group) }
   end
+
+  def assert_create_group_link_enabled
+    assert page.has_link? "Create group", { href: new_group_path }
+  end
+
+  def assert_create_group_link_disabled
+    assert page.has_link? "Create group",
+      { href: "", class: "create-group-link disabled" }
+  end
+
+  def refute_unconfirmed_account_alerts
+    refute_create_group_unconfirmed_alert
+    refute_show_group_unconfirmed_alert
+  end
+
+  def refute_create_group_unconfirmed_alert
+    refute page.has_content? I18n.t("pundit.group_policy.create?")
+  end
+
+  def refute_show_group_unconfirmed_alert
+    refute page.has_content? I18n.t("pundit.group_policy.show?")
+  end
+
+  def assert_create_group_unconfirmed_alert
+    assert page.has_content? I18n.t("pundit.group_policy.create?")
+  end
+
+  def assert_show_group_unconfirmed_alert
+    assert page.has_content? I18n.t("pundit.group_policy.show?")
+  end
 end

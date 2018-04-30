@@ -23,6 +23,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_members_preview(@group)
     assert_copy_group_link
     refute_membership
+    refute_unconfirmed_account_alerts
 
     assert_upcoming_events
     assert_members(@group)
@@ -40,6 +41,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_members_preview(@group)
     assert_copy_group_link
     refute_membership
+    refute_unconfirmed_account_alerts
 
     assert_upcoming_events
     assert_members(@group)
@@ -58,6 +60,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_members_preview_title(@group)
     refute_copy_group_link
     assert_membership_button "Request membership"
+    refute_unconfirmed_account_alerts
 
     refute_upcoming_events
     refute_members
@@ -73,7 +76,8 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_members_preview_title(@group)
     assert_members_count(1)
     refute_copy_group_link
-    assert_membership_button "Log in to request membership"
+    assert_membership_button "Request membership"
+    refute_unconfirmed_account_alerts
 
     refute_upcoming_events
     refute_members
@@ -89,6 +93,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     refute_copy_group_link
     assert page.has_button? "Request membership", disabled: true
+    refute_unconfirmed_account_alerts
   end
 
   test "logged out user visits sample group" do
@@ -98,6 +103,42 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     refute_copy_group_link
     assert page.has_button? "Request membership", disabled: true
+    refute_unconfirmed_account_alerts
+  end
+
+  test "owner with unconfirmed email visits sample group" do
+    group = groups(:sample_group)
+    user  = users(:user_1)
+    group.add_to_organizers(user)
+    add_members_to_group(group, @penny, @woodell)
+
+    log_in_as(user)
+
+    visit group_path(group)
+
+    assert_organizers(group)
+    assert_members_preview(group)
+    assert_copy_group_link
+    assert_create_group_unconfirmed_alert
+
+    assert_upcoming_events
+    assert_members(group)
+  end
+
+  test "member with unconfirmed email visits group" do
+    group = groups(:sample_group)
+    user  = users(:unconfirmed)
+    group.members << user
+
+    log_in_as(user)
+
+    visit group_path(group)
+
+    refute_create_group_unconfirmed_alert
+    assert_show_group_unconfirmed_alert
+
+    refute_upcoming_events
+    refute_members
   end
 
   private

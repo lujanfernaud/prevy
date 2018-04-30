@@ -71,6 +71,20 @@ five:
     address: ""
   }
 
+sample_event:
+  title: Sample event somewhere
+  description: <%= Faker::Lorem.paragraph %>
+  start_date: <%= Time.zone.now + 6.days %>
+  end_date: <%= Time.zone.now + 1.week %>
+  image: sample.jpeg
+  organizer: user_1
+  group: sample_group
+  updated_fields: {
+    start_date: "",
+    end_date: "",
+    address: ""
+  }
+
 <% 11.times do |n| %>
 nike_event_<%= n %>:
   title: Nike Test Event <%= n %>

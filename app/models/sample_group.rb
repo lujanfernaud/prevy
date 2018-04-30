@@ -36,11 +36,7 @@ class SampleGroup
     end
 
     def group_description
-      I18n.t(
-        "sample_group.description",
-        user_name: user.name,
-        new_group_link: Rails.application.routes.url_helpers.new_group_path
-      )
+      I18n.t("sample_group.description", user_name: user.name)
     end
 
     def group_location

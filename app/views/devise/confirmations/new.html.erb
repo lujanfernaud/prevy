@@ -19,7 +19,9 @@
         </div>
       <% end %>
 
-      <%= render "devise/shared/links" %>
+      <% if !signed_in? %>
+        <%= render "devise/shared/links" %>
+      <% end %>
 
     </div>
   </div>
