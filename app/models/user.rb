@@ -61,9 +61,7 @@ class User < ApplicationRecord
   end
 
   def events_from_groups
-    Event.where(group_id: groups.map(&:id))
-         .includes(:address)
-         .upcoming
+    Event.where(group_id: groups.map(&:id)).upcoming
   end
 
   def total_membership_requests

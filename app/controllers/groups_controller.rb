@@ -83,7 +83,7 @@ class GroupsController < ApplicationController
     end
 
     def store_upcoming_events
-      upcoming = @group.events.upcoming.includes(:address).limit(9)
+      upcoming = @group.events.upcoming.limit(9)
       EventDecorator.collection(upcoming)
     end
 
