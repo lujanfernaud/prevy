@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NotificationsTest < ActionDispatch::IntegrationTest
+class UsersNotificationsTest < ActionDispatch::IntegrationTest
   def setup
     stub_geocoder
 

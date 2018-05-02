@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AttendancesCreationTest < ActionDispatch::IntegrationTest
+class EventsAttendancesTest < ActionDispatch::IntegrationTest
   def setup
     @group = groups(:one)
     @event = events(:one)
