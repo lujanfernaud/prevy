@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserSignupTest < ActionDispatch::IntegrationTest
+class UsersSignupTest < ActionDispatch::IntegrationTest
   def setup
     stub_geocoder
   end
