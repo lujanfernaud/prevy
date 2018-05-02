@@ -19,7 +19,7 @@ startClipboardJS = ->
     $(button).tooltip "show"
 
   $(button).on "shown.bs.tooltip", ->
-    setTimeout(hideTooltip, 2000)
+    setTimeout(hideTooltip, 1000)
 
   hideTooltip = ->
     $(button).tooltip "hide"
