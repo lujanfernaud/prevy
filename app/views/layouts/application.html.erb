@@ -10,7 +10,7 @@
 
   <body class="d-flex flex-column bg-light">
     <%= render "header" %>
-
+    <%= render "searches/search_bar" if home_page? %>
     <%= render "flash_messages" %>
 
     <main class="main-container">
