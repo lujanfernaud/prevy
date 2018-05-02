@@ -1,94 +1,40 @@
 <div class="container-fluid">
   <div class="container">
     <div class="row d-flex justify-content-center">
-      <div class="col-md-8">
+      <div class="col-sm-12 col-lg-10 col-xl-8">
 
-        <% if @owned_groups.any? %>
-          <h2 class="text-center mt-5 mb-2rem">Owned Groups</h2>
-          <div class="d-flex flex-column mt-4">
-            <% @owned_groups.each do |group| %>
+        <h2 class="text-center mt-2rem mb-2rem">Owned Groups</h2>
 
-              <div class="row d-flex event-group" id="group-<%= group.id %>">
-                <div class="mr-2">
-                  <a href="<%= group_path(group) %>">
-                    <%= image_tag group.image.thumb, width: "170" %>
-                  </a>
-                </div>
-                <div class="d-flex flex-column justify-content-between">
-                  <h3 class="h4 mb-0">
-                    <%= link_to group.name, group_path(group) %>
-                  </h3>
-                  <p class="mb-0">
-                    <%= group_organizers(group) %>
-                    <span> | </span>
-                    <%= group_members(group) %>
-                    <%= link_to "(See all)", group_members_path(group) %>
-                  </p>
-                  <%= edit_group_link(group) %>
-                </div>
-              </div>
-              <hr class="user-group-list-hr mt-3 mb-3">
+        <% if @user.owned_groups.any? %>
 
+          <% @owned_groups.each do |group| %>
+            <%= render "user_group", group: group, user: @user do %>
+              <% links_for_owned_group(group) %>
             <% end %>
-          </div>
+          <% end %>
+
+        <% else %>
+
+          <h3 class="h5 text-center mt-5">
+            You still don't own any group. Why don't you create one? :)
+          </h3>
+
         <% end %>
+
+        <%= render "create_group" %>
 
         <% if @associated_groups.any? %>
-          <h2 class="text-center mt-5 mb-2rem">With Membership</h2>
-          <div class="d-flex flex-column mt-4">
+          <div class="mb-2rem">
+            <h2 class="text-center mt-1rem mb-2rem">With Membership</h2>
+
             <% @associated_groups.each do |group| %>
-
-              <div class="row d-flex event-group" id="group-<%= group.id %>">
-                <div class="mr-2">
-                  <a href="<%= group_path(group) %>">
-                    <%= image_tag group.image.thumb, width: "170" %>
-                  </a>
-                </div>
-                <div class="d-flex flex-column justify-content-between">
-                  <h3 class="h4 mb-0">
-                    <%= link_to group.name, group_path(group) %>
-                    <% if @user.has_role?(:organizer, group) %>
-                      <span class="h6 d-inline-block">[Organizer]</span>
-                    <% end %>
-                  </h3>
-                  <p class="mb-0">
-                    <%= group_organizers(group) %>
-                    <span> | </span>
-                    <%= group_members(group) %>
-                    <%= link_to "(See all)", group_members_path(group) %>
-                  </p>
-                  <%= link_to "Cancel membership",
-                    group_member_path(group, current_user),
-                    method: :delete,
-                    data: { confirm: "Are you sure to cancel your membership to '#{group.name}'?"} %>
-                </div>
-              </div>
-              <hr class="user-group-list-hr mt-3 mb-3">
-
+              <%= render "user_group", group: group, user: @user do %>
+                <% links_for_group_with_membership(group) %>
+              <% end %>
             <% end %>
           </div>
+
         <% end %>
-
-        <% if @user.groups.empty? %>
-          <h3 class="h5 text-center mt-5">
-            You don't have membership to any group. Why don't you create one? :)
-          </h3>
-        <% end %>
-
-        <div class="row mt-2rem">
-          <div class="col-md-12 pl-0 pr-0">
-
-            <% if current_user&.confirmed? %>
-              <%= link_to "Create group", new_group_path,
-                class: "btn btn-primary btn-lg btn-block mt-4 mb-4" %>
-            <% else %>
-              <%= create_group_unconfirmed_account_alert %>
-              <%= button_tag "Create group", disabled: true,
-                class: "btn btn-primary btn-lg btn-block mt-4 mb-4" %>
-            <% end %>
-
-          </div>
-        </div>
 
       </div>
     </div>

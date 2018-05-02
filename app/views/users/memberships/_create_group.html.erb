@@ -1,0 +1,14 @@
+<div class="row mt-2rem mb-2rem">
+  <div class="col-md-12 pl-0 pr-0 text-center">
+
+    <% if current_user&.confirmed? %>
+      <%= link_to "Create group", new_group_path,
+        class: "btn btn-primary btn-lg" %>
+    <% else %>
+      <%= create_group_unconfirmed_account_alert %>
+      <%= button_tag "Create group", disabled: true,
+        class: "btn btn-primary btn-lg" %>
+    <% end %>
+
+  </div>
+</div>

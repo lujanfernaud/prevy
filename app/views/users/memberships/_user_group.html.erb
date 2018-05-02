@@ -1,0 +1,24 @@
+<div class="row box event-box mt-2rem" id="group-<%= group.id %>">
+
+  <div class="box-image card card-inverse text-center col-md-4">
+    <a href="<%= group_path(group) %>">
+      <%= image_tag group.image.thumb,
+        class: "img-fluid box-image__img" %>
+    </a>
+  </div>
+
+  <div class="box-text box-text--user-group box-text--accented
+    card-body col-md-8 d-flex flex-column justify-content-between">
+    <h3 class="h4 mb-0 pb-2 pb-md-0">
+      <%= group_name_with_link(group) %>
+      <% if user_is_organizer_but_not_owner(group, user) %>
+        <span class="h6 d-inline-block">[Organizer]</span>
+      <% end %>
+    </h3>
+    <p class="mb-0 pb-2 pb-md-0">
+      <%= render "organizers_and_members", group: group %>
+    </p>
+    <%= yield if block_given? %>
+  </div>
+
+</div>

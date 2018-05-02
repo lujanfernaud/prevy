@@ -70,6 +70,64 @@ body {
 }
 
 
+// Boxes
+
+
+.box-image {
+  border-bottom: 3px solid $indigo !important;
+  padding-left: 0;
+  padding-right: 0;
+
+  @include media-breakpoint-up(md) {
+    padding-right: 15px;
+  }
+}
+
+.box-image__img {
+  min-width: 100%;
+}
+
+.box-text {
+  padding: 1rem;
+
+  @include media-breakpoint-up(md) {
+    padding: 0.9rem 0.5rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding: 1rem 0.5rem;
+  }
+
+  @include media-breakpoint-up(xl) {
+    padding: .5rem .5rem .31rem .5rem;
+  }
+}
+
+.box-text--user-group {
+  @include media-breakpoint-up(xl) {
+    padding: 1rem .25rem .82rem .25rem;
+  }
+}
+
+.box-text--accented {
+  @include media-breakpoint-up(md) {
+    border-bottom: 3px solid $indigo;
+  }
+}
+
+
+// User Groups
+
+
+.user-group__link {
+  display: block;
+
+  @media (min-width: 335px) {
+    display: inline-block;
+  }
+}
+
+
 // Event Map
 
 
