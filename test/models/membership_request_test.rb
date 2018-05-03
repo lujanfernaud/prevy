@@ -19,4 +19,18 @@ class MembershipRequestTest < ActiveSupport::TestCase
 
     assert notification.destroyed?
   end
+
+  test ".find_sent" do
+    user = users(:phil)
+    sent = [membership_requests(:three)]
+
+    assert_equal sent, MembershipRequest.find_sent(user)
+  end
+
+  test ".find_received" do
+    user = users(:phil)
+    received = [membership_requests(:one), membership_requests(:two)]
+
+    assert_equal received, MembershipRequest.find_received(user)
+  end
 end

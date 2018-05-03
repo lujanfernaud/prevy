@@ -7,14 +7,6 @@ module User::MembershipRequestsHelper
     end
   end
 
-  def no_membership_requests_for(received, sent)
-    if received.none? && sent.none?
-      "<h2 class='text-center mt-5 mb-2rem'>
-        There are no membership requests.
-      </h2>".html_safe
-    end
-  end
-
   def membership_requests_link
     return unless membership_requests?
 

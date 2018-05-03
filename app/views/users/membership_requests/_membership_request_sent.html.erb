@@ -1,20 +1,26 @@
-<div id="<%= membership_request.id %>"
-  class="row row-membership-request d-flex mb-3">
-  <div class="mr-2 membership-request-group-image"
-    style="
-    background-image: url(<%= membership_request.group.image_url %>)
-    ">
-  </div>
+<div id="<%= membership_request.id %>" class="row d-flex mb-4 box bg-white">
+
+  <a href="<%= group_path(membership_request.group) %>">
+    <div class="membership-request-image"
+      style="
+      background-image: url(<%= membership_request.group.image_url %>)
+      ">
+    </div>
+  </a>
+
   <div class="d-flex flex-column justify-content-between
-    membership-request-info">
+    membership-request-info ml-2 pl-1 pt-2 pb-2">
     <h3 class="h6 font-weight-bold mt-1 mb-1">
-      <%= link_to membership_request.group.name,
-        group_path(membership_request.group) %>
+      <span class="font-weight-normal">To</span>
+      <span class="font-italic">
+        <%= link_to membership_request.group.name,
+          group_path(membership_request.group) %>
+      </span>
     </h3>
     <p class="mb-0">
       <%= message_for(membership_request) %>
     </p>
-    <div class="request-links">
+    <div class="membership-request-links">
       <%= link_to "Cancel request",
         group_membership_request_path(
           membership_request.group,
@@ -23,4 +29,5 @@
         data: { confirm: "Are you sure to cancel your request?" } %>
     </div>
   </div>
+
 </div>

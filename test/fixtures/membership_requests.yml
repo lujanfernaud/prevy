@@ -9,3 +9,8 @@ two:
   message: Hey, I'm Carolyn.
   group: one
   user: carolyn
+
+three:
+  message: I'm Phil.
+  group: kyoto
+  user: phil

@@ -1,14 +1,21 @@
-<div id="<%= membership_request.id %>"
-  class="row row-membership-request d-flex mb-3">
-  <div class="mr-2">
-    <%= gravatar_image_tag membership_request.user.email,
-      gravatar: { size: 85 } %>
-  </div>
+<div id="<%= membership_request.id %>" class="row d-flex mb-4 box bg-white">
+
+  <a href="<%= user_path(membership_request.user) %>">
+    <div class="membership-request-image"
+      style="
+      background-image: url(<%= gravatar_image_url membership_request.user.email %>)
+      ">
+    </div>
+  </a>
+
   <div class="d-flex flex-column justify-content-between
-    membership-request-info">
+    membership-request-info ml-2 pl-1 pt-2 pb-2">
     <h3 class="h6 font-weight-bold mt-1 mb-1">
-      <%= link_to membership_request.user.name,
-        user_path(membership_request.user) %>
+      <span class="font-weight-normal">From</span>
+      <span class="font-italic">
+        <%= link_to membership_request.user.name,
+          user_path(membership_request.user) %>
+        </span>
       <span class="font-weight-normal">in</span>
       <span class="font-italic">
         <%= link_to membership_request.group.name,
@@ -18,7 +25,7 @@
     <p class="mb-0">
       <%= message_for(membership_request) %>
     </p>
-    <div class="request-links">
+    <div class="membership-request-links">
       <%= link_to "Accept",
         group_members_path(
           group_id: membership_request.group,
@@ -34,4 +41,5 @@
         data: { confirm: "Are you sure to delete this person's request?" } %>
     </div>
   </div>
+
 </div>
