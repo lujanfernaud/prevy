@@ -1,15 +1,14 @@
 <tr id="notification-<%= notification.id %>">
-  <th scope="row"></th>
-  <td>
+  <td class="notification__date">
     <%= notification.created_at.strftime("%d %b") %>
   </td>
-  <td>
+  <td class="notification__message">
     <%= notification.message %>
   </td>
-  <td>
+  <td class="notification__link">
     <%= see_notification_link(notification) %>
   </td>
-  <td>
+  <td class="notification__mark-as-read">
     <%= link_to "Mark as read",
       user_notification_path(current_user, notification),
       method: :delete %>
