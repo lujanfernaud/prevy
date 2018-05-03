@@ -13,7 +13,7 @@ class SampleGroupTest < ActiveSupport::TestCase
     assert group.sample_group?
     assert_equal user, group.owner
     assert SampleUser.all.count, group.members.count
-    assert_equal 3, group.organizers.count
+    assert_equal 5, group.organizers.count
     assert_equal 1, group.events.count
   end
 end

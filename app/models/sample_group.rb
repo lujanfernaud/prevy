@@ -55,7 +55,7 @@ class SampleGroup
     end
 
     def add_sample_organizers
-      random_members(2).each { |member| group.add_to_organizers(member) }
+      random_members(4).each { |member| group.add_to_organizers(member) }
     end
 
     def random_members(number)
