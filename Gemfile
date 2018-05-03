@@ -23,6 +23,7 @@ gem 'sucker_punch',                    '~> 2.0', '>= 2.0.4'
 gem 'figaro',                          '~> 1.1', '>= 1.1.1'
 gem 'gravatar_image_tag',              '~> 1.2'
 gem 'inline_svg',                      '~> 1.3', '>= 1.3.1'
+gem 'faker',                           '~> 1.8', '>= 1.8.7'
 
 # Add type-casting and other features on top of ActiveRecord::Store.store_accessor
 gem 'storext',                         '~> 2.2', '>= 2.2.2'
@@ -48,7 +49,6 @@ gem 'country_select',                  '~> 3.1', '>= 3.1.1'
 gem 'geocoder',                        '~> 1.4', '>= 1.4.5'
 
 group :development, :test do
-  gem 'faker',                         '~> 1.8', '>= 1.8.7'
   gem 'pry-byebug',                    '~> 3.6'
   gem 'pry-rails',                     '~> 0.3.6'
   gem 'rubocop-rails',                 '~> 1.3'
