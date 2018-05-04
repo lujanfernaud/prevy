@@ -12,7 +12,7 @@ one:
 two:
   name: Penny's Group
   location: Portland, Oregon
-  description: <%= Faker::Lorem.paragraph %>
+  description: <%= Faker::Lorem.paragraph + " Nike" %>
   image: sample.jpeg
   hidden: false
   all_members_can_create_events: true
@@ -30,7 +30,7 @@ three:
 four:
   name: Woodell's Hidden Group
   location: Portland, Oregon
-  description: <%= Faker::Lorem.paragraph %>
+  description: <%= Faker::Lorem.paragraph + " Nike" %>
   image: sample.jpeg
   hidden: true
   all_members_can_create_events: true
@@ -39,7 +39,7 @@ four:
 woodells_group:
   name: Woodell's Group
   location: Portland, Oregon
-  description: <%= Faker::Lorem.paragraph %>
+  description: <%= Faker::Lorem.paragraph + " Nike" %>
   image: sample.jpeg
   hidden: false
   all_members_can_create_events: true
@@ -47,7 +47,7 @@ woodells_group:
 
 strangers_group:
   name: Stranger's Group
-  location: Portland, Oregon
+  location: Somewhere
   description: <%= Faker::Lorem.paragraph %>
   image: sample.jpeg
   hidden: true

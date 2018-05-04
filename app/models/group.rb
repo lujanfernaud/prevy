@@ -1,5 +1,8 @@
 class Group < ApplicationRecord
+  include PgSearch
+
   resourcify
+
   after_create :add_owner_as_organizer
   after_update :update_members_role
 
@@ -22,10 +25,7 @@ class Group < ApplicationRecord
   validates :description, presence: true, length: { minimum: 70 }
   validates :image,       presence: true
 
-  scope :search, -> (location, group_name) {
-    where("lower(location) LIKE :location AND lower(name) LIKE :name",
-      location: "%#{location.downcase}%", name: "%#{group_name.downcase}%")
-  }
+  pg_search_scope :search, against: [:name, :location, :description]
 
   scope :unhidden, -> {
     where(hidden: false, sample_group: false)

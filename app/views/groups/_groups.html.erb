@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-2rem">
+
+      <header>
+        <h2 class="text-center">
+          <%= yield :groups_header_title %>
+        </h2>
+      </header>
+
+      <main class="row d-flex justify-content-center">
+        <%= render groups %>
+      </main>
+
+      <footer class="row">
+        <div class="mx-auto mt-2rem mb-2rem">
+          <%= will_paginate groups,
+            :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</div>

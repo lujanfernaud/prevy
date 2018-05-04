@@ -5,74 +5,58 @@ class GroupsSearchTest < ActionDispatch::IntegrationTest
     @user = users(:penny)
   end
 
-  test "user can search for a group using only the location" do
+  test "search using location as keyword" do
     log_in_as(@user)
-    visit root_path
+    visit groups_path
 
-    search_using_only_location "Portland"
-    assert page.has_content?   "6 groups found"
-
-    search_using_only_location "Kyoto"
-    assert page.has_content?   "1 group found"
+    search "Portland"
+    assert page.has_content? "3 groups found"
   end
 
-  test "user can search for a group using only the group's name" do
+  test "search using name as keyword" do
     log_in_as(@user)
-    visit root_path
+    visit groups_path
 
-    search_using_only_group  "Nike"
-    assert page.has_content? "1 group found"
-
-    search_using_only_group  "Stranger's Group"
+    search "Sakura"
     assert page.has_content? "1 group found"
   end
 
-  test "user can search for a group using the location and group's name" do
+  test "search using name and description as keyword" do
     log_in_as(@user)
-    visit root_path
+    visit groups_path
 
-    search location: "Kyoto", group: "Sakura"
-    assert page.has_content? "1 group found"
+    search "Nike"
+    assert page.has_content? "3 groups found"
+  end
 
-    search location: "Portland", group: "Woodell's Group"
+  test "search using two keywords" do
+    log_in_as(@user)
+    visit groups_path
+
+    search "Nike Portland"
+    assert page.has_content? "3 groups found"
+  end
+
+  test "search using three keywords" do
+    log_in_as(@user)
+    visit groups_path
+
+    search "Nike Portland Penny"
     assert page.has_content? "1 group found"
   end
 
-  test "user can search for a group using a partial string" do
+  test "search for hidden group returns nothing" do
     log_in_as(@user)
-    visit root_path
+    visit groups_path
 
-    search location: "Port", group: "Gr"
-    assert page.has_content? "5 groups found"
-
-    search location: "Kyo", group: ""
-    assert page.has_content? "1 group found"
-  end
-
-  test "user can search in a different case" do
-    log_in_as(@user)
-    visit root_path
-
-    search location: "", group: "sakura"
-    assert page.has_content? "1 group found"
-
-    search location: "portland", group: ""
-    assert page.has_content? "6 groups found"
+    search "Stranger's Group"
+    assert page.has_content? "0 groups found"
   end
 
   private
 
-    def search_using_only_location(location)
-      search location: location, group: ""
-    end
-
-    def search_using_only_group(group)
-      search location: "", group: group
-    end
-
-    def search(location:, group:)
-      fill_in "Location", with: location
-      fill_in "Group", with: group
+    def search(keywords)
+      fill_in "keywords", with: keywords
       click_on "Search"
     end
 end
