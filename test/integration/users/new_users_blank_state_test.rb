@@ -71,7 +71,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
 
     def assert_organizers
       within ".organizers-preview" do
-        group_organizers.each do |organizer|
+        group_organizers.last(3).each do |organizer|
           assert page.has_link? organizer.name, count: 1
         end
       end

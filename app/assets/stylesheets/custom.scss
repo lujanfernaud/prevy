@@ -8,6 +8,8 @@
 }
 
 $dark-indigo: #210451;
+$primary-dark: #4B0CB2;
+$primary-darker: #300872;
 $light-background: #f3f4f5;
 $shadow: #989999;
 
@@ -35,8 +37,22 @@ body {
   min-height: 100vh;
 }
 
+.container-semi-fluid {
+  @include media-breakpoint-only(md) {
+    max-width: initial;
+  }
+}
+
 .main-container {
   flex: 1;
+}
+
+.bg-primary-dark {
+  background-color: $primary-dark;
+}
+
+.bg-primary-darker {
+  background-color: darken($primary-darker, 0%);
 }
 
 .bg-light {
@@ -60,6 +76,68 @@ body {
 
 .icon-link {
   margin-right: .13rem;
+}
+
+
+// Header
+
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: white;
+  text-transform: uppercase;
+  padding-top: 9px;
+  font-weight: bold;
+
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.btn-navbar-menu {
+  @include media-breakpoint-down(md) {
+    display: block;
+    width: 100%;
+  }
+}
+
+
+// Errors
+
+
+#error_explanation {
+  margin-top: 2rem;
+}
+
+.alert > .list-styled {
+  margin-bottom: 0;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: #f8d7da;
+}
+
+
+// Home Page
+
+
+.main-user-content {
+  padding-top: .5rem;
+  padding-bottom: 1.5rem;
+}
+
+.unhidden-groups-container {
+  padding-top: 2.3rem;
+  padding-bottom: 1.5rem;
+  background: rgba($indigo, 0.039);
+}
+
+.btn-see-more-unhidden {
+  white-space: normal;
 }
 
 
@@ -138,42 +216,6 @@ body {
 }
 
 
-// Errors
-
-
-#error_explanation {
-  margin-top: 2rem;
-}
-
-.alert > .list-styled {
-  margin-bottom: 0;
-}
-
-.field_with_errors {
-  padding: 2px;
-  background-color: #f8d7da;
-}
-
-
-// Header
-
-
-#logo {
-  float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
-  color: white;
-  text-transform: uppercase;
-  padding-top: 9px;
-  font-weight: bold;
-
-  &:hover {
-    color: white;
-    text-decoration: none;
-  }
-}
-
-
 // User Notifications
 
 
@@ -198,7 +240,7 @@ body {
   padding-top: .8rem;
   padding-bottom: 0.7rem;
   color: #fff;
-  background-color: lighten($dark-indigo, 5);
+  background-color: $primary-darker;
 }
 
 .container-search-bar {
@@ -310,7 +352,7 @@ body {
 }
 
 .group-box-title {
-  bottom: .7rem;
+  bottom: .83rem;
   left: 1.1rem;
   margin-bottom: 0;
   position: absolute;
@@ -346,16 +388,16 @@ body {
 
 .membership-request-image {
   display: none;
-  background-size: cover;
   width: 110px;
   height: 110px;
+  background-color: $gray-300;
+  background-size: cover;
   border-top-left-radius: .25rem;
   border-bottom-left-radius: .25rem;
 
   @include media-breakpoint-up(sm) {
     display: block;
   }
-
 }
 
 

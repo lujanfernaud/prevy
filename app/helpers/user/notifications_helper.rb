@@ -15,7 +15,7 @@ module User::NotificationsHelper
 
   def button_with_notifications
     link_to user_notifications_path(current_user),
-      class: "btn btn-primary btn-notifications" do
+      class: "btn btn-light btn-navbar-menu btn-notifications" do
       "Notifications #{notifications_badge}".html_safe
     end
   end
@@ -23,7 +23,7 @@ module User::NotificationsHelper
   def notifications_badge
     return unless notifications?
 
-    "<span class='ml-2 badge badge-pill badge-light align-middle'>
+    "<span class='ml-2 badge badge-pill badge-dark align-middle'>
       #{notifications_count}
     </span>".html_safe
   end
@@ -34,7 +34,8 @@ module User::NotificationsHelper
 
   def button_without_notifications
     link_to user_notifications_path(current_user),
-      class: "btn btn-outline-secondary btn-notifications" do
+      class: "btn btn-outline-light btn-navbar-menu
+        btn-notifications disabled" do
       "Notifications"
     end
   end

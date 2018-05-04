@@ -13,11 +13,10 @@ class GroupsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(user)
     visit root_path
 
+    page.execute_script("$('#navbarCollapse').toggle('.show')")
+
     within ".navbar" do
       click_on user.name
-    end
-
-    within ".dropdown-menu" do
       click_on "Create group"
     end
 

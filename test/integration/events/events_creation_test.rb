@@ -19,9 +19,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in_valid_information(@event.description)
     fill_in_valid_address
@@ -38,9 +36,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in "Title", with: "T"
     fill_in_description(@event.description)
@@ -57,9 +53,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in "Title", with: @event.title
     fill_in_description("Too short description.")
@@ -76,9 +70,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in_valid_information(@event.description)
 
@@ -100,9 +92,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in_valid_information(@event.description)
 
@@ -124,9 +114,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in_valid_information(@event.description)
 
@@ -148,9 +136,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in_valid_information(@event.description)
 
@@ -171,9 +157,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in_valid_information(@event.description)
     fill_in_valid_address
@@ -191,9 +175,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in_valid_information(@event.description)
     fill_in_valid_address
@@ -211,9 +193,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in_valid_information(@event.description)
     fill_in_valid_address
@@ -231,9 +211,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in_valid_information(@event.description)
     fill_in_valid_address
@@ -251,9 +229,7 @@ class EventsCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit group_path(@group)
 
-    within ".group-info-box" do
-      click_on "Create event"
-    end
+    click_on "Create event"
 
     fill_in_valid_information(@event.description)
     fill_in_valid_address

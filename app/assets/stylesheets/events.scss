@@ -36,15 +36,15 @@ a.event-box-title:hover {
   padding: 1rem;
 
   @include media-breakpoint-up(md) {
-    padding: 0.9rem 0.5rem;
+    padding: .9rem .5rem;
   }
 
   @include media-breakpoint-up(lg) {
-    padding: 1rem 0.5rem;
+    padding: 1rem .5rem;
   }
 
   @include media-breakpoint-up(xl) {
-    padding: .5rem .5rem .31rem .5rem;
+    padding: .5rem;
   }
 }
 
@@ -68,19 +68,18 @@ a.event-box-title:hover {
   font-size: 1.3rem;
 
   @include media-breakpoint-up(md) {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
 
   @include media-breakpoint-up(xl) {
     margin-top: 0.5rem;
-    font-size: 1.5rem;
   }
 }
 
 .event-box__short-description {
   display: none;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     display: block;
   }
 }
@@ -88,28 +87,19 @@ a.event-box-title:hover {
 .event-box__attending {
   display: none;
 
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(md) {
     display: block;
   }
 }
 
+
 // Show view
 
 
-.event-box-big-text,
+.event-box-big__text,
 .group-box-big-text {
-  padding: 1rem;
+  padding: 1.1rem;
   border-top: 6px solid $indigo;
-  .event-box-big-date {
-    margin-bottom: 0;
-    font-size: 1rem;
-    font-style: italic;
-  }
-}
-
-.event-box-big-date {
-  padding: 1rem;
-  border-top: 1px solid #989999;
 }
 
 .event-box-big__img {

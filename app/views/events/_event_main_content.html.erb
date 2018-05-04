@@ -1,0 +1,44 @@
+<div class="col-md-8">
+
+  <div class="box">
+
+    <div class="event-box-big__image card card-inverse">
+      <%= image_tag(event.image_url, class: "event-box-big__img img-fluid") %>
+
+      <div class="card-img-overlay">
+        <h2 class="h4 font-italic group-box-title">
+          <%= event.title %>
+        </h2>
+      </div>
+    </div>
+
+    <div class="event-box-big__text">
+      <div class="event-box-big__data mt-2 mb-4">
+        <p class="event-box-big__date mb-3">
+          <%= calendar_icon %>
+          <%= event.start_date_prettyfied %>
+          <% unless same_time?(event) %>
+            - <%= event.end_date_prettyfied %>
+          <% end %>
+        </p>
+
+        <p class="event-box-big__address mb-3">
+          <%= location_icon %>
+          <%= link_to event.full_address, "#map",
+            data: { turbolinks: false } %>
+        </p>
+
+        <% if website? %>
+          <p class="event-box-big__website mb-3">
+            <%= link_icon %>
+            <%= link_to event.website, event.website %>
+          </p>
+        <% end %>
+      </div>
+
+      <%= sanitize event.description %>
+    </div>
+
+  </div><!-- /.box -->
+
+</div><!-- /.col-md-8 -->

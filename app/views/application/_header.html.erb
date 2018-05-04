@@ -1,24 +1,30 @@
 <nav class="navbar navbar-expand-md navbar-dark
-  bg-dark justify-content-between">
-  <div class="container">
+  bg-primary-dark justify-content-between">
+  <div class="container container-semi-fluid">
 
     <%= link_to "Private Events", root_path, id: "logo", class: "navbar-brand" %>
 
-    <div id="navbarCollapse" class="navbar-collapse collapse show">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="navbarCollapse">
 
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item mr-3">
+        <li class="nav-item mr-md-3 mb-2 mb-md-0">
           <%= notifications_button %>
         </li>
 
         <% if user_signed_in? %>
 
           <li class="nav-item dropdown">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-outline-light btn-navbar-menu dropdown-toggle"
+              type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= current_user.name %> <b class="caret"></b>
             </button>
 
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="dropdownMenuButton">
               <%= create_group_menu_link(current_user) %>
 
               <% if current_user.groups %>
@@ -46,13 +52,13 @@
 
         <% else %>
 
-          <li class="nav-item mr-3">
+          <li class="nav-item mr-md-3 mb-2 mb-md-0">
             <%= link_to "Log in", new_user_session_path,
-              class: "btn btn-outline-secondary nav-link", role: "button" %>
+              class: "btn btn-outline-light btn-navbar-menu p-2", role: "button" %>
           </li>
           <li class="nav-item">
             <%= link_to "Sign up", new_user_registration_path,
-              class: "btn btn-outline-secondary nav-link", role: "button" %>
+              class: "btn btn-outline-light btn-navbar-menu p-2", role: "button" %>
           </li>
 
         <% end %>

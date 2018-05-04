@@ -1,12 +1,11 @@
 <% if logged_in? %>
-  <%= render "events",
-    events: @events, events_count: @events_count, user_groups: @user_groups %>
+  <div class="main-user-content">
+    <%= render "events",
+      events: @events, events_count: @events_count, user_groups: @user_groups %>
+    <%= render "user_groups", user_groups: @user_groups %>
+  </div>
 <% else %>
   <%= render "promo" %>
-<% end %>
-
-<% if logged_in? %>
-  <%= render "user_groups", user_groups: @user_groups %>
 <% end %>
 
 <%= render "unhidden_groups", unhidden_groups: @unhidden_groups %>

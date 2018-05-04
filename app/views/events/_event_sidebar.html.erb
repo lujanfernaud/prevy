@@ -1,0 +1,92 @@
+<div class="col-md-4">
+
+  <div class="box mt-4 mt-md-0 p-3">
+
+    <div class="organizers-preview">
+      <h3 class="h4 mb-3">
+        Organizer
+      </h3>
+
+      <ul>
+        <li>
+          <%= link_to event.organizer.name,
+            user_path(event.organizer, organized_event: event),
+            class: "mb-2rem" %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="attendees-preview">
+      <h3 class="h4 mt-3 mb-3">
+        Attendees (<%= event.attendees.count %>)
+      </h3>
+
+      <% unless no_attendees?(event) %>
+
+        <ul>
+          <% @attendees.recent.each do |attendee| %>
+            <li>
+              <%= link_to attendee.name,
+                user_path(attendee, attending_event: event) %>
+            </li>
+          <% end %>
+        </ul>
+
+        <% if more_attendees?(event) %>
+          <%= link_to "See all attendees",
+            event_attendances_path(event) %>
+        <% end %>
+
+      <% else %>
+        <ul>
+          <li>
+            So far there are no attendees
+          </li>
+        </ul>
+      <% end %>
+    </div>
+
+  </div><!-- /.box -->
+
+  <% if logged_in? && !author?(event)%>
+    <div class="box mt-4 p-3">
+
+      <div class="attendance">
+
+        <% if not_attending?(event) %>
+
+          <h4 class="h5">Would you like to attend?</h4>
+          <%= link_to "Attend",
+            event_attendances_path(event),
+            method: :post,
+            class: "btn btn-primary btn-block btn-lg mt-3" %>
+
+        <% else %>
+
+          <h4 class="h5">Yay! You are attending this event!</h4>
+          <%= link_to "Cancel attendance",
+            event_attendance_path(event),
+            method: :delete,
+            class: "btn btn-secondary btn-block btn-lg mt-3",
+            data: { confirm: "Are you sure to cancel your attendance?" } %>
+        <% end %>
+
+      </div>
+
+    </div><!-- /.box -->
+  <% end %>
+
+  <% if author?(event) %>
+    <div class="box mt-4 p-3">
+
+      <%= link_to "Edit event", edit_group_event_path(group, event),
+        class: "btn btn-primary btn-block btn-lg" %>
+
+       <%= link_to "Delete event", group_event_path(group, event),
+        class: "btn btn-primary btn-block btn-lg mt-3",
+        method: :delete, data: { confirm: "Are you sure?"} %>
+
+    </div>
+  <% end %>
+
+</div><!-- /.col-md-4 -->

@@ -1,4 +1,4 @@
-<div class="container mt-2rem">
+<div class="container container-semi-fluid mt-2rem">
   <div class="row box event-box">
 
     <div class="event-box-image card card-inverse text-center col-md-4">
@@ -14,10 +14,12 @@
         <%= link_to event.title, group_event_path(event.group, event),
           class: "font-weight-bold" %>
       </h2>
-      <p class="event-box__date">
+
+      <p class="event-box__date mb-1">
         <%= calendar_icon %>
         <%= event.start_date_prettyfied %>
       </p>
+
       <% if controller_name == "groups" %>
         <p class="event-box__short-description mb-0">
           <%= event.short_description %>
@@ -28,7 +30,8 @@
           <%= event.very_short_description %>
         </p>
       <% end %>
-      <p class="event-box__attending mb-2">
+
+      <p class="event-box__attending mb-0 mb-xl-2">
         Attending: <%= event.attendees.count %>
       </p>
     </div>

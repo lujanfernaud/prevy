@@ -1,5 +1,5 @@
 <div class="container-fluid bg-light">
-  <div class="container">
+  <div class="container container-semi-fluid">
 
     <div class="row">
       <div class="col-md-12 mb-2">
@@ -30,7 +30,7 @@
             <% if group.events.upcoming.count > 9 %>
 
               <div class="row">
-                <div class="col-auto mx-auto mt-2rem mb-2rem">
+                <div class="col-auto mx-auto mt-2rem">
                   <%= link_to "See more upcoming events",
                     group_events_path(group),
                     class: "btn btn-primary btn-lg" %>

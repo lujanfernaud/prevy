@@ -226,8 +226,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
         refute page.has_css? ".badge-pill"
       end
 
-      click_on "Notifications"
-      refute page.has_content? new_membership_request_notification
+      assert page.has_css? ".btn-notifications.disabled"
     end
 
     def new_membership_request_notification

@@ -6,11 +6,7 @@ module Group::CountersHelper
   end
 
   def members_title_with_count
-    members_title + role_count(@group.members_with_role.count)
-  end
-
-  def members_title
-    "Member".pluralize(@group.members_with_role.count)
+    "Members (#{@group.members_with_role.count})"
   end
 
   def attendees_title_with_count
