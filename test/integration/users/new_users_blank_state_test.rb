@@ -30,7 +30,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
 
     log_in_as(new_user)
 
-    click_on sample_group_name
+    page.find("h2", text: sample_group_name).click
     click_on "Click here to create your first group!"
 
     fill_in_group_details_with name: "Urban Sketchers"
