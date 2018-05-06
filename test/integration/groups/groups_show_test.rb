@@ -56,7 +56,8 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     visit group_path(@group)
 
     assert_group_info_and_image(@group)
-    assert_organizers(@group)
+    refute_organizers
+    assert_admin(@group)
     assert_members_preview_title(@group)
     refute_copy_group_link
     assert_membership_button "Request membership"
@@ -72,7 +73,8 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     visit group_path(@group)
 
     assert_group_info_and_image(@group)
-    assert_organizers(@group)
+    refute_organizers
+    assert_admin(@group)
     assert_members_preview_title(@group)
     assert_members_count(1)
     refute_copy_group_link
@@ -151,11 +153,22 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     end
 
     def assert_organizers(group)
-      assert page.has_content? "Organizer"
+      within ".organizers-preview" do
+        assert page.has_content? "Organizer"
 
-      group.organizers.last(3).each do |organizer|
-        assert page.has_link? organizer.name
+        group.organizers.last(3).each do |organizer|
+          assert page.has_link? organizer.name
+        end
       end
+    end
+
+    def refute_organizers
+      refute page.has_css? ".organizers-preview"
+    end
+
+    def assert_admin(group)
+      assert page.has_content? "Admin"
+      assert page.has_link?    group.owner.name
     end
 
     def assert_members_preview(group)

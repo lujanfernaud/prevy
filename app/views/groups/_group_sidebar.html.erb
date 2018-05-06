@@ -12,19 +12,37 @@
       </p>
     </div>
 
-    <div class="organizers-preview">
-      <h3 class="h4 mb-3">
-        <%= organizer_title %>
-      </h3>
-      <ul>
-        <% group.organizers.last(3).each do |organizer| %>
+    <% if authorized?(current_user, group) %>
+
+      <div class="organizers-preview">
+        <h3 class="h4 mb-3">
+          <%= organizer_title %>
+        </h3>
+        <ul>
+          <% group.organizers.last(3).each do |organizer| %>
+            <li>
+              <%= link_to organizer.name,
+                user_path(organizer, organizer_of: group) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+    <% else %>
+
+      <div class="admin-preview">
+        <h3 class="h4 mb-3">
+          Admin
+        </h3>
+        <ul>
           <li>
-            <%= link_to organizer.name,
-              user_path(organizer, organizer_of: group) %>
+            <%= link_to group.owner.name,
+              user_path(group.owner, organizer_of: group) %>
           </li>
-        <% end %>
-      </ul>
-    </div>
+        </ul>
+      </div>
+
+    <% end %>
 
     <div class="members-preview mt-3">
       <h3 class="h4 mb-1">
