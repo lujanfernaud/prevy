@@ -152,7 +152,10 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     def assert_organizers(group)
       assert page.has_content? "Organizer"
-      assert page.has_link?    group.owner.name
+
+      group.organizers.last(3).each do |organizer|
+        assert page.has_link? organizer.name
+      end
     end
 
     def assert_members_preview(group)
@@ -164,13 +167,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
       count = group.members_with_role.count
 
       within ".members-preview" do
-        if count > 1
-          assert page.has_content? "Members (#{count})"
-        elsif count > 0
-          assert page.has_content? "Member"
-        else
-          ""
-        end
+        assert page.has_content? "Members (#{count})"
       end
     end
 
