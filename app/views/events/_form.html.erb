@@ -120,6 +120,22 @@
     </div>
   </div>
 
+  <% if current_user == @event.organizer && action_name == "edit" %>
+    <div class="form-group box p-4 mb-2rem">
+      <h3 class="mb-4">4. Danger zone</h3>
+
+      <div class="form-group mb-0">
+        <p class="font-italic mb-4">
+          This action is not reversible.
+        </p>
+        <%= link_to "Delete event",
+          group_event_path(@group, @event, user_id: current_user.id),
+          data: { confirm: "Are you sure you want to delete this event?" },
+            method: :delete, class: "btn btn-danger btn-lg" %>
+      </div>
+    </div>
+  <% end %>
+
   <%= f.submit yield(:button_text),
     class: "btn btn-primary btn-block btn-lg mt-4 mb-4" %>
 <% end %>

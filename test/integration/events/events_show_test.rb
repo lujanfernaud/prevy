@@ -12,6 +12,7 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     assert_event_information(event)
     assert_attendees_preview(event)
 
+    refute page.has_link?    "Edit event"
     assert page.has_content? "Would you like to attend?"
     assert page.has_link?    "Attend"
 
@@ -27,6 +28,19 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     assert page.has_content? "You are not authorized to perform this action"
 
     assert_equal current_path, root_path
+  end
+
+  test "event organizer visits event" do
+    phil  = users(:phil)
+    group = groups(:one)
+    event = events(:one)
+
+    log_in_as(phil)
+    visit group_event_path(group, event)
+
+    assert page.has_link?    "Edit event"
+    refute page.has_content? "Would you like to attend?"
+    refute page.has_link?    "Attend"
   end
 
   test "user attends and cancels attendance" do
@@ -48,18 +62,6 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Your attendance to this event " \
                              "has been cancelled."
     assert page.has_link?    "Attend"
-  end
-
-  test "event organizer does not see 'attend' button" do
-    phil  = users(:phil)
-    group = groups(:one)
-    event = events(:one)
-
-    log_in_as(phil)
-    visit group_event_path(group, event)
-
-    refute page.has_content? "Would you like to attend?"
-    refute page.has_link?    "Attend"
   end
 
   test "website url is not shown if the event has no website" do

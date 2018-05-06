@@ -10,22 +10,17 @@ class EventsDeleteTest < ActionDispatch::IntegrationTest
     @event.build_address(@address.attributes)
   end
 
-  test "author can delete event" do
+  test "event organizer can delete event" do
     log_in_as(@phil)
     visit group_event_path(@group, @event)
 
-    assert_difference "Event.count", -1 do
-      click_on "Delete event"
-    end
+    assert page.has_content? @event.title
 
-    assert current_path, user_path(@phil)
-    assert page.has_content? "deleted"
-  end
+    click_on "Edit event"
+    click_on "Delete event"
 
-  test "user can't delete other users' event" do
-    log_in_as(@penny)
-    visit group_event_path(@group, @event)
-
-    assert_not page.has_content? "Delete event"
+    assert page.has_current_path? group_path(@group)
+    assert page.has_content? "Event deleted"
+    refute page.has_content? @event.title
   end
 end

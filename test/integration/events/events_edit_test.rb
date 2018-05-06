@@ -77,6 +77,12 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     assert_invalid
   end
 
+  test "event page has delete button" do
+    visit_edit_group_event_path
+
+    assert page.has_link? "Delete event"
+  end
+
   private
 
     def visit_edit_group_event_path

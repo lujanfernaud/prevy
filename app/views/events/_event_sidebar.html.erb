@@ -78,14 +78,8 @@
 
   <% if author?(event) %>
     <div class="box mt-4 p-3">
-
       <%= link_to "Edit event", edit_group_event_path(group, event),
         class: "btn btn-primary btn-block btn-lg" %>
-
-       <%= link_to "Delete event", group_event_path(group, event),
-        class: "btn btn-primary btn-block btn-lg mt-3",
-        method: :delete, data: { confirm: "Are you sure?"} %>
-
     </div>
   <% end %>
 
