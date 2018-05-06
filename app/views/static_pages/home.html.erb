@@ -8,4 +8,8 @@
   <%= render "promo" %>
 <% end %>
 
-<%= render "unhidden_groups", unhidden_groups: @unhidden_groups %>
+<% content_for :unhidden_groups_title do %>
+  Unhidden Groups
+<% end %>
+
+<%= render "groups/unhidden_groups", unhidden_groups: @unhidden_groups %>

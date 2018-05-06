@@ -16,6 +16,16 @@
 </header>
 
 <% if authorized?(current_user, @group) %>
+
   <%= render "events", group: @group, events: @events %>
   <%= render "members", group: @group %>
+
+<% else %>
+
+  <% content_for :unhidden_groups_title do %>
+    Other Unhidden Groups
+  <% end %>
+
+  <%= render "groups/unhidden_groups", unhidden_groups: @unhidden_groups %>
+
 <% end %>

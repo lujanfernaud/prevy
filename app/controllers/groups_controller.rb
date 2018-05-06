@@ -29,6 +29,7 @@ class GroupsController < ApplicationController
   def show
     @group  = find_group
     @events = store_upcoming_events
+    @unhidden_groups = Group.unhidden.random_selection(3)
 
     authorize @group
   end

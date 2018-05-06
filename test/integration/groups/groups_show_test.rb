@@ -25,6 +25,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     refute_membership
     refute_unconfirmed_account_alerts
 
+    refute_other_unhidden_groups
     assert_upcoming_events
     assert_members(@group)
   end
@@ -43,6 +44,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     refute_membership
     refute_unconfirmed_account_alerts
 
+    refute_other_unhidden_groups
     assert_upcoming_events
     assert_members(@group)
   end
@@ -63,6 +65,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_membership_button "Request membership"
     refute_unconfirmed_account_alerts
 
+    assert_other_unhidden_groups
     refute_upcoming_events
     refute_members
   end
@@ -81,6 +84,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_membership_button "Request membership"
     refute_unconfirmed_account_alerts
 
+    assert_other_unhidden_groups
     refute_upcoming_events
     refute_members
   end
@@ -214,6 +218,17 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     def refute_membership
       refute page.has_css? ".group-membership"
+    end
+
+    def assert_other_unhidden_groups
+      within ".unhidden-groups-container" do
+        assert page.has_content? "Other Unhidden Groups"
+        assert page.has_css?     ".group-box", count: 3
+      end
+    end
+
+    def refute_other_unhidden_groups
+      refute page.has_css? ".unhidden-groups-container"
     end
 
     def assert_upcoming_events
