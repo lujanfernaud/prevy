@@ -89,6 +89,14 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     refute_members
   end
 
+  test "logged out user clicks on group owner name" do
+    visit group_path(@group)
+
+    click_on @group.owner.name
+
+    assert page.has_current_path? new_user_registration_path
+  end
+
   test "logged in user visits sample group" do
     group    = groups(:sample_group)
     stranger = users(:stranger)

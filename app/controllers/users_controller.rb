@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :redirect_to_sign_up, if: :not_logged_in?
   before_action :set_event_if_coming_from_event, only: :show
   before_action :set_group_if_coming_from_group, only: :show
   after_action  :verify_authorized
@@ -44,6 +45,14 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :location, :bio)
+    end
+
+    def not_logged_in?
+      !current_user
+    end
+
+    def redirect_to_sign_up
+      redirect_to new_user_registration_path
     end
 
     def set_event_if_coming_from_event
