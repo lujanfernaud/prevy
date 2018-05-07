@@ -2,7 +2,9 @@
   <div class="box event-box">
 
     <div class="card card-inverse text-center accent-border-bottom">
-      <%= image_tag event.image_url(:thumb), class: "img-fluid card-img-top" %>
+      <%= image_tag event.image_url(:thumb),
+        srcset: "#{event.image_url(:medium)} 510w, #{event.image_url} 730w",
+        class: "img-fluid card-img-top" %>
       <a href="<%= group_event_path(event.group, event) %>">
         <div class="card-img-overlay accent-border-bottom">
           <div class="card-title card-title--event mb-0">
