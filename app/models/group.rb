@@ -18,7 +18,7 @@ class Group < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
-  mount_uploader :image, ImageUploader
+  mount_uploader :image, GroupImageUploader
 
   validates :name,        presence: true, length: { minimum: 3 }
   validates :location,    presence: true, length: { minimum: 3 }

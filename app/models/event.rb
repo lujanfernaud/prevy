@@ -40,7 +40,7 @@ class Event < ApplicationRecord
     limit(3)
   }
 
-  mount_uploader :image, ImageUploader
+  mount_uploader :image, EventImageUploader
 
   def latitude
     address.latitude if address

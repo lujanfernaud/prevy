@@ -2,7 +2,8 @@
 
   <div class="box-image card card-inverse text-center col-md-4">
     <a href="<%= group_path(group) %>">
-      <%= image_tag group.image.thumb,
+      <%= image_tag group.image_url(:thumb),
+        srcset: "#{group.image_url(:medium)} 510w, #{group.image_url} 730w",
         class: "img-fluid box-image__img" %>
     </a>
   </div>

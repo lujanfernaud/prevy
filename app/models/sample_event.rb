@@ -26,12 +26,14 @@ class SampleEvent
         description:  event_description,
         website:      event_website,
         start_date:   event_start_date,
-        end_date:     event_end_date,
-        image:        event_image
+        end_date:     event_end_date
       )
 
       @event.build_address(event_address)
-      @event.save!
+
+      # We don't validate because we are not setting the image,
+      # so it's going to use the default one set by EventImageUploader.
+      @event.save(validate: false)
     end
 
     def event_title
@@ -52,10 +54,6 @@ class SampleEvent
 
     def event_end_date
       Time.zone.now + (1.month + 3.hours)
-    end
-
-    def event_image
-      File.open("app/assets/images/samples/adam-whitlock-270558-unsplash.jpg")
     end
 
     def event_address

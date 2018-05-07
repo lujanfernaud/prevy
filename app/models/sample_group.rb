@@ -22,13 +22,16 @@ class SampleGroup
     attr_reader :user, :group
 
     def create_group
-      @group = user.owned_groups.create!(
+      @group = user.owned_groups.build(
         name:         group_name,
         description:  group_description,
         location:     group_location,
-        image:        group_image,
         sample_group: true
       )
+
+      # We don't validate because we are not setting the image,
+      # so it's going to use the default one set by GroupImageUploader.
+      @group.save(validate: false)
     end
 
     def group_name
@@ -41,10 +44,6 @@ class SampleGroup
 
     def group_location
       I18n.t("sample_group.location")
-    end
-
-    def group_image
-      File.open("app/assets/images/samples/cristina-cerda-43101-unsplash.jpg")
     end
 
     def add_sample_members
