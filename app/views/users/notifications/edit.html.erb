@@ -11,8 +11,10 @@
           <div class="form-group mb-2">
             <div class="row">
               <div class="col-md-10">
-                <%= f.label :membership_request_emails,
-                  "Membership requests", class: "m-0" %>
+                <%= f.label :membership_request_emails, class: "m-0" do %>
+                  Membership requests
+                  <small>(New requests)</small>
+                <% end %>
               </div>
 
               <div class="col-md-2 d-flex justify-content-end">
@@ -26,8 +28,10 @@
           <div class="form-group mb-2">
             <div class="row">
               <div class="col-md-10">
-                <%= f.label :group_membership_emails,
-                  "Group memberships", class: "m-0" %>
+                <%= f.label :group_membership_emails, class: "m-0" do %>
+                  Group memberships
+                  <small>(Accepted or deleted from group)</small>
+                <% end %>
               </div>
 
               <div class="col-md-2 d-flex justify-content-end">
@@ -41,8 +45,10 @@
           <div class="form-group mb-2">
             <div class="row">
               <div class="col-md-10">
-                <%= f.label :group_role_emails,
-                  "Group roles", class: "m-0" %>
+                <%= f.label :group_role_emails, class: "m-0" do %>
+                  Group roles
+                  <small>(Role in group changed)</small>
+                <% end %>
               </div>
 
               <div class="col-md-2 d-flex justify-content-end">
@@ -56,8 +62,10 @@
           <div class="form-group mb-2rem">
             <div class="row">
               <div class="col-md-10">
-                <%= f.label :group_event_emails,
-                  "Group events", class: "m-0" %>
+                <%= f.label :group_event_emails, class: "m-0" do %>
+                  Group events
+                  <small>(New or updated events)</small>
+                <% end %>
               </div>
 
               <div class="col-md-2 d-flex justify-content-end">
