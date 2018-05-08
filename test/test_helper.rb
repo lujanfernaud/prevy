@@ -60,3 +60,7 @@ class ActiveSupport::TestCase
   include GeocoderSupport
   include UserSupport
 end
+
+at_exit do
+  CarrierWaveTestFilesCleaner.run
+end
