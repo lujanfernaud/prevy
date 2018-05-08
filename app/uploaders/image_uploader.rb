@@ -1,55 +1,60 @@
 class ImageUploader < CarrierWave::Uploader::Base
 
-  # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
-  include CarrierWave::MiniMagick
-
-  process resize_to_fill: [730, 411]
-
-  # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
-
-  # Override the directory where uploaded files will be stored.
-  # This is a sensible default for uploaders that are meant to be mounted:
-  def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  def self.test_environment_or_skip_cloudinary?
+    Rails.env.test? || ENV["skip_cloudinary"]
   end
 
-  # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url(*args)
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
+  # When including Cloudinary the CarrierWave config doesn't work
+  # in the test environment, resulting in the images being uploaded
+  # to Cloudinary during tests.
   #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
-
-  # Process files as they are uploaded:
-  # process scale: [200, 300]
+  # The two options that we have to solve this are to use a VCR cassette,
+  # or to not include Cloudinary in the test environment.
   #
-  # def scale(width, height)
-  #   # do something
-  # end
+  # For the time being I decided to go with the second one
+  # as it means less code and (I think) needs less maintenance.
+  include Cloudinary::CarrierWave unless test_environment_or_skip_cloudinary?
 
-  # Create different versions of your uploaded files:
+  def public_id
+    "private_events/#{model_class}/#{model_id}/#{original_file_name}"
+  end
+
+  process eager: true
+  process resize_to_fill: [730, 411]
+
   version :medium do
+    process eager: true
     process resize_to_fill: [510, 287]
   end
 
   version :thumb do
+    process eager: true
     process resize_to_fill: [350, 197]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
   def extension_whitelist
     %w(jpg jpeg gif png)
   end
 
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  private
+
+    def model_class
+      model.class.to_s.underscore
+    end
+
+    # We are uploading the image before the object is created,
+    # so it doesn't have an id yet.
+    def model_id
+      class_last = model.class.last
+
+      return 1 unless class_last
+
+      class_last.id + 1
+    end
+
+    def original_file_name
+      Cloudinary::PreloadedFile.split_format(original_filename).first
+    end
 
 end

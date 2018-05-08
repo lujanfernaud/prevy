@@ -38,10 +38,9 @@ gem 'bootstrap-will_paginate',         '1.0.0'
 gem 'will_paginate',                   '~> 3.1', '>= 3.1.6'
 gem 'breadcrumbs_on_rails',            '~> 3.0', '>= 3.0.1'
 
-# Upload and resize images.
-gem 'carrierwave',                     '1.1.0'
-gem 'mini_magick',                     '4.7.0'
-gem 'fog',                             '1.40.0'
+# Upload, process and store images.
+gem 'carrierwave',                     '~> 1.2', '>= 1.2.2'
+gem 'cloudinary',                      '~> 1.9', '>= 1.9.1'
 
 # Forms country select.
 gem 'country_select',                  '~> 3.1', '>= 3.1.1'
