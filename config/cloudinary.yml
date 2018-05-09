@@ -4,6 +4,7 @@ development:
   api_secret: <%= Figaro.env.cloudinary_api_secret %>
   enhance_image_tag: true
   static_image_support: false
+  secure: true
 
 production:
   cloud_name: <%= Figaro.env.cloudinary_cloud_name %>
@@ -11,6 +12,7 @@ production:
   api_secret: <%= Figaro.env.cloudinary_api_secret %>
   enhance_image_tag: true
   static_image_support: true
+  secure: true
 
 test:
   cloud_name: <%= Figaro.env.cloudinary_cloud_name %>
@@ -18,3 +20,4 @@ test:
   api_secret: <%= Figaro.env.cloudinary_api_secret %>
   enhance_image_tag: true
   static_image_support: false
+  secure: true
