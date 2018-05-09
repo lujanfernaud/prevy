@@ -113,8 +113,13 @@
 
     <div class="form-group mb-0">
       <%= f.label :image, hidden: true %>
-      <%= image_tag(@event.image_url, class: "img-fluid mb-2rem") if
-        @event.image? %>
+
+      <% if @event.image? %>
+        <%= image_tag(@event.image_url,
+          srcset: "#{@event.image_url(:medium)} 510w, #{@event.image_url(:thumb)} 350w",
+          class: "img-fluid mb-2rem") %>
+      <% end %>
+
       <%= f.file_field :image %>
       <%= f.hidden_field :image_cache %>
     </div>
