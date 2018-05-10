@@ -1,14 +1,16 @@
-<div class="row box event-box mt-2rem" id="group-<%= group.id %>">
+<div class="row box group-box mt-2rem" id="group-<%= group.id %>">
 
-  <div class="box-image card card-inverse text-center col-md-4">
-    <a href="<%= group_path(group) %>">
-      <%= image_tag group.image_url(:thumb),
-        srcset: "#{group.image_url(:medium)} 510w, #{group.image_url} 730w",
-        class: "img-fluid box-image__img" %>
-    </a>
+  <div class="box-image box-image--orientation-switch card card-inverse text-center col-md-4">
+    <div class="intrinsic-ratio-container intrinsic-ratio-container--orientation-switch">
+      <%= link_to group_path(group), class: "d-block" do %>
+        <%= image_tag group.image_url(:thumb),
+          srcset: "#{group.image_url(:medium)} 510w, #{group.image_url} 730w",
+          class: "intrinsic-ratio-image img-fluid box-image__img box-image__img--orientation-switch" %>
+      <% end %>
+    </div>
   </div>
 
-  <div class="box-text box-text--user-group box-text--accented
+  <div class="box-text box-text--orientation-switch box-text--accented
     card-body col-md-8 d-flex flex-column justify-content-between">
     <h3 class="h4 mb-0 pb-2 pb-md-0">
       <%= group_name_with_link(group) %>

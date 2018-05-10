@@ -161,8 +161,26 @@ body {
   }
 }
 
+.box-image--orientation-switch {
+  border-top-left-radius: calc(.25rem) !important;
+  border-top-right-radius: calc(.25rem) !important;
+
+  @include media-breakpoint-up(md) {
+    border-bottom-left-radius: calc(.25rem) !important;
+  }
+}
+
 .box-image__img {
   min-width: 100%;
+}
+
+.box-image__img--orientation-switch {
+  border-top-left-radius: calc(.25rem - 1px);
+  border-top-right-radius: calc(.25rem - 1px);
+
+  @include media-breakpoint-up(md) {
+    border-top-right-radius: 0;
+  }
 }
 
 .box-text {
@@ -181,7 +199,15 @@ body {
   }
 }
 
-.box-text--user-group {
+.box-text--orientation-switch {
+  border-bottom-left-radius: calc(.25rem - 1px);
+  border-bottom-right-radius: calc(.25rem - 1px);
+
+  @include media-breakpoint-up(sm) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: calc(.25rem - 1px);
+  }
+
   @include media-breakpoint-up(xl) {
     padding: 1rem .25rem .82rem .25rem;
   }
@@ -280,6 +306,14 @@ body {
   margin-bottom: -0.8rem;
 }
 
+.user-profile-image-container {
+  max-width: 150px;
+}
+
+.user-avatar {
+  border-radius: calc(.25rem - 1px);
+}
+
 
 // Edit User Profile
 
@@ -372,6 +406,15 @@ body {
   height: 100%;
 }
 
+.member-image,
+.attendee-image {
+  width: 50%;
+
+  @include media-breakpoint-up(sm) {
+    width: 100%;
+  }
+}
+
 .member-name,
 .attendee-name {
   flex: 1;
@@ -434,6 +477,41 @@ body {
   @include media-breakpoint-up(lg) {
     width: 30%;
   }
+}
+
+
+// Utilities
+
+
+.intrinsic-ratio-container {
+  position: relative;
+  padding-bottom: 56.285714%;
+  height: 0;
+  color: $gray-500;
+  background-color: $gray-500;
+  border-top-left-radius: calc(.25rem) !important;
+  border-top-right-radius: calc(.25rem) !important;
+}
+
+.intrinsic-ratio-container--square {
+  padding-bottom: 100%;
+  border-bottom-left-radius: calc(.25rem) !important;
+  border-bottom-right-radius: calc(.25rem) !important;
+}
+
+.intrinsic-ratio-container--orientation-switch {
+  @include media-breakpoint-up(md) {
+    border-top-right-radius: 0 !important;
+  }
+}
+
+.intrinsic-ratio-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: $gray-500;
 }
 
 

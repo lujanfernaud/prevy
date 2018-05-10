@@ -2,10 +2,13 @@
   <div class="box attendee-box d-flex flex-column align-items-center pt-4 pb-3">
 
     <div class="attendee-image pl-4 pr-4">
-      <%= link_to user_path(user, attending_event: event) do %>
-        <%= gravatar_image_tag user.email,
-          class: "img-fluid", alt: user.name %>
-      <% end %>
+      <div class="intrinsic-ratio-container intrinsic-ratio-container--square">
+        <%= link_to user_path(user, attending_event: event),
+          class: "d-block" do %>
+          <%= gravatar_image_tag user.email,
+            class: "img-fluid intrinsic-ratio-image user-avatar", alt: user.name %>
+        <% end %>
+      </div>
     </div>
 
     <div class="attendee-name mt-2 pl-4 pr-4 text-center">

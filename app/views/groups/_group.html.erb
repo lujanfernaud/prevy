@@ -1,10 +1,10 @@
 <div class="col-sm-12 col-md-6 col-lg-4 mt-2rem">
   <div class="box group-box">
 
-    <div class="group-box-image card card-inverse text-center">
+    <div class="group-box-image intrinsic-ratio-container card card-inverse text-center">
       <%= image_tag group.image_url(:thumb),
         srcset: "#{group.image_url(:medium)} 510w, #{group.image_url} 730w",
-        class: "img-fluid card-img-top" %>
+        class: "intrinsic-ratio-image img-fluid card-img-top" %>
 
       <a href="<%= group_path(group) %>">
         <div class="card-img-overlay card-img-overlay--group">

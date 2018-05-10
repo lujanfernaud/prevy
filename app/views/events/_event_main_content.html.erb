@@ -2,10 +2,10 @@
 
   <div class="box">
 
-    <div class="event-box-big__image card card-inverse">
+    <div class="event-box-big__image intrinsic-ratio-container card card-inverse">
       <%= image_tag(event.image_url,
         srcset: "#{event.image_url(:medium)} 510w, #{event.image_url(:thumb)} 350w",
-        class: "event-box-big__img img-fluid") %>
+        class: "intrinsic-ratio-image event-box-big__img img-fluid") %>
 
       <div class="card-img-overlay">
         <h2 class="h4 font-italic group-box-title">

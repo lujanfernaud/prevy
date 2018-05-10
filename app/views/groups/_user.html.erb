@@ -2,10 +2,13 @@
   <div class="box member-box d-flex flex-column align-items-center pt-4 pb-3">
 
     <div class="member-image pl-4 pr-4">
-      <%= link_to user_path(user, member_of: group) do %>
-        <%= gravatar_image_tag user.email,
-          class: "img-fluid", alt: user.name %>
-      <% end %>
+      <div class="intrinsic-ratio-container intrinsic-ratio-container--square">
+        <%= link_to user_path(user, member_of: group),
+          class: "d-block" do %>
+          <%= gravatar_image_tag user.email,
+            class: "img-fluid intrinsic-ratio-image user-avatar d-block", alt: user.name %>
+        <% end %>
+      </div>
     </div>
 
     <div class="member-name mt-2 pl-4 pr-4 text-center">

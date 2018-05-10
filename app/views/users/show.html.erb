@@ -19,8 +19,12 @@
               <%= link_to "Edit profile", edit_user_path(@user) %>
             </div>
           <% end %>
-          <%= gravatar_image_tag @user.email, alt: @user.name,
-            class: "avatar__image d-block" %>
+          <div class="user-profile-image-container">
+            <div class="intrinsic-ratio-container intrinsic-ratio-container--square">
+              <%= gravatar_image_tag @user.email, alt: @user.name,
+                class: "intrinsic-ratio-image user-avatar" %>
+            </div>
+          </div>
         </div>
       </div>
 

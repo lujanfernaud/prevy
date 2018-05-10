@@ -1,10 +1,10 @@
 <div class="col-sm-12 col-md-6 col-lg-4 mt-2rem">
   <div class="box event-box">
 
-    <div class="card card-inverse text-center accent-border-bottom">
+    <div class="intrinsic-ratio-container card card-inverse text-center accent-border-bottom">
       <%= image_tag event.image_url(:thumb),
         srcset: "#{event.image_url(:medium)} 510w, #{event.image_url} 730w",
-        class: "img-fluid card-img-top" %>
+        class: "intrinsic-ratio-image img-fluid card-img-top" %>
       <a href="<%= group_event_path(event.group, event) %>">
         <div class="card-img-overlay accent-border-bottom">
           <div class="card-title card-title--event mb-0">

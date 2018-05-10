@@ -1,14 +1,18 @@
 <div class="container container-semi-fluid mt-2rem">
   <div class="row box event-box">
 
-    <div class="event-box-image card card-inverse text-center col-md-4">
-      <%= link_to group_event_path(event.group, event) do %>
-        <%= image_tag event.image_url(:thumb),
-          class: "img-fluid card-img-top" %>
-      <% end %>
+    <div class="event-box-image box-image--orientation-switch card card-inverse text-center col-md-4">
+      <div class="intrinsic-ratio-container intrinsic-ratio-container--orientation-switch">
+        <%= link_to group_event_path(event.group, event),
+          class: "d-block" do %>
+          <%= image_tag event.image_url(:thumb),
+            srcset: "#{event.image_url(:medium)} 510w, #{event.image_url} 730w",
+            class: "intrinsic-ratio-image img-fluid card-img-top box-image__img box-image__img--orientation-switch" %>
+        <% end %>
+      </div>
     </div>
 
-    <div class="event-box-text event-box-text--accented
+    <div class="event-box-text box-text--orientation-switch event-box-text--accented
       card-body col-md-8 d-flex flex-column justify-content-between">
       <h2 class="h4 event-box__event-title">
         <%= link_to event.title, group_event_path(event.group, event),
