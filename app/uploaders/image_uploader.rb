@@ -9,7 +9,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     include Cloudinary::CarrierWave
 
     def public_id
-      "private_events/#{model_class}/#{model_id}/#{original_file_name}"
+      "#{application_name}/#{model_type}/#{original_file_name}"
     end
 
     process eager: true
@@ -47,18 +47,12 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   private
 
-    def model_class
-      model.class.to_s.underscore
+    def application_name
+      Rails.application.class.parent_name.underscore
     end
 
-    # We are uploading the image before the object is created,
-    # so it doesn't have an id yet.
-    def model_id
-      class_last = model.class.last
-
-      return 1 unless class_last
-
-      class_last.id + 1
+    def model_type
+      model.class.to_s.underscore.pluralize
     end
 
     def original_file_name
