@@ -41,6 +41,7 @@ gem 'breadcrumbs_on_rails',            '~> 3.0', '>= 3.0.1'
 # Upload, process and store images.
 gem 'carrierwave',                     '~> 1.2', '>= 1.2.2'
 gem 'cloudinary',                      '~> 1.9', '>= 1.9.1'
+gem 'mini_magick',                     '~> 4.8'
 
 # Forms country select.
 gem 'country_select',                  '~> 3.1', '>= 3.1.1'

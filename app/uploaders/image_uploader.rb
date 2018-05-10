@@ -1,38 +1,46 @@
 class ImageUploader < CarrierWave::Uploader::Base
 
-  def self.test_environment_or_skip_cloudinary?
-    Rails.env.test? || ENV["skip_cloudinary"]
-  end
+  STANDARD_SIZE = [730, 411]
+  MEDIUM_SIZE   = [510, 287]
+  THUMB_SIZE    = [350, 197]
 
-  # When including Cloudinary the CarrierWave config doesn't work
-  # in the test environment, resulting in the images being uploaded
-  # to Cloudinary during tests.
-  #
-  # The two options that we have to solve this are to use a VCR cassette,
-  # or to not include Cloudinary in the test environment.
-  #
-  # For the time being I decided to go with the second one
-  # as it means less code and (I think) needs less maintenance.
-  include Cloudinary::CarrierWave unless test_environment_or_skip_cloudinary?
+  if Rails.env.production?
 
-  def public_id
-    "private_events/#{model_class}/#{model_id}/#{original_file_name}"
-  end
+    include Cloudinary::CarrierWave
 
-  process eager: true
-  process resize_to_fill: [730, 411]
+    def public_id
+      "private_events/#{model_class}/#{model_id}/#{original_file_name}"
+    end
 
-  version :medium do
     process eager: true
-    process resize_to_fill: [510, 287]
+    process resize_to_fill: STANDARD_SIZE
+
+    version :medium do
+      process eager: true
+      process resize_to_fill: MEDIUM_SIZE
+    end
+
+    version :thumb do
+      process eager: true
+      process resize_to_fill: THUMB_SIZE
+    end
+
+  else
+
+    include CarrierWave::MiniMagick
+
+    process resize_to_fill: STANDARD_SIZE
+
+    version :medium do
+      process resize_to_fill: MEDIUM_SIZE
+    end
+
+    version :thumb do
+      process resize_to_fill: THUMB_SIZE
+    end
+
   end
 
-  version :thumb do
-    process eager: true
-    process resize_to_fill: [350, 197]
-  end
-
-  # Add a white list of extensions which are allowed to be uploaded.
   def extension_whitelist
     %w(jpg jpeg gif png)
   end
