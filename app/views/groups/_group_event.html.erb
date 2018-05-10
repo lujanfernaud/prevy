@@ -14,12 +14,12 @@
 
     <div class="event-box-text box-text--orientation-switch event-box-text--accented
       card-body col-md-8 d-flex flex-column justify-content-between">
-      <h2 class="h4 event-box__event-title">
+      <h2 class="h4 event-box__event-title mb-3 mb-md-1">
         <%= link_to event.title, group_event_path(event.group, event),
           class: "font-weight-bold" %>
       </h2>
 
-      <p class="event-box__date mb-1">
+      <p class="event-box__date mb-0 mb-md-1">
         <%= calendar_icon %>
         <%= event.start_date_prettyfied %>
       </p>
