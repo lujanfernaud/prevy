@@ -23,9 +23,11 @@
   image: app/assets/images/samples/sample_groups/emily-sea-198689-unsplash.jpg
 
 -
-  name: Dreams Work
+  name: Lucid Dreamers
   description: |-
-    This is a group for people interested in lucid dreaming from an ethical point of view. Lucid dreaming doesn't just mean you have nice clear dreams - it means being consciously aware that you are having a dream, and learning how to take charge of the experience. All skill levels are welcome. Let's get together and help each other have amazing experiences, and learn more about ourselves and our inner worlds. Lucid dreaming has many benefits, particularly self-healing - whether physical or psychological problems exist - and it offers the chance to tackle inner demons which may get in the way of a full and enjoyable life.
+    This is a group for people interested in lucid dreaming from an ethical point of view. Lucid dreaming doesn't just mean you have nice clear dreams - it means being consciously aware that you are having a dream, and learning how to take charge of the experience. All skill levels are welcome. Let's get together and help each other have amazing experiences, and learn more about ourselves and our inner worlds.
+    <br><br>
+    Lucid dreaming has many benefits, particularly self-healing - whether physical or psychological problems exist - and it offers the chance to tackle inner demons which may get in the way of a full and enjoyable life.
   location: Adeje
   image: app/assets/images/samples/sample_groups/bruce-christianson-558321-unsplash.jpg
 
@@ -39,14 +41,18 @@
 -
   name: Stoics Gran Canaria
   description: |-
-    Stoicism is a philosophy geared towards living the best life possible for your own well being as well as that of others. Stoicism is not about cold detachment but about joyful engagement with your circumstances and freedom from anxiety and other negative emotions. Stoic ideas have never been more relevant than in our complex and ever-changing modern world. Whether you're just curious or have been reading Epictetus, Seneca, and Marcus Aurelius for years, please come join us as we discuss our practices and share resources with each other to try to become a little bit better at living each day. Fellow travelers from other contemplative traditions such as Buddhism are more than welcome to share in this journey, too.
+    Stoicism is a philosophy geared towards living the best life possible for your own well being as well as that of others. Stoicism is not about cold detachment but about joyful engagement with your circumstances and freedom from anxiety and other negative emotions. Stoic ideas have never been more relevant than in our complex and ever-changing modern world.
+      <br><br>
+    Whether you're just curious or have been reading Epictetus, Seneca, and Marcus Aurelius for years, please come join us as we discuss our practices and share resources with each other to try to become a little bit better at living each day. Fellow travelers from other contemplative traditions such as Buddhism are more than welcome to share in this journey, too.
   location: Gran Canaria
   image: app/assets/images/samples/sample_groups/clem-onojeghuo-143466-unsplash.jpg
 
 -
   name: Essential Oils
   description: |-
-    This group is for anyone interested in learning more about Essential Oils. Each week we will look at a different system of the body that can be supported with EO's, and learn how to uncover the information that you may be looking for. We will take a look at how the oils can be used aromatically, topically and internally to improve our wellness baseline. Did you know that EO's can be used as a way of green cleaning, to support our pets wellness, to support a calm environment in the home or the classroom, to energize us during a workout, or to support our digestive, respiratory, circulatory and musculoskeletal systems?! Each week we will choose a theme and dig in! Come bring your questions, curiosity or just join us for a relaxing night out of the house. Hope to see you there!
+    This group is for anyone interested in learning more about Essential Oils. Each week we will look at a different system of the body that can be supported with EO's, and learn how to uncover the information that you may be looking for. We will take a look at how the oils can be used aromatically, topically and internally to improve our wellness baseline.
+    <br><br>
+    Did you know that EO's can be used as a way of green cleaning, to support our pets wellness, to support a calm environment in the home or the classroom, to energize us during a workout, or to support our digestive, respiratory, circulatory and musculoskeletal systems?! Each week we will choose a theme and dig in! Come bring your questions, curiosity or just join us for a relaxing night out of the house. Hope to see you there!
   location: Zurich
   image: app/assets/images/samples/sample_groups/christin-hume-505815-unsplash.jpg
 
@@ -143,6 +149,8 @@
 -
   name: RaveUp
   description: |-
-    Are you ready to meet, greet, dance, repeat? Well then, you've come to the right place! Our group shares a common passion - we live for Electronic Dance Music (EDM). We are overwhelmed by stunning lights, sounds, and we are part of a growing unique and eclectic community. At RaveUp, we come together to live and enjoy the pulsating rhythms and melodies of electronica. Become a part of our group and discover why raves and electronic festivals have been growing strong for over 20 years. Our mantra has - and always will be of - PEACE, LOVE, UNITY, and RESPECT so sign-up and join our family.
+    Are you ready to meet, greet, dance, repeat? Well then, you've come to the right place! Our group shares a common passion - we live for Electronic Dance Music (EDM). We are overwhelmed by stunning lights, sounds, and we are part of a growing unique and eclectic community. At RaveUp, we come together to live and enjoy the pulsating rhythms and melodies of electronica.
+    <br><br>
+    Become a part of our group and discover why raves and electronic festivals have been growing strong for over 20 years. Our mantra has - and always will be of - PEACE, LOVE, UNITY, and RESPECT so sign-up and join our family.
   location: California
   image: app/assets/images/samples/sample_groups/raveup.jpg
