@@ -30,11 +30,16 @@ $shadow: #989999;
 }
 
 
-// Body & General
+// Html, Body & General
 
+
+html {
+  font-size: 1.05rem;
+}
 
 body {
   min-height: 100vh;
+  font-size: 1.04rem;
 }
 
 .container-semi-fluid {
@@ -81,6 +86,10 @@ body {
 
 // Header
 
+
+.main-header {
+  border-bottom: 2px solid $gray-400;
+}
 
 #logo {
   float: left;
@@ -134,10 +143,6 @@ body {
   padding-top: 2.3rem;
   padding-bottom: 1.5rem;
   background: rgba($indigo, 0.039);
-}
-
-.btn-see-more-unhidden {
-  white-space: normal;
 }
 
 
@@ -263,8 +268,8 @@ body {
 
 
 .search-bar {
-  padding-top: .8rem;
-  padding-bottom: 0.7rem;
+  padding-top: 1rem;
+  padding-bottom: .9rem;
   color: #fff;
   background-color: $primary-darker;
 }
@@ -398,7 +403,11 @@ body {
 }
 
 .group-box-text {
-  padding: .5rem .5rem .31rem .5rem;
+  padding: .6rem .5rem .5rem .5rem;
+}
+
+.box--sidebar {
+  margin-top: 1.75rem;
 }
 
 .member-box,
@@ -408,11 +417,8 @@ body {
 
 .member-image,
 .attendee-image {
-  width: 50%;
-
-  @include media-breakpoint-up(sm) {
-    width: 100%;
-  }
+  width: 100%;
+  max-width: 150px;
 }
 
 .member-name,
@@ -514,6 +520,10 @@ body {
   color: $gray-500;
 }
 
+.white-space-normal {
+  white-space: normal;
+}
+
 
 // Trix Editor Specific
 
@@ -534,6 +544,10 @@ trix-editor {
 
 .alert {
   margin-bottom: 0;
+}
+
+.alert--header {
+  border-radius: 0;
 }
 
 small {

@@ -7,11 +7,15 @@ module ApplicationHelper
   end
 
   def devise_action?
-    sign_up? || log_in? || new_password? || new_confirmation?
+    sign_up? || edit_account? || log_in? || new_password? || new_confirmation?
   end
 
   def sign_up?
     controller_name == "registrations" && action_name == "new"
+  end
+
+  def edit_account?
+    controller_name == "registrations" && action_name == "edit"
   end
 
   def log_in?
@@ -24,6 +28,18 @@ module ApplicationHelper
 
   def new_confirmation?
     controller_name == "confirmations" && action_name == "new"
+  end
+
+  def user_settings?
+    edit_profile? || edit_notifications?
+  end
+
+  def edit_profile?
+    controller_name == "users" && action_name == "edit"
+  end
+
+  def edit_notifications?
+    controller_name == "notifications" && action_name == "edit"
   end
 
   def breadcrumbs_separator

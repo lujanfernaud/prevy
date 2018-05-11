@@ -52,5 +52,5 @@ en:
       <p>When you create an event all members of the group receive a notification email.</p>
       <p>Event attendees will receive an email if the event's start date, end date or address is updated.</p>
       <p>Using the address provided, the event is automatically located in a nice map that you can see below, or by clicking on the event location.</p>
-      <p>If the event has a website you can add it too, but that's optional :)</p>
+      <p class='mb-0'>If the event has a website you can add it too, but that's optional :)</p>
     website: "www.youreventwebsite.com"

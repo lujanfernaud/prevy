@@ -1,4 +1,12 @@
 module Application::HeaderHelpers
+  def groups_index?
+    controller_name == "groups" && action_name == "index"
+  end
+
+  def searches_show?
+    controller_name == "searches" && action_name == "show"
+  end
+
   def create_group_menu_link(user)
     if user&.confirmed?
       create_group_link_enabled

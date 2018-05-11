@@ -1,71 +1,76 @@
-<nav class="navbar navbar-expand-md navbar-dark
-  bg-primary-dark justify-content-between">
-  <div class="container container-semi-fluid">
+<header class="main-header">
+  <nav class="navbar navbar-expand-md navbar-dark
+    bg-primary-dark justify-content-between">
+    <div class="container container-semi-fluid">
 
-    <%= link_to "Private Events", root_path, id: "logo", class: "navbar-brand" %>
+      <%= link_to "Private Events", root_path, id: "logo", class: "navbar-brand" %>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="navbar-collapse collapse" id="navbarCollapse">
+      <div class="navbar-collapse collapse" id="navbarCollapse">
 
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item mr-md-3 mb-2 mb-md-0">
-          <%= notifications_button %>
-        </li>
-
-        <% if user_signed_in? %>
-
-          <li class="nav-item dropdown">
-            <button class="btn btn-outline-light btn-navbar-menu dropdown-toggle"
-              type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <%= current_user.name %> <b class="caret"></b>
-            </button>
-
-            <div class="dropdown-menu dropdown-menu-right"
-              aria-labelledby="dropdownMenuButton">
-              <%= create_group_menu_link(current_user) %>
-
-              <% if current_user.groups %>
-                <div class="dropdown-divider"></div>
-                <%= link_to "My groups", user_groups_path(current_user),
-                  class: "dropdown-item" %>
-                <%= membership_requests_link %>
-              <% end %>
-
-              <div class="dropdown-divider"></div>
-
-              <%= link_to "Profile", current_user,
-                class: "dropdown-item" %>
-              <%= link_to "Account settings",
-                edit_user_registration_path(current_user),
-                class: "dropdown-item" %>
-
-              <div class="dropdown-divider"></div>
-
-              <%= link_to "Log out", destroy_user_session_path,
-                method: :delete,
-                class: "dropdown-item" %>
-            </div>
-          </li>
-
-        <% else %>
-
+        <ul class="navbar-nav ml-auto">
           <li class="nav-item mr-md-3 mb-2 mb-md-0">
-            <%= link_to "Log in", new_user_session_path,
-              class: "btn btn-outline-light btn-navbar-menu p-2", role: "button" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Sign up", new_user_registration_path,
-              class: "btn btn-outline-light btn-navbar-menu p-2", role: "button" %>
+            <%= notifications_button %>
           </li>
 
-        <% end %>
+          <% if user_signed_in? %>
 
-      </ul>
+            <li class="nav-item dropdown">
+              <button class="btn btn-outline-light btn-navbar-menu dropdown-toggle"
+                type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.name %> <b class="caret"></b>
+              </button>
 
-    </div><!-- ./navbar-collapse -->
+              <div class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="dropdownMenuButton">
+                <%= create_group_menu_link(current_user) %>
 
-  </div>
-</nav>
+                <% if current_user.groups %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to "My groups", user_groups_path(current_user),
+                    class: "dropdown-item" %>
+                  <%= membership_requests_link %>
+                <% end %>
+
+                <div class="dropdown-divider"></div>
+
+                <%= link_to "Profile", current_user,
+                  class: "dropdown-item" %>
+                <%= link_to "Account settings",
+                  edit_user_registration_path(current_user),
+                  class: "dropdown-item" %>
+
+                <div class="dropdown-divider"></div>
+
+                <%= link_to "Log out", destroy_user_session_path,
+                  method: :delete,
+                  class: "dropdown-item" %>
+              </div>
+            </li>
+
+          <% else %>
+
+            <li class="nav-item mr-md-3 mb-2 mb-md-0">
+              <%= link_to "Log in", new_user_session_path,
+                class: "btn btn-outline-light btn-navbar-menu p-2", role: "button" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Sign up", new_user_registration_path,
+                class: "btn btn-outline-light btn-navbar-menu p-2", role: "button" %>
+            </li>
+
+          <% end %>
+
+        </ul>
+
+      </div><!-- ./navbar-collapse -->
+
+    </div>
+  </nav>
+
+  <%= render "searches/search_bar" if groups_index? || searches_show? %>
+  <%= render "flash_messages" %>
+</header>

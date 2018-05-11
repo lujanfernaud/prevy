@@ -8,7 +8,7 @@
 
 .event-box-title {
   color: #fff;
-  font-size: 1.26rem;
+  font-size: 1.3rem;
   font-weight: 600;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, .35);
 }
@@ -33,6 +33,10 @@ a.event-box-title:hover {
 }
 
 .event-box-text {
+  padding: .6rem .6rem .5rem .6rem;
+}
+
+.event-box-text--orientation-switch {
   padding: 1rem;
 
   @include media-breakpoint-up(md) {
@@ -57,7 +61,6 @@ a.event-box-title:hover {
 .event-box__date {
   margin-bottom: 0.5rem;
   font-size: 1rem;
-  font-style: italic;
 
   @include media-breakpoint-up(lg) {
     margin-bottom: 0;
@@ -67,12 +70,12 @@ a.event-box-title:hover {
 .event-box__event-title {
   font-size: 1.3rem;
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     font-size: 1.5rem;
   }
 
   @include media-breakpoint-up(xl) {
-    margin-top: 0.5rem;
+    margin-top: .5rem;
   }
 }
 
@@ -96,15 +99,24 @@ a.event-box-title:hover {
 // Show view
 
 
-.event-box-big__text,
-.group-box-big-text {
-  padding: 1.1rem;
-  border-top: 6px solid $indigo;
-}
-
 .event-box-big__img {
   border-top-left-radius: calc(0.25rem - 1px);
   border-top-right-radius: calc(0.25rem - 1px);
+}
+
+.event-box-big__text,
+.group-box-big-text {
+  padding: 1.4rem 1.2rem;
+  border-top: 6px solid $indigo;
+}
+
+.event-box-big__data {
+  padding-bottom: .75rem;
+  border-bottom: 1px solid $gray-300;
+}
+
+.event-box-big__website {
+  word-wrap: break-word;
 }
 
 

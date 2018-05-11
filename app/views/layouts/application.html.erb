@@ -9,12 +9,11 @@
 
   <body class="d-flex flex-column bg-light">
     <%= render "header" %>
-    <%= render "flash_messages" %>
 
     <main class="main-container">
       <%= yield %>
     </main>
 
-    <%= render "footer" unless devise_action? %>
+    <%= render "footer" unless devise_action? || user_settings? %>
   </body>
 </html>

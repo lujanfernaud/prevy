@@ -10,7 +10,7 @@ module GroupsHelper
     if user.confirmed?
       link_to "Click here to create your first group!", new_group_path
     else
-      content_tag :div, class: "mt-3" do
+      content_tag :div, class: "mt-4" do
         create_group_unconfirmed_account_alert
       end
     end

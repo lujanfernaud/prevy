@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-md-center">
-    <div class="col-md-6 mt-4">
+    <div class="col-md-6 mt-4 pt-1">
 
       <h2 class="text-center">Sign up</h2>
 
@@ -22,7 +22,7 @@
         <div class="form-group">
           <%= f.label :password %>
           <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <small>(<%= @minimum_password_length %> characters minimum)</small>
           <% end %><br />
           <%= f.password_field :password, autocomplete: "off",
             class: "form-control" %>
