@@ -31,6 +31,11 @@ class Group < ApplicationRecord
     where(hidden: false, sample_group: false)
   }
 
+  scope :unhidden_without, -> (group) {
+    where(hidden: false, sample_group: false).
+    where.not(id: group.id)
+  }
+
   scope :random_selection, -> (groups_number) {
     random_offset = rand(1..self.count - groups_number)
 

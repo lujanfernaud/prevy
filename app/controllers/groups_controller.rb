@@ -29,7 +29,7 @@ class GroupsController < ApplicationController
   def show
     @group  = find_group
     @events = store_upcoming_events
-    @unhidden_groups = Group.unhidden.random_selection(3)
+    @unhidden_groups = unhidden_groups_selection_without @group
 
     authorize @group
   end
@@ -86,6 +86,10 @@ class GroupsController < ApplicationController
     def store_upcoming_events
       upcoming = @group.events.upcoming.limit(9)
       EventDecorator.collection(upcoming)
+    end
+
+    def unhidden_groups_selection_without(group)
+      Group.unhidden_without(group).random_selection(3)
     end
 
     def group_params

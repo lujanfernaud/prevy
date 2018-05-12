@@ -35,6 +35,20 @@ class GroupTest < ActiveSupport::TestCase
     refute group.valid?
   end
 
+  test ".unhidden" do
+    groups = Group.unhidden
+
+    assert groups.none? { |group| group.hidden? }
+  end
+
+  test ".unhidden_without" do
+    group = groups(:one)
+
+    groups_selection = Group.unhidden_without(group)
+
+    refute groups_selection.include?(group)
+  end
+
   test "#owner" do
     group = fake_group(owner: users(:penny))
 
