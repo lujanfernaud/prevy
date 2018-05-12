@@ -5,6 +5,7 @@ class Group < ApplicationRecord
 
   before_save  :titleize_name
   before_save  :titleize_location
+  before_save  :capitalize_description
   after_create :add_owner_as_organizer
   after_update :update_members_role
 
@@ -68,6 +69,10 @@ class Group < ApplicationRecord
 
     def titleize_location
       self.location = location.titleize
+    end
+
+    def capitalize_description
+      self.description = description[0].capitalize + description[1..-1]
     end
 
     def add_owner_as_organizer

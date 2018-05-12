@@ -85,6 +85,17 @@ class GroupTest < ActiveSupport::TestCase
     assert_equal "The Universe", fake_group.location
   end
 
+  test "capitalizes description before saving" do
+    description = "no one saves us but ourselves. No one can and no one may. We ourselves must walk the path."
+    description_capitalized = "No one saves us but ourselves. No one can and no one may. We ourselves must walk the path."
+
+    fake_group.description = description
+
+    fake_group.save
+
+    assert_equal description_capitalized, fake_group.description
+  end
+
   test "adds owner as organizer after creation" do
     owner = fake_group.owner
 
