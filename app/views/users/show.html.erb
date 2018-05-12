@@ -9,18 +9,20 @@
       <div class="mt-4 pt-1"></div>
     <% end %>
 
-    <div class="box mb-2 p-4">
+    <div class="box mb-2 p-4 text-center">
 
       <div class="row mb-2">
         <div class="col-md-12">
-          <h2 class="mb-4 d-inline-block font-italic">
-            <%= @user.name %>
-          </h2>
           <% if @user == current_user %>
-            <div class="edit-profile-link d-inline-block ml-1">
-              <%= link_to "Edit profile", edit_user_path(@user) %>
+            <div class="edit-profile-link mb-3">
+              <%= link_to "(Edit profile)", edit_user_path(@user) %>
             </div>
           <% end %>
+
+          <h2 class="mb-4 d-inline-block">
+            <%= @user.name %>
+          </h2>
+
           <div class="user-profile-image-container">
             <div class="intrinsic-ratio-container intrinsic-ratio-container--square">
               <%= gravatar_image_tag @user.email, alt: @user.name,
@@ -34,7 +36,9 @@
         <div class="row">
           <div class="col-md-12 mt-4">
             <h3 class="h4 profile-heading">Location</h3>
-            <%= @user.location %>
+            <p class="mb-0">
+              <%= @user.location %>
+            </p>
           </div>
         </div>
       <% end %>
@@ -43,7 +47,9 @@
         <div class="row">
           <div class="col-md-12 mt-4">
             <h3 class="h4 profile-heading">Bio</h3>
-            <%= @user.bio %>
+            <p class="mb-0">
+              <%= @user.bio %>
+            </p>
           </div>
         </div>
       <% end %>
@@ -54,7 +60,7 @@
             <h3 class="h4 profile-heading organized-events-heading">
               <%= organized_events_header(@user.organized_events) %>
             </h3>
-            <div class="row">
+            <div class="row d-flex justify-content-center">
               <%= render @last_organized_events %>
             </div>
           </div>
