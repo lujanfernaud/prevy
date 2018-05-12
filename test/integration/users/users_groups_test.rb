@@ -19,5 +19,6 @@ class UsersGroupsTest < ActionDispatch::IntegrationTest
     visit user_groups_path user
 
     assert_create_group_unconfirmed_alert
+    assert_create_group_unconfirmed_button
   end
 end

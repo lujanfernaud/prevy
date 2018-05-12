@@ -75,6 +75,17 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert_unhidden_groups
   end
 
+  test "new and unconfirmed user visits home page" do
+    unconfirmed = users(:unconfirmed)
+
+    log_in_as(unconfirmed)
+
+    visit root_path
+
+    assert_create_group_unconfirmed_alert
+    assert_create_group_unconfirmed_button
+  end
+
   private
 
     def assert_promotional_section
@@ -123,7 +134,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
       within ".user-groups-container" do
         assert page.has_content? "Your Groups"
         yield if block_given?
-        assert page.has_link? "Create a group"
+        assert page.has_link? "Create group"
       end
     end
 

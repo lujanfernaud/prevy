@@ -87,4 +87,8 @@ module IntegrationSupport
   def assert_show_group_unconfirmed_alert
     assert page.has_content? I18n.t("pundit.group_policy.show?")
   end
+
+  def assert_create_group_unconfirmed_button
+    assert page.has_css? ".btn-create-group[disabled]"
+  end
 end
