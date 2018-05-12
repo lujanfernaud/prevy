@@ -7,6 +7,7 @@ class Event < ApplicationRecord
     updated_address    String
   end
 
+  before_save   :titleize_title
   before_save   :check_website_url
   before_update :store_updated_fields
 
@@ -66,6 +67,10 @@ class Event < ApplicationRecord
       elsif end_date < start_date
         errors.add(:start_date, "can't be later than end date")
       end
+    end
+
+    def titleize_title
+      self.title = title.titleize
     end
 
     def check_website_url

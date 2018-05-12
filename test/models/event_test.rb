@@ -65,6 +65,14 @@ class EventTest < ActiveSupport::TestCase
     refute event.valid?
   end
 
+  test "titleizes event title before saving" do
+    event = fake_event(title: "john's event")
+
+    event.save
+
+    assert_equal "John's Event", event.title
+  end
+
   test "adds protocol to event's website before saving if missing" do
     event = fake_event(website: "www.eventwebsite.com")
     event.save!

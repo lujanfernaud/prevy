@@ -30,7 +30,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
 
     log_in_as(new_user)
 
-    page.find("h2", text: sample_group_name).click
+    page.find(".group-card-link", text: sample_group_name).click
     click_on "Click here to create your first group!"
 
     fill_in_group_details_with name: "Urban Sketchers"
@@ -62,11 +62,11 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
   private
 
     def sample_group_name
-      "Your group"
+      "Your Group"
     end
 
     def sample_event_name
-      "Your event"
+      "Your Event"
     end
 
     def assert_organizers

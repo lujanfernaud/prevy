@@ -69,6 +69,14 @@ class GroupTest < ActiveSupport::TestCase
     assert group.events.count > 1
   end
 
+  test "titleizes group name before saving" do
+    fake_group.name = "john's group"
+
+    fake_group.save
+
+    assert_equal "John's Group", fake_group.name
+  end
+
   test "adds owner as organizer after creation" do
     owner = fake_group.owner
 
