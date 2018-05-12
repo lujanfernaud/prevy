@@ -26,7 +26,7 @@
 
           <div class="avatar-container bg-white border rounded text-center pt-3 pb-2">
             <%= gravatar_image_tag @user.email, alt: @user.name,
-                class: "avatar__image" %>
+                class: "user-avatar" %>
             <%= link_to "Change", "https://en.gravatar.com/emails/",
               target: "blank", class: "d-block mt-2" %>
           </div>

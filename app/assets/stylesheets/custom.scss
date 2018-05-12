@@ -316,7 +316,7 @@ body {
 }
 
 .user-avatar {
-  border-radius: calc(.25rem - 1px);
+  border-radius: 100%;
 }
 
 
@@ -501,8 +501,7 @@ body {
 
 .intrinsic-ratio-container--square {
   padding-bottom: 100%;
-  border-bottom-left-radius: calc(.25rem) !important;
-  border-bottom-right-radius: calc(.25rem) !important;
+  border-radius: 100% !important;
 }
 
 .intrinsic-ratio-container--orientation-switch {
