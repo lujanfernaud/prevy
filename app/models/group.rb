@@ -4,6 +4,7 @@ class Group < ApplicationRecord
   resourcify
 
   before_save  :titleize_name
+  before_save  :titleize_location
   after_create :add_owner_as_organizer
   after_update :update_members_role
 
@@ -63,6 +64,10 @@ class Group < ApplicationRecord
 
     def titleize_name
       self.name = name.titleize
+    end
+
+    def titleize_location
+      self.location = location.titleize
     end
 
     def add_owner_as_organizer
