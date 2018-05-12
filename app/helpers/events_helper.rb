@@ -30,4 +30,12 @@ module EventsHelper
       link_to "See all attendees", event_attendances_path(event)
     end
   end
+
+  def default_start_date
+    1.week.from_now.round_to(1.hour)
+  end
+
+  def default_end_date
+    (1.week.from_now + 1.hour).round_to(1.hour)
+  end
 end
