@@ -39,7 +39,6 @@ html {
 
 body {
   min-height: 100vh;
-  font-size: 1.04rem;
 }
 
 .container-semi-fluid {
@@ -222,6 +221,10 @@ body {
   @include media-breakpoint-up(md) {
     border-bottom: 3px solid $indigo;
   }
+}
+
+.box-user-profile {
+  font-size: 1.05rem;
 }
 
 
