@@ -154,4 +154,21 @@ class UserTest < ActiveSupport::TestCase
 
     new_user.save
   end
+
+  test "capitalizes bio before updating" do
+    bio = "it is impossible to build one's own happiness on the unhappiness of others."
+    bio_capitalized = "It is impossible to build one's own happiness on the unhappiness of others."
+
+    new_user.bio = bio
+
+    new_user.save
+
+    assert_equal bio_capitalized, new_user.bio
+  end
+
+  test "doesn't return an error if there is no bio" do
+    new_user.bio = nil
+
+    new_user.save
+  end
 end

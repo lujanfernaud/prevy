@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   before_save   :titleize_name
   before_update :titleize_location
+  before_update :capitalize_bio
   after_create  :create_user_sample_group
 
   rolify
@@ -92,6 +93,12 @@ class User < ApplicationRecord
       return unless location
 
       self.location = location.titleize
+    end
+
+    def capitalize_bio
+      return unless bio
+
+      self.bio = bio[0].capitalize + bio[1..-1]
     end
 
     def create_user_sample_group
