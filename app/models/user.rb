@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  after_create :create_user_sample_group
+  before_save   :titleize_name
+  after_create  :create_user_sample_group
 
   rolify
 
@@ -81,6 +82,10 @@ class User < ApplicationRecord
   end
 
   private
+
+    def titleize_name
+      self.name = name.titleize
+    end
 
     def create_user_sample_group
       return if sample_user?

@@ -132,4 +132,12 @@ class UserTest < ActiveSupport::TestCase
 
     assert upcoming_attended_events.count, 3
   end
+
+  test "titleizes name before saving" do
+    new_user.name = "john stevenson"
+
+    new_user.save
+
+    assert_equal "John Stevenson", new_user.name
+  end
 end
