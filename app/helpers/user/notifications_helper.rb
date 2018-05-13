@@ -23,7 +23,7 @@ module User::NotificationsHelper
   def notifications_badge
     return unless notifications?
 
-    "<span class='ml-2 badge badge-pill badge-dark align-middle'>
+    "<span class='ml-2 badge badge-pill badge-dark align-middle bg-primary-dark'>
       #{notifications_count}
     </span>".html_safe
   end

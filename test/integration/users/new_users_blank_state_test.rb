@@ -5,6 +5,17 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     stub_geocoder
   end
 
+  test "new user has sample membership request" do
+    log_in_as(new_user)
+
+    assert page.has_content? "Notifications 1"
+
+    click_on "Notifications 1"
+
+    assert page.has_content? admin_name
+    assert page.has_content? sample_group_name
+  end
+
   test "new user visits sample group" do
     log_in_as(new_user)
 
@@ -60,6 +71,10 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
   end
 
   private
+
+    def admin_name
+      User.where(admin: true).first.name
+    end
 
     def sample_group_name
       "Sample Group"

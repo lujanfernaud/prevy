@@ -8,6 +8,7 @@ class User < ApplicationRecord
   before_update :titleize_location
   before_update :capitalize_bio
   after_create  :create_user_sample_group
+  after_create  :create_sample_membership_request
 
   rolify
 
@@ -105,5 +106,11 @@ class User < ApplicationRecord
       return if sample_user? || admin?
 
       SampleGroup.create_for_user(self)
+    end
+
+    def create_sample_membership_request
+      return if sample_user? || admin?
+
+      SampleMembershipRequest.create_for_user(self)
     end
 end
