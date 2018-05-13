@@ -1,5 +1,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+admin:
+  name: Luján
+  email: luján@sample.test
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+  location: Tenerife, Canary Islands, Spain
+  bio: Full-stack Rails Developer. Rubyist. Tinkerer.
+  confirmed_at: <%= Time.zone.now - 1.day %>
+  settings: {
+    "membership_request_emails": true,
+    "group_membership_emails": true,
+    "group_role_emails": true,
+    "new_event_emails": true
+  }
+  admin: true
+
 phil:
   name: Phil
   email: phil@sample.com

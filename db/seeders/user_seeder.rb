@@ -12,12 +12,11 @@ class UserSeeder
 
     def create_sample_user
       SampleUser.create!(
-        name:                  full_name,
-        email:                 Faker::Internet.email,
-        password:              "password",
-        password_confirmation: "password",
-        location:              Faker::Address.city,
-        bio:                   Faker::BackToTheFuture.quote
+        name:     full_name,
+        email:    Faker::Internet.email,
+        password: "password",
+        location: Faker::Address.city,
+        bio:      Faker::BackToTheFuture.quote
       )
     end
 

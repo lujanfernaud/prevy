@@ -102,7 +102,7 @@ class User < ApplicationRecord
     end
 
     def create_user_sample_group
-      return if sample_user?
+      return if sample_user? || admin?
 
       SampleGroup.create_for_user(self)
     end
