@@ -8,9 +8,13 @@
 
 .event-box-title {
   color: #fff;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, .35);
+
+  @include media-breakpoint-up(sm) {
+    font-size: 1.3rem;
+  }
 }
 
 a.event-box-title:hover {
