@@ -62,11 +62,11 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
   private
 
     def sample_group_name
-      "Your Group"
+      "Sample Group"
     end
 
     def sample_event_name
-      "Your Event"
+      "Sample Event"
     end
 
     def assert_organizers

@@ -31,7 +31,7 @@
 
 en:
   sample_group:
-    name: "Your group"
+    name: "Sample Group"
     description: >
       <p>Welcome to %{user_name}'s group!</p>
       <p>This is how your group could look like. Once you have your group, you can:</p>
@@ -46,7 +46,7 @@ en:
     location: "The Internet"
 
   sample_event:
-    title: "Your event"
+    title: "Sample Event"
     description: >
       <p>This is how your event could look like.</p>
       <p>When you create an event all members of the group receive a notification email.</p>
