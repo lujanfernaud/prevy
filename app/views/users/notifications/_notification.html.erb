@@ -1,16 +1,25 @@
-<tr id="notification-<%= notification.id %>">
-  <td class="notification__date">
+<div class="row d-flex flex-column flex-md-row border-top mb-4 p-2" id="notification-<%= notification.id %>">
+
+  <div class="notification__date font-italic">
     <%= notification.created_at.strftime("%d %b") %>
-  </td>
-  <td class="notification__message">
-    <%= notification.message %>
-  </td>
-  <td class="notification__link">
-    <%= see_notification_link(notification) %>
-  </td>
-  <td class="notification__mark-as-read">
-    <%= link_to "Mark as read",
-      user_notification_path(current_user, notification),
-      method: :delete %>
-  </td>
-</tr>
+  </div>
+
+  <div class="notification__data mt-2 mt-md-0">
+    <div class="notification__message">
+      <%= notification.message %>
+    </div>
+
+    <div class="notification__info mt-1">
+      <span class="notification__link">
+        <%= see_notification_link(notification) %>
+      </span>
+      <span> · </span>
+      <span class="notification__mark-as-read">
+        <%= link_to "Mark as read",
+          user_notification_path(current_user, notification),
+          method: :delete %>
+      </span>
+    </div>
+  </div>
+
+</div>

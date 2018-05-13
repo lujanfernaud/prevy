@@ -2,25 +2,27 @@
   <div class="container">
 
     <div class="row d-flex justify-content-center">
-      <div class="col-md-12 col-lg-10 mt-2rem">
+      <div class="col-md-10 col-lg-8 mt-2rem">
 
         <h2 class="text-center mb-4 pt-1">Notifications</h2>
 
         <% unless @notifications.empty? %>
 
           <div class="mb-4 text-center">
-            <%= link_to "Mark all as read",
-              user_notification_cleaners_path(@user), method: :post %>
+            <% if @notifications.count > 1 %>
+              <%= link_to "Mark all as read",
+                user_notification_cleaners_path(@user), method: :post %>
+            <% else %>
+              <div class="mt-2rem"></div>
+            <% end %>
           </div>
 
-          <table class="table table-stripped">
-            <tbody>
-              <%= render partial: "notification", collection: @notifications %>
-            </tbody>
-          </table>
+          <%= render partial: "notification", collection: @notifications %>
 
         <% else %>
+
           <h3 class="text-center">There are no notifications.</h3>
+
         <% end %>
 
       </div>
