@@ -443,8 +443,12 @@ body {
 
 
 .membership-request-info {
-  flex-basis: 75%;
+  flex-basis: 100%;
   min-height: 110px;
+
+  @include media-breakpoint-up(md) {
+    flex-basis: 80%;
+  }
 }
 
 .membership-request-image {
@@ -456,7 +460,7 @@ body {
   border-top-left-radius: .25rem;
   border-bottom-left-radius: .25rem;
 
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     display: block;
   }
 }

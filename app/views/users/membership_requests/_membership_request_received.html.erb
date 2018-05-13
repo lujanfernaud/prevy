@@ -10,21 +10,23 @@
 
   <div class="d-flex flex-column justify-content-between
     membership-request-info ml-2 pl-1 pt-2 pb-2">
-    <h3 class="h6 font-weight-bold mt-1 mb-1">
+    <h3 class="h6 font-weight-bold mt-1 mb-2 mb-md-1 pb-1 pb-md-0">
       <span class="font-weight-normal">From</span>
-      <span class="font-italic">
+      <span>
         <%= link_to membership_request.user.name,
           user_path(membership_request.user) %>
-        </span>
+      </span>
       <span class="font-weight-normal">in</span>
-      <span class="font-italic">
+      <span>
         <%= link_to membership_request.group.name,
           group_path(membership_request.group) %>
       </span>
     </h3>
-    <p class="mb-0">
+
+    <p class="mb-2 mb-md-0">
       <%= message_for(membership_request) %>
     </p>
+
     <div class="membership-request-links">
       <%= link_to "Accept",
         group_members_path(
