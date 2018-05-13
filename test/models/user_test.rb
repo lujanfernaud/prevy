@@ -140,4 +140,18 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal "John Stevenson", new_user.name
   end
+
+  test "titleizes location before updating" do
+    new_user.location = "tenerife"
+
+    new_user.save
+
+    assert_equal "Tenerife", new_user.location
+  end
+
+  test "doesn't return an error if there is no location" do
+    new_user.location = nil
+
+    new_user.save
+  end
 end

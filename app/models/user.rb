@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   before_save   :titleize_name
+  before_update :titleize_location
   after_create  :create_user_sample_group
 
   rolify
@@ -85,6 +86,12 @@ class User < ApplicationRecord
 
     def titleize_name
       self.name = name.titleize
+    end
+
+    def titleize_location
+      return unless location
+
+      self.location = location.titleize
     end
 
     def create_user_sample_group
