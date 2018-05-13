@@ -76,6 +76,8 @@ class Groups::MembershipsController < ApplicationController
     end
 
     def destroy_user_sample_group
+      return if @group.sample_group?
+
       if sample_group = @user.sample_group
         sample_group.destroy
       end
@@ -88,10 +90,14 @@ class Groups::MembershipsController < ApplicationController
     end
 
     def notify_user_accepted
+      return if @group.sample_group?
+
       NewGroupMembership.call(@membership)
     end
 
     def notify_user_deleted
+      return if @group.sample_group?
+
       DeletedGroupMembership.call(@membership)
     end
 

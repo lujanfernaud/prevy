@@ -52,7 +52,7 @@ class User < ApplicationRecord
   }
 
   def sample_group
-    groups.where(sample_group: true).first
+    owned_groups.where(sample_group: true).first
   end
 
   def groups

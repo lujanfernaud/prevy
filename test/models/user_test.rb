@@ -49,6 +49,17 @@ class UserTest < ActiveSupport::TestCase
     refute user.valid?
   end
 
+  test "#sample_group" do
+    someones_sample_group = groups(:sample_group)
+    user = new_user
+
+    assert_equal user.sample_group, user.groups.first
+
+    someones_sample_group.members << user
+
+    refute_equal someones_sample_group, user.sample_group
+  end
+
   test "#membership_request_emails?" do
     phil  = users(:phil)
     penny = users(:penny)

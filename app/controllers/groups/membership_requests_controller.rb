@@ -60,6 +60,8 @@ class Groups::MembershipRequestsController < ApplicationController
     end
 
     def notify_requester
+      return if @group.sample_group?
+
       DeclinedMembershipRequest.call(@membership_request)
     end
 
