@@ -76,8 +76,6 @@ class Groups::MembershipsController < ApplicationController
     end
 
     def destroy_user_sample_group
-      return if @group.sample_group?
-
       if sample_group = @user.sample_group
         sample_group.destroy
       end

@@ -22,7 +22,7 @@ class SampleMembershipRequest
 
     def create_membership_request
       @membership_request = MembershipRequest.create(
-        user: admin,
+        user: sample_user,
         group: group,
         message: I18n.t("sample_membership_request.message")
       )
@@ -38,8 +38,8 @@ class SampleMembershipRequest
       )
     end
 
-    def admin
-      User.where(admin: true).first
+    def sample_user
+      SampleUser.all.sample
     end
 
 end

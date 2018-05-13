@@ -12,7 +12,6 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
 
     click_on "Notifications 1"
 
-    assert page.has_content? admin_name
     assert page.has_content? sample_group_name
   end
 
