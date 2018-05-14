@@ -16,7 +16,13 @@ class UserSeeder
         email:    Faker::Internet.email,
         password: "password",
         location: Faker::Address.city,
-        bio:      Faker::BackToTheFuture.quote
+        bio:      Faker::BackToTheFuture.quote,
+        settings: {
+          "membership_request_emails": false,
+          "group_membership_emails": false,
+          "group_role_emails": false,
+          "new_event_emails": false
+        }
       )
     end
 
