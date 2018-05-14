@@ -1,6 +1,5 @@
 require_relative "seeders/user_seeder"
 require_relative "seeders/group_seeder"
-require_relative "seeders/event_seeder"
 
 #
 # Create Admin
@@ -29,12 +28,6 @@ UserSeeder.create_sample_users(56)
 #
 
 GroupSeeder.create_unhidden_groups
-
-#
-# Create Events
-#
-
-EventSeeder.create_events
 
 #
 # Update Admin Data Reminder
