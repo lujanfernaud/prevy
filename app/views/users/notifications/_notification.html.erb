@@ -13,7 +13,11 @@
       <span class="notification__link">
         <%= see_notification_link(notification) %>
       </span>
-      <span> · </span>
+
+      <% if notification_link?(notification) %>
+        <span> · </span>
+      <% end %>
+
       <span class="notification__mark-as-read">
         <%= link_to "Mark as read",
           user_notification_path(current_user, notification),

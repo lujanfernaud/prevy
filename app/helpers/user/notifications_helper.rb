@@ -64,4 +64,12 @@ module User::NotificationsHelper
         notification: notification,
         group: notification.group)
   end
+
+  def notification_link?(notification)
+    types = ["MembershipRequestNotification",
+             "GroupMembershipNotification",
+             "GroupRoleNotification"]
+
+    types.include?(notification.type)
+  end
 end
