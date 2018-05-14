@@ -7,7 +7,6 @@ class UsersController < ApplicationController
   # User profile
   def show
     @user = find_user
-    store_events
 
     authorize @user
 
@@ -105,12 +104,6 @@ class UsersController < ApplicationController
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb title, path
       add_breadcrumb @user.name
-    end
-
-    def store_events
-      @attended_events = decorators_for(@user.past_attended_events)
-      @upcoming_events = decorators_for(@user.upcoming_attended_events)
-      @last_organized_events = decorators_for(@user.last_organized_events)
     end
 
     def decorators_for(events)

@@ -54,19 +54,6 @@
         </div>
       <% end %>
 
-      <% unless @last_organized_events.empty? %>
-        <div class="row">
-          <div class="col-md-12 mt-4">
-            <h3 class="h4 profile-heading organized-events-heading">
-              <%= organized_events_header(@user.organized_events) %>
-            </h3>
-            <div class="row d-flex justify-content-center">
-              <%= render @last_organized_events %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-
     </div>
 
   </div>
