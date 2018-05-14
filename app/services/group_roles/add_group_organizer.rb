@@ -16,7 +16,7 @@ class AddGroupOrganizer
 
     @group.add_to_organizers(@user)
 
-    notify_user
+    notify_user unless @group.sample_group?
   end
 
   private

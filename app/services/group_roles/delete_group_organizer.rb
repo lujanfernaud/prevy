@@ -16,7 +16,7 @@ class DeleteGroupOrganizer
 
     @group.remove_from_organizers(@user)
 
-    notify_user
+    notify_user unless @group.sample_group?
   end
 
   private
