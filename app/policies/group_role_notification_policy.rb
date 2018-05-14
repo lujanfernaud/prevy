@@ -1,0 +1,2 @@
+class GroupRoleNotificationPolicy < NotificationPolicy
+end

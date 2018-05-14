@@ -58,7 +58,71 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
 
     click_on "Notifications"
 
-    assert page.has_content? "There are no notifications."
+    assert page.has_content? no_notifications_message
+  end
+
+  test "user marks membership request notification as read" do
+    request_membership_as_unnotifiable
+
+    log_in_as(@phil)
+
+    visit user_notifications_path(@phil)
+
+    assert page.has_content? "membership request from Unnotifiable Stranger"
+
+    within last_notification_for(@phil) do
+      click_on "Mark as read"
+    end
+
+    refute page.has_content? "membership request from Unnotifiable Stranger"
+  end
+
+  test "user marks group membership notification as read" do
+    request_membership_as_unnotifiable
+
+    log_in_as(@phil)
+
+    visit user_membership_requests_url(@phil)
+
+    within last_membership_request do
+      click_on "Accept"
+    end
+
+    log_out_as(@phil)
+
+    log_in_as(@unnotifiable)
+
+    visit user_notifications_path(@unnotifiable)
+
+    within last_notification_for(@unnotifiable) do
+      click_on "Mark as read"
+    end
+
+    assert page.has_content? no_notifications_message
+  end
+
+  test "user marks group role notification as read" do
+    @unnotifiable.add_role(:member, @nike_group)
+
+    log_in_as(@phil)
+
+    visit group_members_url(@nike_group)
+
+    within "#user-#{@unnotifiable.id}" do
+      click_on "Organizer [ + ]"
+    end
+
+    log_out_as(@phil)
+
+    log_in_as(@unnotifiable)
+
+    click_on "Notifications"
+
+    within last_notification_for(@unnotifiable) do
+      click_on "Mark as read"
+    end
+
+    assert page.has_content? no_notifications_message
   end
 
   test "user without notifications visits notifications" do
@@ -66,7 +130,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
 
     click_on "Notifications"
 
-    assert page.has_content? "There are no notifications."
+    assert page.has_content? no_notifications_message
   end
 
   test "user doesn't receive membership request email notifications" do
@@ -171,7 +235,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
     click_on "Mark all as read"
 
     assert page.current_path == user_notifications_path(@onitsuka)
-    assert page.has_content? "There are no notifications"
+    assert page.has_content? no_notifications_message
     refute page.has_link?    "Mark all as read"
   end
 
@@ -266,7 +330,11 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
 
     def assert_regular_notifications
       click_on "Notifications"
-      refute page.has_content? "There are no notifications"
+      refute page.has_content? no_notifications_message
+    end
+
+    def no_notifications_message
+      "There are no notifications"
     end
 
     def assert_checked_fields

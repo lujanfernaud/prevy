@@ -1,0 +1,2 @@
+class GroupMembershipNotificationPolicy < NotificationPolicy
+end
