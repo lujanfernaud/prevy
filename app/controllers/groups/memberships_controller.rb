@@ -20,7 +20,6 @@ class Groups::MembershipsController < ApplicationController
 
     destroy_user_sample_group
     destroy_membership_request
-    add_role_to_user
 
     if current_user == @user
       flash[:success] = "You are now a member of #{@group.name}!"
@@ -39,8 +38,6 @@ class Groups::MembershipsController < ApplicationController
     @membership = GroupMembership.find_by(group: @group, user: @user)
 
     authorize @membership
-
-    remove_all_user_roles_for_group
 
     @membership.destroy
 
@@ -67,14 +64,6 @@ class Groups::MembershipsController < ApplicationController
       add_breadcrumb "Organizers & Members"
     end
 
-    def add_role_to_user
-      if @group.all_members_can_create_events?
-        @user.add_role :organizer, @group
-      else
-        @user.add_role :member, @group
-      end
-    end
-
     def destroy_user_sample_group
       if sample_group = @user.sample_group
         sample_group.destroy
@@ -97,17 +86,5 @@ class Groups::MembershipsController < ApplicationController
       return if @group.sample_group?
 
       DeletedGroupMembership.call(@membership)
-    end
-
-    def remove_all_user_roles_for_group
-      user_roles.each do |role|
-        @user.remove_role role, @group
-      end
-    end
-
-    def user_roles
-      @user.roles.where(resource: @group).map do |role|
-        role.name.to_sym
-      end
     end
 end
