@@ -8,6 +8,7 @@ class SampleGroup
   def initialize(user)
     @user  = user
     @group = nil
+    @memberships = []
   end
 
   def create_sample_group
@@ -47,9 +48,24 @@ class SampleGroup
     end
 
     def add_sample_members
+      create_memberships
+      add_member_role_to_memberships
+    end
+
+    # We are using 'activerecord-import' for bulk inserting the data.
+    # https://github.com/zdennis/activerecord-import/wiki/Examples
+    def create_memberships
       SampleUser.all.each do |user|
-        group.members << user
-        user.add_role :member, group
+        @memberships << GroupMembership.new(group: @group, user: user)
+      end
+
+      GroupMembership.import(@memberships)
+    end
+
+    def add_member_role_to_memberships
+      # https://github.com/zdennis/activerecord-import/wiki/Callbacks
+      @memberships.each do |membership|
+        membership.run_callbacks(:save) { false }
       end
     end
 

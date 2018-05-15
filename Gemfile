@@ -26,6 +26,9 @@ gem 'gravatar_image_tag',              '~> 1.2'
 gem 'inline_svg',                      '~> 1.3', '>= 1.3.1'
 gem 'faker',                           '~> 1.8', '>= 1.8.7'
 
+# Used for bulk inserting data into database using ActiveRecord.
+gem 'activerecord-import',             '~> 0.23.0'
+
 # Used to round time to the nearest hour.
 gem 'rounding',                        '~> 1.0', '>= 1.0.1'
 

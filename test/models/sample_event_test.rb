@@ -3,14 +3,24 @@ require 'test_helper'
 class SampleEventTest < ActiveSupport::TestCase
   def setup
     stub_geocoder
+    @group = Group.last
   end
 
   test "creates event with sample attendees" do
-    group = Group.last
-    SampleEvent.build_for_group(group)
+    add_members_with_role
+
+    SampleEvent.build_for_group(@group)
     event = Event.last
 
-    assert event.organizer, group.owner
-    assert event.attendees, group.members
+    assert_equal event.organizer, @group.owner
+    assert_equal event.attendees, @group.members
   end
+
+  private
+
+    def add_members_with_role
+      @group.members.each do |user|
+        user.add_role :member, @group
+      end
+    end
 end

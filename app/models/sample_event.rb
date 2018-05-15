@@ -8,6 +8,7 @@ class SampleEvent
   def initialize(group)
     @group = group
     @event = nil
+    @attendances = []
   end
 
   def build_sample_event
@@ -69,10 +70,15 @@ class SampleEvent
     end
 
     def add_sample_attendees
-      random_members = group.members_with_role.shuffle[0..29]
-
       random_members.each do |member|
-        @event.attendees << member
+        @attendances << Attendance.new(
+          attendee: member, attended_event: @event)
       end
+
+      Attendance.import(@attendances)
+    end
+
+    def random_members
+      group.members_with_role.shuffle[0..29]
     end
 end
