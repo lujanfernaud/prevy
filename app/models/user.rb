@@ -7,8 +7,7 @@ class User < ApplicationRecord
   before_save   :titleize_name
   before_update :titleize_location
   before_update :capitalize_bio
-  after_create  :create_user_sample_group
-  after_create  :create_sample_membership_request
+  after_create  :create_user_sample_content
 
   rolify
 
@@ -102,15 +101,22 @@ class User < ApplicationRecord
       self.bio = bio[0].capitalize + bio[1..-1]
     end
 
-    def create_user_sample_group
-      return if sample_user? || admin?
+    def create_user_sample_content
+      return if user_without_sample_content?
 
+      create_sample_group
+      create_sample_membership_request
+    end
+
+    def user_without_sample_content?
+      self.sample_user? || self.admin?
+    end
+
+    def create_sample_group
       SampleGroup.create_for_user(self)
     end
 
     def create_sample_membership_request
-      return if sample_user? || admin?
-
       SampleMembershipRequest.create_for_user(self)
     end
 end
