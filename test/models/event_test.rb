@@ -121,4 +121,15 @@ class EventTest < ActiveSupport::TestCase
     refute event.updated_fields.include?("updated_end_date")
     assert event.updated_fields.include?("updated_address")
   end
+
+  test "touches group after saving" do
+    event = fake_event
+    group = event.group
+
+    group_original_updated_at = group.updated_at
+
+    event.save
+
+    refute_equal group_original_updated_at, group.reload.updated_at
+  end
 end
