@@ -18,7 +18,7 @@ class StaticPagesController < ApplicationController
     end
 
     def store_user_groups
-      @user_groups = @user.groups.order(:updated_at)
+      @user_groups = @user.groups.order(:updated_at).reverse
     end
 
     def store_unhidden_groups
