@@ -25,6 +25,10 @@ class SampleUserTest < ActiveSupport::TestCase
     end
   end
 
+  test ".collection_for_sample_group" do
+    refute_equal SampleUser.all, SampleUser.collection_for_sample_group
+  end
+
   private
 
     def sample_user_params

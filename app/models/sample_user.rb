@@ -7,6 +7,10 @@ class SampleUser < User
     User.where(sample_user: true)
   end
 
+  def self.collection_for_sample_group
+    all[0..-2]
+  end
+
   def self.select_random(users_number)
     random_offset = rand(SampleUser.all.count - users_number)
 

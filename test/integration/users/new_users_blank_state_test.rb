@@ -15,6 +15,24 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     assert page.has_content? sample_group_name
   end
 
+  test "new user accepts sample membership request" do
+    user = new_user
+    request_user = user.received_requests.first
+
+    log_in_as(user)
+
+    visit group_members_path(user.sample_group)
+    refute page.has_link? request_user.name
+
+    visit user_membership_requests_path(user)
+
+    click_on "Accept"
+
+    visit group_members_path(user.sample_group)
+
+    assert page.has_link? request_user.name
+  end
+
   test "new user visits sample group" do
     log_in_as(new_user)
 

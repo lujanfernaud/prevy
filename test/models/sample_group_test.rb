@@ -13,14 +13,14 @@ class SampleGroupTest < ActiveSupport::TestCase
     SampleGroup.create_for_user(user)
     group = Group.last
 
-    members_count = SampleUser.all.count
+    members_count = SampleUser.collection_for_sample_group.count
     organizers_count = group.organizers.count - GROUP_OWNER_COUNT
     members_with_role_count = members_count - organizers_count
 
     assert group.sample_group?
     assert_equal user, group.owner
 
-    assert_equal SampleUser.all, group.members
+    assert_equal SampleUser.collection_for_sample_group, group.members
     assert_equal members_with_role_count, group.members_with_role.count
 
     assert_equal 5, group.organizers.count

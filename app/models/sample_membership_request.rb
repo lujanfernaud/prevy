@@ -39,7 +39,7 @@ class SampleMembershipRequest
     end
 
     def sample_user
-      SampleUser.all.sample
+      (SampleUser.all - group.members).sample
     end
 
 end

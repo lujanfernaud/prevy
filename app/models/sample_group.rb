@@ -55,7 +55,7 @@ class SampleGroup
     # We are using 'activerecord-import' for bulk inserting the data.
     # https://github.com/zdennis/activerecord-import/wiki/Examples
     def create_memberships
-      SampleUser.all.each do |user|
+      SampleUser.collection_for_sample_group.each do |user|
         @memberships << GroupMembership.new(group: @group, user: user)
       end
 

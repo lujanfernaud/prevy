@@ -21,7 +21,7 @@ User.create!(
 # Create Sample Users
 #
 
-UserSeeder.create_sample_users(56)
+UserSeeder.create_sample_users(57)
 
 #
 # Create Unhidden Groups
