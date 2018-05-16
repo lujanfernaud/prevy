@@ -71,6 +71,34 @@ five:
     address: ""
   }
 
+past_one:
+  title: Past event 1
+  description: <%= Faker::Lorem.paragraph %>
+  start_date: <%= Time.zone.now - 6.days %>
+  end_date: <%= Time.zone.now - 1.week %>
+  image: sample.jpeg
+  organizer: penny
+  group: two
+  updated_fields: {
+    start_date: "",
+    end_date: "",
+    address: ""
+  }
+
+past_two:
+  title: Past event 2
+  description: <%= Faker::Lorem.paragraph %>
+  start_date: <%= Time.zone.now - 6.days %>
+  end_date: <%= Time.zone.now - 1.week %>
+  image: sample.jpeg
+  organizer: penny
+  group: two
+  updated_fields: {
+    start_date: "",
+    end_date: "",
+    address: ""
+  }
+
 sample_event:
   title: Sample event somewhere
   description: <%= Faker::Lorem.paragraph %>

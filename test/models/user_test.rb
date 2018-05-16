@@ -100,28 +100,28 @@ class UserTest < ActiveSupport::TestCase
     penny = users(:penny)
     phil  = users(:phil)
 
-    assert penny.owned_groups.count, 2
-    assert phil.owned_groups.count,  1
+    assert_equal 2, penny.owned_groups.count
+    assert_equal 1, phil.owned_groups.count
   end
 
   test "#associated_groups" do
     penny = users(:penny)
     phil  = users(:phil)
 
-    assert_equal penny.associated_groups, [groups(:one), groups(:four)]
-    assert_equal phil.associated_groups,  [groups(:two), groups(:three)]
+    assert_equal [groups(:one), groups(:four)], penny.associated_groups
+    assert_equal [groups(:two), groups(:three)], phil.associated_groups
   end
 
   test "#received_requests" do
     phil = users(:phil)
 
-    assert_equal phil.received_requests.count, 2
+    assert_equal 2, phil.received_requests.count
   end
 
   test "#sent_requests" do
     onitsuka = users(:onitsuka)
 
-    assert_equal onitsuka.sent_requests.count, 1
+    assert_equal 1, onitsuka.sent_requests.count
   end
 
   test "#notifications" do
@@ -134,14 +134,14 @@ class UserTest < ActiveSupport::TestCase
     user = users(:phil)
     past_attended_events = user.past_attended_events
 
-    assert past_attended_events.count, 3
+    assert_equal 2, past_attended_events.count
   end
 
   test "#upcoming_attended_events" do
-    user = users(:phil)
+    user = users(:woodell)
     upcoming_attended_events = user.upcoming_attended_events
 
-    assert upcoming_attended_events.count, 3
+    assert_equal 3, upcoming_attended_events.count
   end
 
   test "titleizes name before saving" do
