@@ -19,7 +19,7 @@
           <%= organizer_title %>
         </h3>
         <ul>
-          <% group.organizers.last(3).each do |organizer| %>
+          <% group.organizers.last(3).reverse.each do |organizer| %>
             <li>
               <%= link_to organizer.name,
                 user_path(organizer, organizer_of: group) %>
@@ -52,7 +52,7 @@
       <% if authorized?(current_user, group) %>
         <ul class="mt-3">
           <% if !group.members_with_role.empty? %>
-            <% group.members_with_role.last(3).each do |member| %>
+            <% group.members_with_role.last(3).reverse.each do |member| %>
               <li>
                 <%= link_to member.name,
                   user_path(member, member_of: group) %>
