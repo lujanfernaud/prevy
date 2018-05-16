@@ -79,10 +79,6 @@ class User < ApplicationRecord
     attended_events.upcoming.three
   end
 
-  def last_organized_events
-    organized_events.three
-  end
-
   private
 
     def titleize_name
