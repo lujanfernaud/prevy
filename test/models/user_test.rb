@@ -127,7 +127,7 @@ class UserTest < ActiveSupport::TestCase
   test "#notifications" do
     phil = users(:phil)
 
-    assert_equal phil.notifications.count, 3
+    assert_equal 4, phil.notifications.count
   end
 
   test "#past_attended_events" do

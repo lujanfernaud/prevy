@@ -60,7 +60,7 @@ class GroupTest < ActiveSupport::TestCase
     penny   = users(:penny)
     woodell = users(:woodell)
 
-    assert_equal group.members, [penny, woodell]
+    assert_equal [penny, woodell], group.members
   end
 
   test "#events" do

@@ -14,3 +14,13 @@ three:
   message: I'm Phil.
   group: kyoto
   user: phil
+
+four:
+  message: I'm Another Stranger.
+  group: kyoto
+  user: stranger_two
+
+five:
+  message: I'm Another Stranger.
+  group: sample_group
+  user: stranger_three

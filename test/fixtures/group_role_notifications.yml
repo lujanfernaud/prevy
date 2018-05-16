@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+roles_one:
+  user: phil
+  group: four
+  type: GroupRoleNotification
+  message: You have been added as an organizer in Woodell's Hidden Group.
+
+roles_two:
+  user: phil
+  group: two
+  type: GroupRoleNotification
+  message: You have been added as an organizer in Penny's Group.

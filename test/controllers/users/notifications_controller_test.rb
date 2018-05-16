@@ -3,7 +3,7 @@ require 'test_helper'
 class Users::NotificationsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:phil)
-    @notification = notifications(:phil_notification)
+    @notification = group_role_notifications(:roles_one)
   end
 
   test "should get index" do

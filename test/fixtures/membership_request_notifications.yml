@@ -11,3 +11,21 @@ two:
   membership_request: two
   type: MembershipRequestNotification
   message: New membership request from Carolyn in Nike.
+
+three:
+  user: onitsuka
+  membership_request: three
+  type: MembershipRequestNotification
+  message: New membership request from Phil in Kyoto.
+
+four:
+  user: onitsuka
+  membership_request: four
+  type: MembershipRequestNotification
+  message: New membership request from Stranger Two in Kyoto.
+
+five:
+  user: onitsuka
+  membership_request: five
+  type: MembershipRequestNotification
+  message: New membership request from Stranger Three in Kyoto.

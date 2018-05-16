@@ -99,6 +99,34 @@ stranger:
     "new_event_emails": true
   }
 
+stranger_two:
+  name: Stranger Two
+  email: anotherstranger@hotmail.test
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+  location: Somewhere else
+  bio: It's another mistery.
+  confirmed_at: <%= Time.zone.now - 1.day %>
+  settings: {
+    "membership_request_emails": true,
+    "group_membership_emails": true,
+    "group_role_emails": true,
+    "new_event_emails": true
+  }
+
+stranger_three:
+  name: Stranger Three
+  email: anotherstranger@hotmail.test
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+  location: Somewhere else
+  bio: It's another mistery.
+  confirmed_at: <%= Time.zone.now - 1.day %>
+  settings: {
+    "membership_request_emails": true,
+    "group_membership_emails": true,
+    "group_role_emails": true,
+    "new_event_emails": true
+  }
+
 unnotifiable:
   name: Unnotifiable Stranger
   email: unnotifiable.stranger@hotmail.test
