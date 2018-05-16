@@ -57,7 +57,7 @@ class Event < ApplicationRecord
   end
 
   def short_description
-    TextShortener.call(text: description, characters: 180)
+    TextShortener.call(text: description, characters: 175)
   end
 
   private
