@@ -107,7 +107,7 @@ class User < ApplicationRecord
     end
 
     def capitalize_bio
-      return unless bio
+      return unless bio && !bio.empty?
 
       self.bio = bio[0].capitalize + bio[1..-1]
     end

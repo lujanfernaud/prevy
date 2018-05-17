@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <% if @user.location %>
+      <% if @user.location && !@user.location.empty? %>
         <div class="row">
           <div class="col-md-12 mt-4">
             <h3 class="h4 profile-heading">Location</h3>
@@ -43,7 +43,7 @@
         </div>
       <% end %>
 
-      <% if @user.bio %>
+      <% if @user.bio && !@user.bio.empty? %>
         <div class="row">
           <div class="col-md-12 mt-4">
             <h3 class="h4 profile-heading">Bio</h3>
