@@ -36,6 +36,9 @@ class User < ApplicationRecord
   has_many :attended_events, through: :attendances
 
   has_many :notifications, dependent: :destroy
+  has_many :membership_request_notifications
+  has_many :group_membership_notifications
+  has_many :group_role_notifications
 
   validates :name, presence: true, length: { in: 3..50 }
 
@@ -69,6 +72,18 @@ class User < ApplicationRecord
 
   def total_membership_requests
     received_requests + sent_requests
+  end
+
+  # I haven't found a better way of including the related tables for each
+  # resource when using STI. This may mean that STI is not the best solution
+  # for this case.
+  #
+  # We could use a lambda for each has_many, but as we still need to call
+  # notifications_optimized, I think this solution looks cleaner.
+  def notifications_optimized
+    membership_request_notifications.includes(:membership_request) +
+      group_membership_notifications.includes(group_membership: :group) +
+      group_role_notifications.includes(:group)
   end
 
   def past_attended_events

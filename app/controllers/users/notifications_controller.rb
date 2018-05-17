@@ -6,7 +6,7 @@ class Users::NotificationsController < ApplicationController
     authorize Notification
 
     @user = find_user
-    @notifications = Notification.where(user: @user).order(created_at: :desc)
+    @notifications = @user.notifications_optimized
   end
 
   # Notification settings
