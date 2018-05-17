@@ -4,7 +4,8 @@ module User::UserMembershipsHelper
   end
 
   def user_is_organizer_but_not_owner(group, user)
-    user.has_role?(:organizer, group) && !group.owner == user
+    user.has_role?(:organizer, group) &&
+      !user.owned_groups.include?(group)
   end
 
   def group_organizers(group)
