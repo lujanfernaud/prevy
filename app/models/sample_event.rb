@@ -27,7 +27,8 @@ class SampleEvent
         description:  event_description,
         website:      event_website,
         start_date:   event_start_date,
-        end_date:     event_end_date
+        end_date:     event_end_date,
+        sample_event: true
       )
 
       @event.build_address(event_address)

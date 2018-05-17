@@ -76,11 +76,6 @@
     </div><!-- /.box -->
   <% end %>
 
-  <% if author?(event) %>
-    <div class="box box--sidebar p-3">
-      <%= link_to "Edit event", edit_group_event_path(group, event),
-        class: "btn btn-primary btn-block btn-lg" %>
-    </div>
-  <% end %>
+  <%= edit_event_box(event, @group) %>
 
 </div><!-- /.col-md-4 -->

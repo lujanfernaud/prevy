@@ -50,6 +50,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     click_on sample_event_name
 
     assert page.has_content? "This is how your event could look like."
+    assert page.has_css?     ".btn.disabled", text: "Edit event"
     assert_attendees
   end
 
