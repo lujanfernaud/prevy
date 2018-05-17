@@ -46,13 +46,13 @@
         </div>
       <% end %>
 
-      <h3 class="mt-4 mb-4">Cancelation</h3>
+      <h3 class="mt-4 mb-4">Deletion</h3>
 
       <div class="form-group mb-4">
-        <%= button_to "Cancel my account",
+        <%= button_to "Delete my account",
           registration_path(resource_name),
           data:
-            { confirm: "Are you sure that you want to cancel your account? " \
+            { confirm: "Are you sure that you want to delete your account? " \
                        "This action is NOT reversible." },
           method: :delete,
           class: "btn btn-outline-primary btn-lg" %>
