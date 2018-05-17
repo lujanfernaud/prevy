@@ -28,7 +28,9 @@ class Group < ApplicationRecord
   validates :description, presence: true, length: { minimum: 70 }
   validates :image,       presence: true
 
-  pg_search_scope :search, against: [:name, :location, :description]
+  pg_search_scope :search,
+    against: [:name, :location, :description],
+    using: { tsearch: { prefix: true } }
 
   scope :unhidden, -> {
     where(hidden: false, sample_group: false)

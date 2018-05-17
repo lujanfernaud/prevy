@@ -21,6 +21,14 @@ class GroupsSearchTest < ActionDispatch::IntegrationTest
     assert page.has_content? "1 group found"
   end
 
+  test "search using partial keyword" do
+    log_in_as(@user)
+    visit groups_path
+
+    search "Portl"
+    assert page.has_content? "3 groups found"
+  end
+
   test "search using name and description as keyword" do
     log_in_as(@user)
     visit groups_path
@@ -37,11 +45,27 @@ class GroupsSearchTest < ActionDispatch::IntegrationTest
     assert page.has_content? "3 groups found"
   end
 
+  test "search using two partial keywords" do
+    log_in_as(@user)
+    visit groups_path
+
+    search "Nik Portl"
+    assert page.has_content? "3 groups found"
+  end
+
   test "search using three keywords" do
     log_in_as(@user)
     visit groups_path
 
     search "Nike Portland Penny"
+    assert page.has_content? "1 group found"
+  end
+
+  test "search using three partial keywords" do
+    log_in_as(@user)
+    visit groups_path
+
+    search "Nik Portl Penn"
     assert page.has_content? "1 group found"
   end
 
