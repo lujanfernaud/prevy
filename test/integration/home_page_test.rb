@@ -82,7 +82,6 @@ class HomePageTest < ActionDispatch::IntegrationTest
 
     visit root_path
 
-    assert_create_group_unconfirmed_alert
     assert_create_group_unconfirmed_button
   end
 
