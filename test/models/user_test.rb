@@ -130,13 +130,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 4, phil.notifications.count
   end
 
-  test "#past_attended_events" do
-    user = users(:phil)
-    past_attended_events = user.past_attended_events
-
-    assert_equal 2, past_attended_events.count
-  end
-
   test "#upcoming_attended_events" do
     user = users(:woodell)
     upcoming_attended_events = user.upcoming_attended_events

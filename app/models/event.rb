@@ -33,10 +33,6 @@ class Event < ApplicationRecord
   validates :image,       presence: true
   validate  :no_past_date
 
-  scope :past, -> {
-    where("end_date < ?", Time.zone.now).order("end_date DESC")
-  }
-
   scope :upcoming, -> {
     where("start_date > ?", Time.zone.now).order("start_date ASC")
   }

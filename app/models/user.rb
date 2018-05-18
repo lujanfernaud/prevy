@@ -89,10 +89,6 @@ class User < ApplicationRecord
       group_role_notifications.includes(:group)
   end
 
-  def past_attended_events
-    attended_events.past.three
-  end
-
   def upcoming_attended_events
     attended_events.upcoming.three
   end
