@@ -13,7 +13,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super
 
-    set_flash_message :notice, :signed_up_but_unconfirmed
+    if resource.persisted?
+      set_flash_message :notice, :signed_up_but_unconfirmed
+    end
   end
 
   # GET /resource/edit
