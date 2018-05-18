@@ -77,8 +77,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
     fill_in_correct_name
     fill_in_correct_email
-    fill_in "Password",              with: "pass"
-    fill_in "Password confirmation", with: "pass"
+    fill_in "Password", with: "pass"
 
     click_on_sign_up_form_button
 
@@ -139,8 +138,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     end
 
     def fill_in_correct_password
-      fill_in "Password",              with: "password"
-      fill_in "Password confirmation", with: "password"
+      fill_in "Password", with: "password"
     end
 
     def click_on_sign_up_form_button

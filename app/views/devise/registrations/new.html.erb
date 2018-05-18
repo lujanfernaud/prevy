@@ -19,18 +19,12 @@
             class: "form-control" %>
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-2rem">
           <%= f.label :password %>
           <% if @minimum_password_length %>
           <small>(<%= @minimum_password_length %> characters minimum)</small>
           <% end %><br />
           <%= f.password_field :password, autocomplete: "off",
-            class: "form-control" %>
-        </div>
-
-        <div class="form-group mb-2rem">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off",
             class: "form-control" %>
         </div>
 
