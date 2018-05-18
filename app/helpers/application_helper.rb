@@ -7,39 +7,29 @@ module ApplicationHelper
   end
 
   def devise_action?
-    sign_up? || edit_account? || log_in? || new_password? || new_confirmation?
+    devise_actions.include? [controller_name, action_name]
   end
 
-  def sign_up?
-    controller_name == "registrations" && action_name == "new"
-  end
-
-  def edit_account?
-    controller_name == "registrations" && action_name == "edit"
-  end
-
-  def log_in?
-    controller_name == "sessions" && action_name == "new"
-  end
-
-  def new_password?
-    controller_name == "passwords" && action_name == "new"
-  end
-
-  def new_confirmation?
-    controller_name == "confirmations" && action_name == "new"
+  def devise_actions
+    [
+      ["registrations", "new"],
+      ["registrations", "edit"],
+      ["sessions", "new"],
+      ["passwords", "new"],
+      ["confirmations", "show"],
+      ["confirmations", "new"]
+    ]
   end
 
   def user_settings?
-    edit_profile? || edit_notifications?
+    user_settings.include? [controller_name, action_name]
   end
 
-  def edit_profile?
-    controller_name == "users" && action_name == "edit"
-  end
-
-  def edit_notifications?
-    controller_name == "notifications" && action_name == "edit"
+  def user_settings
+    [
+      ["users", "edit"],
+      ["notifications", "edit"]
+    ]
   end
 
   def breadcrumbs_separator

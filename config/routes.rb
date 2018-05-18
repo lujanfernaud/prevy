@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: "users/registrations" }
+  devise_for :users,
+    controllers: {
+      registrations: "users/registrations",
+      confirmations: "users/confirmations"
+    }
+
+  devise_scope :user do
+    patch "/confirm" => "users/confirmations#confirm"
+  end
 
   root "static_pages#home"
 

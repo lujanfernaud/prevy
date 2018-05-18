@@ -12,9 +12,26 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # end
 
   # GET /resource/confirmation?confirmation_token=abcdef
-  # def show
-  #   super
-  # end
+  def show
+    @confirmation_token = params[:confirmation_token]
+
+    self.resource = find_resource_by_confirmation_token
+
+    super if resource_is_not_confirmable?
+  end
+
+  def confirm
+    @confirmation_token = params[resource_name][:confirmation_token]
+
+    self.resource = find_resource_by_confirmation_token
+
+    if resource_update_attributes? && resource.password_match?
+      confirm_resource
+      sign_in_and_redirect(resource_name, resource)
+    else
+      render :show
+    end
+  end
 
   # protected
 
@@ -27,4 +44,27 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # def after_confirmation_path_for(resource_name, resource)
   #   super(resource_name, resource)
   # end
+
+  private
+
+    def find_resource_by_confirmation_token
+      resource_class.find_by_confirmation_token(@confirmation_token)
+    end
+
+    def resource_is_not_confirmable?
+      resource.nil? || resource.confirmed?
+    end
+
+    def resource_update_attributes?
+      resource.update_attributes(
+        params[resource_name].
+        except(:confirmation_token).
+        permit(:password, :password_confirmation)
+      )
+    end
+
+    def confirm_resource
+      self.resource = resource_class.confirm_by_token(@confirmation_token)
+      set_flash_message :notice, :confirmed
+    end
 end

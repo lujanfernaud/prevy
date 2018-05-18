@@ -97,6 +97,16 @@ class User < ApplicationRecord
     attended_events.upcoming.three
   end
 
+  def password_required?
+    super if confirmed?
+  end
+
+  def password_match?
+    add_password_match_error if password != password_confirmation
+
+    password == password_confirmation && !password.blank?
+  end
+
   private
 
     def should_generate_new_friendly_id?
@@ -143,5 +153,9 @@ class User < ApplicationRecord
 
     def create_sample_membership_request
       SampleMembershipRequest.create_for_user(self)
+    end
+
+    def add_password_match_error
+      self.errors[:password_confirmation] << "does not match password"
     end
 end
