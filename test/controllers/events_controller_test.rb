@@ -64,8 +64,11 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
 
     patch group_event_url(@group, @event), params: event_params_updated
 
+    group = Group.find(@group.id)
+    event = Event.find(@event.id)
+
     assert_emails_sent_to attendees_emails
-    assert_redirected_to group_event_url(@group, @event)
+    assert_redirected_to group_event_url(group, event)
   end
 
   test "should destroy event" do

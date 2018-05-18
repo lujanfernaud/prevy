@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180517084540) do
+ActiveRecord::Schema.define(version: 20180517212505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,8 +53,22 @@ ActiveRecord::Schema.define(version: 20180517084540) do
     t.bigint "group_id"
     t.jsonb "updated_fields", default: {}, null: false
     t.boolean "sample_event", default: false
+    t.string "slug"
     t.index ["group_id"], name: "index_events_on_group_id"
     t.index ["organizer_id"], name: "index_events_on_organizer_id"
+    t.index ["slug"], name: "index_events_on_slug"
+  end
+
+  create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
   create_table "group_memberships", force: :cascade do |t|
@@ -77,7 +91,9 @@ ActiveRecord::Schema.define(version: 20180517084540) do
     t.bigint "user_id"
     t.string "location"
     t.boolean "sample_group", default: false
+    t.string "slug"
     t.index ["location"], name: "index_groups_on_location"
+    t.index ["slug"], name: "index_groups_on_slug"
     t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
@@ -141,8 +157,10 @@ ActiveRecord::Schema.define(version: 20180517084540) do
     t.string "unconfirmed_email"
     t.boolean "sample_user", default: false
     t.boolean "admin", default: false
+    t.string "slug"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["slug"], name: "index_users_on_slug"
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|

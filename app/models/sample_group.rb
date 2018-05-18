@@ -30,6 +30,8 @@ class SampleGroup
         sample_group: true
       )
 
+      @group.send(:set_slug)
+
       # We don't validate because we are not setting the image,
       # so it's going to use the default one set by GroupImageUploader.
       @group.save(validate: false)

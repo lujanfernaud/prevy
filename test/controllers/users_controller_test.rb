@@ -24,7 +24,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     sign_in(@phil)
 
     patch user_url(@phil), params: user_params
-    assert_redirected_to user_url(@phil)
+
+    user = User.find(@phil.id)
+
+    assert_redirected_to user_url(user)
   end
 
   private

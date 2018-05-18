@@ -1,4 +1,7 @@
 class Event < ApplicationRecord
+  include FriendlyId
+  friendly_id :slug_candidates, use: :scoped, scope: :group
+
   include Storext.model
 
   store_attributes :updated_fields do
@@ -20,7 +23,7 @@ class Event < ApplicationRecord
 
   delegate :place_name, :street1, :street2, :city,
            :state, :post_code, :country,
-           :full_address, :full_address_changed?, to: :address
+           :full_address, :full_address_changed?, to: :address, allow_nil: true
 
   has_many :attendances, foreign_key: "attended_event_id"
   has_many :attendees, through: :attendances
@@ -62,12 +65,19 @@ class Event < ApplicationRecord
 
   private
 
-    def no_past_date
-      if start_date < Time.zone.now
-        errors.add(:start_date, "can't be in the past")
-      elsif end_date < start_date
-        errors.add(:start_date, "can't be later than end date")
-      end
+    def should_generate_new_friendly_id?
+      title_changed?
+    end
+
+    def slug_candidates
+      [
+        :title,
+        [:title, :date]
+      ]
+    end
+
+    def date
+      start_date.strftime("%b %d %Y")
     end
 
     def titleize_title
@@ -110,5 +120,13 @@ class Event < ApplicationRecord
 
     def touch_group
       group.touch
+    end
+
+    def no_past_date
+      if start_date < Time.zone.now
+        errors.add(:start_date, "can't be in the past")
+      elsif end_date < start_date
+        errors.add(:start_date, "can't be later than end date")
+      end
     end
 end

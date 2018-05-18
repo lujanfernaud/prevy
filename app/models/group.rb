@@ -1,6 +1,9 @@
 class Group < ApplicationRecord
   include PgSearch
 
+  include FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   resourcify
 
   before_save  :titleize_name
@@ -64,6 +67,27 @@ class Group < ApplicationRecord
   end
 
   private
+
+    def should_generate_new_friendly_id?
+      name_changed?
+    end
+
+    def slug_candidates
+      [
+        :name,
+        [:name, :location],
+        [:name, :location, :owner_name],
+        [:name, :location, :owner_name, :owner_id]
+      ]
+    end
+
+    def owner_name
+      owner.name
+    end
+
+    def owner_id
+      owner.id
+    end
 
     def titleize_name
       self.name = name.titleize

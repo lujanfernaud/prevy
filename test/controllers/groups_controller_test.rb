@@ -25,7 +25,9 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
       post groups_url, params: { group: group_params }
     end
 
-    assert_redirected_to group_url(Group.last)
+    group = Group.find(Group.last.id)
+
+    assert_redirected_to group_url(group)
   end
 
   test "should show group" do
@@ -44,7 +46,10 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
     sign_in(@user)
 
     patch group_url(@group), params: { group: group_params }
-    assert_redirected_to group_url(@group)
+
+    group = Group.find(@group.id)
+
+    assert_redirected_to group_url(group)
   end
 
   test "should destroy group" do

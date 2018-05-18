@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  include FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   before_save   :titleize_name
   before_update :titleize_location
   before_update :capitalize_bio
@@ -95,6 +98,17 @@ class User < ApplicationRecord
   end
 
   private
+
+    def should_generate_new_friendly_id?
+      name_changed?
+    end
+
+    def slug_candidates
+      [
+        :name,
+        [:name, :id]
+      ]
+    end
 
     def titleize_name
       self.name = name.titleize

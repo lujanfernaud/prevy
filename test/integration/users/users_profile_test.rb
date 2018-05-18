@@ -75,12 +75,16 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
   private
 
     def assert_valid_for(user)
-      assert current_path == user_path(user)
+      friendly_user = User.find(user.id)
+
+      assert current_path == user_path(friendly_user)
       assert page.has_content? "updated"
     end
 
     def assert_invalid_for(user)
-      assert current_path == user_path(user)
+      friendly_user = User.find(user.id)
+
+      assert current_path == user_path(friendly_user)
       assert page.has_content? "error"
       yield if block_given?
     end

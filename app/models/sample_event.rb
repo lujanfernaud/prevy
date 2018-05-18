@@ -32,6 +32,7 @@ class SampleEvent
       )
 
       @event.build_address(event_address)
+      @event.send(:set_slug)
 
       # We don't validate because we are not setting the image,
       # so it's going to use the default one set by EventImageUploader.
