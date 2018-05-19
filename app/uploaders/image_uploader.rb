@@ -5,8 +5,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   STANDARD_SIZE = [730, 411]
   MEDIUM_SIZE   = [510, 287]
   THUMB_SIZE    = [350, 197]
-  LOQIP_SIZE    = [30,  17]
-  LOQIP_QUALITY = 15
+  LQIP_SIZE     = [30,  17]
+  LQIP_QUALITY  = 15
 
   if Rails.env.production?
 
@@ -32,9 +32,9 @@ class ImageUploader < CarrierWave::Uploader::Base
       cloudinary_transformation quality: "auto"
     end
 
-    version :loqip do
-      process resize_to_fill: LOQIP_SIZE
-      cloudinary_transformation quality: LOQIP_QUALITY
+    version :lqip do
+      process resize_to_fill: LQIP_SIZE
+      cloudinary_transformation quality: LQIP_QUALITY
     end
 
   else
@@ -51,9 +51,9 @@ class ImageUploader < CarrierWave::Uploader::Base
       process resize_to_fill: THUMB_SIZE
     end
 
-    version :loqip do
-      process resize_to_fill: LOQIP_SIZE
-      process quality: LOQIP_QUALITY
+    version :lqip do
+      process resize_to_fill: LQIP_SIZE
+      process quality: LQIP_QUALITY
     end
 
   end
