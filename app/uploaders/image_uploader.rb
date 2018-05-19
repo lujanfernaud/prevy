@@ -1,5 +1,7 @@
 class ImageUploader < CarrierWave::Uploader::Base
 
+  include CarrierWave::SampleImage::DefaultFolder
+
   STANDARD_SIZE = [730, 411]
   MEDIUM_SIZE   = [510, 287]
   THUMB_SIZE    = [350, 197]

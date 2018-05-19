@@ -41,7 +41,8 @@ class Event < ApplicationRecord
     limit(3)
   }
 
-  mount_uploader :image, EventImageUploader
+  mount_uploader :image, ImageUploader
+  include CarrierWave::SampleImage
 
   def latitude
     address.latitude if address

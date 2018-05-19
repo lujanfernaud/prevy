@@ -2,11 +2,11 @@
   <div class="box event-box">
 
     <div class="intrinsic-ratio-container card card-inverse text-center accent-border-bottom">
-      <%= image_tag  event.image_url(:loqip),
+      <%= image_tag  event.samplified_image_url(:loqip),
         data: {
-          src:       event.image_url(:thumb),
-          srcset: "#{event.image_url(:medium)} 510w,
-                   #{event.image_url} 730w",
+          src:       event.samplified_image_url(:thumb),
+          srcset: "#{event.samplified_image_url(:medium)} 510w,
+                   #{event.samplified_image_url} 730w",
         },
         class: "lazyload blur-up
           intrinsic-ratio-image img-fluid card-img-top" %>

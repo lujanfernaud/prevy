@@ -24,8 +24,6 @@ class Group < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
-  mount_uploader :image, GroupImageUploader
-
   validates :name,        presence: true, length: { minimum: 3 }
   validates :location,    presence: true, length: { minimum: 3 }
   validates :description, presence: true, length: { minimum: 70 }
@@ -49,6 +47,9 @@ class Group < ApplicationRecord
 
     offset(random_offset).limit(groups_number)
   }
+
+  mount_uploader :image, ImageUploader
+  include CarrierWave::SampleImage
 
   def organizers
     User.with_role(:organizer, self).reverse
