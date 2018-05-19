@@ -18,15 +18,18 @@ class ImageUploader < CarrierWave::Uploader::Base
 
     process eager: true
     process resize_to_fill: STANDARD_SIZE
+    cloudinary_transformation quality: "auto"
 
     version :medium do
       process eager: true
       process resize_to_fill: MEDIUM_SIZE
+      cloudinary_transformation quality: "auto"
     end
 
     version :thumb do
       process eager: true
       process resize_to_fill: THUMB_SIZE
+      cloudinary_transformation quality: "auto"
     end
 
     version :loqip do
