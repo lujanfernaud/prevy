@@ -17,6 +17,8 @@
 //= require turbolinks
 //= require trix/dist/trix
 //= require smooth-scroll/dist/js/smooth-scroll.polyfills
+//= require lazysizes/lazysizes
+//= require lazysizes/plugins/unveilhooks/ls.unveilhooks
 //= require leaflet/dist/leaflet
 //= require clipboard/dist/clipboard
 //= require_tree .

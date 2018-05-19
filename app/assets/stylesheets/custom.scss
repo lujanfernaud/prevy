@@ -513,6 +513,7 @@ body {
   background-color: $gray-500;
   border-top-left-radius: calc(.25rem) !important;
   border-top-right-radius: calc(.25rem) !important;
+  overflow: hidden;
 }
 
 .intrinsic-ratio-container--square {
@@ -532,11 +533,28 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  color: $gray-500;
+  color: transparent !important;
 }
 
 .white-space-normal {
   white-space: normal;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+
+// Lazysizes
+
+
+.blur-up {
+  filter: blur(.95rem);
+  transition: .8s;
+}
+
+.blur-up.lazyloaded {
+  filter: blur(0);
 }
 
 

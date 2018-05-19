@@ -2,12 +2,19 @@
   <div class="row box event-box">
 
     <div class="event-box-image box-image--orientation-switch card card-inverse text-center col-md-4">
-      <div class="intrinsic-ratio-container intrinsic-ratio-container--orientation-switch">
+      <div class="intrinsic-ratio-container
+        intrinsic-ratio-container--orientation-switch">
         <%= link_to group_event_path(event.group, event),
           class: "d-block" do %>
-          <%= image_tag event.image_url(:thumb),
-            srcset: "#{event.image_url(:medium)} 510w, #{event.image_url} 730w",
-            class: "intrinsic-ratio-image img-fluid card-img-top box-image__img box-image__img--orientation-switch" %>
+          <%= image_tag  event.image_url(:loqip),
+            data: {
+              src:       event.image_url(:thumb),
+              srcset: "#{event.image_url(:medium)} 510w,
+                       #{event.image_url} 730w",
+            },
+            class: "lazyload blur-up
+              intrinsic-ratio-image img-fluid card-img-top
+              box-image__img box-image__img--orientation-switch" %>
         <% end %>
       </div>
     </div>

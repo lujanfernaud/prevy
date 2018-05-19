@@ -3,9 +3,14 @@
   <div class="box group-box">
 
     <div class="group-box-big-image group-image intrinsic-ratio-container card card-inverse">
-      <%= image_tag(group.image_url,
-        srcset: "#{group.image_url(:medium)} 510w, #{group.image_url(:thumb)} 350w",
-        class: "intrinsic-ratio-image img-fluid card-img-top") %>
+      <%= image_tag  group.image_url(:loqip),
+        data: {
+          src:       group.image_url,
+          srcset: "#{group.image_url(:medium)} 510w,
+                   #{group.image_url(:thumb)} 350w",
+        },
+        class: "lazyload blur-up
+          intrinsic-ratio-image img-fluid card-img-top" %>
 
       <div class="card-img-overlay">
         <h2 class="h4 group-box-title pb-1">

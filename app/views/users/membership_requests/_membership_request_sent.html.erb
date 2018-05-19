@@ -1,10 +1,11 @@
 <div id="<%= membership_request.id %>" class="row d-flex mb-4 box bg-white">
 
-  <a href="<%= group_path(membership_request.group) %>">
-    <div class="membership-request-image"
-      style="
-      background-image: url(<%= membership_request.group.image_url %>)
-      ">
+  <a href="<%= group_path(membership_request.group) %>"
+    class="overflow-hidden">
+    <div class="lazyload blur-up overflow-hidden membership-request-image"
+      style="background-image:
+        url(<%= membership_request.group.image_url(:loqip) %>)"
+      data-bg="<%= membership_request.group.image_url(:thumb) %>">
     </div>
   </a>
 

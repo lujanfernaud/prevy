@@ -25,8 +25,10 @@
 
           <div class="user-profile-image-container">
             <div class="intrinsic-ratio-container intrinsic-ratio-container--square">
-              <%= gravatar_image_tag @user.email, alt: @user.name,
-                class: "intrinsic-ratio-image user-avatar" %>
+              <%= image_tag gravatar_image_url(@user.email),
+                class: "lazyload blur-up
+                  intrinsic-ratio-image user-avatar",
+                alt: @user.name %>
             </div>
           </div>
         </div>

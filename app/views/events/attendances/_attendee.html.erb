@@ -5,8 +5,10 @@
       <div class="intrinsic-ratio-container intrinsic-ratio-container--square">
         <%= link_to user_path(user, attending_event: event),
           class: "d-block" do %>
-          <%= gravatar_image_tag user.email,
-            class: "img-fluid intrinsic-ratio-image user-avatar", alt: user.name %>
+          <%= image_tag gravatar_image_url(user.email),
+            class: "lazyload blur-up
+              img-fluid intrinsic-ratio-image user-avatar d-block",
+            alt: user.name %>
         <% end %>
       </div>
     </div>

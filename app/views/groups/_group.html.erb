@@ -2,9 +2,14 @@
   <div class="box group-box">
 
     <div class="group-box-image intrinsic-ratio-container card card-inverse text-center">
-      <%= image_tag group.image_url(:thumb),
-        srcset: "#{group.image_url(:medium)} 510w, #{group.image_url} 730w",
-        class: "intrinsic-ratio-image img-fluid card-img-top" %>
+      <%= image_tag  group.image_url(:loqip),
+        data: {
+          src:       group.image_url(:thumb),
+          srcset: "#{group.image_url(:medium)} 510w,
+                   #{group.image_url} 730w",
+        },
+        class: "lazyload blur-up
+          intrinsic-ratio-image img-fluid card-img-top" %>
 
       <a href="<%= group_path(group) %>" class="group-card-link">
         <div class="card-img-overlay card-img-overlay--group">
