@@ -33,12 +33,14 @@
 
       <% if controller_name == "groups" %>
         <p class="event-box__short-description mb-0">
-          <%= event.short_description %>
+          <%= truncate(strip_tags(event.description),
+            length: 170, separator: " ") %>
         </p>
       <% else %>
         <p class="event-box__group mb-0">Group: <%= event.group.name %></p>
         <p class="event-box__short-description mb-0">
-          <%= event.very_short_description %>
+          <%= truncate(strip_tags(event.description),
+            length: 80, separator: " ") %>
         </p>
       <% end %>
 

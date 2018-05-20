@@ -52,14 +52,6 @@ class Event < ApplicationRecord
     address.longitude if address
   end
 
-  def very_short_description
-    TextShortener.call(text: description, characters: 85)
-  end
-
-  def short_description
-    TextShortener.call(text: description, characters: 175)
-  end
-
   private
 
     def should_generate_new_friendly_id?
