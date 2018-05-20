@@ -23,7 +23,9 @@ class Event < ApplicationRecord
 
   delegate :place_name, :street1, :street2, :city,
            :state, :post_code, :country,
-           :full_address, :full_address_changed?, to: :address, allow_nil: true
+           :latitude, :longitude,
+           :full_address, :full_address_changed?,
+            to: :address, allow_nil: true
 
   has_many :attendances, foreign_key: "attended_event_id"
   has_many :attendees, through: :attendances
@@ -43,14 +45,6 @@ class Event < ApplicationRecord
 
   mount_uploader :image, ImageUploader
   include CarrierWave::SampleImage
-
-  def latitude
-    address.latitude if address
-  end
-
-  def longitude
-    address.longitude if address
-  end
 
   private
 
