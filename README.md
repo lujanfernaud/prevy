@@ -1,4 +1,4 @@
-# Private Events
+# Vamos
 
 Private events manager.
 

@@ -1,5 +1,5 @@
 {
-  "name": "private-events",
+  "name": "vamos",
   "private": true,
   "dependencies": {
     "clipboard": "^2.0.0",
