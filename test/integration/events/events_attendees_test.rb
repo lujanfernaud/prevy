@@ -55,7 +55,6 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
 
     def assert_breadcrumbs(group, event)
       assert page.has_css?  ".breadcrumb"
-      assert page.has_link? "Events"
       assert page.has_link? event.title
 
       within ".breadcrumb" do
