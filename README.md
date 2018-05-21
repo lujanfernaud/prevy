@@ -1,4 +1,4 @@
-# Vamos
+# VAMOS!
 
 ## Private events manager
 
