@@ -13,10 +13,9 @@ class Event < ApplicationRecord
   before_save   :titleize_title
   before_save   :check_website_url
   before_update :store_updated_fields
-  after_save    :touch_group
 
   belongs_to :organizer, class_name: "User"
-  belongs_to :group
+  belongs_to :group, touch: true
 
   has_one :address
   accepts_nested_attributes_for :address, update_only: true
@@ -99,10 +98,6 @@ class Event < ApplicationRecord
 
     def store_updated_address
       self.updated_address = full_address if full_address_changed?
-    end
-
-    def touch_group
-      group.touch
     end
 
     def no_past_date
