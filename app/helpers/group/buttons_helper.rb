@@ -2,7 +2,7 @@ module Group::ButtonsHelper
   def membership_button(group)
     return request_membership_button_disabled if group.sample_group?
 
-    if requested_membership_for group
+    if requested_membership_for? group
       membership_requested_button
     else
       request_membership_link_for group
@@ -24,10 +24,11 @@ module Group::ButtonsHelper
       class: "btn btn-primary btn-block btn-lg mt-3"
   end
 
-  def requested_membership_for(group)
+  def requested_membership_for?(group)
     return unless current_user
 
-    current_user.sent_requests.include?(group)
+    current_user.sent_requests.include?(group) ||
+      group.members.include?(current_user)
   end
 
   def see_all_members_link(group, quantity:)

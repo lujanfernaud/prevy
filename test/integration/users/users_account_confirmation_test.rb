@@ -15,13 +15,15 @@ class UsersAccountConfirmationTest < ActionDispatch::IntegrationTest
   end
 
   test "member with unconfirmed email visits group" do
-    group = groups(:sample_group)
+    group = groups(:woodells_group)
     user  = users(:unconfirmed)
     group.members << user
 
     log_in_as(user)
 
     visit group_path(group)
+
+    assert page.has_button? "Membership requested", disabled: true
 
     click_on_resend_confirmation_link
 

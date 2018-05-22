@@ -42,7 +42,7 @@ woodells_group:
   description: <%= Faker::Lorem.paragraph + " Nike" %>
   image: sample.jpeg
   hidden: false
-  all_members_can_create_events: true
+  all_members_can_create_events: false
   owner: woodell
 
 strangers_group:
