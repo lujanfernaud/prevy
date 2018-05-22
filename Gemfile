@@ -59,7 +59,7 @@ gem 'geocoder',                        '~> 1.4', '>= 1.4.5'
 group :development, :test do
   gem 'pry-byebug',                    '~> 3.6'
   gem 'pry-rails',                     '~> 0.3.6'
-  gem 'rubocop-rails',                 '~> 1.3'
+  gem 'rubocop-rails',                 '~> 1.4'
 end
 
 group :test do
