@@ -52,8 +52,8 @@ class User < ApplicationRecord
 
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
-  scope :recent, -> {
-    order("created_at DESC").limit(5)
+  scope :recent, -> (users_number = 5) {
+    order("created_at DESC").limit(users_number)
   }
 
   def sample_group
