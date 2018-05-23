@@ -1,7 +1,7 @@
 <div class="container-fluid bg-light">
   <div class="container">
 
-    <%= render partial: "breadcrumbs" %>
+    <%= render partial: "application/breadcrumbs" %>
 
     <div class="row">
       <div class="col-md-12 mt-2">
@@ -16,49 +16,56 @@
   </div>
 </div>
 
-<div class="container-fluid bg-light">
-  <div class="container attendees-container pb-5">
+<% cache @event.attendees.last(12) do %>
 
-    <div class="row mt-2">
-      <div class="col-md-12">
+  <div class="container-fluid bg-light">
+    <div class="container attendees-container pb-5">
 
-        <h2 class="text-center">
-          <%= attendees_title_with_count %>
-        </h2>
+      <div class="row mt-2">
+        <div class="col-md-12">
 
-        <% if !@attendees.empty? %>
+          <h2 class="text-center">
+            <%= attendees_title_with_count %>
+          </h2>
 
-          <div class="row d-flex justify-content-center mt-1rem mb-2rem">
-            <% @attendees.last(12).each do |attendee| %>
-              <%= render "events/attendances/attendee",
-                user: attendee, event: @event %>
-            <% end %>
+          <% if !@event.attendees.empty? %>
+
+            <div class="row d-flex justify-content-center mt-1rem mb-2rem">
+              <%= render partial: "events/attendances/attendee",
+                collection: @event.attendees.last(12), as: :user,
+                locals: { event: @event }, cached: true %>
+            </div>
+
+          <% else %>
+
+            <h3 class="h5 text-center mt-5">
+              So far there are no attendees.
+            </h3>
+
+          <% end %>
+
+          <div class="text-center">
+            <%= see_all_attendees_link(@event, quantity: 12) %>
           </div>
 
-        <% else %>
-
-          <h3 class="h5 text-center mt-5">
-            So far there are no attendees.
-          </h3>
-
-        <% end %>
-
-        <div class="text-center">
-          <%= see_all_attendees_link(@event, quantity: 12) %>
         </div>
-
       </div>
+
     </div>
-
   </div>
-</div>
 
-<div id="map" class="container-fluid p-0"
-  data-token="<%= Figaro.env.mapbox_access_token %>"
-  data-latitude="<%= @event.latitude %>"
-  data-longitude="<%= @event.longitude %>"
-  data-event-title="<%= @event.title %>"
-  data-marker-url="<%= asset_path('leaflet/marker-icon-violet.png') %>"
-  data-marker-2x-url="<%= asset_path('leaflet/marker-icon-2x-violet.png') %>"
-  data-shadow-url="<%= asset_path('leaflet/marker-shadow.png') %>">
-</div>
+<% end %>
+
+<% cache @event.address do %>
+
+  <div id="map" class="container-fluid p-0"
+    data-token="<%= Figaro.env.mapbox_access_token %>"
+    data-latitude="<%= @event.latitude %>"
+    data-longitude="<%= @event.longitude %>"
+    data-event-title="<%= @event.title %>"
+    data-marker-url="<%= asset_path('leaflet/marker-icon-violet.png') %>"
+    data-marker-2x-url="<%= asset_path('leaflet/marker-icon-2x-violet.png') %>"
+    data-shadow-url="<%= asset_path('leaflet/marker-shadow.png') %>">
+  </div>
+
+<% end %>

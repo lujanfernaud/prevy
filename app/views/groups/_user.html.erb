@@ -18,6 +18,8 @@
         user_path(user, member_of: group) %>
     </div>
 
-    <%= yield if block_given? %>
+    <% if controller_name == "memberships" %>
+      <%= add_or_delete_organizer(user, group) %>
+    <% end %>
   </div>
 </div>

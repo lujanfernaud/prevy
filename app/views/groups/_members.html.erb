@@ -1,35 +1,39 @@
-<div class="container-fluid bg-light">
-  <div class="container members-container pt-3 pb-5">
+<% cache group.members_with_role.last(12) do %>
 
-    <div class="row mt-2">
-      <div class="col-md-12">
+  <div class="container-fluid bg-light">
+    <div class="container members-container pt-3 pb-5">
 
-        <h2 class="text-center">
-          <%= members_title_with_count %>
-        </h2>
+      <div class="row mt-2">
+        <div class="col-md-12">
 
-        <% if !@group.members_with_role.empty? %>
+          <h2 class="text-center">
+            <%= members_title_with_count %>
+          </h2>
 
-          <div class="row d-flex justify-content-center mt-1rem mb-2rem">
-            <% group.members_with_role.last(12).each do |member| %>
-              <%= render "user", user: member, group: group %>
-            <% end %>
+          <% if !@group.members_with_role.empty? %>
+
+            <div class="row d-flex justify-content-center mt-1rem mb-2rem">
+              <%= render partial: "user",
+                collection: group.members_with_role.last(12), as: :user,
+                locals: { group: group }, cached: true %>
+            </div>
+
+          <% else %>
+
+            <h3 class="h5 text-center mt-5">
+              So far there are no members.
+            </h3>
+
+          <% end %>
+
+          <div class="text-center">
+            <%= see_all_members_link(group, quantity: 12) %>
           </div>
 
-        <% else %>
-
-          <h3 class="h5 text-center mt-5">
-            So far there are no members.
-          </h3>
-
-        <% end %>
-
-        <div class="text-center">
-          <%= see_all_members_link(group, quantity: 12) %>
         </div>
-
       </div>
-    </div>
 
+    </div>
   </div>
-</div>
+
+<% end %>

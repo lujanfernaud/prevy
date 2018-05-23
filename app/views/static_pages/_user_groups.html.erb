@@ -1,27 +1,32 @@
-<div class="container-fluid bg-light">
-  <div class="container user-groups-container">
-    <div class="row">
-      <div class="col-md-12 mt-1">
+<% cache user_groups do %>
 
-        <h2 class="text-center">Your Groups</h2>
+  <div class="container-fluid bg-light">
+    <div class="container user-groups-container">
+      <div class="row">
+        <div class="col-md-12 mt-1">
 
-        <div class="row d-flex justify-content-center">
-          <% if !user_groups.empty? %>
-            <%= render user_groups %>
-          <% else %>
-            <h3 class="h5 text-center mt-4">
-              You still don't have membership to any group.
-            </h3>
-          <% end %>
-        </div>
+          <h2 class="text-center">Your Groups</h2>
 
-        <div class="row mx-0 d-flex justify-content-center">
-          <div class="col-md-12 col-lg-8">
-            <%= render "create_group_button_with_alert" %>
+          <div class="row d-flex justify-content-center">
+            <% if !user_groups.empty? %>
+              <%= render partial: "groups/group",
+               collection: user_groups, as: :group, cached: true %>
+            <% else %>
+              <h3 class="h5 text-center mt-4">
+                You still don't have membership to any group.
+              </h3>
+            <% end %>
           </div>
-        </div>
 
+          <div class="row mx-0 d-flex justify-content-center">
+            <div class="col-md-12 col-lg-8">
+              <%= render "application/create_group_button_with_alert" %>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+<% end %>

@@ -8,7 +8,8 @@
         </h2>
 
         <div class="row d-flex justify-content-center">
-          <%= render unhidden_groups %>
+          <%= render partial: "groups/group",
+            collection: unhidden_groups, as: :group, cached: true %>
         </div>
 
         <div class="row text-center">

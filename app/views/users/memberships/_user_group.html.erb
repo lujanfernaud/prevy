@@ -27,7 +27,12 @@
     <p class="mb-0 pb-2 pb-md-0">
       <%= render "organizers_and_members", group: group %>
     </p>
-    <%= yield if block_given? %>
+
+    <% if user.owned_groups.include?(group) %>
+      <%= links_for_owned_group(group) %>
+    <% else %>
+      <%= links_for_group_with_membership(group) %>
+    <% end %>
   </div>
 
 </div>

@@ -1,24 +1,29 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12 mt-2rem">
+<% cache groups do %>
 
-      <header>
-        <h2 class="text-center">
-          <%= yield :groups_header_title %>
-        </h2>
-      </header>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mt-2rem">
 
-      <main class="row d-flex justify-content-center">
-        <%= render groups %>
-      </main>
+        <header>
+          <h2 class="text-center">
+            <%= yield :groups_header_title %>
+          </h2>
+        </header>
 
-      <footer class="row">
-        <div class="mx-auto mt-2rem mb-2rem">
-          <%= will_paginate groups,
-            :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
-        </div>
-      </footer>
+        <main class="row d-flex justify-content-center">
+          <%= render partial: "groups/group",
+            collection: groups, as: :group, cached: true  %>
+        </main>
 
+        <footer class="row">
+          <div class="mx-auto mt-2rem mb-2rem">
+            <%= will_paginate groups,
+              :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+          </div>
+        </footer>
+
+      </div>
     </div>
   </div>
-</div>
+
+<% end %>

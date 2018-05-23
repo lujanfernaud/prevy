@@ -1,46 +1,46 @@
-<div class="container-fluid bg-light">
-  <div class="container">
+<% cache [@organizers, @members] do %>
 
-    <%= render partial: "breadcrumbs" %>
+  <div class="container-fluid bg-light">
+    <div class="container">
 
-    <div class="row">
-      <div class="col-md-12 mt-3">
+      <%= render partial: "application/breadcrumbs" %>
 
-        <div class="row mb-2rem">
-          <div class="col">
+      <div class="row">
+        <div class="col-md-12 mt-3">
 
-            <div class="organizers mb-4">
-              <h2 class="mb-0">
-                <%= organizer_title %>
-              </h3>
-              <div class="row">
-                <% @organizers.reverse.each do |organizer| %>
-                  <%= render "groups/user", user: organizer, group: @group do %>
-                    <%= add_or_delete_organizer(organizer, @group) %>
-                  <% end %>
-                <% end %>
+          <div class="row mb-2rem">
+            <div class="col">
+
+              <div class="organizers mb-4">
+                <h2 class="mb-0">
+                  <%= organizer_title %>
+                </h3>
+                <div class="row">
+                  <%= render partial: "groups/user",
+                    collection: @organizers.reverse, as: :user,
+                    locals: { group: @group } %>
+                </div>
               </div>
-            </div>
 
-            <div class="members mb-4">
-              <h2 class="mt-2rem mb-0">
-                <%= members_title_with_count %>
-              </h3>
-              <div class="row">
-                <% @members.reverse.each do |member| %>
-                  <%= render "groups/user", user: member, group: @group do %>
-                    <%= add_or_delete_organizer(member, @group) %>
-                  <% end %>
-                <% end %>
+              <div class="members mb-4">
+                <h2 class="mt-2rem mb-0">
+                  <%= members_title_with_count %>
+                </h3>
+                <div class="row">
+                  <%= render partial: "groups/user",
+                    collection: @members.reverse, as: :user,
+                    locals: { group: @group } %>
+                </div>
               </div>
+
+              <%= link_to "Go back to group", group_path(@group) %>
+
             </div>
-
-            <%= link_to "Go back to group", group_path(@group) %>
-
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+<% end %>

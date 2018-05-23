@@ -1,42 +1,48 @@
-<div class="container-fluid">
-  <div class="container">
-    <div class="row d-flex justify-content-center">
-      <div class="col-sm-12 col-lg-10 col-xl-8">
+<% cache [
+  @owned_groups,
+  @associated_groups,
+  current_user.confirmed?
+  ] do %>
 
-        <h2 class="text-center mt-2rem mb-2rem">Owned Groups</h2>
+  <div class="container-fluid">
+    <div class="container">
 
-        <% if @user.owned_groups.any? %>
+      <div class="row d-flex justify-content-center">
+        <div class="col-sm-12 col-lg-10 col-xl-8 pb-3">
 
-          <% @owned_groups.each do |group| %>
-            <%= render "user_group", group: group, user: @user do %>
-              <% links_for_owned_group(group) %>
-            <% end %>
+          <h2 class="text-center mt-2rem mb-2rem">Owned Groups</h2>
+
+          <% if @owned_groups.any? %>
+
+            <%= render partial: "user_group",
+              collection: @owned_groups, as: :group,
+              locals: { user: @user }, cached: true %>
+
+          <% else %>
+
+            <h3 class="h5 text-center">
+              You still don't own any group. Why don't you create one? :)
+            </h3>
+
           <% end %>
 
-        <% else %>
+          <!-- current_user.confirmed? -->
+          <%= render "application/create_group_button_with_alert" %>
 
-          <h3 class="h5 text-center">
-            You still don't own any group. Why don't you create one? :)
-          </h3>
+          <% if @associated_groups.any? %>
+            <div class="mb-2rem">
+              <h2 class="text-center mt-1rem mb-2rem">With Membership</h2>
 
-        <% end %>
+              <%= render partial: "user_group",
+                collection: @associated_groups, as: :group,
+                locals: { user: @user }, cached: true %>
+            </div>
+          <% end %>
 
-        <%= render "create_group_button_with_alert" %>
-
-        <% if @associated_groups.any? %>
-          <div class="mb-2rem">
-            <h2 class="text-center mt-1rem mb-2rem">With Membership</h2>
-
-            <% @associated_groups.each do |group| %>
-              <%= render "user_group", group: group, user: @user do %>
-                <% links_for_group_with_membership(group) %>
-              <% end %>
-            <% end %>
-          </div>
-
-        <% end %>
-
+        </div>
       </div>
+
     </div>
   </div>
-</div>
+
+<% end %>

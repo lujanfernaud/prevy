@@ -42,8 +42,6 @@ class EventsController < ApplicationController
   def show
     @group = find_group
     @event = find_event
-    @organizer = @event.organizer
-    @attendees = @event.attendees
 
     authorize @event
 

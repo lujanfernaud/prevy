@@ -49,26 +49,6 @@ class GroupTest < ActiveSupport::TestCase
     refute groups_selection.include?(group)
   end
 
-  test "#owner" do
-    group = fake_group(owner: users(:penny))
-
-    assert_equal group.owner.name, "Penny"
-  end
-
-  test "#members" do
-    group   = groups(:one)
-    penny   = users(:penny)
-    woodell = users(:woodell)
-
-    assert_equal [penny, woodell], group.members
-  end
-
-  test "#events" do
-    group = groups(:one)
-
-    assert group.events.count > 1
-  end
-
   test "titleizes name before saving" do
     fake_group.name = "john's group"
 
@@ -104,6 +84,54 @@ class GroupTest < ActiveSupport::TestCase
     fake_group.save
 
     assert_equal owner, fake_group.organizers.last
+  end
+
+  test "#owner" do
+    group = fake_group(owner: users(:penny))
+
+    assert_equal group.owner.name, "Penny"
+  end
+
+  test "#members" do
+    group   = groups(:one)
+    penny   = users(:penny)
+    woodell = users(:woodell)
+
+    assert_equal [penny, woodell], group.members
+  end
+
+  test "#events" do
+    group = groups(:one)
+
+    assert group.events.count > 1
+  end
+
+  test "#add_to_organizers" do
+    group = groups(:one)
+    penny = users(:penny)
+
+    original_updated_at = penny.updated_at
+
+    refute group.organizers.include? penny
+
+    group.add_to_organizers penny
+
+    assert group.organizers.include? penny
+    refute_equal original_updated_at, penny.updated_at
+  end
+
+  test "#remove_from_organizers" do
+    group = groups(:one)
+    penny = users(:penny)
+
+    group.add_to_organizers penny
+
+    previous_updated_at = penny.updated_at
+
+    group.remove_from_organizers penny
+
+    refute group.organizers.include? penny
+    refute_equal previous_updated_at, penny.updated_at
   end
 
   private

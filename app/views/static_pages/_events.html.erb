@@ -1,41 +1,46 @@
-<div class="container-fluid bg-light">
-  <div class="container upcoming-events-container">
-    <div class="row">
-      <div class="col-md-12 mt-2rem mb-2rem">
+<% cache events do %>
 
-        <h2 class="text-center">Upcoming Events</h2>
+  <div class="container-fluid bg-light">
+    <div class="container upcoming-events-container">
+      <div class="row">
+        <div class="col-md-12 mt-2rem mb-2rem">
 
-        <% if !events.empty? %>
+          <h2 class="text-center">Upcoming Events</h2>
 
-          <div class="row d-flex justify-content-center">
-            <%= render events %>
-          </div>
+          <% if !events.empty? %>
 
-        <% elsif !user_groups.empty? %>
-
-          <h3 class="h5 text-center mt-5">
-            There are no upcoming events in your groups.
-          </h3>
-
-        <% else %>
-
-          <h3 class="h5 text-center mt-5">
-            You need to be a member of a group to see events here.
-          </h3>
-
-        <% end %>
-
-        <% if events_count > 6 %>
-          <div class="row">
-            <div class="col-auto mx-auto mt-2rem">
-              <%= link_to "See more upcoming events",
-                user_events_path(current_user),
-                class: "btn btn-primary btn-lg" %>
+            <div class="row d-flex justify-content-center">
+              <%= render partial: "events/event",
+                collection: events, cached: true %>
             </div>
-          </div>
-        <% end %>
 
+          <% elsif !user_groups.empty? %>
+
+            <h3 class="h5 text-center mt-5">
+              There are no upcoming events in your groups.
+            </h3>
+
+          <% else %>
+
+            <h3 class="h5 text-center mt-5">
+              You need to be a member of a group to see events here.
+            </h3>
+
+          <% end %>
+
+          <% if events_count > 6 %>
+            <div class="row">
+              <div class="col-auto mx-auto mt-2rem">
+                <%= link_to "See more upcoming events",
+                  user_events_path(current_user),
+                  class: "btn btn-primary btn-lg" %>
+              </div>
+            </div>
+          <% end %>
+
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+<% end %>

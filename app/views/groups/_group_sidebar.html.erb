@@ -1,75 +1,78 @@
 <div class="col-md-12 col-lg-4">
 
-  <div class="box box--sidebar group-info-box mt-lg-0 p-3">
+  <% cache [
+    group.location,
+    group.owner.name,
+    group.recent_organizers,
+    group.recent_members_with_role
+    ] do %>
 
-    <div class="group-location">
-      <h3 class="h4 mb-3 pb-1">
-        Location
-      </h3>
-      <p>
-        <%= location_icon %>
-        <%= group.location %>
-      </p>
-    </div>
+    <div class="box box--sidebar group-info-box mt-lg-0 p-3">
 
-    <% if authorized?(current_user, group) %>
-
-      <div class="organizers-preview">
-        <h3 class="h4 mb-3">
-          <%= organizer_title %>
+      <div class="group-location">
+        <h3 class="h4 mb-3 pb-1">
+          Location
         </h3>
-        <ul>
-          <% group.organizers.last(3).reverse.each do |organizer| %>
-            <li>
-              <%= link_to organizer.name,
-                user_path(organizer, organizer_of: group) %>
-            </li>
-          <% end %>
-        </ul>
+        <p>
+          <%= location_icon %>
+          <%= group.location %>
+        </p>
       </div>
-
-    <% else %>
-
-      <div class="admin-preview">
-        <h3 class="h4 mb-3">
-          Admin
-        </h3>
-        <ul>
-          <li>
-            <%= link_to group.owner.name,
-              user_path(group.owner, organizer_of: group) %>
-          </li>
-        </ul>
-      </div>
-
-    <% end %>
-
-    <div class="members-preview mt-3">
-      <h3 class="h4 mb-1">
-        <%= members_title_with_count %>
-      </h3>
 
       <% if authorized?(current_user, group) %>
-        <ul class="mt-3">
-          <% if !group.members_with_role.empty? %>
-            <% group.members_with_role.last(3).reverse.each do |member| %>
+
+        <div class="organizers-preview">
+          <h3 class="h4 mb-3">
+            <%= organizer_title %>
+          </h3>
+          <ul>
+            <%= render partial: "list_organizer",
+              collection: group.recent_organizers,
+              as: :organizer, locals: { group: group }, cached: true %>
+          </ul>
+        </div>
+
+      <% else %>
+
+        <div class="admin-preview">
+          <h3 class="h4 mb-3">
+            Admin
+          </h3>
+          <ul>
+            <li>
+              <%= link_to group.owner.name,
+                user_path(group.owner, organizer_of: group) %>
+            </li>
+          </ul>
+        </div>
+
+      <% end %>
+
+      <div class="members-preview mt-3">
+        <h3 class="h4 mb-1">
+          <%= members_title_with_count %>
+        </h3>
+
+        <% if authorized?(current_user, group) %>
+          <ul class="mt-3">
+            <% if !group.members_with_role.empty? %>
+              <%= render partial: "list_member",
+                collection: group.recent_members_with_role,
+                as: :member, locals: { group: group }, cached: true %>
+            <% else %>
               <li>
-                <%= link_to member.name,
-                  user_path(member, member_of: group) %>
+                So far there are no members
               </li>
             <% end %>
-          <% else %>
-            <li>
-              So far there are no members
-            </li>
-          <% end %>
-        </ul>
+          </ul>
 
-        <%= see_all_members_link(group, quantity: 5) %>
-      <% end %>
+          <%= see_all_members_link(group, quantity: 5) %>
+        <% end %>
+      </div>
+
     </div>
 
-  </div>
+  <% end %>
 
   <div class="box box--sidebar group-info-box p-3">
 

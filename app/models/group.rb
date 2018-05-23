@@ -51,6 +51,14 @@ class Group < ApplicationRecord
   mount_uploader :image, ImageUploader
   include CarrierWave::SampleImage
 
+  def recent_organizers
+    organizers.last(3).reverse
+  end
+
+  def recent_members_with_role
+    members_with_role.last(3).reverse
+  end
+
   def organizers
     User.with_role(:organizer, self).reverse
   end
@@ -127,5 +135,6 @@ class Group < ApplicationRecord
     def change_role_for(member, remove_as:, add_as:)
       member.remove_role remove_as, self
       member.add_role add_as, self
+      member.touch
     end
 end

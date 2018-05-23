@@ -1,32 +1,36 @@
-<div class="container-fluid bg-light">
-  <div class="container">
+<% cache @attendees do %>
 
-    <%= render partial: "breadcrumbs" %>
+  <div class="container-fluid bg-light">
+    <div class="container">
 
-    <div class="row">
-      <div class="col-md-12 mt-3">
+      <%= render partial: "application/breadcrumbs" %>
 
-        <div class="row mb-2rem">
-          <div class="col">
+      <div class="row">
+        <div class="col-md-12 mt-3">
 
-            <div class="attendees mb-4">
-              <h2 class="mt-0 mb-0">
-                <%= attendees_title_with_count %>
-              </h3>
-              <div class="row">
-                <% @attendees.reverse.each do |attendee| %>
-                  <%= render "attendee", user: attendee, event: @event %>
-                <% end %>
+          <div class="row mb-2rem">
+            <div class="col">
+
+              <div class="attendees mb-4">
+                <h2 class="mt-0 mb-0">
+                  <%= attendees_title_with_count %>
+                </h3>
+                <div class="row">
+                  <%= render partial: "attendee",
+                    collection: @attendees.reverse, as: :user,
+                    locals: { event: @event }, cached: true %>
+                </div>
               </div>
+
+              <%= link_to "Go back to event", group_event_path(@group, @event) %>
+
             </div>
-
-            <%= link_to "Go back to event", group_event_path(@group, @event) %>
-
           </div>
+
         </div>
-
       </div>
-    </div>
 
+    </div>
   </div>
-</div>
+
+<% end %>

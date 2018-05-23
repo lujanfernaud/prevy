@@ -3,60 +3,64 @@
 
     <% if @group || @event %>
       <div class="mb-2">
-        <%= render partial: "breadcrumbs" %>
+        <%= render partial: "application/breadcrumbs" %>
       </div>
     <% else %>
       <div class="mt-4 pt-1"></div>
     <% end %>
 
-    <div class="box box-user-profile mb-2 p-4 text-center">
+    <% cache [@user, @user == current_user] do %>
 
-      <div class="row mb-2">
-        <div class="col-md-12">
-          <% if @user == current_user %>
-            <div class="edit-profile-link mb-3">
-              <%= link_to "(Edit profile)", edit_user_path(@user) %>
-            </div>
-          <% end %>
+      <div class="box box-user-profile mb-2 p-4 text-center">
 
-          <h2 class="mb-4 d-inline-block">
-            <%= @user.name %>
-          </h2>
+        <div class="row mb-2">
+          <div class="col-md-12">
+            <% if @user == current_user %>
+              <div class="edit-profile-link mb-3">
+                <%= link_to "(Edit profile)", edit_user_path(@user) %>
+              </div>
+            <% end %>
 
-          <div class="user-profile-image-container">
-            <div class="intrinsic-ratio-container intrinsic-ratio-container--square">
-              <%= image_tag gravatar_image_url(@user.email),
-                class: "lazyload blur-up
-                  intrinsic-ratio-image user-avatar",
-                alt: @user.name %>
+            <h2 class="mb-4 d-inline-block">
+              <%= @user.name %>
+            </h2>
+
+            <div class="user-profile-image-container">
+              <div class="intrinsic-ratio-container intrinsic-ratio-container--square">
+                <%= image_tag gravatar_image_url(@user.email),
+                  class: "lazyload blur-up
+                    intrinsic-ratio-image user-avatar",
+                  alt: @user.name %>
+              </div>
             </div>
           </div>
         </div>
+
+        <% if @user.location && !@user.location.empty? %>
+          <div class="row">
+            <div class="col-md-12 mt-4">
+              <h3 class="h4 profile-heading">Location</h3>
+              <p class="mb-0">
+                <%= @user.location %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+
+        <% if @user.bio && !@user.bio.empty? %>
+          <div class="row">
+            <div class="col-md-12 mt-4">
+              <h3 class="h4 profile-heading">Bio</h3>
+              <p class="mb-0">
+                <%= @user.bio %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+
       </div>
 
-      <% if @user.location && !@user.location.empty? %>
-        <div class="row">
-          <div class="col-md-12 mt-4">
-            <h3 class="h4 profile-heading">Location</h3>
-            <p class="mb-0">
-              <%= @user.location %>
-            </p>
-          </div>
-        </div>
-      <% end %>
-
-      <% if @user.bio && !@user.bio.empty? %>
-        <div class="row">
-          <div class="col-md-12 mt-4">
-            <h3 class="h4 profile-heading">Bio</h3>
-            <p class="mb-0">
-              <%= @user.bio %>
-            </p>
-          </div>
-        </div>
-      <% end %>
-
-    </div>
+    <% end %>
 
   </div>
 </div>
