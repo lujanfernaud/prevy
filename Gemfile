@@ -79,6 +79,7 @@ group :development do
   gem 'binding_of_caller',             '~> 0.8.0'
   gem 'bullet',                        '~> 5.7', '>= 5.7.5'
   gem 'guard-livereload',              '~> 2.5', '>= 2.5.2'
+  gem 'guard-rubycritic',              '~> 2.9', '>= 2.9.3'
   gem 'rails-erd',                     '~> 1.5', '>= 1.5.2', require: false
   gem 'web-console',                   '>= 3.3.0'
   gem 'listen',                        '>= 3.0.5', '< 3.2'
