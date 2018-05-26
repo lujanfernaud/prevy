@@ -1,4 +1,4 @@
-<% cache user_groups do %>
+<% cache [user_groups, current_user.confirmed?] do %>
 
   <div class="container-fluid bg-light">
     <div class="container user-groups-container">
