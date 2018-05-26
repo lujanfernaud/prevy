@@ -17,7 +17,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     select "Japan", from: "Country"
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time @event.end_date,   from: "event_end_date"
-    attach_file "event_image", "test/fixtures/files/sample.jpeg"
+    attach_file "event_image", "test/fixtures/files/sample.jpg"
 
     click_on_update_event
     assert_valid
@@ -31,7 +31,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     select "Japan", from: "Country"
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time @event.end_date,   from: "event_end_date"
-    attach_file "event_image", "test/fixtures/files/sample.jpeg"
+    attach_file "event_image", "test/fixtures/files/sample.jpg"
 
     click_on_update_event
     assert_valid
@@ -45,7 +45,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     select "Japan", from: "Country"
     select_date_and_time @event.start_date + 1.day, from: "event_start_date"
     select_date_and_time @event.end_date + 1.day,   from: "event_end_date"
-    attach_file "event_image", "test/fixtures/files/sample.jpeg"
+    attach_file "event_image", "test/fixtures/files/sample.jpg"
 
     click_on_update_event
     assert_valid
@@ -58,7 +58,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     find("trix-editor").click.set(@event.description)
     select_date_and_time 1.week.ago,              from: "event_start_date"
     select_date_and_time @event.end_date + 1.day, from: "event_end_date"
-    attach_file "event_image", "test/fixtures/files/sample.jpeg"
+    attach_file "event_image", "test/fixtures/files/sample.jpg"
 
     click_on_update_event
     assert_invalid
@@ -71,7 +71,7 @@ class EventsUpdateTest < ActionDispatch::IntegrationTest
     find("trix-editor").click.set(@event.description)
     select_date_and_time @event.start_date, from: "event_start_date"
     select_date_and_time 1.week.ago,        from: "event_end_date"
-    attach_file "event_image", "test/fixtures/files/sample.jpeg"
+    attach_file "event_image", "test/fixtures/files/sample.jpg"
 
     click_on_update_event
     assert_invalid

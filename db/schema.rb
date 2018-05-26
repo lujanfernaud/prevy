@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180517212505) do
+ActiveRecord::Schema.define(version: 20180526130837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,14 @@ ActiveRecord::Schema.define(version: 20180517212505) do
     t.index ["location"], name: "index_groups_on_location"
     t.index ["slug"], name: "index_groups_on_slug"
     t.index ["user_id"], name: "index_groups_on_user_id"
+  end
+
+  create_table "image_placeholders", force: :cascade do |t|
+    t.bigint "resource_id"
+    t.string "resource_type"
+    t.text "image_base64"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "membership_requests", force: :cascade do |t|

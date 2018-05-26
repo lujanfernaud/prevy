@@ -2,7 +2,9 @@ require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
   test "is valid" do
-    assert fake_group.valid?
+    group = fake_group
+
+    assert group.valid?
   end
 
   test "is invalid without location" do
@@ -49,43 +51,6 @@ class GroupTest < ActiveSupport::TestCase
     refute groups_selection.include?(group)
   end
 
-  test "titleizes name before saving" do
-    fake_group.name = "john's group"
-
-    fake_group.save
-
-    assert_equal "John's Group", fake_group.name
-  end
-
-  test "titleizes location before saving" do
-    fake_group.location = "the universe"
-
-    fake_group.save
-
-    assert_equal "The Universe", fake_group.location
-  end
-
-  test "capitalizes description before saving" do
-    description = "no one saves us but ourselves. No one can and no one may. We ourselves must walk the path."
-    description_capitalized = "No one saves us but ourselves. No one can and no one may. We ourselves must walk the path."
-
-    fake_group.description = description
-
-    fake_group.save
-
-    assert_equal description_capitalized, fake_group.description
-  end
-
-  test "adds owner as organizer after creation" do
-    owner = fake_group.owner
-
-    assert_empty fake_group.organizers
-
-    fake_group.save
-
-    assert_equal owner, fake_group.organizers.last
-  end
-
   test "#owner" do
     group = fake_group(owner: users(:penny))
 
@@ -106,44 +71,55 @@ class GroupTest < ActiveSupport::TestCase
     assert group.events.count > 1
   end
 
-  test "#add_to_organizers" do
-    group = groups(:one)
-    penny = users(:penny)
+  test "titleizes name before saving" do
+    group = fake_group(name: "john's group")
 
-    original_updated_at = penny.updated_at
+    group.save
 
-    refute group.organizers.include? penny
-
-    group.add_to_organizers penny
-
-    assert group.organizers.include? penny
-    refute_equal original_updated_at, penny.updated_at
+    assert_equal "John's Group", group.name
   end
 
-  test "#remove_from_organizers" do
-    group = groups(:one)
-    penny = users(:penny)
+  test "titleizes location before saving" do
+    group = fake_group(location: "the universe")
 
-    group.add_to_organizers penny
+    group.save
 
-    previous_updated_at = penny.updated_at
+    assert_equal "The Universe", group.location
+  end
 
-    group.remove_from_organizers penny
+  test "capitalizes description before saving" do
+    description = "no one saves us but ourselves. No one can and no one may. We ourselves must walk the path."
+    description_capitalized = "No one saves us but ourselves. No one can and no one may. We ourselves must walk the path."
 
-    refute group.organizers.include? penny
-    refute_equal previous_updated_at, penny.updated_at
+    group = fake_group(description: description)
+
+    group.save
+
+    assert_equal description_capitalized, group.description
+  end
+
+  test "adds owner as organizer after creation" do
+    group = fake_group
+    owner = group.owner
+
+    assert_empty group.organizers
+
+    group.save
+
+    assert_equal owner, group.organizers.last
   end
 
   private
 
     def fake_group(params = {})
-      @fake_group ||= Group.new(
-        owner:       params[:owner]       || users(:phil),
-        name:        params[:name]        || "Test group",
-        location:    params[:location]    || Faker::Address.city,
-        description: params[:description] || Faker::Lorem.paragraph,
-        image:       params[:image]       || valid_image,
-        hidden:      params[:hidden]      || true,
+      Group.new(
+        owner:        params[:owner]        || users(:phil),
+        name:         params[:name]         || "Test group",
+        location:     params[:location]     || Faker::Address.city,
+        description:  params[:description]  || Faker::Lorem.paragraph,
+        image:        params[:image]        || valid_image,
+        sample_group: params[:sample_group] || false,
+        hidden:       params[:hidden]       || true,
         all_members_can_create_events:
           params[:all_members_can_create_events] || true
       )

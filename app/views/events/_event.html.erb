@@ -2,7 +2,7 @@
   <div class="box event-box">
 
     <div class="intrinsic-ratio-container card card-inverse text-center accent-border-bottom">
-      <%= image_tag  event.samplified_image_url(:lqip),
+      <%= image_tag  event.image_base64,
         data: {
           src:       event.samplified_image_url(:thumb),
           srcset: "#{event.samplified_image_url(:medium)} 510w,

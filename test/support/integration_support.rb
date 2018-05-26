@@ -41,11 +41,11 @@ module IntegrationSupport
   end
 
   def attach_valid_image_for(field)
-    attach_file field, "test/fixtures/files/sample.jpeg"
+    attach_file field, "test/fixtures/files/sample.jpg"
   end
 
   def upload_valid_image
-    fixture_file_upload("test/fixtures/files/sample.jpeg", "image/jpeg")
+    fixture_file_upload("test/fixtures/files/sample.jpg", "image/jpeg")
   end
 
   # We need to do this because Rolify doesn't seem to work very well with

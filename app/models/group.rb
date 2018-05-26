@@ -11,6 +11,7 @@ class Group < ApplicationRecord
   before_save  :capitalize_description
   after_create :add_owner_as_organizer
   after_update :update_members_role
+  after_save   :create_image_placeholder
 
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
 
@@ -23,6 +24,8 @@ class Group < ApplicationRecord
   has_many :events, dependent: :destroy
 
   has_many :notifications, dependent: :destroy
+
+  has_one  :image_placeholder, as: :resource, dependent: :destroy
 
   validates :name,        presence: true, length: { minimum: 3 }
   validates :location,    presence: true, length: { minimum: 3 }
@@ -49,7 +52,22 @@ class Group < ApplicationRecord
   }
 
   mount_uploader :image, ImageUploader
+  include CarrierWave::ImageLocation
   include CarrierWave::SampleImage
+
+  def image_base64
+    return image_url(:thumb) unless image_placeholder
+
+    image_placeholder.image_base64
+  end
+
+  def sample_resource?
+    sample_group?
+  end
+
+  def user_sample_resource?
+    sample_resource? && name =~ /\ASample\s/
+  end
 
   def recent_organizers
     organizers.last(3).reverse
@@ -136,5 +154,9 @@ class Group < ApplicationRecord
       member.remove_role remove_as, self
       member.add_role add_as, self
       member.touch
+    end
+
+    def create_image_placeholder
+      ImagePlaceholderCreator.new(self).call
     end
 end

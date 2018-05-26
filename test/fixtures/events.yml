@@ -6,7 +6,7 @@ one:
   website: www.event.com
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
-  image: sample.jpeg
+  image: sample.jpg
   organizer: phil
   group: one
   updated_fields: {
@@ -20,7 +20,7 @@ two:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
-  image: sample.jpeg
+  image: sample.jpg
   organizer: phil
   group: one
   updated_fields: {
@@ -34,7 +34,7 @@ three:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
-  image: sample.jpeg
+  image: sample.jpg
   organizer: phil
   group: one
   updated_fields: {
@@ -48,7 +48,7 @@ four:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
-  image: sample.jpeg
+  image: sample.jpg
   organizer: penny
   group: two
   updated_fields: {
@@ -62,7 +62,7 @@ five:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
-  image: sample.jpeg
+  image: sample.jpg
   organizer: woodell
   group: woodells_group
   updated_fields: {
@@ -76,7 +76,7 @@ past_one:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now - 6.days %>
   end_date: <%= Time.zone.now - 1.week %>
-  image: sample.jpeg
+  image: sample.jpg
   organizer: penny
   group: two
   updated_fields: {
@@ -90,7 +90,7 @@ past_two:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now - 6.days %>
   end_date: <%= Time.zone.now - 1.week %>
-  image: sample.jpeg
+  image: sample.jpg
   organizer: penny
   group: two
   updated_fields: {
@@ -104,9 +104,10 @@ sample_event:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
-  image: sample.jpeg
+  image: sample.jpg
   organizer: user_1
   group: sample_group
+  sample_event: true
   updated_fields: {
     start_date: "",
     end_date: "",
@@ -119,7 +120,7 @@ nike_event_<%= n %>:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
-  image: sample.jpeg
+  image: sample.jpg
   organizer: phil
   group: one
   updated_fields: {
@@ -135,7 +136,7 @@ event_<%= n %>:
   description: <%= Faker::Lorem.paragraph %>
   start_date: <%= Time.zone.now + 6.days %>
   end_date: <%= Time.zone.now + 1.week %>
-  image: sample.jpeg
+  image: sample.jpg
   organizer: phil
   group: woodells_group
   updated_fields: {

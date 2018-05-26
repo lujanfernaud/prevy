@@ -5,8 +5,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   STANDARD_SIZE = [730, 411]
   MEDIUM_SIZE   = [510, 287]
   THUMB_SIZE    = [350, 197]
-  LQIP_SIZE     = [30,  17]
-  LQIP_QUALITY  = 15
 
   if Rails.env.production?
 
@@ -32,11 +30,6 @@ class ImageUploader < CarrierWave::Uploader::Base
       cloudinary_transformation quality: "auto"
     end
 
-    version :lqip do
-      process resize_to_fill: LQIP_SIZE
-      cloudinary_transformation quality: LQIP_QUALITY
-    end
-
   else
 
     include CarrierWave::MiniMagick
@@ -51,11 +44,10 @@ class ImageUploader < CarrierWave::Uploader::Base
       process resize_to_fill: THUMB_SIZE
     end
 
-    version :lqip do
-      process resize_to_fill: LQIP_SIZE
-      process quality: LQIP_QUALITY
-    end
+  end
 
+  def cache_dir
+    "#{Rails.root}/tmp/uploads"
   end
 
   def extension_whitelist

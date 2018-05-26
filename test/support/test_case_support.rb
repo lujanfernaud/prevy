@@ -6,14 +6,15 @@ module TestCaseSupport
 
   def fake_event(params = {})
     Event.new(
-      group:       params[:group]       || groups(:two),
-      title:       params[:title]       || "Test event",
-      description: params[:description] || Faker::Lorem.paragraph,
-      website:     params[:website]     || "",
-      start_date:  params[:start_date]  || 6.days.from_now,
-      end_date:    params[:end_date]    || 1.week.from_now,
-      image:       params[:image]       || valid_image,
-      organizer:   params[:user]        || users(:phil),
+      group:        params[:group]        || groups(:two),
+      title:        params[:title]        || "Test event",
+      description:  params[:description]  || Faker::Lorem.paragraph,
+      website:      params[:website]      || "",
+      start_date:   params[:start_date]   || 6.days.from_now,
+      end_date:     params[:end_date]     || 1.week.from_now,
+      image:        params[:image]        || valid_image,
+      sample_event: params[:sample_event] || false,
+      organizer:    params[:user]         || users(:phil),
       address_attributes: address(params)
     )
   end
@@ -31,6 +32,10 @@ module TestCaseSupport
   end
 
   def valid_image
-    File.open(Rails.root.join("test/fixtures/files/sample.jpeg"))
+    File.open(valid_image_location)
+  end
+
+  def valid_image_location
+    Rails.root.join("test/fixtures/files/sample.jpg").to_s
   end
 end

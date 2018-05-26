@@ -18,14 +18,31 @@ if Rails.env.test?
 end
 
 module CarrierWave
-  module MiniMagick
 
-    def quality(percentage)
-      manipulate! do |img|
-        img.quality(percentage.to_s)
-        img = yield(img) if block_given?
-        img
+  module ImageLocation
+
+    def sample_image_location
+      Rails.root.join("public").to_s + self.image_url
+    end
+
+    def regular_image_location
+      if Rails.env.production?
+        regular_location_production_env
+      elsif Rails.env.test?
+        regular_location_test_env
+      else
+        self.image_url
       end
+    end
+
+    # In production we need to use the cache path as we are uploading
+    # the images to a CDN.
+    def regular_location_production_env
+      Rails.root.join(self.image.cache_path).to_s
+    end
+
+    def regular_location_test_env
+      Rails.root.join("test/fixtures/files/sample.jpg").to_s
     end
 
   end
@@ -33,7 +50,7 @@ module CarrierWave
   # Sets a default image and returns urls for different versions.
   #
   # - The versions need to be stored manually in the folder specified
-  # in the 'default_url' method.
+  # in the DefaultFolder module.
   #
   # - The 'image' field in the resource needs to be left blank.
   #
@@ -43,17 +60,9 @@ module CarrierWave
   module SampleImage
 
     def samplified_image_url(*args)
-      return image_url(*args) unless sample_resource?
+      return image_url(*args) unless self.sample_resource?
 
       sample_image_url(*args)
-    end
-
-    def sample_resource?
-      self.send("sample_#{resource}")
-    end
-
-    def resource
-      self.class.name.parameterize
     end
 
     def sample_image_url(version = "")
@@ -63,16 +72,18 @@ module CarrierWave
     end
 
     module DefaultFolder
+
       # Folder inside '/public'.
       SAMPLE_IMAGES_FOLDER = "/images/samples/"
 
-      def default_url(*args)
+      def default_url
         SAMPLE_IMAGES_FOLDER + "sample_#{resource_model}.jpg"
       end
 
       def resource_model
         self.model.class.name.parameterize
       end
+
     end
 
   end

@@ -4,7 +4,7 @@ one:
   name: Nike
   location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
-  image: sample.jpeg
+  image: sample.jpg
   hidden: false
   all_members_can_create_events: true
   owner: phil
@@ -13,7 +13,7 @@ two:
   name: Penny's Group
   location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph + " Nike" %>
-  image: sample.jpeg
+  image: sample.jpg
   hidden: false
   all_members_can_create_events: true
   owner: penny
@@ -22,7 +22,7 @@ three:
   name: Penny's Hidden Group
   location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph %>
-  image: sample.jpeg
+  image: sample.jpg
   hidden: true
   all_members_can_create_events: false
   owner: penny
@@ -31,7 +31,7 @@ four:
   name: Woodell's Hidden Group
   location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph + " Nike" %>
-  image: sample.jpeg
+  image: sample.jpg
   hidden: true
   all_members_can_create_events: true
   owner: woodell
@@ -40,7 +40,7 @@ woodells_group:
   name: Woodell's Group
   location: Portland, Oregon
   description: <%= Faker::Lorem.paragraph + " Nike" %>
-  image: sample.jpeg
+  image: sample.jpg
   hidden: false
   all_members_can_create_events: false
   owner: woodell
@@ -49,7 +49,7 @@ strangers_group:
   name: Stranger's Group
   location: Somewhere
   description: <%= Faker::Lorem.paragraph %>
-  image: sample.jpeg
+  image: sample.jpg
   hidden: true
   all_members_can_create_events: false
   owner: stranger
@@ -58,7 +58,7 @@ kyoto:
   name: Sakura
   location: Kyoto
   description: <%= Faker::Lorem.paragraph %>
-  image: sample.jpeg
+  image: sample.jpg
   hidden: false
   all_members_can_create_events: false
   owner: onitsuka
@@ -67,7 +67,7 @@ sample_group:
   name: Sample Group
   location: The Internet
   description: <%= Faker::Lorem.paragraph %>
-  image: sample.jpeg
+  image: sample.jpg
   owner: user_1
   hidden: false
   all_members_can_create_events: false

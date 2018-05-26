@@ -13,6 +13,7 @@ class Event < ApplicationRecord
   before_save   :titleize_title
   before_save   :check_website_url
   before_update :store_updated_fields
+  after_save    :create_image_placeholder
 
   belongs_to :organizer, class_name: "User"
   belongs_to :group, touch: true
@@ -29,6 +30,8 @@ class Event < ApplicationRecord
   has_many :attendances, foreign_key: "attended_event_id"
   has_many :attendees, through: :attendances
 
+  has_one  :image_placeholder, as: :resource, dependent: :destroy
+
   validates :title,       presence: true, length: { in: 4..140 }
   validates :description, presence: true, length: { in: 32..1000 }
   validates :image,       presence: true
@@ -43,7 +46,22 @@ class Event < ApplicationRecord
   }
 
   mount_uploader :image, ImageUploader
+  include CarrierWave::ImageLocation
   include CarrierWave::SampleImage
+
+  def image_base64
+    return image_url(:thumb) unless image_placeholder
+
+    image_placeholder.image_base64
+  end
+
+  def sample_resource?
+    sample_event?
+  end
+
+  def user_sample_resource?
+    sample_resource? && title =~ /\ASample\s/
+  end
 
   private
 
@@ -98,6 +116,10 @@ class Event < ApplicationRecord
 
     def store_updated_address
       self.updated_address = full_address if full_address_changed?
+    end
+
+    def create_image_placeholder
+      ImagePlaceholderCreator.new(self).call
     end
 
     def no_past_date

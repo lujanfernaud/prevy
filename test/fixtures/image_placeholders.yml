@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  resource_id: 
+  resource_type: MyString
+  image_base64: MyString
+
+two:
+  resource_id: 
+  resource_type: MyString
+  image_base64: MyString
