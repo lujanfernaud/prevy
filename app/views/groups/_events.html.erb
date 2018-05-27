@@ -1,4 +1,4 @@
-<% cache events do %>
+<% cache [events, events_count > 9] do %>
 
   <div class="container-fluid bg-light">
     <div class="container">
@@ -28,7 +28,7 @@
 
               <% end %>
 
-              <% if events.count > 9 %>
+              <% if events_count > 9 %>
 
                 <div class="row">
                   <div class="col-auto mx-auto mt-2rem">
