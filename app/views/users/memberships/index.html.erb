@@ -1,6 +1,7 @@
 <% cache [
   @owned_groups,
   @associated_groups,
+  current_user,
   current_user.confirmed?
   ] do %>
 
@@ -33,9 +34,10 @@
             <div class="mb-2rem">
               <h2 class="text-center mt-1rem mb-2rem">With Membership</h2>
 
+              <!-- Not caching to show the [Organizer] label -->
               <%= render partial: "user_group",
                 collection: @associated_groups, as: :group,
-                locals: { user: @user }, cached: true %>
+                locals: { user: @user } %>
             </div>
           <% end %>
 
