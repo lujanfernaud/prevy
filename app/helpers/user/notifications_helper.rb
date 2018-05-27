@@ -66,10 +66,17 @@ module User::NotificationsHelper
   end
 
   def notification_link?(notification)
+    return false if membership_request_declined?(notification)
+
     types = ["MembershipRequestNotification",
              "GroupMembershipNotification",
              "GroupRoleNotification"]
 
     types.include?(notification.type)
+  end
+
+  def membership_request_declined?(notification)
+    notification.type == "MembershipRequestNotification" &&
+      notification.message.match(/declined/)
   end
 end
