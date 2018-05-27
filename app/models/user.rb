@@ -7,7 +7,7 @@ class User < ApplicationRecord
   include FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
-  before_save   :titleize_name
+  before_save   :format_name
   before_update :titleize_location
   before_update :capitalize_bio
   after_create  :create_user_sample_content
@@ -116,8 +116,8 @@ class User < ApplicationRecord
       ]
     end
 
-    def titleize_name
-      self.name = name.titleize
+    def format_name
+      self.name = NameFormatter.call(name)
     end
 
     def titleize_location
