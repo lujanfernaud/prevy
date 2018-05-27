@@ -154,3 +154,59 @@
     Become a part of our group and discover why raves and electronic festivals have been growing strong for over 20 years. Our mantra has - and always will be of - PEACE, LOVE, UNITY, and RESPECT so sign-up and join our family.
   location: California
   image: app/assets/images/samples/sample_groups/raveup.jpg
+
+-
+  name: Yokohama Foosball Club
+  description: |-
+    Yokohama Foosball Club is really just a bunch of people who love the game and want to share that with others. It's overall goal is to promote foosball as a social sport.
+    <br><br>
+    Events include beginner practice times, drop in games, weekly doubles competitions, and competitive foosball tournaments. We are trying to provide a schedule for beginners and experienced players, to publicize and rate table locations, publicize events, and of course... to introduce new players to the game.
+  location: Yokohama
+  image: app/assets/images/samples/sample_groups/mpho-mojapelo-127562-unsplash.jpg
+
+-
+  name: Cape Town Chess
+  description: |-
+    Cape Town Chess is purely about relaxed social chess. There is no money involved. We are not an official chess club and we don’t keep score.
+    <br><br>
+    What we like most of all is to be the cause of a dormant chess player starting to re-learn the game and play semi-regularly again. We try to do this by way of a pleasant new social aspect to chess.
+    <br><br>
+    We are willing to get outside of our comfort zone and we try to be good losers. Remember that social chess is sometimes about giving your opponent a break, like some extra time or an encouraging word.
+    <br><br>
+    Don't worry, if you know how to play, you are good enough.
+  location: Cape Town
+  image: app/assets/images/samples/sample_groups/chase-clark-509092-unsplash.jpg
+
+-
+  name: Bird Watchers Rio
+  description: |-
+    The Bird Watchers Rio group enjoys getting out around Rio de Janeiro to photograph and discover the city's diverse bird life and any other nature we come across. We welcome people who are newly interested in birds just as much as experienced 'birders'. The aim is to get out to varied locations where you will have exposure to a good range of birds in the company of friendly, like-minded people.
+    <br><br>
+    You're just as welcome with a point and shoot as you are with a high-end camera attached to a telephoto zoom lens. Some people don't even have a camera and use the outings to get advice on a camera to buy and simply enjoy a day out in nature. What you take from the day is entirely up to you and we take our events at a casual, leisurely pace.
+  location: Rio de Janeiro
+  image: app/assets/images/samples/sample_groups/sergio-cavalcanti-350268-unsplash.jpg
+
+-
+  name: Asian Philosophy Naples
+  description: |-
+    This group will gather to discuss Asian philosophy and poetry texts, with the aim of broadening our Western mindsets and discovering new ways of thinking. Whether you have read/studied some Asian philosophy/poetry before or are simply curious to explore it for the first time, you are more than welcome to join. All texts will be read in the English translation, but if you know how to speak or read in the original, feel free to read both.
+    <br><br>
+    The goal will be to speak in an experiential way about what these texts reveal to us, and how they enrich/intersect/challenge our lives. Some countries and traditions to be explored: Buddhism, Confucianism, Daoism, Shinto, Chinese, Japanese, Korean, etc. We will occasionally read secondary sources to help us approach the primary texts with greater ease.
+  location: Naples
+  image: app/assets/images/samples/sample_groups/lin-mei-159435-unsplash.jpg
+
+-
+  name: Conway Artists
+  description: |-
+    This group is for any artist at every level, for the beginner or the seasoned professional. My aim is to bring a community of artists together who want to practice and sharpen their skills through live drawing and painting.
+  location: Conway, Massachusetts
+  image: app/assets/images/samples/sample_groups/alp-allen-altiner-352232-unsplash.jpg
+
+-
+  name: Open Source Honolulu
+  description: |-
+    This group is dedicated to promoting Open Source software by encouraging IT professionals and OSS enthusiasts to exchange success stories and share how they've implemented Open Source software in their IT environments.
+    <br><br>
+    We regularly organize get-togethers and present Open Source projects that can potentially add great value to an IT environment. This is the perfect place to find out what today's hot Open Source projects are.
+  location: Honolulu
+  image: app/assets/images/samples/sample_groups/chris-ried-512801-unsplash.jpg
