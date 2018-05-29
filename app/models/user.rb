@@ -38,6 +38,9 @@ class User < ApplicationRecord
   has_many :attendances, foreign_key: "attendee_id"
   has_many :attended_events, through: :attendances
 
+  has_many :forum_topics, dependent: :destroy
+  has_many :forum_comments, dependent: :destroy
+
   has_many :notifications, dependent: :destroy
   has_many :membership_request_notifications
   has_many :group_membership_notifications

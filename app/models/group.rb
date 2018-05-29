@@ -23,6 +23,8 @@ class Group < ApplicationRecord
 
   has_many :events, dependent: :destroy
 
+  has_many :forum_topics, dependent: :destroy
+
   has_many :notifications, dependent: :destroy
 
   has_one  :image_placeholder, as: :resource, dependent: :destroy

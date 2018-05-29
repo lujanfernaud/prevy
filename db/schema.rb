@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180526202412) do
+ActiveRecord::Schema.define(version: 20180527202958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,29 @@ ActiveRecord::Schema.define(version: 20180526202412) do
     t.index ["group_id"], name: "index_events_on_group_id"
     t.index ["organizer_id"], name: "index_events_on_organizer_id"
     t.index ["slug"], name: "index_events_on_slug"
+  end
+
+  create_table "forum_comments", force: :cascade do |t|
+    t.bigint "forum_topic_id"
+    t.bigint "user_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["forum_topic_id"], name: "index_forum_comments_on_forum_topic_id"
+    t.index ["user_id"], name: "index_forum_comments_on_user_id"
+  end
+
+  create_table "forum_topics", force: :cascade do |t|
+    t.bigint "group_id"
+    t.bigint "user_id"
+    t.string "title"
+    t.text "body"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_forum_topics_on_group_id"
+    t.index ["slug"], name: "index_forum_topics_on_slug"
+    t.index ["user_id"], name: "index_forum_topics_on_user_id"
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -181,6 +204,10 @@ ActiveRecord::Schema.define(version: 20180526202412) do
   end
 
   add_foreign_key "events", "groups"
+  add_foreign_key "forum_comments", "forum_topics"
+  add_foreign_key "forum_comments", "users"
+  add_foreign_key "forum_topics", "groups"
+  add_foreign_key "forum_topics", "users"
   add_foreign_key "group_memberships", "groups"
   add_foreign_key "group_memberships", "users"
   add_foreign_key "groups", "users"

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group: one
+  user: phil
+  title: First topic
+  body: Hello, this is the first topic.
+
+two:
+  group: two
+  user: penny
+  title: Second topic
+  body: Hello, this is the second topic.
