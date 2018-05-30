@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
-class ForumCommentPolicy < ApplicationPolicy
+class TopicPolicy < ApplicationPolicy
+  def index?
+    is_member? || is_group_owner?
+  end
+
+  def show?
+    is_member? || is_group_owner?
+  end
+
   def create?
     logged_in? && is_member_or_group_owner? && user.confirmed?
   end
@@ -15,12 +23,12 @@ class ForumCommentPolicy < ApplicationPolicy
 
   private
 
-    def is_member_or_group_owner?
-      is_member? || is_group_owner?
-    end
-
     def is_member?
       group.members.include? user
+    end
+
+    def is_member_or_group_owner?
+      is_member? || is_group_owner?
     end
 
     def is_group_owner?
@@ -40,6 +48,6 @@ class ForumCommentPolicy < ApplicationPolicy
     end
 
     def group
-      record.topic.group
+      @_group ||= Group.find(params[:group_id])
     end
 end

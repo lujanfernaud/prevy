@@ -59,29 +59,6 @@ ActiveRecord::Schema.define(version: 20180527202958) do
     t.index ["slug"], name: "index_events_on_slug"
   end
 
-  create_table "forum_comments", force: :cascade do |t|
-    t.bigint "forum_topic_id"
-    t.bigint "user_id"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["forum_topic_id"], name: "index_forum_comments_on_forum_topic_id"
-    t.index ["user_id"], name: "index_forum_comments_on_user_id"
-  end
-
-  create_table "forum_topics", force: :cascade do |t|
-    t.bigint "group_id"
-    t.bigint "user_id"
-    t.string "title"
-    t.text "body"
-    t.string "slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_forum_topics_on_group_id"
-    t.index ["slug"], name: "index_forum_topics_on_slug"
-    t.index ["user_id"], name: "index_forum_topics_on_user_id"
-  end
-
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -165,6 +142,29 @@ ActiveRecord::Schema.define(version: 20180527202958) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
+  create_table "topic_comments", force: :cascade do |t|
+    t.bigint "topic_id"
+    t.bigint "user_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_topic_comments_on_topic_id"
+    t.index ["user_id"], name: "index_topic_comments_on_user_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.bigint "group_id"
+    t.bigint "user_id"
+    t.string "title"
+    t.text "body"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_topics_on_group_id"
+    t.index ["slug"], name: "index_topics_on_slug"
+    t.index ["user_id"], name: "index_topics_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email", default: "", null: false
@@ -204,14 +204,14 @@ ActiveRecord::Schema.define(version: 20180527202958) do
   end
 
   add_foreign_key "events", "groups"
-  add_foreign_key "forum_comments", "forum_topics"
-  add_foreign_key "forum_comments", "users"
-  add_foreign_key "forum_topics", "groups"
-  add_foreign_key "forum_topics", "users"
   add_foreign_key "group_memberships", "groups"
   add_foreign_key "group_memberships", "users"
   add_foreign_key "groups", "users"
   add_foreign_key "membership_requests", "groups"
   add_foreign_key "membership_requests", "users"
   add_foreign_key "notifications", "users"
+  add_foreign_key "topic_comments", "topics"
+  add_foreign_key "topic_comments", "users"
+  add_foreign_key "topics", "groups"
+  add_foreign_key "topics", "users"
 end

@@ -11,3 +11,11 @@ two:
   user: penny
   title: Second topic
   body: Hello, this is the second topic.
+
+<% 50.times do |n| %>
+sample_topic_<%= n %>:
+  group: one
+  user: woodell
+  title: Sample topic <%= n %>
+  body: Hello, this is the sample topic <%= n %>.
+<% end %>

@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
-class ForumComment < ApplicationRecord
-  belongs_to :forum_topic
+class TopicComment < ApplicationRecord
+  belongs_to :topic
   belongs_to :user
 
   validates :body, presence: true, length: { minimum: 3 }
-
-  def topic
-    forum_topic
-  end
 end

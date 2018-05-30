@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-class ForumTopic < ApplicationRecord
+class Topic < ApplicationRecord
   include FriendlyId
   friendly_id :slug_candidates, use: :scoped, scope: :group
 
   belongs_to :group
   belongs_to :user
 
-  has_many :forum_comments, dependent: :destroy
+  has_many :topic_comments, dependent: :destroy
 
   validates :title, presence: true, length: { minimum: 2 }
   validates :body,  presence: true, length: { minimum: 20 }
 
   def comments
-    forum_comments
+    topic_comments
   end
 
   private

@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  forum_topic: one
+  topic: one
   user: phil
   body: Hello!
 
 two:
-  forum_topic: two
+  topic: two
   user: penny
   body: Hi!

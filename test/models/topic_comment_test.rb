@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ForumCommentTest < ActiveSupport::TestCase
+class TopicCommentTest < ActiveSupport::TestCase
   test "is valid" do
     comment = fake_comment
 
@@ -34,10 +34,10 @@ class ForumCommentTest < ActiveSupport::TestCase
   private
 
     def fake_comment(params = {})
-      ForumComment.new(
-        forum_topic: params[:forum_topic] || forum_topics(:one),
-        user:        params[:user]        || users(:penny),
-        body:        params[:body]        || "Hey! Welcome :)"
+      TopicComment.new(
+        topic: params[:topic] || topics(:one),
+        user:  params[:user]  || users(:penny),
+        body:  params[:body]  || "Hey! Welcome :)"
       )
     end
 end

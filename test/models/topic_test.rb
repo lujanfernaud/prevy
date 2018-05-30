@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ForumTopicTest < ActiveSupport::TestCase
+class TopicTest < ActiveSupport::TestCase
   test "is valid" do
     topic = fake_topic
 
@@ -61,7 +61,7 @@ class ForumTopicTest < ActiveSupport::TestCase
   private
 
     def fake_topic(params = {})
-      ForumTopic.new(
+      Topic.new(
         group: params[:group] || groups(:one),
         user:  params[:user]  || users(:phil),
         title: params[:title] || "Welcome!",
