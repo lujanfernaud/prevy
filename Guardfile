@@ -72,4 +72,7 @@ guard "rubycritic" do
   watch(%r{^app/(.+)\.rb$})
   watch(%r{^lib/(.+)\.rb$})
   watch(%r{^test/(.+)\.rb$})
+  watch(%r{^test/(.+)/(.+)\.rb$})
+  watch(%r{^test/(.+)/(.+)/(.+)\.rb$})
+  watch(%r{^test/(.+)/(.+)/(.+)/(.+)\.rb$})
 end
