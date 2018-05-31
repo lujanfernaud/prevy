@@ -14,6 +14,10 @@ class Topic < ApplicationRecord
   validates :title, presence: true, length: { minimum: 2 }
   validate  :body_length
 
+  scope :recent, -> (topics_number = 6) {
+    order("updated_at DESC").limit(topics_number)
+  }
+
   def comments
     topic_comments
   end
