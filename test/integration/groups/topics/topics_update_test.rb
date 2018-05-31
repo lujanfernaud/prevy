@@ -21,9 +21,23 @@ class TopicsUpdateTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Topic updated."
   end
 
+  test "organizer can update topic" do
+    user = users(:woodell)
+    @group.add_to_organizers user
+
+    log_in_as user
+
+    visit group_topic_path(@group, @topic)
+
+    update_topic_with "Updated", "Updated body of the test topic."
+
+    assert page.has_content? "Topic updated."
+  end
+
   test "regular user can't update topic" do
     user = users(:carolyn)
     @group.members << user
+    @group.remove_from_organizers user
 
     log_in_as user
 

@@ -17,9 +17,22 @@ class CommentsUpdateTest < ActionDispatch::IntegrationTest
 
     visit group_topic_path(@group, @topic)
 
-    within "#comment-#{@comment.id}" do
-      click_on "Edit"
-    end
+    click_on_edit
+
+    update_comment_with "Revised comment."
+
+    assert page.has_content? "Comment updated."
+  end
+
+  test "organizer can update comment" do
+    user = users(:woodell)
+    @group.add_to_organizers user
+
+    log_in_as user
+
+    visit group_topic_path(@group, @topic)
+
+    click_on_edit
 
     update_comment_with "Revised comment."
 
@@ -29,6 +42,7 @@ class CommentsUpdateTest < ActionDispatch::IntegrationTest
   test "regular user can't update comment" do
     user = users(:carolyn)
     @group.members << user
+    @group.remove_from_organizers user
 
     log_in_as user
 
@@ -38,4 +52,12 @@ class CommentsUpdateTest < ActionDispatch::IntegrationTest
       refute page.has_link? "Edit"
     end
   end
+
+  private
+
+    def click_on_edit
+      within "#comment-#{@comment.id}" do
+        click_on "Edit"
+      end
+    end
 end
