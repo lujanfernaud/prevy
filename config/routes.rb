@@ -34,6 +34,10 @@ Rails.application.routes.draw do
     resources :organizers,                only: [:create, :destroy],
       controller: "groups/organizers"
     resources :events
+
+    resources :topics, controller: "groups/topics" do
+      resources :comments, controller: "groups/topics/comments", shallow: true
+    end
   end
 
   resources :events do

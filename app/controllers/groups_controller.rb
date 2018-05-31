@@ -30,6 +30,7 @@ class GroupsController < ApplicationController
     @group  = find_group
     @events = store_upcoming_events
     @events_count = @group.events.upcoming.count
+    @topics = @group.topics.includes(:user).recent(5)
     @unhidden_groups = unhidden_groups_selection_without @group
 
     authorize @group

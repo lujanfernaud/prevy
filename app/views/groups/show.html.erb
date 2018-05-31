@@ -19,6 +19,9 @@
 
   <%= render "events", group: @group,
     events: @events, events_count: @events_count %>
+
+  <%= render "topics", group: @group %>
+
   <%= render "members", group: @group %>
 
 <% else %>

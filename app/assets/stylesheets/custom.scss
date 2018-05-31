@@ -439,6 +439,25 @@ body {
 }
 
 
+// Forum Post
+
+
+.topic__avatar,
+.comment__avatar {
+  flex-basis: 7%;
+}
+
+.topic__body,
+.topic__info,
+.comment__body {
+  flex-basis: 100%
+}
+
+.topics-index .pagination {
+  margin-bottom: 0;
+}
+
+
 // Membership requests
 
 

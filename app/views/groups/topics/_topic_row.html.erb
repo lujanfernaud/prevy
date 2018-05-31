@@ -1,0 +1,39 @@
+<div class="d-flex flex-row topic-row">
+  <div class="topic__avatar member-image mr-3">
+    <div class="intrinsic-ratio-container
+      intrinsic-ratio-container--square">
+      <%= link_to user_path(topic.user), class: "display-block" do %>
+        <%= image_tag gravatar_image_url(topic.user.email),
+          class: "lazyload blur-up
+            img-fluid intrinsic-ratio-image user-avatar d-block",
+          alt: topic.user.name %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="topic__info">
+    <h3 class="lead">
+      <%= link_to topic.title,
+        group_topic_path(group, topic) %>
+    </h3>
+    <span class="topic__date">
+      Opened on
+      <%= topic.created_at.strftime("%b. %d, %Y") %> by
+    </span>
+    <%= link_to topic.user.name, user_path(topic.user),
+      class: "text-dark" %>
+  </div>
+
+  <div class="topic__comments-count text-center">
+    <div class="lead mb-1">
+      <%= topic.topic_comments.count %>
+    </div>
+    <div class="">
+      <%= "comment".pluralize(topic.topic_comments.count) %>
+    </div>
+  </div>
+</div>
+
+<% unless topic == topics.last %>
+  <hr>
+<% end %>

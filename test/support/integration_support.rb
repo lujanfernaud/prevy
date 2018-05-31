@@ -25,6 +25,12 @@ module IntegrationSupport
     end
   end
 
+  def assert_error(message)
+    within ".alert-danger" do
+      assert page.has_content? message
+    end
+  end
+
   def select_date_and_time(date, **options)
     return nil unless date
 
@@ -90,5 +96,12 @@ module IntegrationSupport
 
   def assert_create_group_unconfirmed_button
     assert page.has_css? ".btn-create-group[disabled]"
+  end
+
+  def assert_pagination
+    within ".pagination" do
+      click_on "Next"
+      click_on "Previous"
+    end
   end
 end

@@ -2,6 +2,7 @@ module GroupsHelper
   include SessionsHelper
   include Group::CountersHelper
   include Group::ButtonsHelper
+  include Group::TopicsHelper
 
   def sample_group_link(user, group)
     return unless is_group_owner(user, group)

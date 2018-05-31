@@ -1,0 +1,39 @@
+<div class="container-fluid bg-light">
+  <div class="container topics-container">
+
+    <div class="row mt-2">
+      <div class="col-md-12 mb-2">
+
+        <h2 class="text-center pb-2">Latest Topics</h2>
+
+        <div class="box topics-box mt-2rem box p-2">
+
+          <div class="row p-3">
+            <div class="col-md-12">
+              <%= render partial: "groups/topics/topic_row",
+                as: :topic, collection: @topics,
+                locals: { topics: @topics, group: @group } %>
+            </div>
+          </div>
+
+          <hr class="mx-3 px-2 mt-0 mb-2rem">
+
+          <div class="row mb-4">
+            <div class="col text-center">
+              <% if @group.topics.count > 5 %>
+                <%= link_to "See all topics", group_topics_path(group),
+                  class: "btn btn-outline-primary btn-lg mr-2" %>
+              <% end %>
+
+              <%= link_to "Submit a new topic", new_group_topic_path(group),
+                  class: "btn btn-primary btn-lg" %>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

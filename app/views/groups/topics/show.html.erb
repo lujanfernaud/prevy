@@ -1,0 +1,73 @@
+<div class="container-fluid bg-light">
+  <div class="container pb-2">
+
+    <%= render partial: "application/breadcrumbs" %>
+
+    <h2 class="text-center mt-2 mb-2rem">
+      <%= @topic.title %>
+    </h2>
+
+    <div class="box mb-2 p-4">
+
+      <div class="d-flex flex-row topic-container">
+        <div class="topic__avatar member-image mr-3">
+          <div class="intrinsic-ratio-container
+            intrinsic-ratio-container--square">
+            <%= link_to user_path(@topic.user), class: "display-block" do %>
+              <%= image_tag gravatar_image_url(@topic.user.email),
+                class: "lazyload blur-up
+                  img-fluid intrinsic-ratio-image user-avatar d-block",
+                alt: @topic.user.name %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="topic__body">
+          <%= link_to @topic.user.name, user_path(@topic.user),
+            class: "font-weight-bold" %>
+          <small class="topic__date text-muted">
+            on <%= @topic.created_at.strftime("%b. %d, %Y") %>
+          </small>
+
+          <div class="mt-2">
+            <%= sanitize(@topic.body) %>
+          </div>
+
+          <% if is_author?(@topic) %>
+            <div class="mt-2">
+              <%= link_to "Edit", edit_group_topic_path(@group, @topic) %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <% unless @comments.nil? || @comments.empty? %>
+        <hr>
+      <% end %>
+
+      <%= render partial: "groups/topics/comments/comment",
+        collection: @comments,
+        locals: { comments: @comments } %>
+
+    </div><!-- /.box -->
+
+    <h3 class="text-center mt-2rem">Comment</h3>
+
+    <%= form_for @comment,
+      url: group_topic_comments_path(@group, @topic, @comment) do |f| %>
+      <%= render "error_messages", object: @comment %>
+
+      <div class="form-group box p-4 mt-2rem mb-2rem">
+        <div class="form-group mb-0">
+          <%= f.hidden_field :body, required: true %>
+          <trix-editor input="topic_comment_body" class="form-control">
+          </trix-editor>
+        </div>
+      </div>
+
+      <%= f.submit "Submit a new comment",
+        class: "btn btn-primary btn-block btn-lg mt-4 mb-4" %>
+    <% end %>
+
+  </div>
+</div>

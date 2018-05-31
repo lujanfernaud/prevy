@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class GroupsShowTest < ActionDispatch::IntegrationTest
+  include TopicsIntegrationSupport
+
   def setup
     @phil     = users(:phil)
     @penny    = users(:penny)
@@ -22,11 +24,13 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_organizers(@group)
     assert_members_preview(@group)
     assert_copy_group_link
+
     refute_membership
     refute_unconfirmed_account_alerts
-
     refute_other_unhidden_groups
+
     assert_upcoming_events
+    assert_topics(@group)
     assert_members(@group)
   end
 
@@ -41,11 +45,13 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_organizers(@group)
     assert_members_preview(@group)
     assert_copy_group_link
+
     refute_membership
     refute_unconfirmed_account_alerts
-
     refute_other_unhidden_groups
+
     assert_upcoming_events
+    assert_topics(@group)
     assert_members(@group)
   end
 
@@ -66,7 +72,9 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     refute_unconfirmed_account_alerts
 
     assert_other_unhidden_groups
+
     refute_upcoming_events
+    refute_topics
     refute_members
   end
 
@@ -85,7 +93,9 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     refute_unconfirmed_account_alerts
 
     assert_other_unhidden_groups
+
     refute_upcoming_events
+    refute_topics
     refute_members
   end
 
@@ -136,6 +146,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_create_group_unconfirmed_alert
 
     assert_upcoming_events
+    assert_topics(group)
     assert_members(group)
   end
 
@@ -152,6 +163,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_show_group_unconfirmed_alert
 
     refute_upcoming_events
+    refute_topics
     refute_members
   end
 

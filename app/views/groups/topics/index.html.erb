@@ -1,0 +1,43 @@
+<div class="container topics-container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <%= render partial: "application/breadcrumbs" %>
+
+      <h2 class="text-center mt-2 mb-2rem">
+        Topics
+      </h2>
+
+      <div class="box topics-box mt-4 p-2">
+
+        <div class="row p-3">
+          <div class="col-md-12">
+
+            <%= render partial: "topic_row",
+              as: :topic, collection: @topics,
+              locals: { topics: @topics, group: @group } %>
+
+          </div>
+        </div><!-- ./row -->
+
+      </div>
+
+      <% if @topics.count > 25 %>
+        <div class="topics-index row mt-2rem mb-0">
+          <div class="mx-auto mb-0">
+            <%= will_paginate @topics,
+              :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="row mt-2rem mb-2rem">
+        <div class="col text-center">
+          <%= link_to "Submit a new topic", new_group_topic_path(@group),
+            class: "btn btn-primary btn-lg" %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

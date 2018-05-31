@@ -9,3 +9,10 @@ two:
   topic: two
   user: penny
   body: Hi!
+
+<% 30.times do |n| %>
+topic_comment_<%= n %>:
+  topic: one
+  user: woodell
+  body: Body of topic comment <%= n %>.
+<% end %>
