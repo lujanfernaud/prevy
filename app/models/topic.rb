@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Topic < ApplicationRecord
+  MINIMUM_BODY_LENGTH = 20
+
   include FriendlyId
   friendly_id :slug_candidates, use: :scoped, scope: :group
 
@@ -10,13 +12,17 @@ class Topic < ApplicationRecord
   has_many :topic_comments, dependent: :destroy
 
   validates :title, presence: true, length: { minimum: 2 }
-  validates :body,  presence: true, length: { minimum: 20 }
+  validate  :body_length
 
   def comments
     topic_comments
   end
 
   private
+
+    def body_length
+      BodyLengthValidator.call(self, length: MINIMUM_BODY_LENGTH)
+    end
 
     def should_generate_new_friendly_id?
       title_changed?

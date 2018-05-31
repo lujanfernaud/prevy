@@ -1,8 +1,16 @@
 # frozen_string_literal: true
 
 class TopicComment < ApplicationRecord
+  MINIMUM_BODY_LENGTH = 2
+
   belongs_to :topic, touch: true
   belongs_to :user
 
-  validates :body, presence: true, length: { minimum: 3 }
+  validate :body_length
+
+  private
+
+    def body_length
+      BodyLengthValidator.call(self, length: MINIMUM_BODY_LENGTH)
+    end
 end

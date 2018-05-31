@@ -38,4 +38,21 @@ module TestCaseSupport
   def valid_image_location
     Rails.root.join("test/fixtures/files/sample.jpg").to_s
   end
+
+  def fake_topic(params = {})
+    Topic.new(
+      group: params[:group] || groups(:one),
+      user:  params[:user]  || users(:phil),
+      title: params[:title] || "Welcome!",
+      body:  params[:body]  || "Welcome to the group :)"
+    )
+  end
+
+  def fake_comment(params = {})
+    TopicComment.new(
+      topic: params[:topic] || topics(:one),
+      user:  params[:user]  || users(:penny),
+      body:  params[:body]  || "Hey! Welcome :)"
+    )
+  end
 end

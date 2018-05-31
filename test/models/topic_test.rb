@@ -16,7 +16,7 @@ class TopicTest < ActiveSupport::TestCase
   test "is invalid without body" do
     topic = fake_topic(body: "")
 
-    refute topic.valid?, "body is not present"
+    refute topic.valid?, "body is too short"
   end
 
   test "is invalid with too short title" do
@@ -27,6 +27,14 @@ class TopicTest < ActiveSupport::TestCase
 
   test "is invalid with too short body" do
     topic = fake_topic(body: "Hello :)")
+
+    refute topic.valid?, "body is too short"
+  end
+
+  test "is invalid with too short body with unparsed HTML" do
+    spaces = "#{"&nbsp;" * 30}"
+
+    topic = fake_topic(body: "<div>#{spaces}</div>")
 
     refute topic.valid?, "body is too short"
   end
@@ -57,15 +65,4 @@ class TopicTest < ActiveSupport::TestCase
 
     assert_equal title_parameterized, topic.slug
   end
-
-  private
-
-    def fake_topic(params = {})
-      Topic.new(
-        group: params[:group] || groups(:one),
-        user:  params[:user]  || users(:phil),
-        title: params[:title] || "Welcome!",
-        body:  params[:body]  || "Welcome to the group :)"
-      )
-    end
 end

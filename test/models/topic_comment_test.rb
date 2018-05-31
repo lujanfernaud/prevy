@@ -10,11 +10,23 @@ class TopicCommentTest < ActiveSupport::TestCase
   test "is invalid without body" do
     comment = fake_comment(body: "")
 
-    refute comment.valid?, "body is not present"
+    refute comment.valid?, "body is too short"
+  end
+
+  test "is invalid with blank body" do
+    comment = fake_comment(body: " ")
+
+    refute comment.valid?, "body is too short"
   end
 
   test "is invalid with too short body" do
-    comment = fake_comment(body: "Hi")
+    comment = fake_comment(body: "H")
+
+    refute comment.valid?, "body is too short"
+  end
+
+  test "is invalid with too short body with unparsed HTML" do
+    comment = fake_comment(body: "<div>&nbsp; &nbsp; &nbsp;</div>")
 
     refute comment.valid?, "body is too short"
   end
@@ -30,14 +42,4 @@ class TopicCommentTest < ActiveSupport::TestCase
 
     assert comment.user
   end
-
-  private
-
-    def fake_comment(params = {})
-      TopicComment.new(
-        topic: params[:topic] || topics(:one),
-        user:  params[:user]  || users(:penny),
-        body:  params[:body]  || "Hey! Welcome :)"
-      )
-    end
 end
