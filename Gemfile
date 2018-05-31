@@ -26,6 +26,7 @@ gem 'gravatar_image_tag',              '~> 1.2'
 gem 'inline_svg',                      '~> 1.3', '>= 1.3.1'
 gem 'faker',                           '~> 1.8', '>= 1.8.7'
 gem 'friendly_id',                     '~> 5.2', '>= 5.2.4'
+gem 'nokogiri',                        '~> 1.8', '>= 1.8.2'
 
 # Used for bulk inserting data into database using ActiveRecord.
 gem 'activerecord-import',             '~> 0.23.0'
