@@ -108,20 +108,4 @@ class GroupTest < ActiveSupport::TestCase
 
     assert_equal owner, group.organizers.last
   end
-
-  private
-
-    def fake_group(params = {})
-      Group.new(
-        owner:        params[:owner]        || users(:phil),
-        name:         params[:name]         || "Test group",
-        location:     params[:location]     || Faker::Address.city,
-        description:  params[:description]  || Faker::Lorem.paragraph,
-        image:        params[:image]        || valid_image,
-        sample_group: params[:sample_group] || false,
-        hidden:       params[:hidden]       || true,
-        all_members_can_create_events:
-          params[:all_members_can_create_events] || true
-      )
-    end
 end

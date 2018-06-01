@@ -4,6 +4,20 @@ module TestCaseSupport
            .to_return(status: 200, body: "", headers: {})
   end
 
+  def fake_group(params = {})
+    Group.new(
+      owner:        params[:owner]        || users(:phil),
+      name:         params[:name]         || "Test group",
+      location:     params[:location]     || Faker::Address.city,
+      description:  params[:description]  || Faker::Lorem.paragraph,
+      image:        params[:image]        || valid_image,
+      sample_group: params[:sample_group] || false,
+      hidden:       params[:hidden]       || true,
+      all_members_can_create_events:
+        params[:all_members_can_create_events] || true
+    )
+  end
+
   def fake_event(params = {})
     Event.new(
       group:        params[:group]        || groups(:two),
