@@ -1,4 +1,5 @@
 <div class="d-flex flex-row topic-row">
+
   <div class="topic__avatar member-image mr-3">
     <div class="intrinsic-ratio-container
       intrinsic-ratio-container--square">
@@ -11,28 +12,33 @@
     </div>
   </div>
 
-  <div class="topic__info">
-    <h3 class="lead">
-      <%= link_to topic.title,
-        group_topic_path(group, topic) %>
-    </h3>
-    <span class="topic__date">
-      Opened on
-      <%= topic.created_at.strftime("%b. %d, %Y") %> by
-    </span>
-    <%= link_to topic.user.name, user_path(topic.user),
-      class: "text-dark" %>
+  <div class="d-flex flex-column flex-md-row w-100">
+    <div class="topic__info">
+      <h3 class="lead">
+        <%= link_to topic.title,
+          group_topic_path(group, topic) %>
+      </h3>
+      <span class="topic__date">
+        Opened on
+        <%= topic.created_at.strftime("%b. %d, %Y") %>
+      </span>
+      <span class="d-block d-md-inline">
+        by <%= link_to topic.user.name, user_path(topic.user),
+          class: "text-dark" %>
+      </span>
+    </div>
+
+    <div class="topic__comments-count text-md-center mt-1 mt-md-0">
+      <div class="d-inline-block d-md-block lead mb-1">
+        <%= topic.topic_comments.count %>
+      </div>
+      <div class="d-inline-block d-md-block">
+        <%= "comment".pluralize(topic.topic_comments.count) %>
+      </div>
+    </div>
   </div>
 
-  <div class="topic__comments-count text-center">
-    <div class="lead mb-1">
-      <%= topic.topic_comments.count %>
-    </div>
-    <div class="">
-      <%= "comment".pluralize(topic.topic_comments.count) %>
-    </div>
-  </div>
-</div>
+</div><!-- /.topic-row -->
 
 <% unless topic == topics.last %>
   <hr>

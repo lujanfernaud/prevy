@@ -439,18 +439,86 @@ body {
 }
 
 
-// Forum Post
+// Topics
 
 
 .topic__avatar,
 .comment__avatar {
-  flex-basis: 7%;
+  display: none;
+
+  @media (min-width: 480px) {
+    display: block;
+    flex-basis: 13%;
+  }
+
+  @include media-breakpoint-up(md) {
+    flex-basis: 7%;
+  }
 }
 
 .topic__body,
 .topic__info,
 .comment__body {
   flex-basis: 100%
+}
+
+.latest-topics__hr {
+  margin-bottom: 1.75rem;
+
+  @media (min-width: 568px) {
+    margin-bottom: 2rem;
+  }
+}
+
+.latest-topics__buttons {
+  margin-bottom: 1.15rem;
+
+  @media (min-width: 568px) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.all-topics-btn,
+.new-topic-btn {
+  display: block;
+  max-width: 100%;
+
+  @media (min-width: 568px) {
+    display: inline-block;
+    max-width: auto;
+  }
+}
+
+.all-topics-btn {
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+  @media (min-width: 568px) {
+    margin-bottom: initial;
+    margin-left: initial;
+    margin-right: .5rem;
+  }
+}
+
+.new-topic-btn--latest-topics {
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+  @media (min-width: 568px) {
+    margin-left: initial;
+    margin-right: initial;
+  }
+}
+
+.new-topic-btn--topics-index {
+  margin-left: .03rem;
+  margin-right: .03rem;
+
+  @media (min-width: 568px) {
+    margin-left: initial;
+    margin-right: initial;
+  }
 }
 
 .topics-index .pagination {
