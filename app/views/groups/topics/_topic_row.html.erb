@@ -15,6 +15,12 @@
   <div class="d-flex flex-column flex-md-row w-100">
     <div class="topic__info">
       <h3 class="lead">
+        <% if topic.type? %>
+          <strong class="text-uppercase">
+            <%= topic.type_presentable %>:
+          </strong>
+        <% end %>
+
         <%= link_to topic.title,
           group_topic_path(group, topic) %>
       </h3>

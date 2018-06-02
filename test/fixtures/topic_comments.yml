@@ -16,3 +16,10 @@ topic_comment_<%= n %>:
   user: woodell
   body: Body of topic comment <%= n %>.
 <% end %>
+
+<% 3.times do |n| %>
+event_topic_one_comment_<%= n %>:
+  topic: event_topic_one
+  user: phil
+  body: Body of topic comment <%= n %>.
+<% end %>

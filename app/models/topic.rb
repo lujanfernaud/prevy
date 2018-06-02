@@ -22,6 +22,12 @@ class Topic < ApplicationRecord
     topic_comments.order(:created_at).includes(:user)
   end
 
+  def type_presentable
+    return unless type
+
+    type.gsub("Topic", "")
+  end
+
   private
 
     def body_length

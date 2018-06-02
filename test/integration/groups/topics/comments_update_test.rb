@@ -17,11 +17,12 @@ class CommentsUpdateTest < ActionDispatch::IntegrationTest
 
     visit group_topic_path(@group, @topic)
 
-    click_on_edit
+    click_on_edit_comment(@comment)
 
     update_comment_with "Revised comment."
 
     assert page.has_content? "Comment updated."
+    assert_equal group_topic_path(@group, @topic), current_path
   end
 
   test "organizer can update comment" do
@@ -32,7 +33,7 @@ class CommentsUpdateTest < ActionDispatch::IntegrationTest
 
     visit group_topic_path(@group, @topic)
 
-    click_on_edit
+    click_on_edit_comment(@comment)
 
     update_comment_with "Revised comment."
 
@@ -52,12 +53,4 @@ class CommentsUpdateTest < ActionDispatch::IntegrationTest
       refute page.has_link? "Edit"
     end
   end
-
-  private
-
-    def click_on_edit
-      within "#comment-#{@comment.id}" do
-        click_on "Edit"
-      end
-    end
 end

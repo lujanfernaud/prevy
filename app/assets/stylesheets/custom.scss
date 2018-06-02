@@ -525,6 +525,10 @@ body {
   margin-bottom: 0;
 }
 
+.comment-box--event {
+  margin-top: 1.75rem;
+}
+
 
 // Membership requests
 
@@ -675,6 +679,10 @@ body {
 
 trix-editor {
   min-height: 15rem !important;
+}
+
+.trix-editor--comment {
+  min-height: 7rem !important;
 }
 
 .trix-button--icon-strike,

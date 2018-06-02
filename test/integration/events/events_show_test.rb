@@ -10,6 +10,7 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     visit group_event_path(group, event)
 
     assert_event_information(event)
+    assert_comments
     assert_attendees_preview(event)
 
     refute page.has_link?    "Edit event"
@@ -76,11 +77,24 @@ class EventsShowTest < ActionDispatch::IntegrationTest
   private
 
     def assert_event_information(event)
-      assert page.has_content? event.title
-      assert page.has_content? event.start_date_prettyfied
-      assert page.has_content? event.full_address
-      assert page.has_content? event.website
-      assert page.has_content? event.description
+      event_information_attributes(event).each do |attribute_data|
+        assert page.has_content? attribute_data
+      end
+    end
+
+    def event_information_attributes(event)
+      [
+        event.title,
+        event.start_date_prettyfied,
+        event.full_address,
+        event.website,
+        event.description
+      ]
+    end
+
+    def assert_comments
+      assert page.has_css? ".comments-container"
+      assert page.has_css? "form#new_topic_comment"
     end
 
     def assert_attendees_preview(event)
@@ -93,10 +107,8 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     end
 
     def assert_attendees(event)
-      attendees_number = event.attendees.count
-
       within ".attendees-container" do
-        assert page.has_content? "Attendees (#{attendees_number})"
+        assert page.has_content? "Attendees (#{event.attendees.count})"
         assert page.has_css?     ".attendee-box"
       end
     end

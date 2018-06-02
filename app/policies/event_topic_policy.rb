@@ -1,0 +1,2 @@
+class EventTopicPolicy < TopicPolicy
+end

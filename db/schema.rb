@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180527202958) do
+ActiveRecord::Schema.define(version: 20180601071632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,6 +160,9 @@ ActiveRecord::Schema.define(version: 20180527202958) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type"
+    t.bigint "event_id"
+    t.index ["event_id"], name: "index_topics_on_event_id"
     t.index ["group_id"], name: "index_topics_on_group_id"
     t.index ["slug"], name: "index_topics_on_slug"
     t.index ["user_id"], name: "index_topics_on_user_id"
@@ -212,6 +215,7 @@ ActiveRecord::Schema.define(version: 20180527202958) do
   add_foreign_key "notifications", "users"
   add_foreign_key "topic_comments", "topics"
   add_foreign_key "topic_comments", "users"
+  add_foreign_key "topics", "events"
   add_foreign_key "topics", "groups"
   add_foreign_key "topics", "users"
 end

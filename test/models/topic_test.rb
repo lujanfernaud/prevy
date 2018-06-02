@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
+  include UserSupport
+
   test "is valid" do
     topic = fake_topic
 
@@ -65,4 +67,21 @@ class TopicTest < ActiveSupport::TestCase
 
     assert_equal title_parameterized, topic.slug
   end
+
+  test "#type_presentable" do
+    topic = fake_event_topic(type: "EventTopic")
+
+    assert "Event", topic.type_presentable
+  end
+
+  private
+
+    def fake_event_topic(params = {})
+      fake_topic(
+        event: fake_event,
+        group: fake_group,
+        user:  fake_user,
+        type:  params[:type] || "EventTopic"
+      )
+    end
 end

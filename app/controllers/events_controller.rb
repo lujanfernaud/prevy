@@ -40,8 +40,10 @@ class EventsController < ApplicationController
   end
 
   def show
-    @group = find_group
-    @event = find_event
+    @group    = find_group
+    @event    = find_event
+    @comments = @event.comments.includes(:user)
+    @comment  = TopicComment.new
 
     authorize @event
 

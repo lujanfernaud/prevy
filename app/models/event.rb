@@ -12,7 +12,9 @@ class Event < ApplicationRecord
 
   before_save   :titleize_title
   before_save   :check_website_url
+  before_create :prepare_event_topic
   before_update :store_updated_fields
+  before_update :update_event_topic
   after_save    :create_image_placeholder
 
   belongs_to :organizer, class_name: "User"
@@ -31,6 +33,8 @@ class Event < ApplicationRecord
   has_many :attendees, through: :attendances
 
   has_one  :image_placeholder, as: :resource, dependent: :destroy
+
+  has_one  :event_topic, dependent: :destroy
 
   validates :title,       presence: true, length: { in: 4..140 }
   validates :description, presence: true, length: { in: 32..1000 }
@@ -63,6 +67,14 @@ class Event < ApplicationRecord
     sample_resource? && title =~ /\ASample\s/
   end
 
+  def topic
+    event_topic
+  end
+
+  def comments
+    topic.comments
+  end
+
   private
 
     def should_generate_new_friendly_id?
@@ -88,6 +100,15 @@ class Event < ApplicationRecord
       return if url_has_protocol? || website.empty?
 
       self.website = "https://" + website
+    end
+
+    def prepare_event_topic
+      build_event_topic(
+        user:  organizer,
+        group: group,
+        title: title,
+        body:  description
+      )
     end
 
     def url_has_protocol?
@@ -116,6 +137,12 @@ class Event < ApplicationRecord
 
     def store_updated_address
       self.updated_address = full_address if full_address_changed?
+    end
+
+    def update_event_topic
+      topic.title = title if title_changed?
+      topic.body = description if description_changed?
+      topic.save
     end
 
     def create_image_placeholder

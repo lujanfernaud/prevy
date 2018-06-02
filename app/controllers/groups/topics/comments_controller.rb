@@ -24,7 +24,7 @@ class Groups::Topics::CommentsController < ApplicationController
 
     if @comment.save
       flash[:success] = "New comment created."
-      redirect_save
+      redirect_back_with_anchor_link
     else
       render "groups/topics/show"
     end
@@ -41,7 +41,7 @@ class Groups::Topics::CommentsController < ApplicationController
 
     if @comment.update_attributes(comment_params)
       flash[:success] = "Comment updated."
-      redirect_update
+      redirect_back_with_anchor_link
     else
       render :edit
     end
@@ -57,7 +57,7 @@ class Groups::Topics::CommentsController < ApplicationController
     @comment.destroy
 
     flash[:success] = "Comment deleted."
-    redirect_to group_topic_path(@group, @topic)
+    redirect_back_with_anchor_link
   end
 
   private
@@ -80,16 +80,18 @@ class Groups::Topics::CommentsController < ApplicationController
       )
     end
 
-    def redirect_save
-      redirect_to group_topic_path(@group, @topic) + comment_css_id
-    end
-
-    def redirect_update
-      redirect_to group_topic_path(@group, @topic) + comment_css_id
+    def redirect_back_with_anchor_link
+      if params[:origin] == "events"
+        redirect_to group_event_path(@group, @topic.event) + comment_css_id
+      else
+        redirect_to group_topic_path(@group, @topic) + comment_css_id
+      end
     end
 
     def comment_css_id
-      PreviousCommentCSSIdLocator.call(@comment)
+      comment = @comment.persisted? ? @comment : @topic.comments.last
+
+      PreviousCommentCSSIdLocator.call(comment)
     end
 
     def add_breadcrumbs_for_comment_edition

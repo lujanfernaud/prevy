@@ -132,4 +132,30 @@ class EventTest < ActiveSupport::TestCase
 
     refute_equal group_original_updated_at, group.reload.updated_at
   end
+
+  test "creates event's topic" do
+    event = fake_event
+    event.save
+
+    assert event.topic
+  end
+
+  test "updates event's topic" do
+    event = fake_event
+    event.save
+
+    topic = event.topic
+    original_topic_title = topic.title
+    original_topic_body  = topic.body
+
+    event.update_attributes(
+      title: "New title",
+      description: "New description" * 9
+    )
+
+    refute_equal original_topic_title, event.topic.title
+    refute_equal original_topic_body, event.topic.body
+    assert_equal topic.title, event.title
+    assert_equal topic.body, event.description
+  end
 end

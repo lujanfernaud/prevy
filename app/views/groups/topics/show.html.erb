@@ -54,7 +54,7 @@
     <h3 class="text-center mt-2rem">Comment</h3>
 
     <%= form_for @comment,
-      url: group_topic_comments_path(@group, @topic, @comment) do |f| %>
+      url: group_topic_comments_path(@group, @topic, @comment, origin: controller_name) do |f| %>
       <%= render "error_messages", object: @comment %>
 
       <div class="form-group box p-4 mt-2rem mb-2rem">

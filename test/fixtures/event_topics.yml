@@ -1,0 +1,39 @@
+event_topic_one:
+  event: one
+  group: one
+  user: phil
+  title: Hatsumode Test Event
+  body: Body of Hatsumode Test Event.
+  type: EventTopic
+
+event_topic_two:
+  event: two
+  group: one
+  user: phil
+  title: Fushimi Inari-taisha Shrine Tour
+  body: Body of Fushimi Inari-taisha Shrine Tour.
+  type: EventTopic
+
+event_topic_three:
+  event: three
+  group: one
+  user: phil
+  title: Test event in Tokyo
+  body: Body of Test event in Tokyo.
+  type: EventTopic
+
+event_topic_four:
+  event: four
+  group: two
+  user: penny
+  title: Test event in Tokyo 2
+  body: Body of Test event in Tokyo 2.
+  type: EventTopic
+
+event_topic_five:
+  event: five
+  group: woodells_group
+  user: woodell
+  title: Test event in Tokyo 3
+  body: Body of Test event in Tokyo 3.
+  type: EventTopic

@@ -45,7 +45,7 @@ class Groups::Topics::CommentsControllerTest < ActionDispatch::IntegrationTest
       delete comment_url(@comment)
     end
 
-    assert_redirected_to group_topic_url(@group, @topic)
+    assert_redirected_to topic_url_with_css_id(@topic.comments.last)
   end
 
   private
