@@ -24,6 +24,7 @@ coverage
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/sandi_meter/*
 
 /node_modules
 /yarn-error.log
