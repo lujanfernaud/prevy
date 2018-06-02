@@ -24,7 +24,7 @@ class Groups::Topics::CommentsController < ApplicationController
 
     if @comment.save
       flash[:success] = "New comment created."
-      redirect_to group_topic_path(@group, @topic)
+      redirect_save
     else
       render "groups/topics/show"
     end
@@ -41,7 +41,7 @@ class Groups::Topics::CommentsController < ApplicationController
 
     if @comment.update_attributes(comment_params)
       flash[:success] = "Comment updated."
-      redirect_to group_topic_path(@group, @topic)
+      redirect_update
     else
       render :edit
     end
@@ -78,6 +78,18 @@ class Groups::Topics::CommentsController < ApplicationController
       TopicComment.new(
         comment_params.merge(topic: @topic, user: current_user)
       )
+    end
+
+    def redirect_save
+      redirect_to group_topic_path(@group, @topic) + comment_css_id
+    end
+
+    def redirect_update
+      redirect_to group_topic_path(@group, @topic) + comment_css_id
+    end
+
+    def comment_css_id
+      PreviousCommentCSSIdLocator.call(@comment)
     end
 
     def add_breadcrumbs_for_comment_edition

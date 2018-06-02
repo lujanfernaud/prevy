@@ -17,7 +17,7 @@ class Groups::Topics::CommentsControllerTest < ActionDispatch::IntegrationTest
       post group_topic_comments_url(@group, @topic), params: comment_params
     end
 
-    assert_redirected_to group_topic_url(@group, @topic)
+    assert_redirected_to topic_url_with_css_id(TopicComment.last)
   end
 
   test "should get edit" do
@@ -35,7 +35,7 @@ class Groups::Topics::CommentsControllerTest < ActionDispatch::IntegrationTest
 
     patch comment_url(@comment), params: new_params
 
-    assert_redirected_to group_topic_url(@group, @topic)
+    assert_redirected_to topic_url_with_css_id(@comment)
   end
 
   test "should destroy comment" do
@@ -56,5 +56,13 @@ class Groups::Topics::CommentsControllerTest < ActionDispatch::IntegrationTest
           body: "Hello!"
         }
       }
+    end
+
+    def topic_url_with_css_id(comment)
+      group_topic_url(@group, @topic) + comment_css_id(comment)
+    end
+
+    def comment_css_id(comment)
+      PreviousCommentCSSIdLocator.call(comment)
     end
 end
