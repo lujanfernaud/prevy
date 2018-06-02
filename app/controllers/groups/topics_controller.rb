@@ -103,7 +103,7 @@ class Groups::TopicsController < ApplicationController
     end
 
     def find_comments
-      @topic.comments.includes(:user)
+      @topic.comments
     end
 
     def create_topic

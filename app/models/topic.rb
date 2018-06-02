@@ -19,7 +19,7 @@ class Topic < ApplicationRecord
   }
 
   def comments
-    topic_comments
+    topic_comments.order(:created_at).includes(:user)
   end
 
   private
