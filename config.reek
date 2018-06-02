@@ -7,11 +7,27 @@
     enabled: false
   InstanceVariableAssumption:
     enabled: false
+
+"app/models":
+  IrresponsibleModule:
+    enabled: false
+
+"app/policies":
+  IrresponsibleModule:
+    enabled: false
+
 "app/helpers":
   IrresponsibleModule:
     enabled: false
   UtilityFunction:
     enabled: false
+
 "app/mailers":
+  InstanceVariableAssumption:
+    enabled: false
+
+"test":
+  IrresponsibleModule:
+    enabled: false
   InstanceVariableAssumption:
     enabled: false
