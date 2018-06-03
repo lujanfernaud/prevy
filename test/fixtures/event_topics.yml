@@ -5,6 +5,7 @@ event_topic_one:
   title: Hatsumode Test Event
   body: Body of Hatsumode Test Event.
   type: EventTopic
+  priority: 1
 
 event_topic_two:
   event: two
@@ -13,6 +14,7 @@ event_topic_two:
   title: Fushimi Inari-taisha Shrine Tour
   body: Body of Fushimi Inari-taisha Shrine Tour.
   type: EventTopic
+  priority: 1
 
 event_topic_three:
   event: three
@@ -21,6 +23,7 @@ event_topic_three:
   title: Test event in Tokyo
   body: Body of Test event in Tokyo.
   type: EventTopic
+  priority: 1
 
 event_topic_four:
   event: four
@@ -29,6 +32,7 @@ event_topic_four:
   title: Test event in Tokyo 2
   body: Body of Test event in Tokyo 2.
   type: EventTopic
+  priority: 1
 
 event_topic_five:
   event: five
@@ -37,3 +41,4 @@ event_topic_five:
   title: Test event in Tokyo 3
   body: Body of Test event in Tokyo 3.
   type: EventTopic
+  priority: 1

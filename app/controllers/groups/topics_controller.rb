@@ -93,8 +93,7 @@ class Groups::TopicsController < ApplicationController
 
     def find_all_topics
       Topic.all
-           .includes(:user)
-           .order(updated_at: :desc)
+           .prioritized
            .paginate(page: params[:page], per_page: 25)
     end
 

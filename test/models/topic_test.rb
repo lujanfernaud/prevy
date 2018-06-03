@@ -74,14 +74,61 @@ class TopicTest < ActiveSupport::TestCase
     assert "Event", topic.type_presentable
   end
 
+  test "#prioritized sorts by priority and date" do
+    prepare_group_topics
+
+    older_event_topic.touch
+    older_normal_topic.touch
+
+    expected_result = [
+      older_event_topic, newer_event_topic,
+      older_normal_topic, newer_normal_topic
+    ]
+
+    assert_equal expected_result, group.topics.prioritized
+  end
+
   private
 
     def fake_event_topic(params = {})
       fake_topic(
-        event: fake_event,
+        event: params[:event] || fake_event,
         group: fake_group,
         user:  fake_user,
         type:  params[:type] || "EventTopic"
       )
+    end
+
+    def prepare_group_topics
+      group_event_topics.offset(2).destroy_all
+      group_normal_topics.offset(2).destroy_all
+    end
+
+    def group_event_topics
+      group.topics.events
+    end
+
+    def group_normal_topics
+      group.topics.normal
+    end
+
+    def group
+      @_group ||= groups(:one)
+    end
+
+    def newer_event_topic
+      group_event_topics.first
+    end
+
+    def older_event_topic
+      group_event_topics.last
+    end
+
+    def newer_normal_topic
+      group_normal_topics.first
+    end
+
+    def older_normal_topic
+      group_normal_topics.last
     end
 end
