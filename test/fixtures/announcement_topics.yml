@@ -1,0 +1,17 @@
+announcement_topic_one:
+  group: one
+  user: phil
+  title: Announcement Topic One
+  body: Body of Announcement Topic One.
+  type: AnnouncementTopic
+  priority: 2
+  announcement: true
+
+announcement_topic_two:
+  group: one
+  user: phil
+  title: Announcement Topic Two
+  body: Body of Announcement Topic Two.
+  type: AnnouncementTopic
+  priority: 2
+  announcement: true

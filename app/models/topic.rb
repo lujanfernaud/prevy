@@ -26,14 +26,22 @@ class Topic < ApplicationRecord
     where(type: "EventTopic")
   }
 
-  def comments
-    topic_comments.order(:created_at).includes(:user)
+  scope :announcements, -> {
+    where(type: "AnnouncementTopic")
+  }
+
+  def normal?
+    !type
   end
 
   def type_presentable
     return unless type
 
     type.gsub("Topic", "")
+  end
+
+  def comments
+    topic_comments.order(:created_at).includes(:user)
   end
 
   private

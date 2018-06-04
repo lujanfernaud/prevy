@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180602214417) do
+ActiveRecord::Schema.define(version: 20180603154304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 20180602214417) do
     t.string "type"
     t.bigint "event_id"
     t.integer "priority", default: 0
+    t.boolean "announcement", default: false
     t.index ["event_id"], name: "index_topics_on_event_id"
     t.index ["group_id"], name: "index_topics_on_group_id"
     t.index ["priority"], name: "index_topics_on_priority"

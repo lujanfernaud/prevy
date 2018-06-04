@@ -23,7 +23,9 @@ class Group < ApplicationRecord
 
   has_many :events, dependent: :destroy
 
-  has_many :topics, dependent: :destroy
+  has_many :topics,              dependent: :destroy
+  has_many :event_topics,        dependent: :destroy
+  has_many :announcement_topics, dependent: :destroy
 
   has_many :notifications, dependent: :destroy
 
@@ -69,6 +71,10 @@ class Group < ApplicationRecord
 
   def user_sample_resource?
     sample_resource? && name =~ /\ASample\s/
+  end
+
+  def normal_topics
+    topics.normal
   end
 
   def recent_organizers

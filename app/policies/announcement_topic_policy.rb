@@ -1,0 +1,2 @@
+class AnnouncementTopicPolicy < TopicPolicy
+end

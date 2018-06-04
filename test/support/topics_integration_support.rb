@@ -8,12 +8,28 @@ module TopicsIntegrationSupport
     refute page.has_css? ".topics-container"
   end
 
-  def submit_new_topic_with(title, body)
+  def submit_new_topic_with(title, body, announcement: false)
     click_on "Submit a new topic"
 
     fill_topic_fields_with title, body
 
+    set_announcement_to(announcement)
+
     click_on "Create topic"
+  end
+
+  def set_announcement_to(value)
+    within ".announcement-box" do
+      choose "topic_announcement_#{value}"
+    end
+  end
+
+  def submit_new_announcement_topic
+    submit_new_topic_with(
+      "Test topic",
+      "This is the body of the test topic.",
+      announcement: true
+    )
   end
 
   def update_topic_with(title, body)
@@ -33,6 +49,23 @@ module TopicsIntegrationSupport
     find("trix-editor").click.set(text)
   end
 
+  def assert_last_topic_has_label(label, group:)
+    within last_topic_id(group) do
+      assert page.has_content? label
+    end
+  end
+
+  def last_topic_id(group)
+    "#topic-#{group.topics.last.id}"
+  end
+
+  def refute_topic_has_label(label, topic:)
+    within "#topic-#{topic.id}" do
+      refute page.has_content? label
+    end
+  end
+
+  # TODO: Extract the following methods to comments_integration_support.rb
   def submit_new_comment_with(body)
     fill_in_body_with body
 

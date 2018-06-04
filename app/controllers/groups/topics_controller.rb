@@ -50,7 +50,7 @@ class Groups::TopicsController < ApplicationController
     add_breadcrumbs_for_topic_creation
 
     if @topic.save
-      flash[:success] = "New topic created."
+      flash_save
       redirect_to group_topic_path(@group, @topic)
     else
       render :new
@@ -66,7 +66,7 @@ class Groups::TopicsController < ApplicationController
     add_breadcrumbs_for_topic_edition
 
     if topic_update_attributes
-      flash[:success] = "Topic updated."
+      flash_update
       redirect_to group_topic_path(@group, @topic)
     else
       render :edit
@@ -106,11 +106,45 @@ class Groups::TopicsController < ApplicationController
     end
 
     def create_topic
-      @group.topics.new(topic_params.merge(user: current_user))
+      if set_to_announcement?
+        @group.announcement_topics.new(topic_params_with_current_user)
+      else
+        @group.topics.new(topic_params_with_current_user)
+      end
     end
 
+    def set_to_announcement?
+      topic_params[:announcement] == "true"
+    end
+
+    def topic_params_with_current_user
+      topic_params.merge(user: current_user)
+    end
+
+    def topic_params
+      params.require(:topic).permit(:title, :body, :announcement)
+    end
+
+    def flash_save
+      if set_to_announcement?
+        flash[:success] = "New announcement topic created."
+      else
+        flash[:success] = "New topic created."
+      end
+    end
+
+    # TODO: Remove this method. It's not really necessary and doesn't
+    # improve code quality metrics.
     def topic_update_attributes
       @topic.update_attributes(topic_params)
+    end
+
+    def flash_update
+      if topic_params[:announcement] == "false"
+        flash[:success] = "Topic set to normal topic."
+      else
+        flash[:success] = "Topic updated."
+      end
     end
 
     def add_breadcrumbs_for_index
@@ -135,9 +169,5 @@ class Groups::TopicsController < ApplicationController
       add_breadcrumb "Topics", group_topics_path(@group)
       add_breadcrumb @topic.title, group_topic_path(@group, @topic)
       add_breadcrumb "Edit topic"
-    end
-
-    def topic_params
-      params.require(:topic).permit(:title, :body)
     end
 end
