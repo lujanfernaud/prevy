@@ -5,7 +5,7 @@ module IntegrationSupport
   end
 
   def log_in_as(user)
-    visit new_user_session_path
+    visit login_path
     introduce_log_in_information_as(user)
   end
 
@@ -18,11 +18,13 @@ module IntegrationSupport
     end
   end
 
-  def log_out_as(user)
-    within ".navbar" do
-      click_on user.name
-      click_on "Log out"
-    end
+  def log_out
+    visit logout_path
+  end
+
+  # TODO: Change all references to this method to 'log_out' and remove it
+  def log_out_as(_user)
+    visit logout_path
   end
 
   def assert_error(message)
