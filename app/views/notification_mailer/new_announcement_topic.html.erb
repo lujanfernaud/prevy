@@ -1,0 +1,9 @@
+<p>
+  Hello <%= @user.name %>,
+</p>
+<p>
+  There is a new announcement in <%= @group.name %>.
+</p>
+<p>
+  Go to announcement: <%= link_to @topic.title, group_topic_url(@group, @topic) %>
+</p>

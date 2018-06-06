@@ -124,6 +124,22 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match "Go to event", email.body.encoded
   end
 
+  test "#new_announcement_topic" do
+    topic = announcement_topics(:announcement_topic_one)
+    email = NotificationMailer.new_announcement_topic(@user, topic)
+
+    assert_email_to(email, @user)
+    assert_email_from(email)
+    assert_email_subject(email,
+                         "New announcement in #{@group.name}: #{topic.title}")
+
+    assert_match "Hello #{@user.name},", email.body.encoded
+    assert_match "There is a new announcement " \
+                 "in #{@group.name}", email.body.encoded
+
+    assert_match "Go to announcement", email.body.encoded
+  end
+
   private
 
     def assert_email_to(email, user)

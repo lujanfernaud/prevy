@@ -70,6 +70,17 @@ class NotificationMailer < ApplicationMailer
     )
   end
 
+  def new_announcement_topic(user, topic)
+    @user  = user
+    @topic = topic
+    @group = topic.group
+
+    mail(
+      to: @user.email,
+      subject: "New announcement in #{@group.name}: #{@topic.title}"
+    )
+  end
+
   private
 
     def default_notification_email(user, group, subject:)

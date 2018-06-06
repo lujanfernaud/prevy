@@ -211,7 +211,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
     assert_equal 0, ActionMailer::Base.deliveries.size
   end
 
-  test "user doesn't receive new events email notifications" do
+  test "user doesn't receive events email notifications" do
     @nike_group.members << @unnotifiable
     event = events(:one)
 
@@ -360,7 +360,8 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
         "user_membership_request_emails",
         "user_group_membership_emails",
         "user_group_role_emails",
-        "user_group_event_emails"
+        "user_group_event_emails",
+        "user_group_announcement_emails"
       ]
     end
 

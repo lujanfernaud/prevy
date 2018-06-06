@@ -11,7 +11,8 @@ admin:
     "membership_request_emails": true,
     "group_membership_emails": true,
     "group_role_emails": true,
-    "new_event_emails": true
+    "group_event_emails": true,
+    "group_announcement_emails": true
   }
   admin: true
 
@@ -26,7 +27,8 @@ phil:
     "membership_request_emails": true,
     "group_membership_emails": true,
     "group_role_emails": true,
-    "new_event_emails": true
+    "group_event_emails": true,
+    "group_announcement_emails": true
   }
 
 penny:
@@ -40,7 +42,8 @@ penny:
     "membership_request_emails": true,
     "group_membership_emails": true,
     "group_role_emails": true,
-    "new_event_emails": true
+    "group_event_emails": true,
+    "group_announcement_emails": true
   }
 
 woodell:
@@ -54,7 +57,8 @@ woodell:
     "membership_request_emails": true,
     "group_membership_emails": true,
     "group_role_emails": true,
-    "new_event_emails": true
+    "group_event_emails": true,
+    "group_announcement_emails": true
   }
 
 carolyn:
@@ -68,7 +72,8 @@ carolyn:
     "membership_request_emails": true,
     "group_membership_emails": true,
     "group_role_emails": true,
-    "new_event_emails": true
+    "group_event_emails": true,
+    "group_announcement_emails": true
   }
 
 onitsuka:
@@ -82,7 +87,8 @@ onitsuka:
     "membership_request_emails": true,
     "group_membership_emails": true,
     "group_role_emails": true,
-    "new_event_emails": true
+    "group_event_emails": true,
+    "group_announcement_emails": true
   }
 
 stranger:
@@ -96,7 +102,8 @@ stranger:
     "membership_request_emails": true,
     "group_membership_emails": true,
     "group_role_emails": true,
-    "new_event_emails": true
+    "group_event_emails": true,
+    "group_announcement_emails": true
   }
 
 stranger_two:
@@ -110,7 +117,8 @@ stranger_two:
     "membership_request_emails": true,
     "group_membership_emails": true,
     "group_role_emails": true,
-    "new_event_emails": true
+    "group_event_emails": true,
+    "group_announcement_emails": true
   }
 
 stranger_three:
@@ -124,7 +132,8 @@ stranger_three:
     "membership_request_emails": true,
     "group_membership_emails": true,
     "group_role_emails": true,
-    "new_event_emails": true
+    "group_event_emails": true,
+    "group_announcement_emails": true
   }
 
 unnotifiable:
@@ -138,7 +147,8 @@ unnotifiable:
     "membership_request_emails": false,
     "group_membership_emails": false,
     "group_role_emails": false,
-    "new_event_emails": false
+    "group_event_emails": false,
+    "group_announcement_emails": false
   }
 
 unconfirmed:
@@ -151,7 +161,8 @@ unconfirmed:
     "membership_request_emails": true,
     "group_membership_emails": true,
     "group_role_emails": true,
-    "new_event_emails": true
+    "group_event_emails": true,
+    "group_announcement_emails": true
   }
 
 <% 21.times do |n| %>
@@ -164,7 +175,8 @@ user_<%= n %>:
     "membership_request_emails": true,
     "group_membership_emails": true,
     "group_role_emails": true,
-    "new_event_emails": true
+    "group_event_emails": true,
+    "group_announcement_emails": true
   }
   sample_user: true
 <% end %>

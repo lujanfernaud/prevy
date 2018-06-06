@@ -53,6 +53,7 @@ class Users::NotificationsController < ApplicationController
       params.require(:user).permit(:membership_request_emails,
                                    :group_membership_emails,
                                    :group_role_emails,
-                                   :group_event_emails)
+                                   :group_event_emails,
+                                   :group_announcement_emails)
     end
 end

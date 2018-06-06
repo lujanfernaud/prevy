@@ -5,6 +5,7 @@ class AnnouncementTopic < Topic
 
   before_create :set_to_announcement
   before_update :set_to_normal_topic, if: :announcement_changed?
+  after_create  :notify_group_members
 
   private
 
@@ -16,5 +17,11 @@ class AnnouncementTopic < Topic
     def set_to_normal_topic
       self.becomes!(Topic)
       self.priority = 0
+    end
+
+    def notify_group_members
+      return if group.sample_group?
+
+      NewAnnouncementNotification.call(self)
     end
 end

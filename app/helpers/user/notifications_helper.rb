@@ -40,10 +40,13 @@ module User::NotificationsHelper
     end
   end
 
+  # TODO: Use polymorphism
   def see_notification_link(notification)
     case notification.type
     when "MembershipRequestNotification"
       go_to_request_link(notification)
+    when "AnnouncementTopicNotification"
+      go_to_announcement_link(notification)
     when "GroupMembershipNotification", "GroupRoleNotification"
       go_to_group_link(notification)
     end
@@ -65,12 +68,21 @@ module User::NotificationsHelper
         group: notification.group)
   end
 
+  def go_to_announcement_link(notification)
+    link_to "Go to announcement",
+      user_notification_redirecter_path(
+        notification: notification,
+        group: notification.group,
+        topic: notification.topic)
+  end
+
   def notification_link?(notification)
     return false if membership_request_declined?(notification)
 
     types = ["MembershipRequestNotification",
              "GroupMembershipNotification",
-             "GroupRoleNotification"]
+             "GroupRoleNotification",
+             "AnnouncementTopicNotification"]
 
     types.include?(notification.type)
   end

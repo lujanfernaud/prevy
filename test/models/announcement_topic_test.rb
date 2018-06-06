@@ -36,10 +36,27 @@ class TopicTest < ActiveSupport::TestCase
     assert_announcement_topic_properties(topic)
   end
 
+  test "notifies group members" do
+    topic = fake_announcement_topic
+
+    NewAnnouncementNotification.expects(:call).with(topic)
+
+    topic.save
+  end
+
+  test "does not notify group members if group is a sample group" do
+    sample_group = groups(:sample_group)
+    topic = fake_announcement_topic(sample_group)
+
+    NewAnnouncementNotification.expects(:call).never
+
+    topic.save
+  end
+
   private
 
-    def fake_announcement_topic
-      @group.announcement_topics.new(
+    def fake_announcement_topic(group = @group)
+      group.announcement_topics.new(
         user:  fake_user,
         title: "Test topic",
         body:  "Body of test topic. " * 3

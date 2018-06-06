@@ -21,6 +21,7 @@ class User < ApplicationRecord
     group_membership_emails   Boolean, default: true
     group_role_emails         Boolean, default: true
     group_event_emails        Boolean, default: true
+    group_announcement_emails Boolean, default: true
   end
 
   has_many :owned_groups, class_name: "Group", foreign_key: "user_id",
@@ -45,6 +46,7 @@ class User < ApplicationRecord
   has_many :membership_request_notifications
   has_many :group_membership_notifications
   has_many :group_role_notifications
+  has_many :announcement_topic_notifications
 
   validates :name, presence: true, length: { in: 3..50 }
 
@@ -89,7 +91,12 @@ class User < ApplicationRecord
   def notifications_optimized
     membership_request_notifications.includes(:membership_request) +
       group_membership_notifications.includes(group_membership: :group) +
-      group_role_notifications.includes(:group)
+      group_role_notifications.includes(:group) +
+      announcement_topic_notifications
+  end
+
+  def announcement_notifications
+    announcement_topic_notifications
   end
 
   def upcoming_attended_events

@@ -37,6 +37,19 @@ class Groups::TopicsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to group_topic_url(@group, Topic.last)
   end
 
+  test "should create announcement topic" do
+    ActionMailer::Base.deliveries.clear
+
+    sign_in @phil
+
+    assert_difference('AnnouncementTopic.count') do
+      post group_topics_url(@group), params: topic_params(announcement: "true")
+    end
+
+    assert_equal @group.members.size, ActionMailer::Base.deliveries.size
+    assert_redirected_to group_topic_url(@group, AnnouncementTopic.last)
+  end
+
   test "should show topic" do
     sign_in @penny
     @group.members << @penny
@@ -78,11 +91,12 @@ class Groups::TopicsControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-    def topic_params
+    def topic_params(announcement: "false")
       {
         topic: {
           title: @topic.title,
-          body: @topic.body
+          body: @topic.body,
+          announcement: announcement
         }
       }
     end
