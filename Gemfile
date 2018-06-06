@@ -65,6 +65,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'mocha',                         '~> 1.5'
   gem 'capybara',                      '~> 2.14'
   gem 'capybara-webkit',               '~> 1.15'
   gem 'capybara-screenshot',           '~> 1.0', '>= 1.0.18'
