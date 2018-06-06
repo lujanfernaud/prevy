@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     }
 
   devise_scope :user do
-    patch "/confirm" => "users/confirmations#confirm"
+    patch "confirm" => "users/confirmations#confirm"
+    get   "login"   => "devise/sessions#new"
+    get   "logout"  => "devise/sessions#destroy"
   end
 
   root "static_pages#home"
