@@ -9,7 +9,9 @@ require 'support/support'
 
 require 'capybara/rails'
 require 'capybara/minitest'
+
 require 'capybara-screenshot/minitest'
+Capybara::Screenshot.prune_strategy = { keep: 10 }
 
 Capybara.match = :prefer_exact
 Capybara.asset_host = 'http://localhost:3000'
