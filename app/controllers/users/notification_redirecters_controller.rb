@@ -6,21 +6,10 @@ class Users::NotificationRedirectersController < ApplicationController
     @group              = params[:group]
     @topic              = params[:topic]
 
-    # TODO: Remove
-    unless @membership_request || @group || @topic
-      flash_alert_and_return_to_user_notifications
-    end
-
     delete_notification_and_redirect
   end
 
   private
-
-    # TODO: Remove
-    def flash_alert_and_return_to_user_notifications
-      flash[:alert] = "The redirection could not be completed."
-      redirect_to user_notifications_path(@user) and return
-    end
 
     def delete_notification_and_redirect
       @notification.delete
