@@ -65,7 +65,7 @@ class Groups::TopicsController < ApplicationController
 
     add_breadcrumbs_for_topic_edition
 
-    if topic_update_attributes
+    if @topic.update_attributes(topic_params)
       flash_update
       redirect_to group_topic_path(@group, @topic)
     else
@@ -131,12 +131,6 @@ class Groups::TopicsController < ApplicationController
       else
         flash[:success] = "New topic created."
       end
-    end
-
-    # TODO: Remove this method. It's not really necessary and doesn't
-    # improve code quality metrics.
-    def topic_update_attributes
-      @topic.update_attributes(topic_params)
     end
 
     def flash_update
