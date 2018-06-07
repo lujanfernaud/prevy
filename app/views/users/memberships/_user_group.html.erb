@@ -29,9 +29,9 @@
     </p>
 
     <% if user.owned_groups.include?(group) %>
-      <%= links_for_owned_group(group) %>
+      <%= edit_group_link(group) %>
     <% else %>
-      <%= links_for_group_with_membership(group) %>
+      <%= cancel_membership_link(group) %>
     <% end %>
   </div>
 

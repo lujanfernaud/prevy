@@ -16,8 +16,10 @@ module User::UserMembershipsHelper
     pluralize_with_count("Member", scope: group.members_with_role)
   end
 
-  def links_for_owned_group(group)
-    edit_group_link(group)
+  def pluralize_with_count(title, scope:)
+    count = scope.count
+
+    title.pluralize(count) + ": #{count}"
   end
 
   def edit_group_link(group)
@@ -28,18 +30,10 @@ module User::UserMembershipsHelper
     end
   end
 
-  def links_for_group_with_membership(group)
+  def cancel_membership_link(group)
     link_to "Cancel membership",
       group_member_path(group, current_user),
       method: :delete,
       data: { confirm: "Are you sure to cancel your membership to '#{group.name}'?"}
   end
-
-  private
-
-    def pluralize_with_count(title, scope:)
-      count = scope.count
-
-      title.pluralize(count) + ": #{count}"
-    end
 end
