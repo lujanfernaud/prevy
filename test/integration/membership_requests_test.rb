@@ -10,6 +10,8 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
   end
 
   test "user requests membership" do
+    @woodell.notifications.destroy_all
+
     log_in_as @woodell
 
     visit group_path @pennys_group
@@ -58,6 +60,8 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
   end
 
   test "group owner accepts membership request" do
+    @woodell.notifications.destroy_all
+
     send_membership_request_as @woodell
 
     #
@@ -96,6 +100,8 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
   end
 
   test "group owner declines membership request" do
+    @woodell.notifications.destroy_all
+
     send_membership_request_as @woodell
 
     #
