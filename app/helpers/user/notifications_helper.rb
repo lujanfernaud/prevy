@@ -46,7 +46,7 @@ module User::NotificationsHelper
   end
 
   def resource_link(notification)
-    return unless notification.link
+    return if notification.link.empty?
 
     link_to notification.link[:text], notification.link[:path]
   end

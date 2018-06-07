@@ -4,6 +4,6 @@ class Notification < ApplicationRecord
   validates :message, presence: true
 
   def link
-    false
+    {}
   end
 end
