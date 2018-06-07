@@ -21,7 +21,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
     assert_membership_request_was_sent
     assert_membership_requests_link
 
-    log_out_as @woodell
+    log_out
 
     #
     # Switch User
@@ -32,7 +32,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
     assert_notifications
     assert_membership_requests_link
 
-    log_out_as @penny
+    log_out
 
     #
     # Switch User
@@ -47,7 +47,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Your membership request was deleted."
     refute_membership_requests_link
 
-    log_out_as @woodell
+    log_out
 
     #
     # Switch User
@@ -86,7 +86,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
     refute_notifications
     refute_membership_requests_link
 
-    log_out_as @penny
+    log_out
 
     #
     # Switch User
@@ -124,7 +124,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
     refute_notifications
     refute_membership_requests_link
 
-    log_out_as @penny
+    log_out
 
     #
     # Switch User
@@ -161,7 +161,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
       log_in_as user
       visit group_path group
       send_membership_request
-      log_out_as user
+      log_out
     end
 
     def last_membership_request

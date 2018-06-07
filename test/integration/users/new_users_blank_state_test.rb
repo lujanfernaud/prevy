@@ -79,7 +79,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     visit group_path(nike_group)
     send_membership_request
 
-    log_out_as(new_user)
+    log_out
 
     group_owner_accepts_membership_request_for(nike_group)
 
@@ -167,7 +167,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     def group_owner_accepts_membership_request_for(group)
       log_in_as(group.owner)
       accept_membership_request_as(group.owner)
-      log_out_as(group.owner)
+      log_out
     end
 
     def accept_membership_request_as(user)

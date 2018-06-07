@@ -44,7 +44,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
       click_on "Accept"
     end
 
-    log_out_as(@phil)
+    log_out
 
     log_in_as(@carolyn)
 
@@ -88,7 +88,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
       click_on "Accept"
     end
 
-    log_out_as(@phil)
+    log_out
 
     log_in_as(@unnotifiable)
 
@@ -112,7 +112,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
       click_on "Organizer [ + ]"
     end
 
-    log_out_as(@phil)
+    log_out
 
     log_in_as(@unnotifiable)
 
@@ -145,7 +145,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
       click_on "Decline"
     end
 
-    log_out_as(@phil)
+    log_out
 
     log_in_as(@unnotifiable)
 
@@ -165,7 +165,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
       click_on "Accept"
     end
 
-    log_out_as(@phil)
+    log_out
 
     log_in_as(@unnotifiable)
 
@@ -185,14 +185,14 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
       click_on "Organizer [ + ]"
     end
 
-    log_out_as(@phil)
+    log_out
 
     log_in_as(@unnotifiable)
 
     assert_regular_notifications
     assert_equal 0, ActionMailer::Base.deliveries.size
 
-    log_out_as(@unnotifiable)
+    log_out
 
     log_in_as(@phil)
     ActionMailer::Base.deliveries.clear
@@ -203,7 +203,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
       click_on "Organizer [ - ]"
     end
 
-    log_out_as(@phil)
+    log_out
 
     log_in_as(@unnotifiable)
 
@@ -222,7 +222,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
 
     create_event(event)
 
-    log_out_as(@phil)
+    log_out
 
     assert_equal 0, ActionMailer::Base.deliveries.size
   end
@@ -325,7 +325,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
       fill_in "Message", with: "Hey! I'm Unnotifiable!"
       click_on "Send request"
 
-      log_out_as @unnotifiable
+      log_out
     end
 
     def assert_regular_notifications

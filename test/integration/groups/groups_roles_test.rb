@@ -20,7 +20,7 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
     visit edit_group_path @pennys_group
     set_all_members_can_create_events_to true
 
-    log_out_as @penny
+    log_out
 
     assert_user_can_create_events @phil,    group: @pennys_group
     assert_user_can_create_events @woodell, group: @pennys_group
@@ -34,7 +34,7 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
     visit edit_group_path @pennys_group
     set_all_members_can_create_events_to true
 
-    log_out_as @penny
+    log_out
 
     assert_user_can_create_events @phil,    group: @pennys_group
     assert_user_can_create_events @woodell, group: @pennys_group
@@ -44,7 +44,7 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
     visit edit_group_path @pennys_group
     set_all_members_can_create_events_to false
 
-    log_out_as @penny
+    log_out
 
     refute_user_can_create_events @phil,    group: @pennys_group
     refute_user_can_create_events @woodell, group: @pennys_group
@@ -66,7 +66,7 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
 
     assert_equal 2, @group.organizers.count
 
-    log_out_as @phil
+    log_out
 
     log_in_as @woodell
 
@@ -96,7 +96,7 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
 
     assert_equal 1, @group.organizers.count
 
-    log_out_as @phil
+    log_out
 
     log_in_as @woodell
 
@@ -133,14 +133,14 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
       log_in_as(user)
       visit group_path(group)
       assert page.has_link? "Create event"
-      log_out_as(user)
+      log_out
     end
 
     def refute_user_can_create_events(user, group:)
       log_in_as(user)
       visit group_path(group)
       refute page.has_link? "Create event"
-      log_out_as(user)
+      log_out
     end
 
     def set_all_members_can_create_events_to(option)
