@@ -44,12 +44,18 @@ module User::NotificationsHelper
   def see_notification_link(notification)
     case notification.type
     when "MembershipRequestNotification"
-      go_to_request_link(notification)
+      resource_link(notification)
     when "AnnouncementTopicNotification"
       go_to_announcement_link(notification)
     when "GroupMembershipNotification", "GroupRoleNotification"
       go_to_group_link(notification)
     end
+  end
+
+  def resource_link(notification)
+    return unless notification.link
+
+    link_to notification.link[:text], notification.link[:path]
   end
 
   def go_to_request_link(notification)
