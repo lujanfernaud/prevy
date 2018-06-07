@@ -2,7 +2,7 @@ class MembershipRequestNotification < Notification
   belongs_to :membership_request
 
   def link
-    return {} unless membership_request
+    return {} if !membership_request || membership_request_declined?
 
     { text: "Go to request", path: notification_redirecter_path_with_params }
   end
@@ -16,5 +16,9 @@ class MembershipRequestNotification < Notification
              notification: self,
              membership_request: membership_request
            )
+    end
+
+    def membership_request_declined?
+      message.match(/declined/)
     end
 end
