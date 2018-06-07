@@ -4,21 +4,16 @@ class MembershipRequestNotification < Notification
   def link
     return {} if !membership_request || membership_request_declined?
 
-    { text: "Go to request", path: notification_redirecter_path_with_params }
+    { text: "Go to request", path: notification_redirecter_path }
   end
 
   private
 
-    def notification_redirecter_path_with_params
-      Rails.application.routes.url_helpers
-           .user_notification_redirecter_path(
-             user,
-             notification: self,
-             membership_request: membership_request
-           )
-    end
-
     def membership_request_declined?
       message.match(/declined/)
+    end
+
+    def notification_redirecter_path
+      redirecter_path(membership_request: membership_request)
     end
 end
