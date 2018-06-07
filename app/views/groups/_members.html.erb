@@ -26,9 +26,11 @@
 
           <% end %>
 
-          <div class="text-center">
-            <%= see_all_members_link(group, quantity: 12) %>
-          </div>
+          <% if group.members.count > 12 %>
+            <div class="text-center mb-4">
+              <%= see_all_members_link(group, quantity: 12) %>
+            </div>
+          <% end %>
 
         </div>
       </div>
