@@ -2,6 +2,7 @@ require 'test_helper'
 
 class CommentsUpdateTest < ActionDispatch::IntegrationTest
   include TopicsIntegrationSupport
+  include CommentsIntegrationSupport
 
   def setup
     @group   = groups(:one)

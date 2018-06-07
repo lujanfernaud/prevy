@@ -2,6 +2,7 @@ require 'test_helper'
 
 class EventsCommentsTest < ActionDispatch::IntegrationTest
   include TopicsIntegrationSupport
+  include CommentsIntegrationSupport
 
   def setup
     @phil  = users(:phil)

@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class CommentsShowTest < ActionDispatch::IntegrationTest
-  include TopicsIntegrationSupport
-
   def setup
     @group   = groups(:one)
     @phil    = users(:phil)
