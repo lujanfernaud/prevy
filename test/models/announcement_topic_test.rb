@@ -3,13 +3,14 @@ require 'test_helper'
 class TopicTest < ActiveSupport::TestCase
   include UserSupport
   include TopicsSupport
+  include TopicsTestCaseSupport
 
   def setup
     @group = groups(:one)
   end
 
   test "sets priority and announcement on creation" do
-    topic = fake_announcement_topic
+    topic = fake_announcement_topic(@group)
 
     topic.save
 
@@ -37,7 +38,7 @@ class TopicTest < ActiveSupport::TestCase
   end
 
   test "notifies group members" do
-    topic = fake_announcement_topic
+    topic = fake_announcement_topic(@group)
 
     NewAnnouncementNotification.expects(:call).with(topic)
 
@@ -54,14 +55,6 @@ class TopicTest < ActiveSupport::TestCase
   end
 
   private
-
-    def fake_announcement_topic(group = @group)
-      group.announcement_topics.new(
-        user:  fake_user,
-        title: "Test topic",
-        body:  "Body of test topic. " * 3
-      )
-    end
 
     def assert_announcement_topic_properties(topic)
       assert_equal "AnnouncementTopic", topic.class.name
