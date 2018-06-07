@@ -8,12 +8,6 @@ class Notification < ApplicationRecord
   end
 
   def redirecter_path(**params)
-    Rails.application
-         .routes
-         .url_helpers
-         .user_notification_redirecter_path(
-           user,
-           { notification: self }.merge(params)
-         )
+    NotificationRedirecter.path(self, **params)
   end
 end

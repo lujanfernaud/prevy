@@ -19,26 +19,10 @@ class NotificationTest < ActiveSupport::TestCase
 
   test "#redirecter_path" do
     notification = group_role_notifications(:roles_one)
-    user  = notification.user
     group = notification.group
 
-    expected_result = notification_redirecter_path(
-      user,
-      notification: notification,
-      group: group
-    )
+    NotificationRedirecter.expects(:path).with(notification, group: group)
 
-    result = notification.redirecter_path(group: group)
-
-    assert_equal expected_result, result
+    notification.redirecter_path(group: group)
   end
-
-  private
-
-    def notification_redirecter_path(user, **params)
-      Rails.application
-           .routes
-           .url_helpers
-           .user_notification_redirecter_path(user, params)
-    end
 end
