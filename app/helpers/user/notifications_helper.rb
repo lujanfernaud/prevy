@@ -46,7 +46,7 @@ module User::NotificationsHelper
     when "MembershipRequestNotification"
       resource_link(notification)
     when "AnnouncementTopicNotification"
-      go_to_announcement_link(notification)
+      resource_link(notification)
     when "GroupMembershipNotification", "GroupRoleNotification"
       go_to_group_link(notification)
     end

@@ -1,0 +1,8 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+announcement_topic_notification_one:
+  user: woodell
+  group: one
+  topic: announcement_topic_one
+  type: AnnouncementTopicNotification
+  message: "New announcement in Nike"
