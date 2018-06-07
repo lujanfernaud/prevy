@@ -51,12 +51,7 @@ module User::NotificationsHelper
     link_to notification.link[:text], notification.link[:path]
   end
 
-  def notification_link?(notification)
-    types = ["MembershipRequestNotification",
-             "GroupMembershipNotification",
-             "GroupRoleNotification",
-             "AnnouncementTopicNotification"]
-
-    types.include?(notification.type)
+  def resource_link?(notification)
+    !notification.link.empty?
   end
 end
