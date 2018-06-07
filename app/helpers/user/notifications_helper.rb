@@ -40,11 +40,6 @@ module User::NotificationsHelper
     end
   end
 
-  # TODO: Use polymorphism
-  def see_notification_link(notification)
-    resource_link(notification)
-  end
-
   def resource_link(notification)
     return if notification.link.empty?
 

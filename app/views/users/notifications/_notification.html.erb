@@ -10,11 +10,11 @@
     </div>
 
     <div class="notification__info mt-1">
-      <span class="notification__link">
-        <%= see_notification_link(notification) %>
-      </span>
-
       <% if resource_link?(notification) %>
+        <span class="notification__link">
+          <%= resource_link(notification) %>
+        </span>
+
         <span> · </span>
       <% end %>
 
