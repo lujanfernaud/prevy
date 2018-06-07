@@ -50,7 +50,7 @@ module User::NotificationsHelper
     when "GroupRoleNotification"
       resource_link(notification)
     when "GroupMembershipNotification"
-      go_to_group_link(notification)
+      resource_link(notification)
     end
   end
 
