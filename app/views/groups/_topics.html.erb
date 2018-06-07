@@ -12,11 +12,19 @@
 
           <div class="row p-3">
             <div class="col-md-12">
-              <%= render partial: "groups/topics/topic_row",
-                as: :topic, collection: @topics,
-                locals: { topics: @topics, group: @group } %>
+
+              <% unless @topics.empty? %>
+                <%= render partial: "groups/topics/topic_row",
+                  as: :topic, collection: @topics,
+                  locals: { topics: @topics, group: @group } %>
+              <% else %>
+                <p class="lead text-center mt-1 mb-2 pb-1">
+                  This looks better with some topics. Why don't you create one? :)
+                </p>
+              <% end %>
+
             </div>
-          </div>
+          </div><!-- ./row -->
 
           <hr class="latest-topics__hr mx-3 px-2 mt-0">
 
