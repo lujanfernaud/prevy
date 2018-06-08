@@ -28,11 +28,15 @@
       <%= render "organizers_and_members", group: group %>
     </p>
 
-    <% if user.owned_groups.include?(group) %>
-      <%= edit_group_link(group) %>
-    <% else %>
-      <%= cancel_membership_link(group) %>
-    <% end %>
+    <div class="flex-row">
+      <% if user.owned_groups.include?(group) %>
+        <%= edit_group_link(group) %>
+        <span> | </span>
+        <%= edit_roles_link(group) %>
+      <% else %>
+        <%= cancel_membership_link(group) %>
+      <% end %>
+    </div>
   </div>
 
 </div>

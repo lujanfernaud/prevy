@@ -30,6 +30,10 @@ module User::UserMembershipsHelper
     end
   end
 
+  def edit_roles_link(group)
+    link_to "Edit roles", group_roles_path(group)
+  end
+
   def cancel_membership_link(group)
     link_to "Cancel membership",
       group_member_path(group, current_user),
