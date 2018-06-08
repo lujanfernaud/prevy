@@ -3,5 +3,7 @@ class Groups::RolesController < ApplicationController
     @group = Group.find(params[:group_id])
     @organizers = User.with_role :organizer, @group
     @members = User.with_role :member, @group
+
+    authorize :group_role
   end
 end
