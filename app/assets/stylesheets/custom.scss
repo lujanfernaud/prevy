@@ -375,6 +375,26 @@ body {
 }
 
 
+// Group Roles
+
+
+.roles-user__avatar {
+  flex-basis: 20%;
+
+  @include media-breakpoint-up(md) {
+    flex-basis: 7%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    flex-basis: 5%;
+  }
+}
+
+.roles-user__info {
+  flex-basis: 100%;
+}
+
+
 // Groups
 
 

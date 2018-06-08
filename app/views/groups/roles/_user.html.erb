@@ -1,0 +1,48 @@
+<div class="roles-user d-flex flex-row" id="roles-user-<%= user.id %>">
+
+  <div class="roles-user__avatar mr-2">
+    <div class="intrinsic-ratio-container
+      intrinsic-ratio-container--square">
+      <%= link_to user_path(user), class: "display-block" do %>
+        <%= image_tag gravatar_image_url(user.email),
+          class: "lazyload blur-up
+            img-fluid intrinsic-ratio-image user-avatar d-block",
+          alt: user.name %>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="roles-user__info d-flex flex-column flex-md-row align-self-center">
+    <%= link_to user.name, user_path(user) %>
+
+    <% if user.has_role? :organizer, group %>
+      <span class="ml-md-2">[Organizer]</span>
+    <% end %>
+
+    <div class="roles-user__links ml-md-1">
+      <% unless user == group.owner %>
+        <% if user.has_role? :organizer, group %>
+          <%= link_to group_organizer_path(group, user),
+            method: :delete,
+            data: {
+              confirm: "Are you sure to remove the organizer role from #{user.name}?"
+            },
+            class: "ml-md-1" do %>
+              (Remove <em>organizer</em> role)
+          <% end %>
+        <% else %>
+          <%= link_to group_organizers_path(group, user_id: user),
+            method: :post, class: "ml-md-1" do %>
+            (Add <em>organizer</em> role)
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
+<% unless user == user_collection.last %>
+  <hr class="mt-3 mb-3">
+<% end %>

@@ -1,0 +1,43 @@
+<div class="container topics-container">
+  <div class="row">
+    <div class="col-md-12 mb-3">
+
+      <h2 class="text-center mt-4 pt-1 mb-2rem">
+        <%= @group.name %> Roles
+      </h2>
+
+      <div class="box topics-box mt-4 mb-2rem p-2">
+
+        <div class="row p-3">
+          <div class="col-md-12">
+
+            <div class="roles-organizers-container mb-4">
+              <h3 class="mb-4">Organizers</h3>
+
+              <%= render partial: "user",
+                collection: @organizers, as: :user,
+                locals: { group: @group, user_collection: @organizers } %>
+            </div>
+
+            <div class="roles-members-container">
+              <h3 class="mb-4">Members</h3>
+
+              <% unless @members.empty? %>
+                <%= render partial: "user",
+                  collection: @members, as: :user,
+                  locals: { group: @group, user_collection: @members } %>
+              <% else %>
+                <p class="mb-0">
+                  Right now there are no users with a <em>member</em> role.
+                </p>
+              <% end %>
+            </div>
+
+          </div>
+        </div><!-- ./row -->
+
+      </div>
+
+    </div>
+  </div>
+</div>
