@@ -64,31 +64,32 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_notifications_link(email)
   end
 
-  test "#added_to_organizers" do
-    email = NotificationMailer.added_to_organizers(@user, @group)
+  test "#added_group_role" do
+    email = NotificationMailer.added_group_role(@user, @group, "organizer")
 
     assert_email_to(email, @user)
     assert_email_from(email)
-    assert_email_subject(email, "You are now an organizer in #{@group.name}!")
+    assert_email_subject(email,
+                         "You now have organizer role in #{@group.name}!")
 
     assert_match "Congratulations #{@user.name}!", email.body.encoded
-    assert_match "You are now an organizer in #{@group.name}!",
+    assert_match "You now have organizer role in #{@group.name}!",
                   email.body.encoded
 
     assert_notifications_link(email)
   end
 
-  test "#deleted_from_organizers" do
-    email = NotificationMailer.deleted_from_organizers(@user, @group)
+  test "#deleted_group_role" do
+    email = NotificationMailer.deleted_group_role(@user, @group, "organizer")
 
     assert_email_to(email, @user)
     assert_email_from(email)
     assert_email_subject(email,
-                         "You are no longer an organizer in #{@group.name}")
+                         "You no longer have organizer role in #{@group.name}")
 
     assert_match "Hello #{@user.name},", email.body.encoded
-    assert_match "We're sorry to say that you are no longer " \
-                 "an organizer in #{@group.name}.", email.body.encoded
+    assert_match "We're sorry to say that you no longer " \
+                 "have organizer role in #{@group.name}.", email.body.encoded
 
     assert_notifications_link(email)
   end

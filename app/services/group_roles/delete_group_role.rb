@@ -33,6 +33,6 @@ class DeleteGroupRole
 
       return unless user.group_role_emails?
 
-      DeleteGroupRoleJob.perform_async(user, group)
+      DeleteGroupRoleJob.perform_async(user, group, role)
     end
 end

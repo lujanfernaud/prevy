@@ -33,6 +33,6 @@ class AddGroupRole
 
       return unless user.group_role_emails?
 
-      AddGroupRoleJob.perform_async(user, group)
+      AddGroupRoleJob.perform_async(user, group, role)
     end
 end

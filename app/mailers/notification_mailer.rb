@@ -34,17 +34,21 @@ class NotificationMailer < ApplicationMailer
     )
   end
 
-  def added_to_organizers(user, group)
-    default_notification_email(
-      user, group,
-      subject: "You are now an organizer in #{group.name}!"
+  def added_group_role(user, group, role)
+    group_role_notification_email(
+      user:  user,
+      group: group,
+      role:  role,
+      subject: "You now have #{role} role in #{group.name}!"
     )
   end
 
-  def deleted_from_organizers(user, group)
-    default_notification_email(
-      user, group,
-      subject: "You are no longer an organizer in #{group.name}"
+  def deleted_group_role(user, group, role)
+    group_role_notification_email(
+      user:  user,
+      group: group,
+      role:  role,
+      subject: "You no longer have #{role} role in #{group.name}"
     )
   end
 
@@ -91,6 +95,18 @@ class NotificationMailer < ApplicationMailer
       mail(
         to: @user.email,
         subject: subject
+      )
+    end
+
+    def group_role_notification_email(params)
+      @user  = params[:user]
+      @group = params[:group]
+      @role  = params[:role]
+      @url   = user_notifications_url(@user)
+
+      mail(
+        to: @user.email,
+        subject: params[:subject]
       )
     end
 end

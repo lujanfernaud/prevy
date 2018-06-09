@@ -1,5 +1,5 @@
 class DeleteGroupRoleJob < ApplicationJob
-  def perform(user, group)
-    NotificationMailer.deleted_from_organizers(user, group).deliver_now
+  def perform(user, group, role)
+    NotificationMailer.deleted_group_role(user, group, role).deliver_now
   end
 end
