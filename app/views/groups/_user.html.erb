@@ -17,9 +17,5 @@
       <%= link_to user.name,
         user_path(user, member_of: group) %>
     </div>
-
-    <% if controller_name == "memberships" %>
-      <%= add_or_delete_organizer(user, group) %>
-    <% end %>
   </div>
 </div>

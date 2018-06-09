@@ -106,10 +106,10 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
 
     log_in_as(@phil)
 
-    visit group_members_url(@nike_group)
+    visit group_roles_path(@nike_group)
 
-    within "#user-#{@unnotifiable.id}" do
-      click_on "Organizer [ + ]"
+    within "#roles-user-#{@unnotifiable.id}" do
+      click_on "Add organizer role"
     end
 
     log_out
@@ -179,10 +179,10 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
     log_in_as(@phil)
     ActionMailer::Base.deliveries.clear
 
-    visit group_members_url(@nike_group)
+    visit group_roles_path(@nike_group)
 
-    within "#user-#{@unnotifiable.id}" do
-      click_on "Organizer [ + ]"
+    within "#roles-user-#{@unnotifiable.id}" do
+      click_on "Add organizer role"
     end
 
     log_out
@@ -197,10 +197,10 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
     log_in_as(@phil)
     ActionMailer::Base.deliveries.clear
 
-    visit group_members_url(@nike_group)
+    visit group_roles_path(@nike_group)
 
-    within "#user-#{@unnotifiable.id}" do
-      click_on "Organizer [ - ]"
+    within "#roles-user-#{@unnotifiable.id}" do
+      click_on "Remove organizer role"
     end
 
     log_out
