@@ -13,14 +13,14 @@ module Group::GroupMembershipsHelper
   end
 
   def add_to_organizers_link(user, group)
-    link_to group_organizers_path(group, user_id: user), method: :post,
+    link_to group_roles_path(group, user_id: user, role: "organizer"), method: :post,
       class: "mt-2" do
       "Organizer [ <b>+</b> ]".html_safe
     end
   end
 
   def delete_from_organizers_link(user, group)
-    link_to group_organizer_path(group, user), method: :delete,
+    link_to group_role_path(group, user, role: "organizer"), method: :delete,
       confirm: "Are you sure to delete #{user.name} from organizers?",
       class: "mt-2" do
         "Organizer [<b> - </b>]".html_safe

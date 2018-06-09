@@ -29,13 +29,12 @@ Rails.application.routes.draw do
   end
 
   resources :groups do
-    resources :roles, only: :index, controller: "groups/roles"
     resources :memberships, as: :members, only: [:index, :create, :destroy],
       controller: "groups/memberships"
     resources :membership_requests,       only: [:new, :create, :destroy],
       controller: "groups/membership_requests"
-    resources :organizers,                only: [:create, :destroy],
-      controller: "groups/organizers"
+    resources :roles,                     only: [:index, :create, :destroy],
+      controller: "groups/roles"
     resources :events
 
     resources :topics, controller: "groups/topics" do

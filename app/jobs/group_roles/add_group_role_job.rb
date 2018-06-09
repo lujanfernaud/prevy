@@ -1,4 +1,4 @@
-class AddGroupOrganizerJob < ApplicationJob
+class AddGroupRoleJob < ApplicationJob
   def perform(user, group)
     NotificationMailer.added_to_organizers(user, group).deliver_now
   end

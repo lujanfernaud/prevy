@@ -22,8 +22,9 @@
 
     <div class="roles-user__links ml-md-1">
       <% unless user == group.owner %>
+
         <% if user.has_role? :organizer, group %>
-          <%= link_to group_organizer_path(group, user),
+          <%= link_to group_role_path(group, user, role: "organizer"),
             method: :delete,
             data: {
               confirm: "Are you sure to remove the organizer role from #{user.name}?"
@@ -32,7 +33,7 @@
               (Remove <em>organizer</em> role)
           <% end %>
         <% else %>
-          <%= link_to group_organizers_path(group, user_id: user),
+          <%= link_to group_roles_path(group, user_id: user, role: "organizer"),
             method: :post, class: "ml-md-1" do %>
             (Add <em>organizer</em> role)
           <% end %>
