@@ -11,8 +11,8 @@
         <div class="row p-3">
           <div class="col-md-12">
 
-            <div class="roles-organizers-moderators-container mb-4">
-              <h3 class="mb-4">Organizers & Moderators</h3>
+            <div class="roles-organizers-moderators-container mb-2rem">
+              <h3 class="mb-2rem">Organizers & Moderators</h3>
 
               <%= render partial: "user",
                 collection: @organizers_and_moderators, as: :user,
@@ -23,7 +23,7 @@
             </div>
 
             <div class="roles-members-container">
-              <h3 class="mb-4">Members</h3>
+              <h3 class="mb-2rem">Members</h3>
 
               <% unless @members.empty? %>
                 <%= render partial: "user",
