@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
+  def setup
+    @group   = groups(:one)
+    @woodell = users(:woodell)
+  end
+
   test "is valid" do
     group = fake_group
 
@@ -108,5 +113,54 @@ class GroupTest < ActiveSupport::TestCase
 
     assert_equal owner, group.organizers.last
     assert_equal owner, group.moderators.last
+  end
+
+  test "#add_to_organizers" do
+    @woodell.add_role :member, @group
+    @woodell.remove_role :organizer, @group
+
+    @group.add_to_organizers @woodell
+
+    assert @group.organizers.include? @woodell
+    refute @woodell.has_role? :member, @group
+  end
+
+  test "#remove_from_organizers" do
+    @woodell.add_role :organizer, @group
+
+    @group.remove_from_organizers @woodell
+
+    refute @group.organizers.include? @woodell
+    assert @woodell.has_role? :member, @group
+  end
+
+  test "#add_to_moderators having 'organizer' role" do
+    @woodell.add_role :organizer, @group
+
+    @group.add_to_moderators @woodell
+
+    assert @group.organizers.include? @woodell
+    assert @group.moderators.include? @woodell
+    refute @woodell.has_role? :member, @group
+  end
+
+  test "#remove_from_moderators having 'organizer' role" do
+    @woodell.add_role :organizer, @group
+    @woodell.add_role :moderator, @group
+
+    @group.remove_from_moderators @woodell
+
+    refute @group.moderators.include? @woodell
+    assert @group.organizers.include? @woodell
+    refute @woodell.has_role? :member, @group
+  end
+
+  test "#remove_from_moderators" do
+    @woodell.add_role :moderator, @group
+
+    @group.remove_from_moderators @woodell
+
+    refute @group.moderators.include? @woodell
+    assert @woodell.has_role? :member, @group
   end
 end

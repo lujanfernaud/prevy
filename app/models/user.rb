@@ -74,6 +74,10 @@ class User < ApplicationRecord
          .references(:group_memberships)
   end
 
+  def group_roles(group)
+    roles.where(resource_id: group).map(&:name)
+  end
+
   def events_from_groups
     Event.where(group_id: groups.map(&:id)).upcoming
   end

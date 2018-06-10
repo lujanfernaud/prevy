@@ -1,4 +1,6 @@
 class Group < ApplicationRecord
+  SPECIAL_ROLES = ["organizer", "moderator"].freeze
+
   include PgSearch
 
   include FriendlyId
@@ -98,35 +100,19 @@ class Group < ApplicationRecord
   end
 
   def add_to_organizers(member)
-    if member.has_role? :moderator, self
-      member.add_role :organizer, self
-    else
-      change_role_for member, remove_as: :member, add_as: :organizer
-    end
+    add_role_to member, role: :organizer
   end
 
   def remove_from_organizers(member)
-    if member.has_role? :moderator, self
-      member.remove_role :organizer, self
-    else
-      change_role_for member, remove_as: :organizer, add_as: :member
-    end
+    remove_role_from member, role: :organizer
   end
 
   def add_to_moderators(member)
-    if member.has_role? :organizer, self
-      member.add_role :moderator, self
-    else
-      change_role_for member, remove_as: :member, add_as: :moderator
-    end
+    add_role_to member, role: :moderator
   end
 
   def remove_from_moderators(member)
-    if member.has_role? :organizer, self
-      member.remove_role :moderator, self
-    else
-      change_role_for member, remove_as: :moderator, add_as: :member
-    end
+    remove_role_from member, role: :moderator
   end
 
   private
@@ -187,9 +173,33 @@ class Group < ApplicationRecord
       members.each { |member| remove_from_organizers(member) }
     end
 
+    def add_role_to(member, role:)
+      if has_member_role? member
+        change_role_for member, remove_as: :member, add_as: role
+      else
+        member.add_role role, self
+      end
+    end
+
+    def has_member_role?(member)
+      member.has_role? :member, self
+    end
+
     def change_role_for(member, remove_as:, add_as:)
       member.remove_role remove_as, self
       member.add_role add_as, self
+    end
+
+    def remove_role_from(member, role:)
+      if only_has_one_special_role? member
+        change_role_for member, remove_as: role, add_as: :member
+      else
+        member.remove_role role, self
+      end
+    end
+
+    def only_has_one_special_role?(member)
+      !(SPECIAL_ROLES - member.group_roles(self)).empty?
     end
 
     def create_image_placeholder
