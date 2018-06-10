@@ -11,12 +11,15 @@
         <div class="row p-3">
           <div class="col-md-12">
 
-            <div class="roles-organizers-container mb-4">
-              <h3 class="mb-4">Organizers</h3>
+            <div class="roles-organizers-moderators-container mb-4">
+              <h3 class="mb-4">Organizers & Moderators</h3>
 
               <%= render partial: "user",
-                collection: @organizers, as: :user,
-                locals: { group: @group, user_collection: @organizers } %>
+                collection: @organizers_and_moderators, as: :user,
+                locals: {
+                  group: @group,
+                  user_collection: @organizers_and_moderators
+                } %>
             </div>
 
             <div class="roles-members-container">

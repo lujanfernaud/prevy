@@ -98,7 +98,7 @@ class GroupTest < ActiveSupport::TestCase
     assert_equal description_capitalized, group.description
   end
 
-  test "adds owner as organizer after creation" do
+  test "adds owner as organizer and moderator after creation" do
     group = fake_group
     owner = group.owner
 
@@ -107,5 +107,6 @@ class GroupTest < ActiveSupport::TestCase
     group.save
 
     assert_equal owner, group.organizers.last
+    assert_equal owner, group.moderators.last
   end
 end

@@ -20,6 +20,10 @@
       <span class="ml-md-2">[Organizer]</span>
     <% end %>
 
+    <% if user.has_role? :moderator, group %>
+      <span class="ml-md-2">[Moderator]</span>
+    <% end %>
+
     <div class="roles-user__links ml-md-1">
       <% unless user == group.owner %>
 
@@ -30,12 +34,28 @@
               confirm: "Are you sure to remove the organizer role from #{user.name}?"
             },
             class: "ml-md-1" do %>
-              (Remove <em>organizer</em> role)
+              (<em>Remove organizer</em> role)
           <% end %>
         <% else %>
           <%= link_to group_roles_path(group, user_id: user, role: "organizer"),
             method: :post, class: "ml-md-1" do %>
-            (Add <em>organizer</em> role)
+            (<em>Add organizer</em> role)
+          <% end %>
+        <% end %>
+
+        <% if user.has_role? :moderator, group %>
+          <%= link_to group_role_path(group, user, role: "moderator"),
+            method: :delete,
+            data: {
+              confirm: "Are you sure to remove the moderator role from #{user.name}?"
+            },
+            class: "ml-md-1" do %>
+              (<em>Remove moderator</em> role)
+          <% end %>
+        <% else %>
+          <%= link_to group_roles_path(group, user_id: user, role: "moderator"),
+            method: :post, class: "ml-md-1" do %>
+            (<em>Add moderator</em> role)
           <% end %>
         <% end %>
       <% end %>

@@ -8,16 +8,16 @@ class GroupsRolesIndexTest < ActionDispatch::IntegrationTest
     @group   = groups(:one)
   end
 
-  test "shows organizers" do
+  test "shows organizers and moderators" do
     @group.add_to_organizers @phil
-    @group.add_to_organizers @woodell
+    @group.add_to_moderators @woodell
     @penny.add_role :member, @group
 
     log_in_as @phil
 
     visit group_roles_path(@group)
 
-    within ".roles-organizers-container" do
+    within ".roles-organizers-moderators-container" do
       assert page.has_link? @phil.name
       assert page.has_link? @woodell.name
       refute page.has_link? @penny.name
@@ -54,19 +54,31 @@ class GroupsRolesIndexTest < ActionDispatch::IntegrationTest
     assert_equal user_path(@woodell), current_path
   end
 
-  test "organizer has '[Organizer]' tag" do
-    @group.add_to_organizers @woodell
+  test "add organizer role" do
+    @woodell.add_role :member, @group
 
     log_in_as @phil
 
     visit group_roles_path(@group)
 
     within "#roles-user-#{@woodell.id}" do
+      click_on "Add organizer role"
+    end
+
+    within ".roles-organizers-moderators-container" do
+      assert page.has_link? @woodell.name
+    end
+
+    within ".roles-members-container" do
+      refute page.has_link? @woodell.name
+    end
+
+    within "#roles-user-#{@woodell.id}" do
       assert page.has_content? "[Organizer]"
     end
   end
 
-  test "organizer 'remove role' link works" do
+  test "remove organizer role" do
     @group.add_to_organizers @woodell
 
     log_in_as @phil
@@ -77,7 +89,7 @@ class GroupsRolesIndexTest < ActionDispatch::IntegrationTest
       click_on "Remove organizer role"
     end
 
-    within ".roles-organizers-container" do
+    within ".roles-organizers-moderators-container" do
       refute page.has_link? @woodell.name
     end
 
@@ -90,7 +102,7 @@ class GroupsRolesIndexTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "member 'add organizer role' link works" do
+  test "add moderator role" do
     @woodell.add_role :member, @group
 
     log_in_as @phil
@@ -98,10 +110,10 @@ class GroupsRolesIndexTest < ActionDispatch::IntegrationTest
     visit group_roles_path(@group)
 
     within "#roles-user-#{@woodell.id}" do
-      click_on "Add organizer role"
+      click_on "Add moderator role"
     end
 
-    within ".roles-organizers-container" do
+    within ".roles-organizers-moderators-container" do
       assert page.has_link? @woodell.name
     end
 
@@ -110,7 +122,56 @@ class GroupsRolesIndexTest < ActionDispatch::IntegrationTest
     end
 
     within "#roles-user-#{@woodell.id}" do
-      assert page.has_content? "[Organizer]"
+      assert page.has_content? "[Moderator]"
+    end
+  end
+
+  test "remove mdoerator role" do
+    @group.add_to_moderators @woodell
+
+    log_in_as @phil
+
+    visit group_roles_path(@group)
+
+    within "#roles-user-#{@woodell.id}" do
+      click_on "Remove moderator role"
+    end
+
+    within ".roles-organizers-moderators-container" do
+      refute page.has_link? @woodell.name
+    end
+
+    within ".roles-members-container" do
+      assert page.has_link? @woodell.name
+    end
+
+    within "#roles-user-#{@woodell.id}" do
+      refute page.has_content? "[Moderator]"
+    end
+  end
+
+  test "a member can have organizer and moderator role" do
+    @woodell.add_role :member, @group
+
+    log_in_as @phil
+
+    visit group_roles_path(@group)
+
+    within "#roles-user-#{@woodell.id}" do
+      click_on "Add moderator role"
+      click_on "Add organizer role"
+    end
+
+    within ".roles-organizers-moderators-container" do
+      assert page.has_link? @woodell.name
+    end
+
+    within ".roles-members-container" do
+      refute page.has_link? @woodell.name
+    end
+
+    within "#roles-user-#{@woodell.id}" do
+      assert page.has_content? "[Organizer] [Moderator]"
     end
   end
 end

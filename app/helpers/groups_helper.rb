@@ -21,6 +21,10 @@ module GroupsHelper
     user&.has_role? :organizer, group
   end
 
+  def has_moderator_role?(user, group)
+    user&.has_role? :moderator, group
+  end
+
   def has_member_role?(user, group)
     group.owner == user || user&.has_role?(:member, group)
   end

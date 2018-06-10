@@ -1,8 +1,12 @@
 class Groups::RolesController < ApplicationController
+  after_action :verify_authorized
+
   def index
-    @group = Group.find(params[:group_id])
-    @organizers = User.with_role :organizer, @group
-    @members = User.with_role :member, @group
+    authorize :group_role
+
+    @group = find_group
+    @organizers_and_moderators = find_organizers_and_moderators
+    @members = find_members
   end
 
   def create
@@ -14,7 +18,7 @@ class Groups::RolesController < ApplicationController
 
     AddGroupRole.call(user: @user, group: @group, role: @role)
 
-    redirect_back fallback_location: group_members_path(@group)
+    redirect_back fallback_location: group_roles_path(@group)
   end
 
   def destroy
@@ -26,10 +30,26 @@ class Groups::RolesController < ApplicationController
 
     DeleteGroupRole.call(user: @user, group: @group, role: @role)
 
-    redirect_back fallback_location: group_members_path(@group)
+    redirect_back fallback_location: group_roles_path(@group)
   end
 
   private
+
+    def find_organizers_and_moderators
+      (organizers + moderators).uniq.sort_by { |member| member.name }
+    end
+
+    def organizers
+      User.with_role :organizer, @group
+    end
+
+    def moderators
+      User.with_role :moderator, @group
+    end
+
+    def find_members
+      User.with_role(:member, @group).order(:name)
+    end
 
     def find_group
       Group.find(params[:group_id])

@@ -26,9 +26,9 @@ class CommentsUpdateTest < ActionDispatch::IntegrationTest
     assert_equal group_topic_path(@group, @topic), current_path
   end
 
-  test "organizer can update comment" do
+  test "moderator can update comment" do
     user = users(:woodell)
-    @group.add_to_organizers user
+    @group.add_to_moderators user
 
     log_in_as user
 

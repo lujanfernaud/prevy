@@ -9,7 +9,7 @@ class Group < ApplicationRecord
   before_save  :titleize_name
   before_save  :titleize_location
   before_save  :capitalize_description
-  after_create :add_owner_as_organizer
+  after_create :add_owner_as_organizer_and_moderator
   after_update :update_members_role
   after_save   :create_image_placeholder
 
@@ -89,16 +89,44 @@ class Group < ApplicationRecord
     User.with_role(:organizer, self).reverse
   end
 
+  def moderators
+    User.with_role(:moderator, self).reverse
+  end
+
   def members_with_role
     User.with_role(:member, self).reverse
   end
 
   def add_to_organizers(member)
-    change_role_for member, remove_as: :member, add_as: :organizer
+    if member.has_role? :moderator, self
+      member.add_role :organizer, self
+    else
+      change_role_for member, remove_as: :member, add_as: :organizer
+    end
   end
 
   def remove_from_organizers(member)
-    change_role_for member, remove_as: :organizer, add_as: :member
+    if member.has_role? :moderator, self
+      member.remove_role :organizer, self
+    else
+      change_role_for member, remove_as: :organizer, add_as: :member
+    end
+  end
+
+  def add_to_moderators(member)
+    if member.has_role? :organizer, self
+      member.add_role :moderator, self
+    else
+      change_role_for member, remove_as: :member, add_as: :moderator
+    end
+  end
+
+  def remove_from_moderators(member)
+    if member.has_role? :organizer, self
+      member.remove_role :moderator, self
+    else
+      change_role_for member, remove_as: :moderator, add_as: :member
+    end
   end
 
   private
@@ -136,8 +164,9 @@ class Group < ApplicationRecord
       self.description = description[0].capitalize + description[1..-1]
     end
 
-    def add_owner_as_organizer
-      owner.add_role(:organizer, self)
+    def add_owner_as_organizer_and_moderator
+      owner.add_role :organizer, self
+      owner.add_role :moderator, self
     end
 
     def update_members_role
@@ -161,7 +190,6 @@ class Group < ApplicationRecord
     def change_role_for(member, remove_as:, add_as:)
       member.remove_role remove_as, self
       member.add_role add_as, self
-      member.touch
     end
 
     def create_image_placeholder

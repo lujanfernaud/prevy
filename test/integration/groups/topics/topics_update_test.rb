@@ -21,9 +21,9 @@ class TopicsUpdateTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Topic updated."
   end
 
-  test "organizer can update topic" do
+  test "moderator can update topic" do
     user = users(:woodell)
-    @group.add_to_organizers user
+    @group.add_to_moderators user
 
     log_in_as user
 

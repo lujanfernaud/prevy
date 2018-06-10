@@ -14,11 +14,11 @@ class TopicPolicy < ApplicationPolicy
   end
 
   def update?
-    is_author? || is_group_owner_or_organizer?
+    is_author? || is_group_owner_or_moderator?
   end
 
   def destroy?
-    is_author? || is_group_owner_or_organizer?
+    is_author? || is_group_owner_or_moderator?
   end
 
   private
@@ -39,12 +39,8 @@ class TopicPolicy < ApplicationPolicy
       record.user == user
     end
 
-    def is_group_owner_or_organizer?
-      is_group_owner? || is_group_organizer?
-    end
-
-    def is_group_organizer?
-      group.organizers.include? user
+    def is_group_owner_or_moderator?
+      is_group_owner? || group.moderators.include?(user)
     end
 
     def group
