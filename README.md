@@ -1,8 +1,8 @@
-# VAMOS!
+# Prevy
 
-## Private events manager
+## Private Events With Your People
 
-Organize private events with your friends and family.
+Organize private events with your people.
 
 1. All groups are private and can be hidden (so only the people you want can see them).
 

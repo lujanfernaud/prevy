@@ -148,7 +148,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     end
 
     def assert_email_from(email)
-      assert_equal ["notifications@vamosapp.herokuapp.com"], email.from
+      assert_equal ["notifications@prevy.herokuapp.com"], email.from
     end
 
     def assert_email_subject(email, message)

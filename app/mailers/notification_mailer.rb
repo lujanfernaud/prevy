@@ -1,5 +1,5 @@
 class NotificationMailer < ApplicationMailer
-  default from: "notifications@vamosapp.herokuapp.com"
+  default from: "notifications@prevy.herokuapp.com"
 
   def new_membership_request(user, group)
     @user  = user
