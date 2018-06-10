@@ -24,7 +24,7 @@ gem 'pg_search',                       '~> 2.1', '>= 2.1.2'
 gem 'figaro',                          '~> 1.1', '>= 1.1.1'
 gem 'gravatar_image_tag',              '~> 1.2'
 gem 'inline_svg',                      '~> 1.3', '>= 1.3.1'
-gem 'faker',                           '~> 1.8', '>= 1.8.7'
+gem 'faker', github: 'stympy/faker'
 gem 'friendly_id',                     '~> 5.2', '>= 5.2.4'
 gem 'nokogiri',                        '~> 1.8', '>= 1.8.2'
 
