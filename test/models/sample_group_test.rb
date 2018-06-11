@@ -7,7 +7,7 @@ class SampleGroupTest < ActiveSupport::TestCase
     stub_geocoder
   end
 
-  test "creates group with sample members, organizer and event" do
+  test "creates group with sample members, organizers, topics and event" do
     user = users(:stranger)
 
     SampleGroup.create_for_user(user)
@@ -25,5 +25,8 @@ class SampleGroupTest < ActiveSupport::TestCase
 
     assert_equal 5, group.organizers.count
     assert_equal 1, group.events.count
+
+    assert_equal 1, group.event_topics.count
+    assert_equal 6, group.normal_topics.count
   end
 end

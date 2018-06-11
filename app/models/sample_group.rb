@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A sample group created for every new user.
 class SampleGroup
 
@@ -15,7 +17,8 @@ class SampleGroup
     create_group
     add_sample_members
     add_sample_organizers
-    build_sample_event
+    add_sample_event
+    add_sample_topics
   end
 
   private
@@ -82,8 +85,21 @@ class SampleGroup
       members.offset(random_offset).limit(number)
     end
 
-    def build_sample_event
-      SampleEvent.build_for_group(group)
+    def add_sample_event
+      SampleEvent.create_for_group(group)
+    end
+
+    def add_sample_topics
+      create_announcement_topic
+      create_normal_topics
+    end
+
+    def create_announcement_topic
+      SampleTopic.create_announcement_topic_for_group(@group)
+    end
+
+    def create_normal_topics
+      SampleTopic.create_topics_for_group(@group)
     end
 
 end

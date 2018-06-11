@@ -1,26 +1,31 @@
+# frozen_string_literal: true
+
 # A sample event created for every new user.
 class SampleEvent
+  COMMENT_SEEDS = YAML.load_file("db/seeds/event_comment_seeds.yml").shuffle
 
-  def self.build_for_group(group)
-    new(group).build_sample_event
+  def self.create_for_group(group)
+    new(group).create_sample_event
   end
 
   def initialize(group)
     @group = group
     @event = nil
     @attendances = []
+    @comments = []
   end
 
-  def build_sample_event
-    build_event
+  def create_sample_event
+    create_event
     add_sample_attendees
+    add_sample_comments
   end
 
   private
 
-    attr_reader :group
+    attr_reader :group, :event
 
-    def build_event
+    def create_event
       @event = group.events.build(
         organizer_id: group.owner.id,
         title:        event_title,
@@ -73,8 +78,7 @@ class SampleEvent
 
     def add_sample_attendees
       random_members.each do |member|
-        @attendances << Attendance.new(
-          attendee: member, attended_event: @event)
+        @attendances << Attendance.new(attendee: member, attended_event: event)
       end
 
       Attendance.import(@attendances)
@@ -82,5 +86,24 @@ class SampleEvent
 
     def random_members
       group.members_with_role.shuffle[0..29]
+    end
+
+    def add_sample_comments
+      COMMENT_SEEDS.each { |seed| @comments << new_comment_with(seed) }
+
+      TopicComment.import(@comments)
+    end
+
+    def new_comment_with(seed)
+      attendees = event.attendees
+
+      event_topic.comments.new(
+        user: attendees.sample,
+        body: seed["body"]
+      )
+    end
+
+    def event_topic
+      event.topic
     end
 end

@@ -9,11 +9,13 @@ class SampleEventTest < ActiveSupport::TestCase
   test "creates event with sample attendees" do
     add_members_with_role
 
-    SampleEvent.build_for_group(@group)
+    SampleEvent.create_for_group(@group)
     event = Event.last
 
-    assert_equal event.organizer, @group.owner
-    assert_equal event.attendees, @group.members
+    assert_equal @group.owner, event.organizer
+    assert_equal @group.members, event.attendees
+
+    assert event.comments.count > 5
   end
 
   private
