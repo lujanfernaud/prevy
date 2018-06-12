@@ -90,6 +90,19 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal expected_result, group.topics.prioritized
   end
 
+  test "#edited?" do
+    topic = fake_topic
+    topic.save
+
+    topic.update_attributes(created_at: 5.minutes.ago)
+
+    refute topic.edited?
+
+    topic.update_attributes(created_at: 11.minutes.ago)
+
+    assert topic.edited?
+  end
+
   private
 
     def fake_event_topic(params = {})

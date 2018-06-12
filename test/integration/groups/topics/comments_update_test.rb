@@ -24,6 +24,29 @@ class CommentsUpdateTest < ActionDispatch::IntegrationTest
 
     assert page.has_content? "Comment updated."
     assert_equal group_topic_path(@group, @topic), current_path
+
+    within "#comment-#{@comment.id}" do
+      refute page.has_content? "Edited"
+    end
+  end
+
+  test "shows 'edited' if edited after offset" do
+    log_in_as @phil
+
+    visit group_topic_path(@group, @topic)
+
+    click_on_edit_comment(@comment)
+
+    update_comment_with "Revised comment."
+
+    @comment.update_attributes(
+      created_at: 1.hour.ago,
+      updated_at: 6.minutes.ago
+    )
+
+    within "#comment-#{@comment.id}" do
+      assert page.has_content? "Edited"
+    end
   end
 
   test "moderator can update comment" do

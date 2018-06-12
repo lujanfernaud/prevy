@@ -19,6 +19,27 @@ class TopicsUpdateTest < ActionDispatch::IntegrationTest
     update_topic_with "Updated", "Updated body of the test topic."
 
     assert page.has_content? "Topic updated."
+
+    within ".topic-container" do
+      refute page.has_content? "Edited"
+    end
+  end
+
+  test "shows 'edited' if edited after offset" do
+    log_in_as @phil
+
+    visit group_topic_path(@group, @topic)
+
+    update_topic_with "Updated", "Updated body of the test topic."
+
+    @topic.update_attributes(
+      created_at: 1.hour.ago,
+      updated_at: 11.minutes.ago
+    )
+
+    within ".topic-container" do
+      assert page.has_content? "Edited"
+    end
   end
 
   test "moderator can update topic" do

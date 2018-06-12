@@ -2,6 +2,7 @@
 
 class Topic < ApplicationRecord
   MINIMUM_BODY_LENGTH = 20
+  EDITED_OFFSET_TIME  = 600 # 10 minutes
 
   include FriendlyId
   friendly_id :slug_candidates, use: :scoped, scope: :group
@@ -43,6 +44,10 @@ class Topic < ApplicationRecord
 
   def comments
     topic_comments.order(:created_at).includes(:user)
+  end
+
+  def edited?
+    updated_at - created_at > EDITED_OFFSET_TIME
   end
 
   private
