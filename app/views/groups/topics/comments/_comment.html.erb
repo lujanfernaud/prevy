@@ -15,7 +15,7 @@
     <%= link_to comment.user.name, user_path(comment.user),
       class: "font-weight-bold" %>
     <small class="comment__date text-muted">
-      on <%= comment.created_at.strftime("%b. %d, %Y") %>
+      <%= local_time_ago(comment.created_at) %>
     </small>
 
     <div class="mt-2">

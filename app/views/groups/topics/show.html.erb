@@ -26,7 +26,7 @@
           <%= link_to @topic.user.name, user_path(@topic.user),
             class: "font-weight-bold" %>
           <small class="topic__date text-muted">
-            on <%= @topic.created_at.strftime("%b. %d, %Y") %>
+            <%= local_time_ago(@topic.created_at) %>
           </small>
 
           <div class="mt-2">

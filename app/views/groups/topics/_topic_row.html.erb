@@ -25,8 +25,8 @@
           group_topic_path(group, topic) %>
       </h3>
       <span class="topic__date">
-        Opened on
-        <%= topic.created_at.strftime("%b. %d, %Y") %>
+        Opened
+        <%= local_time_ago(topic.created_at) %>
       </span>
       <span class="d-block d-md-inline">
         by <%= link_to topic.user.name, user_path(topic.user),
