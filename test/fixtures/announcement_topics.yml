@@ -6,6 +6,7 @@ announcement_topic_one:
   type: AnnouncementTopic
   priority: 2
   announcement: true
+  edited_by: phil
 
 announcement_topic_two:
   group: one
@@ -15,3 +16,4 @@ announcement_topic_two:
   type: AnnouncementTopic
   priority: 2
   announcement: true
+  edited_by: phil

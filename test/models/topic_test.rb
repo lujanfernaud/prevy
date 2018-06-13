@@ -90,15 +90,43 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal expected_result, group.topics.prioritized
   end
 
-  test "#edited?" do
+  test "sets author as default edited_by on save" do
     topic = fake_topic
     topic.save
 
-    topic.update_attributes(created_at: 5.minutes.ago)
+    assert_equal topic.user, topic.edited_by
+  end
+
+  test "#edited? is true when outside of EDITED_OFFSET_TIME" do
+    topic = fake_topic
+    topic.save
+
+    topic.update_attributes(
+      created_at: 10.minutes.ago,
+      updated_at: 5.minutes.ago
+    )
 
     refute topic.edited?
 
-    topic.update_attributes(created_at: 11.minutes.ago)
+    topic.update_attributes(
+      created_at: 20.minutes.ago,
+      updated_at: 9.minutes.ago
+    )
+
+    assert topic.edited?
+  end
+
+  test "#edited? is true always if not edited by author" do
+    phil  = users(:phil)
+    penny = users(:penny)
+    topic = fake_topic(user: phil)
+    topic.save
+
+    topic.update_attributes(
+      created_at: 10.minutes.ago,
+      updated_at: 5.minutes.ago,
+      edited_by:  penny
+    )
 
     assert topic.edited?
   end

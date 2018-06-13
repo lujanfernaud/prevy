@@ -107,9 +107,9 @@ class Groups::TopicsController < ApplicationController
 
     def create_topic
       if set_to_announcement?
-        @group.announcement_topics.new(topic_params_with_current_user)
+        @group.announcement_topics.new(topic_params_with_user)
       else
-        @group.topics.new(topic_params_with_current_user)
+        @group.topics.new(topic_params_with_user)
       end
     end
 
@@ -117,12 +117,14 @@ class Groups::TopicsController < ApplicationController
       topic_params[:announcement] == "true"
     end
 
-    def topic_params_with_current_user
+    def topic_params_with_user
       topic_params.merge(user: current_user)
     end
 
     def topic_params
-      params.require(:topic).permit(:title, :body, :announcement)
+      params.require(:topic)
+            .permit(:title, :body, :announcement)
+            .merge(edited_by: current_user)
     end
 
     def flash_save

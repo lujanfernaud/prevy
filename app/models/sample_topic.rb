@@ -39,10 +39,13 @@ class SampleTopic
     end
 
     def new_topic_with(seed)
+      user = group.members.sample
+
       group.topics.new(
-        user:  group.members.sample,
-        title: Faker::Music.album,
-        body:  seed["body"]
+        user:      user,
+        title:     Faker::Music.album,
+        body:      seed["body"],
+        edited_by: user
       )
     end
 

@@ -9,12 +9,15 @@ class Topic < ApplicationRecord
 
   belongs_to :group
   belongs_to :user
+  belongs_to :edited_by, class_name: "User", optional: true
 
   has_many :topic_comments, dependent: :destroy
   has_many :notifications,  dependent: :destroy
 
   validates :title, presence: true, length: { minimum: 2 }
   validate  :body_length
+
+  before_save :set_default_edited_by, unless: :edited_by
 
   scope :prioritized, -> {
     order(priority: :desc, updated_at: :desc).includes(:user)
@@ -47,13 +50,21 @@ class Topic < ApplicationRecord
   end
 
   def edited?
-    updated_at - created_at > EDITED_OFFSET_TIME
+    !edited_by_author? || updated_at - created_at > EDITED_OFFSET_TIME
+  end
+
+  def edited_by_author?
+    user == edited_by
   end
 
   private
 
     def body_length
       BodyLengthValidator.call(self, length: MINIMUM_BODY_LENGTH)
+    end
+
+    def set_default_edited_by
+      self.edited_by = user
     end
 
     def should_generate_new_friendly_id?

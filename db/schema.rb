@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(version: 20180604210837) do
     t.bigint "event_id"
     t.integer "priority", default: 0
     t.boolean "announcement", default: false
+    t.bigint "edited_by_id"
     t.index ["event_id"], name: "index_topics_on_event_id"
     t.index ["group_id"], name: "index_topics_on_group_id"
     t.index ["priority"], name: "index_topics_on_priority"

@@ -5,12 +5,14 @@ one:
   user: phil
   title: First topic
   body: Hello, this is the first topic.
+  edited_by: phil
 
 two:
   group: two
   user: penny
   title: Second topic
   body: Hello, this is the second topic.
+  edited_by: penny
 
 <% 50.times do |n| %>
 sample_topic_<%= n %>:
@@ -18,4 +20,5 @@ sample_topic_<%= n %>:
   user: woodell
   title: Sample topic <%= n %>
   body: Hello, this is the sample topic <%= n %>.
+  edited_by: woodell
 <% end %>
