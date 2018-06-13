@@ -18,6 +18,7 @@ class Topic < ApplicationRecord
   validate  :body_length
 
   before_save :set_default_edited_by, unless: :edited_by
+  before_save :set_edited_at
 
   scope :prioritized, -> {
     order(priority: :desc, updated_at: :desc).includes(:user)
@@ -65,6 +66,16 @@ class Topic < ApplicationRecord
 
     def set_default_edited_by
       self.edited_by = user
+    end
+
+    def set_edited_at
+      return unless content_changed? || !edited_at
+
+      self.edited_at = Time.current
+    end
+
+    def content_changed?
+      title_changed? || body_changed?
     end
 
     def should_generate_new_friendly_id?

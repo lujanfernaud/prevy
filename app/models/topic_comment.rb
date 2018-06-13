@@ -20,6 +20,10 @@ class TopicComment < ApplicationRecord
     user == edited_by
   end
 
+  def edited_at
+    updated_at
+  end
+
   private
 
     def body_length

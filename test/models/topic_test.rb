@@ -131,6 +131,47 @@ class TopicTest < ActiveSupport::TestCase
     assert topic.edited?
   end
 
+  test "edited_at changes when the topic title is updated" do
+    topic = fake_topic
+    topic.save
+
+    previous_edited_at = topic.edited_at
+
+    topic.update_attributes(title: "Updated title")
+
+    refute_equal previous_edited_at, topic.edited_at
+  end
+
+  test "edited_at changes when the topic body is updated" do
+    topic = fake_topic
+    topic.save
+
+    previous_edited_at = topic.edited_at
+
+    topic.update_attributes(body: "This is the updated body of the topic.")
+
+    refute_equal previous_edited_at, topic.edited_at
+  end
+
+  test "edited_at is set if it was empty" do
+    topic = fake_topic
+    topic.save
+
+    assert topic.edited_at
+  end
+
+  test "edited_at remains unchanged when the topic is touched" do
+    topic = fake_topic
+    topic.save
+
+    previous_edited_at = topic.edited_at
+
+    topic.touch
+
+    assert_equal previous_edited_at, topic.edited_at
+    refute_equal topic.edited_at, topic.updated_at
+  end
+
   private
 
     def fake_event_topic(params = {})

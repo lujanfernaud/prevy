@@ -4,6 +4,6 @@
     <% unless object.edited_by_author? %>
       by <%= object.edited_by.name %>
     <% end %>
-    <%= local_time_ago(object.updated_at) %>
+    <%= local_time_ago(object.edited_at) %>
   </small>
 </div>
