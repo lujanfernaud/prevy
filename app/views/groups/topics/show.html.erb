@@ -34,15 +34,7 @@
           </div>
 
           <% if @topic.edited? %>
-            <div class="mt-2">
-              <small class="font-italic text-muted">
-                Edited
-                <% unless @topic.edited_by_author? %>
-                  by <%= @topic.edited_by.name %>
-                <% end %>
-                <%= local_time_ago(@topic.updated_at) %>
-              </small>
-            </div>
+            <%= render "edited_by", object: @topic %>
           <% end %>
 
           <% if is_authorized_to_edit?(@topic, @group) %>

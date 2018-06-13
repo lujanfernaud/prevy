@@ -1,0 +1,9 @@
+<div class="mt-2">
+  <small class="font-italic text-muted">
+    Edited
+    <% unless object.edited_by_author? %>
+      by <%= object.edited_by.name %>
+    <% end %>
+    <%= local_time_ago(object.updated_at) %>
+  </small>
+</div>

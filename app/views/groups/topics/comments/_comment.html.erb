@@ -23,15 +23,7 @@
     </div>
 
     <% if comment.edited? %>
-      <div class="mt-2">
-        <small class="font-italic text-muted">
-          Edited
-          <% unless comment.edited_by_author? %>
-            by <%= comment.edited_by.name %>
-          <% end %>
-          <%= local_time_ago(comment.updated_at) %>
-        </small>
-      </div>
+      <%= render "edited_by", object: comment %>
     <% end %>
 
     <% if is_authorized_to_edit?(comment, comment.topic.group) %>
