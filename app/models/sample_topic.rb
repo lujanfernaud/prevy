@@ -58,9 +58,12 @@ class SampleTopic
     end
 
     def new_comment_for(topic)
+      user = group.members.sample
+
       topic.comments.new(
-        user: group.members.sample,
-        body: Faker::BackToTheFuture.quote
+        user:      user,
+        body:      Faker::BackToTheFuture.quote,
+        edited_by: user
       )
     end
 

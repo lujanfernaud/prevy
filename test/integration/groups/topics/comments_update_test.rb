@@ -31,21 +31,35 @@ class CommentsUpdateTest < ActionDispatch::IntegrationTest
   end
 
   test "shows 'edited' if edited after offset" do
-    log_in_as @phil
-
-    visit group_topic_path(@group, @topic)
-
-    click_on_edit_comment(@comment)
-
-    update_comment_with "Revised comment."
-
     @comment.update_attributes(
       created_at: 1.hour.ago,
       updated_at: 6.minutes.ago
     )
 
+    log_in_as @phil
+
+    visit group_topic_path(@group, @topic)
+
     within "#comment-#{@comment.id}" do
       assert page.has_content? "Edited"
+    end
+  end
+
+  test "shows 'edited by' if edited by a different user" do
+    woodell = users(:woodell)
+
+    @comment.update_attributes(
+      created_at: 1.hour.ago,
+      updated_at: 6.minutes.ago,
+      edited_by:  woodell
+    )
+
+    log_in_as @phil
+
+    visit group_topic_path(@group, @topic)
+
+    within "#comment-#{@comment.id}" do
+      assert page.has_content? "Edited by Woodell"
     end
   end
 

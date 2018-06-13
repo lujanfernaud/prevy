@@ -6,16 +6,27 @@ class TopicComment < ApplicationRecord
 
   belongs_to :topic, touch: true
   belongs_to :user
+  belongs_to :edited_by, class_name: "User", optional: true
 
   validate :body_length
 
+  before_save :set_default_edited_by, unless: :edited_by
+
   def edited?
-    updated_at - created_at > EDITED_OFFSET_TIME
+    !edited_by_author? || updated_at - created_at > EDITED_OFFSET_TIME
+  end
+
+  def edited_by_author?
+    user == edited_by
   end
 
   private
 
     def body_length
       BodyLengthValidator.call(self, length: MINIMUM_BODY_LENGTH)
+    end
+
+    def set_default_edited_by
+      self.edited_by = user
     end
 end

@@ -80,6 +80,12 @@ class Groups::Topics::CommentsController < ApplicationController
       )
     end
 
+    def comment_params
+      params.require(:topic_comment)
+            .permit(:body)
+            .merge(edited_by: current_user)
+    end
+
     def redirect_back_with_anchor_link
       if params[:origin] == "events"
         redirect_to group_event_path(@group, @topic.event) + comment_css_id
@@ -108,9 +114,5 @@ class Groups::Topics::CommentsController < ApplicationController
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb "Topics", group_topics_path(@group)
       add_breadcrumb @topic.title, group_topic_path(@group, @topic)
-    end
-
-    def comment_params
-      params.require(:topic_comment).permit(:body)
     end
 end

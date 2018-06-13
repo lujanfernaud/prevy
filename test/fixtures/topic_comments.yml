@@ -4,17 +4,20 @@ one:
   topic: one
   user: phil
   body: Hello!
+  edited_by: phil
 
 two:
   topic: two
   user: penny
   body: Hi!
+  edited_by: penny
 
 <% 30.times do |n| %>
 topic_comment_<%= n %>:
   topic: one
   user: woodell
   body: Body of topic comment <%= n %>.
+  edited_by: woodell
 <% end %>
 
 <% 3.times do |n| %>
@@ -22,4 +25,5 @@ event_topic_one_comment_<%= n %>:
   topic: event_topic_one
   user: phil
   body: Body of topic comment <%= n %>.
+  edited_by: phil
 <% end %>

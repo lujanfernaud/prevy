@@ -43,15 +43,43 @@ class TopicCommentTest < ActiveSupport::TestCase
     assert comment.user
   end
 
-  test "#edited?" do
+  test "sets author as default edited_by on save" do
     comment = fake_comment
     comment.save
 
-    comment.update_attributes(created_at: 3.minutes.ago)
+    assert_equal comment.user, comment.edited_by
+  end
+
+  test "#edited? is true when outside of EDITED_OFFSET_TIME" do
+    comment = fake_comment
+    comment.save
+
+    comment.update_attributes(
+      created_at: 5.minutes.ago,
+      updated_at: 3.minutes.ago
+    )
 
     refute comment.edited?
 
-    comment.update_attributes(created_at: 6.minutes.ago)
+    comment.update_attributes(
+      created_at: 10.minutes.ago,
+      updated_at: 3.minutes.ago
+    )
+
+    assert comment.edited?
+  end
+
+  test "#edited? is true always if not edited by author" do
+    phil    = users(:phil)
+    penny   = users(:penny)
+    comment = fake_comment(user: phil)
+    comment.save
+
+    comment.update_attributes(
+      created_at: 5.minutes.ago,
+      updated_at: 3.minutes.ago,
+      edited_by:  penny
+    )
 
     assert comment.edited?
   end

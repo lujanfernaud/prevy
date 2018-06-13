@@ -95,11 +95,12 @@ class SampleEvent
     end
 
     def new_comment_with(seed)
-      attendees = event.attendees
+      attendee = event.attendees.sample
 
       event_topic.comments.new(
-        user: attendees.sample,
-        body: seed["body"]
+        user:      attendee,
+        body:      seed["body"],
+        edited_by: attendee
       )
     end
 
