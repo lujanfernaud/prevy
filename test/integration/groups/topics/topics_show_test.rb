@@ -20,6 +20,20 @@ class TopicsShowTest < ActionDispatch::IntegrationTest
     assert_new_comment_form
   end
 
+  test "user visits event topic" do
+    topic = event_topics(:event_topic_one)
+
+    log_in_as @phil
+
+    visit group_topic_path(@group, topic)
+
+    within ".topic-container" do
+      click_on "See event"
+    end
+
+    assert_equal group_event_path(@group, topic.event), current_path
+  end
+
   private
 
     def assert_breadcrumbs

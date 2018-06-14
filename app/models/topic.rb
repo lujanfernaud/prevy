@@ -40,6 +40,10 @@ class Topic < ApplicationRecord
     !type
   end
 
+  def event?
+    event_id
+  end
+
   def type_presentable
     return unless type
 
