@@ -23,7 +23,7 @@
     </div>
 
     <% if comment.edited? %>
-      <%= render "edited_by", object: comment %>
+      <%= render "groups/topics/edited_by", object: comment %>
     <% end %>
 
     <% if is_authorized_to_edit?(comment, comment.topic.group) %>
