@@ -6,15 +6,18 @@
 # We want to show some context to the comment that we just posted.
 class PreviousCommentCSSIdLocator
 
-  def self.call(comment)
-    new(comment).locate
+  def self.call(comment, topic)
+    new(comment, topic).locate
   end
 
-  def initialize(comment)
+  def initialize(comment, topic)
     @comment = comment
+    @topic_comments = topic.comments
   end
 
   def locate
+    return unless topic_comments
+
     if comment_is_the_first_comment
       container_css_id
     else
@@ -24,14 +27,10 @@ class PreviousCommentCSSIdLocator
 
   private
 
-    attr_reader :comment
+    attr_reader :comment, :topic_comments
 
     def comment_is_the_first_comment
       comment == topic_comments.first
-    end
-
-    def topic_comments
-      comment.topic.comments
     end
 
     def container_css_id

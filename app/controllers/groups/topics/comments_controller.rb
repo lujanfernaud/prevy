@@ -97,7 +97,7 @@ class Groups::Topics::CommentsController < ApplicationController
     def comment_css_id
       comment = @comment.persisted? ? @comment : @topic.comments.last
 
-      PreviousCommentCSSIdLocator.call(comment)
+      PreviousCommentCSSIdLocator.call(comment, @topic)
     end
 
     def add_breadcrumbs_for_comment_edition

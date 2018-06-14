@@ -25,4 +25,21 @@ class CommentsDeletionTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Comment deleted."
     assert_equal group_topic_path(@group, @topic), current_path
   end
+
+  test "user is redirected back after deleting the only comment" do
+    @topic.comments.destroy_all
+    comment = fake_comment(user: @phil, topic: @topic)
+    comment.save
+
+    log_in_as @phil
+
+    visit group_topic_path(@group, @topic)
+
+    click_on_edit_comment(comment)
+
+    click_on "Delete comment"
+
+    assert page.has_content? "Comment deleted."
+    assert_equal group_topic_path(@group, @topic), current_path
+  end
 end

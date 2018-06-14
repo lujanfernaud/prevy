@@ -59,10 +59,10 @@ class Groups::Topics::CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     def topic_url_with_css_id(comment)
-      group_topic_url(@group, @topic) + comment_css_id(comment)
+      group_topic_url(@group, @topic) + comment_css_id(comment, @topic)
     end
 
-    def comment_css_id(comment)
-      PreviousCommentCSSIdLocator.call(comment)
+    def comment_css_id(comment, topic)
+      PreviousCommentCSSIdLocator.call(comment, topic)
     end
 end

@@ -11,7 +11,7 @@ class PreviousCommentCSSIdLocatorTest < ActiveSupport::TestCase
     comment = topic.comments[-1]
     previous_comment = find_previous_comment_for topic, comment
 
-    result = PreviousCommentCSSIdLocator.call(comment)
+    result = PreviousCommentCSSIdLocator.call(comment, @topic)
 
     assert_equal "#comment-#{previous_comment.id}", result
   end
@@ -23,7 +23,7 @@ class PreviousCommentCSSIdLocatorTest < ActiveSupport::TestCase
 
     previous_comment_one.destroy
 
-    result = PreviousCommentCSSIdLocator.call(comment)
+    result = PreviousCommentCSSIdLocator.call(comment, @topic)
 
     assert_equal "#comment-#{previous_comment_two.id}", result
   end
@@ -31,7 +31,7 @@ class PreviousCommentCSSIdLocatorTest < ActiveSupport::TestCase
   test "locates container CSS id if there is not a previous comment" do
     comment = topic.comments.first
 
-    result = PreviousCommentCSSIdLocator.call(comment)
+    result = PreviousCommentCSSIdLocator.call(comment, @topic)
 
     assert_equal "#comments", result
   end
