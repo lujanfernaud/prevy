@@ -102,7 +102,7 @@ class Groups::TopicsController < ApplicationController
     end
 
     def find_comments
-      @topic.comments
+      @topic.comments.includes(:edited_by)
     end
 
     def create_topic
