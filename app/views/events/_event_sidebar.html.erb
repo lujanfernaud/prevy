@@ -49,6 +49,20 @@
 
   <% end %>
 
+  <% if logged_in? %>
+    <div class="box box--sidebar p-3">
+
+      <div class="quick-access">
+
+        <span class="mr-1"><%= location_icon %></span>
+        <%= link_to "See location in map", "#map",
+          data: { turbolinks: false } %>
+
+      </div>
+
+    </div><!-- /.box -->
+  <% end %>
+
   <% if logged_in? && !author?(event) %>
     <div class="box box--sidebar p-3">
 

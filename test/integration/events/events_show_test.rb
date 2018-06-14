@@ -12,6 +12,7 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     assert_event_information(event)
     assert_comments
     assert_attendees_preview(event)
+    assert_quick_access
 
     refute page.has_link?    "Edit event"
     assert page.has_content? "Would you like to attend?"
@@ -103,6 +104,12 @@ class EventsShowTest < ActionDispatch::IntegrationTest
       within ".attendees-preview" do
         assert page.has_content? "Attendees (#{attendees_number})"
         assert page.has_content? "See all attendees"
+      end
+    end
+
+    def assert_quick_access
+      within ".quick-access" do
+        assert page.has_link? "See location in map"
       end
     end
 
