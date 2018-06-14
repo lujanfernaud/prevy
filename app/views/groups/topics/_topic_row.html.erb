@@ -35,12 +35,15 @@
     </div>
 
     <div class="topic__comments-count text-md-center mt-1 mt-md-0">
-      <div class="d-inline-block d-md-block lead mb-1">
-        <%= topic.topic_comments.count %>
-      </div>
-      <div class="d-inline-block d-md-block">
-        <%= "comment".pluralize(topic.topic_comments.count) %>
-      </div>
+      <%= link_to group_topic_path(group, topic),
+        class: "d-block text-dark" do %>
+        <div class="d-inline-block d-md-block lead mb-1">
+          <%= topic.topic_comments.count %>
+        </div>
+        <div class="d-inline-block d-md-block">
+          <%= "comment".pluralize(topic.topic_comments.count) %>
+        </div>
+      <% end %>
     </div>
   </div>
 
