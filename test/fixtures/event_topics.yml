@@ -47,3 +47,37 @@ event_topic_five:
   type: EventTopic
   priority: 1
   edited_by: woodell
+
+sample_event_topic:
+  event: sample_event
+  group: sample_group
+  user: user_1
+  title: Sample event somewhere
+  body: Body of Sample event somewhere
+  type: EventTopic
+  priority: 1
+  edited_by: user_1
+
+<% 11.times do |n| %>
+nike_event_topic_<%= n %>:
+  event: nike_event_<%= n %>
+  group: one
+  user: phil
+  title: Nike Test Event <%= n %>
+  body: Body of Nike Test Event <%= n %>
+  type: EventTopic
+  priority: 1
+  edited_by: phil
+<% end %>
+
+<% 22.times do |n| %>
+woodell_event_topic_<%= n %>:
+  event: event_<%= n %>
+  group: woodells_group
+  user: phil
+  title: Test event <%= n %>
+  body: Body of Test event <%= n %>
+  type: EventTopic
+  priority: 1
+  edited_by: phil
+<% end %>
