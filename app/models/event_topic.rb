@@ -3,7 +3,7 @@
 class EventTopic < Topic
   PRIORITY = 1
 
-  belongs_to :event
+  belongs_to :event, touch: true
 
   before_save :set_priority
 
