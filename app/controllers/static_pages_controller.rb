@@ -12,7 +12,7 @@ class StaticPagesController < ApplicationController
 
     def store_user_events
       @user         = User.find(current_user.id)
-      user_events   = @user.events_from_groups.includes(:group)
+      user_events   = @user.events_from_groups
       @events_count = user_events.count
       @events       = EventDecorator.collection(user_events.limit(6))
     end
