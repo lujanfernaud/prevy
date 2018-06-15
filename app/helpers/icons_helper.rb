@@ -10,4 +10,8 @@ module IconsHelper
   def link_icon
     octicon "link"
   end
+
+  def comments_icon
+    octicon "comment"
+  end
 end

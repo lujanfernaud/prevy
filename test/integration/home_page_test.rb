@@ -36,6 +36,21 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert_unhidden_groups
   end
 
+  test "logged in user clicks on event comments" do
+    group = groups(:one)
+    event = events(:one)
+
+    log_in_as(@phil)
+
+    visit root_path
+
+    within "#event-#{event.id}" do
+      click_on "#{event.comments.count} comments"
+    end
+
+    assert_current_path group_topic_path(group, event.topic)
+  end
+
   test "logged in user without upcoming events visits home page" do
     log_in_as(@onitsuka)
 

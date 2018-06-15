@@ -1,5 +1,5 @@
 <div class="col-sm-12 col-md-6 col-lg-4 mt-2rem">
-  <div class="box event-box">
+  <div class="box event-box" id="event-<%= event.id %>">
 
     <div class="intrinsic-ratio-container card card-inverse text-center accent-border-bottom">
       <%= image_tag  event.image_base64,
@@ -26,6 +26,14 @@
       <p class="event-box__date mb-0 ">
         <%= calendar_icon %>
         <%= event.start_date_prettyfied %>
+      </p>
+
+      <p class="mt-1 mb-0">
+        <%= comments_icon %>
+        <%= link_to group_topic_path(event.group, event.topic) do %>
+          <%= "#{event.comments.count} " +
+            "comment".pluralize(event.comments.count)%>
+        <% end %>
       </p>
     </div>
 
