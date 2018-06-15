@@ -67,21 +67,6 @@ body {
   border-bottom: 3px solid $indigo;
 }
 
-.icon {
-  width: 20px;
-  height: 20px;
-  vertical-align: sub;
-}
-
-.icon-location,
-.icon-calendar {
-  margin-right: .1rem;
-}
-
-.icon-link {
-  margin-right: .13rem;
-}
-
 
 // Header
 
@@ -716,6 +701,26 @@ trix-editor {
 .trix-button--icon-link,
 .trix-button-group--block-tools {
   display: none !important;
+}
+
+
+// Octicons
+
+
+.octicon {
+  display: inline-block;
+  vertical-align: text-top;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.octicon-calendar {
+  margin-top: -.1rem;
+}
+
+.octicon-location {
+  vertical-align: sub;
 }
 
 
