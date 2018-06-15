@@ -172,6 +172,23 @@ class TopicTest < ActiveSupport::TestCase
     refute_equal topic.edited_at, topic.updated_at
   end
 
+  test "touches group when adding a topic" do
+    topic = topics(:one)
+    group = groups(:one)
+    group.update_attributes(name: "Test group")
+    group.update_attributes(updated_at: 1.day.ago)
+
+    assert_in_delta 1.day.ago, group.updated_at, 1.minute
+
+    group.topics.create!(
+      user:  SampleUser.all.sample,
+      title: "Test topic",
+      body:  "This is the body of the test topic."
+    )
+
+    assert_in_delta topic.reload.updated_at, group.reload.updated_at, 1.minute
+  end
+
   private
 
     def fake_event_topic(params = {})

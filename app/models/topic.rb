@@ -7,7 +7,7 @@ class Topic < ApplicationRecord
   include FriendlyId
   friendly_id :slug_candidates, use: :scoped, scope: :group
 
-  belongs_to :group
+  belongs_to :group, touch: true
   belongs_to :user
   belongs_to :edited_by, class_name: "User", optional: true
 
