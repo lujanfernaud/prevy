@@ -4,7 +4,7 @@ announcement_topic_one:
   title: Announcement Topic One
   body: Body of Announcement Topic One.
   type: AnnouncementTopic
-  priority: 2
+  priority: <%= AnnouncementTopic::PRIORITY %>
   announcement: true
   edited_by: phil
 
@@ -14,6 +14,6 @@ announcement_topic_two:
   title: Announcement Topic Two
   body: Body of Announcement Topic Two.
   type: AnnouncementTopic
-  priority: 2
+  priority: <%= AnnouncementTopic::PRIORITY %>
   announcement: true
   edited_by: phil

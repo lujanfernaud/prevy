@@ -5,7 +5,7 @@ event_topic_one:
   title: Hatsumode Test Event
   body: Body of Hatsumode Test Event.
   type: EventTopic
-  priority: 1
+  priority: <%= EventTopic::PRIORITY %>
   edited_by: phil
 
 event_topic_two:
@@ -15,7 +15,7 @@ event_topic_two:
   title: Fushimi Inari-taisha Shrine Tour
   body: Body of Fushimi Inari-taisha Shrine Tour.
   type: EventTopic
-  priority: 1
+  priority: <%= EventTopic::PRIORITY %>
   edited_by: phil
 
 event_topic_three:
@@ -25,7 +25,7 @@ event_topic_three:
   title: Test event in Tokyo
   body: Body of Test event in Tokyo.
   type: EventTopic
-  priority: 1
+  priority: <%= EventTopic::PRIORITY %>
   edited_by: phil
 
 event_topic_four:
@@ -35,7 +35,7 @@ event_topic_four:
   title: Test event in Tokyo 2
   body: Body of Test event in Tokyo 2.
   type: EventTopic
-  priority: 1
+  priority: <%= EventTopic::PRIORITY %>
   edited_by: penny
 
 event_topic_five:
@@ -45,7 +45,7 @@ event_topic_five:
   title: Test event in Tokyo 3
   body: Body of Test event in Tokyo 3.
   type: EventTopic
-  priority: 1
+  priority: <%= EventTopic::PRIORITY %>
   edited_by: woodell
 
 sample_event_topic:
@@ -55,7 +55,7 @@ sample_event_topic:
   title: Sample event somewhere
   body: Body of Sample event somewhere
   type: EventTopic
-  priority: 1
+  priority: <%= EventTopic::PRIORITY %>
   edited_by: user_1
 
 <% 11.times do |n| %>
@@ -66,7 +66,7 @@ nike_event_topic_<%= n %>:
   title: Nike Test Event <%= n %>
   body: Body of Nike Test Event <%= n %>
   type: EventTopic
-  priority: 1
+  priority: <%= EventTopic::PRIORITY %>
   edited_by: phil
 <% end %>
 
@@ -78,6 +78,6 @@ woodell_event_topic_<%= n %>:
   title: Test event <%= n %>
   body: Body of Test event <%= n %>
   type: EventTopic
-  priority: 1
+  priority: <%= EventTopic::PRIORITY %>
   edited_by: phil
 <% end %>

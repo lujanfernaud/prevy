@@ -59,7 +59,7 @@ class TopicTest < ActiveSupport::TestCase
     def assert_announcement_topic_properties(topic)
       assert_equal "AnnouncementTopic", topic.class.name
       assert_equal "AnnouncementTopic", topic.type
-      assert_equal 2, topic.priority
+      assert_equal AnnouncementTopic::PRIORITY, topic.priority
       assert       topic.announcement?
     end
 
