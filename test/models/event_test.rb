@@ -158,4 +158,11 @@ class EventTest < ActiveSupport::TestCase
     assert_equal topic.title, event.title
     assert_equal topic.body, event.description
   end
+
+  test "#comments" do
+    event = fake_event
+    event.save
+
+    assert event.comments
+  end
 end

@@ -35,6 +35,7 @@ class Event < ApplicationRecord
   has_one  :image_placeholder, as: :resource, dependent: :destroy
 
   has_one  :event_topic, dependent: :destroy
+  has_many :comments, through: :event_topic, source: "topic_comments"
 
   validates :title,       presence: true, length: { in: 4..140 }
   validates :description, presence: true, length: { in: 32..1000 }
@@ -69,10 +70,6 @@ class Event < ApplicationRecord
 
   def topic
     event_topic
-  end
-
-  def comments
-    topic.comments
   end
 
   private
