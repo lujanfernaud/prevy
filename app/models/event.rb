@@ -43,7 +43,7 @@ class Event < ApplicationRecord
   validate  :no_past_date
 
   scope :upcoming, -> {
-    where("start_date > ?", Time.zone.now).order("start_date ASC")
+    where("end_date > ?", Time.zone.now).order("start_date ASC")
   }
 
   scope :past, -> {
