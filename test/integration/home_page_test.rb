@@ -51,6 +51,20 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert_current_path group_topic_path(group, event.topic)
   end
 
+  test "logged in user clicks on group topics" do
+    group = groups(:one)
+
+    log_in_as(@phil)
+
+    visit root_path
+
+    within "#group-#{group.id}" do
+      click_on "#{group.topics.count} topics"
+    end
+
+    assert_current_path group_topics_path(group)
+  end
+
   test "logged in user without upcoming events visits home page" do
     log_in_as(@onitsuka)
 

@@ -11,7 +11,15 @@ module IconsHelper
     octicon "link"
   end
 
+  def topics_icon
+    octicon "comment-discussion"
+  end
+
   def comments_icon
     octicon "comment"
+  end
+
+  def person_icon
+    octicon "person"
   end
 end
