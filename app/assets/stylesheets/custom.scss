@@ -171,6 +171,21 @@ body {
   }
 }
 
+.box-title {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .35);
+
+  @include media-breakpoint-up(sm) {
+    font-size: 1.3rem;
+  }
+}
+
+a.box-title:hover {
+  color: #fff;
+}
+
 .box-text {
   padding: 1rem;
 
@@ -389,10 +404,6 @@ body {
   border-bottom: 3px solid #6610f2;
 }
 
-.card-title--group {
-  bottom: .3rem !important;
-}
-
 .radio-button-list {
   padding-left: 2rem;
 }
@@ -419,7 +430,7 @@ body {
 }
 
 .group-box-text {
-  padding: .6rem .5rem .5rem .5rem;
+  padding: .72rem .5rem .5rem .5rem;
 }
 
 .box--sidebar {
@@ -712,6 +723,7 @@ trix-editor {
   vertical-align: text-top;
   width: 20px;
   height: 20px;
+  margin-right: 1px;
   fill: currentColor;
 }
 
