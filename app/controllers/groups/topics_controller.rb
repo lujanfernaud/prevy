@@ -92,9 +92,7 @@ class Groups::TopicsController < ApplicationController
     end
 
     def find_all_topics
-      Topic.where(group: @group)
-           .prioritized
-           .paginate(page: params[:page], per_page: 25)
+      @group.topics_prioritized.paginate(page: params[:page], per_page: 25)
     end
 
     def find_topic

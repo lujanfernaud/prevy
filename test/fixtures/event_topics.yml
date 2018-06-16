@@ -58,6 +58,26 @@ sample_event_topic:
   priority: <%= EventTopic::PRIORITY %>
   edited_by: user_1
 
+past_event_topic_one:
+  event: past_one
+  group: two
+  user: penny
+  title: Past event 1
+  body: Body of Past event 1
+  type: EventTopic
+  priority: <%= EventTopic::PRIORITY %>
+  edited_by: penny
+
+past_event_topic_two:
+  event: past_two
+  group: two
+  user: penny
+  title: Past event 2
+  body: Body of Past event 2
+  type: EventTopic
+  priority: <%= EventTopic::PRIORITY %>
+  edited_by: penny
+
 <% 11.times do |n| %>
 nike_event_topic_<%= n %>:
   event: nike_event_<%= n %>

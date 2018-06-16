@@ -74,8 +74,8 @@ five:
 past_one:
   title: Past event 1
   description: <%= Faker::Lorem.paragraph %>
-  start_date: <%= Time.zone.now - 6.days %>
-  end_date: <%= Time.zone.now - 1.week %>
+  start_date: <%= Time.zone.now - 1.week %>
+  end_date: <%= Time.zone.now - 6.days %>
   image: sample.jpg
   organizer: penny
   group: two
@@ -88,8 +88,8 @@ past_one:
 past_two:
   title: Past event 2
   description: <%= Faker::Lorem.paragraph %>
-  start_date: <%= Time.zone.now - 6.days %>
-  end_date: <%= Time.zone.now - 1.week %>
+  start_date: <%= Time.zone.now - 1.week %>
+  end_date: <%= Time.zone.now - 5.days %>
   image: sample.jpg
   organizer: penny
   group: two

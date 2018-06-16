@@ -75,6 +75,12 @@ class Group < ApplicationRecord
     sample_resource? && name =~ /\ASample\s/
   end
 
+  def topics_prioritized
+    remove_priority_to_past_events_topics
+
+    topics.prioritized
+  end
+
   def normal_topics
     topics.normal
   end
@@ -204,5 +210,23 @@ class Group < ApplicationRecord
 
     def create_image_placeholder
       ImagePlaceholderCreator.new(self).call
+    end
+
+    def remove_priority_to_past_events_topics
+      return if event_topics_to_remove_priority.empty?
+
+      event_topics_to_remove_priority.update_all(priority: 0)
+    end
+
+    def event_topics_to_remove_priority
+      Topic.joins(group: :events)
+           .where(
+             "groups.id        = :group    AND
+              topics.priority  = :priority AND
+              events.end_date <= :date",
+              group:    self,
+              priority: EventTopic::PRIORITY,
+              date:     Time.current
+           )
     end
 end

@@ -46,6 +46,10 @@ class Event < ApplicationRecord
     where("start_date > ?", Time.zone.now).order("start_date ASC")
   }
 
+  scope :past, -> {
+    where("end_date < ?", Time.zone.now).order("end_date ASC")
+  }
+
   scope :three, -> {
     limit(3)
   }

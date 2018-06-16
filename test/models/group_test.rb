@@ -163,4 +163,20 @@ class GroupTest < ActiveSupport::TestCase
     refute @group.moderators.include? @woodell
     assert @woodell.has_role? :member, @group
   end
+
+  test "#topics_prioritized removes priority to past events topics" do
+    group = groups(:two)
+
+    group.topics_prioritized
+
+    past_events_topics = group.events.past.map(&:topic)
+
+    assert topics_have_zero_priority? past_events_topics
+  end
+
+  private
+
+    def topics_have_zero_priority?(topics)
+      topics.map(&:priority).all?(&:zero?)
+    end
 end
