@@ -24,10 +24,15 @@
         <%= link_to topic.title,
           group_topic_path(group, topic) %>
       </h3>
+
       <span class="topic__date">
-        Opened
-        <%= local_time_ago(topic.created_at) %>
+        <% if topic.comments.empty? %>
+          Opened <%= local_time_ago(topic.created_at) %>
+        <% else %>
+          Last commented <%= local_time_ago(topic.last_commented_at) %>
+        <% end %>
       </span>
+
       <span class="d-block d-md-inline">
         by <%= link_to topic.user.name, user_path(topic.user),
           class: "text-dark" %>

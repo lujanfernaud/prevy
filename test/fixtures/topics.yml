@@ -6,6 +6,7 @@ one:
   title: First topic
   body: Hello, this is the first topic.
   edited_by: phil
+  last_commented_at: <%= Time.current %>
 
 two:
   group: two
@@ -13,6 +14,7 @@ two:
   title: Second topic
   body: Hello, this is the second topic.
   edited_by: penny
+  last_commented_at: <%= Time.current %>
 
 <% 50.times do |n| %>
 sample_topic_<%= n %>:
@@ -21,4 +23,5 @@ sample_topic_<%= n %>:
   title: Sample topic <%= n %>
   body: Hello, this is the sample topic <%= n %>.
   edited_by: woodell
+  last_commented_at: <%= Time.current %>
 <% end %>

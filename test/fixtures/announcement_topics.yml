@@ -7,6 +7,7 @@ announcement_topic_one:
   priority: <%= AnnouncementTopic::PRIORITY %>
   announcement: true
   edited_by: phil
+  last_commented_at: <%= Time.current %>
 
 announcement_topic_two:
   group: one
@@ -17,3 +18,4 @@ announcement_topic_two:
   priority: <%= AnnouncementTopic::PRIORITY %>
   announcement: true
   edited_by: phil
+  last_commented_at: <%= Time.current %>

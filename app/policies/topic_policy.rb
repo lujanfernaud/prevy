@@ -10,7 +10,7 @@ class TopicPolicy < ApplicationPolicy
   end
 
   def create?
-    logged_in? && is_member_or_group_owner? && user.confirmed?
+    logged_in? && is_member_or_group_owner?
   end
 
   def update?

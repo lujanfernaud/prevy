@@ -45,7 +45,8 @@ class SampleTopic
         user:      user,
         title:     Faker::Music.album,
         body:      seed["body"],
-        edited_by: user
+        edited_by: user,
+        last_commented_at: Time.current
       )
     end
 
