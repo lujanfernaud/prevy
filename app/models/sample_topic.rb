@@ -32,6 +32,11 @@ class SampleTopic
 
     attr_reader :group, :topics
 
+    # We are using 'activerecord-import' for bulk inserting the data.
+    # https://github.com/zdennis/activerecord-import/wiki/Examples
+    #
+    # Callbacks are not being called.
+    # https://github.com/zdennis/activerecord-import/wiki/Callbacks
     def create_topics
       TOPIC_SEEDS.each { |seed| @topics << new_topic_with(seed) }
 
@@ -50,6 +55,8 @@ class SampleTopic
       )
     end
 
+    # Callbacks are not being called.
+    # https://github.com/zdennis/activerecord-import/wiki/Callbacks
     def add_comments
       topics.each do |topic|
         rand(5..15).times { @comments << new_comment_for(topic) }
