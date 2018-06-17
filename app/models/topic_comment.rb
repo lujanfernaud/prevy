@@ -10,7 +10,8 @@ class TopicComment < ApplicationRecord
 
   validate :body_length
 
-  before_save :set_default_edited_by, unless: :edited_by
+  before_save  :set_default_edited_by, unless: :edited_by
+  after_create :update_topic_last_commented_at_date
 
   def edited?
     !edited_by_author? || updated_at - created_at > EDITED_OFFSET_TIME
@@ -32,5 +33,9 @@ class TopicComment < ApplicationRecord
 
     def set_default_edited_by
       self.edited_by = user
+    end
+
+    def update_topic_last_commented_at_date
+      topic.last_commented_at = created_at
     end
 end

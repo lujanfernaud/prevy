@@ -83,4 +83,17 @@ class TopicCommentTest < ActiveSupport::TestCase
 
     assert comment.edited?
   end
+
+  test "updates topic's last_commented_at after create" do
+    phil  = users(:phil)
+    topic = fake_topic
+    topic.save
+
+    topic.update_column(:last_commented_at, nil)
+
+    comment = fake_comment(user: phil, topic: topic)
+    comment.save
+
+    assert_equal comment.created_at, topic.last_commented_at
+  end
 end
