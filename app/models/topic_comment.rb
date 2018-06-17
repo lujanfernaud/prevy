@@ -36,6 +36,6 @@ class TopicComment < ApplicationRecord
     end
 
     def update_topic_last_commented_at_date
-      topic.last_commented_at = created_at
+      topic.update_attributes(last_commented_at: created_at)
     end
 end
