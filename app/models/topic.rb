@@ -17,8 +17,9 @@ class Topic < ApplicationRecord
   validates :title, presence: true, length: { minimum: 2 }
   validate  :body_length
 
-  before_save :set_default_edited_by, unless: :edited_by
-  before_save :set_edited_at
+  before_save   :set_default_edited_by, unless: :edited_by
+  before_save   :set_edited_at
+  before_create :set_default_last_commented_at
 
   scope :prioritized, -> {
     order(priority: :desc, last_commented_at: :desc).includes(:user)
@@ -80,6 +81,10 @@ class Topic < ApplicationRecord
 
     def content_changed?
       title_changed? || body_changed?
+    end
+
+    def set_default_last_commented_at
+      self.last_commented_at = Time.current
     end
 
     def should_generate_new_friendly_id?

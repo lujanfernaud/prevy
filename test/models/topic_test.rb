@@ -189,6 +189,16 @@ class TopicTest < ActiveSupport::TestCase
     assert_in_delta topic.reload.updated_at, group.reload.updated_at, 1.minute
   end
 
+  test "sets default last_commented_at after create" do
+    topic = group.topics.create!(
+      user:  SampleUser.all.sample,
+      title: "Test topic",
+      body:  "This is the body of the test topic."
+    )
+
+    assert topic.last_commented_at
+  end
+
   private
 
     def fake_event_topic(params = {})
