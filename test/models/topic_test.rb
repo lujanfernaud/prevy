@@ -74,12 +74,12 @@ class TopicTest < ActiveSupport::TestCase
     assert "Event", topic.type_presentable
   end
 
-  test "#prioritized sorts by priority and date" do
+  test "#prioritized sorts by priority and last_commented_at" do
     prepare_group_topics
 
-    older_announcement_topic.touch
-    older_event_topic.touch
-    older_normal_topic.touch
+    older_announcement_topic.update_attributes(last_commented_at: Time.current)
+    older_event_topic.update_attributes(last_commented_at: Time.current)
+    older_normal_topic.update_attributes(last_commented_at: Time.current)
 
     expected_result = [
       older_announcement_topic, newer_announcement_topic,
@@ -87,7 +87,7 @@ class TopicTest < ActiveSupport::TestCase
       older_normal_topic, newer_normal_topic
     ]
 
-    assert_equal expected_result, group.topics.prioritized
+    assert_equal expected_result.map(&:id), group.topics.prioritized.map(&:id)
   end
 
   test "sets author as default edited_by on save" do
@@ -210,26 +210,26 @@ class TopicTest < ActiveSupport::TestCase
     end
 
     def newer_announcement_topic
-      group.announcement_topics.first
+      group.announcement_topics.order(:last_commented_at).first
     end
 
     def older_announcement_topic
-      group.announcement_topics.last
+      group.announcement_topics.order(:last_commented_at).last
     end
 
     def newer_event_topic
-      group.event_topics.first
+      group.event_topics.order(:last_commented_at).first
     end
 
     def older_event_topic
-      group.event_topics.last
+      group.event_topics.order(:last_commented_at).last
     end
 
     def newer_normal_topic
-      group.normal_topics.first
+      group.normal_topics.order(:last_commented_at).first
     end
 
     def older_normal_topic
-      group.normal_topics.last
+      group.normal_topics.order(:last_commented_at).last
     end
 end

@@ -21,7 +21,7 @@ class Topic < ApplicationRecord
   before_save :set_edited_at
 
   scope :prioritized, -> {
-    order(priority: :desc, updated_at: :desc).includes(:user)
+    order(priority: :desc, last_commented_at: :desc).includes(:user)
   }
 
   scope :normal, -> {
