@@ -219,14 +219,8 @@ class Group < ApplicationRecord
     end
 
     def event_topics_to_remove_priority
-      Topic.joins(group: :events)
-           .where(
-             "groups.id        = :group    AND
-              topics.priority  = :priority AND
-              events.end_date <= :date",
-              group:    self,
-              priority: EventTopic::PRIORITY,
-              date:     Time.current
-           )
+      past_event_ids = events.past.pluck(:id)
+
+      topics.where("event_id IN (?)", past_event_ids)
     end
 end

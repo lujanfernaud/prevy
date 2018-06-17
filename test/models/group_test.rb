@@ -174,6 +174,16 @@ class GroupTest < ActiveSupport::TestCase
     assert topics_have_zero_priority? past_events_topics
   end
 
+  test "#topics_prioritized doesn't remove priority to upcoming events" do
+    group = groups(:two)
+
+    group.topics_prioritized
+
+    upcoming_events_topics = group.events.upcoming.map(&:topic)
+
+    assert_not topics_have_zero_priority? upcoming_events_topics
+  end
+
   private
 
     def topics_have_zero_priority?(topics)
