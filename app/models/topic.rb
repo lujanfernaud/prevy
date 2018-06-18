@@ -63,6 +63,10 @@ class Topic < ApplicationRecord
     user == edited_by
   end
 
+  def last_comment_user
+    comments.last.user
+  end
+
   private
 
     def body_length

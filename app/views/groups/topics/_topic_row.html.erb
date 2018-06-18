@@ -25,18 +25,28 @@
           group_topic_path(group, topic) %>
       </h3>
 
-      <span class="topic__date">
-        <% if topic.comments.empty? %>
-          Opened <%= local_time_ago(topic.created_at) %>
-        <% else %>
-          Last commented <%= local_time_ago(topic.last_commented_at) %>
-        <% end %>
-      </span>
+      <% if topic.comments.empty? %>
 
-      <span class="d-block d-md-inline">
-        by <%= link_to topic.user.name, user_path(topic.user),
-          class: "text-dark" %>
-      </span>
+        <span class="topic__date">
+          Opened <%= local_time_ago(topic.created_at) %>
+        </span>
+        <span class="d-block d-md-inline">
+          by <%= link_to topic.user.name, user_path(topic.user),
+            class: "text-dark" %>
+        </span>
+
+      <% else %>
+
+        <span class="topic__date">
+          Last commented <%= local_time_ago(topic.last_commented_at) %>
+        </span>
+        <span class="d-block d-md-inline">
+          by <%= link_to topic.last_comment_user.name,
+            user_path(topic.last_comment_user),
+            class: "text-dark" %>
+        </span>
+
+      <% end %>
     </div>
 
     <div class="topic__comments-count text-md-center mt-1 mt-md-0">
