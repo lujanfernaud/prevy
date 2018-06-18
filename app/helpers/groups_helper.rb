@@ -4,7 +4,7 @@ module GroupsHelper
   include Group::ButtonsHelper
   include Group::TopicsHelper
 
-  def sample_group_link(user, group)
+  def show_create_group_link_or_unconfirmed_alert(user, group)
     return unless is_group_owner(user, group)
     return unless group.sample_group?
 
