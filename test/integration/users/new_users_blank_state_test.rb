@@ -57,41 +57,11 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     submit_new_topic_with "Test topic", "This is the body of the test topic."
   end
 
-  test "new user comments announcement topic in sample group" do
-    prepare_javascript_driver
-
-    group = @user.sample_group
-    topic = group.announcement_topics.first
-
-    log_in_as(@user)
-
-    visit group_topic_path(group, topic)
-
-    submit_new_comment_with "This is great!"
-
-    assert page.has_content? "New comment created."
-  end
-
-  test "new user comments event topic in sample group" do
-    prepare_javascript_driver
-
-    group = @user.sample_group
-    topic = group.event_topics.first
-
-    log_in_as(@user)
-
-    visit group_topic_path(group, topic)
-
-    submit_new_comment_with "This is great!"
-
-    assert page.has_content? "New comment created."
-  end
-
-  test "new user comments normal topic in sample group" do
+  test "new user comments topic in sample group" do
     prepare_javascript_driver
 
     group = @user.groups.first
-    topic = group.normal_topics.first
+    topic = group.topics.sample
 
     log_in_as(@user)
 
