@@ -3,10 +3,13 @@ require 'test_helper'
 class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
   def setup
     stub_geocoder
+
+    @user = fake_user
+    @user.save!
   end
 
   test "new user has sample membership request" do
-    log_in_as(new_user)
+    log_in_as(@user)
 
     assert page.has_content? "Notifications 1"
 
@@ -16,36 +19,35 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
   end
 
   test "new user accepts sample membership request" do
-    user = new_user
-    request_user = user.received_requests.first
+    request_user = @user.received_requests.first
 
-    log_in_as(user)
+    log_in_as(@user)
 
-    visit group_members_path(user.sample_group)
+    visit group_members_path(@user.sample_group)
     refute page.has_link? request_user.name
 
-    visit user_membership_requests_path(user)
+    visit user_membership_requests_path(@user)
 
     click_on "Accept"
 
-    visit group_members_path(user.sample_group)
+    visit group_members_path(@user.sample_group)
 
     assert page.has_link? request_user.name
   end
 
   test "new user visits sample group" do
-    log_in_as(new_user)
+    log_in_as(@user)
 
     click_on sample_group_name
 
-    assert page.has_content? "Welcome to #{new_user.name}'s group!"
+    assert page.has_content? "Welcome to #{@user.name}'s group!"
     assert_organizers
     assert_members
     assert page.has_link? sample_event_name
   end
 
   test "new user visits sample event" do
-    log_in_as(new_user)
+    log_in_as(@user)
 
     click_on sample_event_name
 
@@ -54,10 +56,13 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     assert_attendees
   end
 
-  test "new user creates a group" do
+  test "new and confirmed user creates a group" do
     prepare_javascript_driver
 
-    log_in_as(new_user)
+    user = fake_user(confirmed_at: Time.zone.now - 1.day)
+    user.save!
+
+    log_in_as(user)
 
     page.find(".group-card-link", text: sample_group_name).click
     click_on "Click here to create your first group!"
@@ -74,7 +79,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
   test "new user becomes a member of a group" do
     nike_group = groups(:one)
 
-    log_in_as(new_user)
+    log_in_as(@user)
 
     visit group_path(nike_group)
     send_membership_request
@@ -83,7 +88,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
 
     group_owner_accepts_membership_request_for(nike_group)
 
-    log_in_as(new_user)
+    log_in_as(@user)
 
     refute_page_has_sample_content
   end
@@ -111,7 +116,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     end
 
     def group_organizers
-      @group_organizers ||= new_user.sample_group.organizers
+      @group_organizers ||= @user.sample_group.organizers
     end
 
     def assert_members
@@ -123,7 +128,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     end
 
     def group_members
-      @group_members ||= new_user.sample_group.members_with_role
+      @group_members ||= @user.sample_group.members_with_role
     end
 
     def assert_attendees

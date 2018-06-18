@@ -51,7 +51,8 @@ class UserTest < ActiveSupport::TestCase
 
   test "#sample_group" do
     someones_sample_group = groups(:sample_group)
-    user = new_user
+    user = fake_user
+    user.save!
 
     assert_equal user.sample_group, user.groups.first
 
@@ -138,41 +139,43 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "titleizes name before saving" do
-    new_user.name = "john stevenson"
+    user = fake_user(name: "john stevenson")
+    user.save!
 
-    new_user.save
-
-    assert_equal "John Stevenson", new_user.name
+    assert_equal "John Stevenson", user.name
   end
 
   test "titleizes location before updating" do
-    new_user.location = "tenerife"
+    user = fake_user
+    user.save
+    user.update_attributes(location: "tenerife")
 
-    new_user.save
-
-    assert_equal "Tenerife", new_user.location
+    assert_equal "Tenerife", user.location
   end
 
   test "doesn't return an error if there is no location" do
-    new_user.location = nil
+    user = fake_user
+    user.save
 
-    new_user.save
+    assert user.update_attributes(location: nil)
   end
 
   test "capitalizes bio before updating" do
     bio = "it is impossible to build one's own happiness on the unhappiness of others."
     bio_capitalized = "It is impossible to build one's own happiness on the unhappiness of others."
 
-    new_user.bio = bio
+    user = fake_user
+    user.save
 
-    new_user.save
+    user.update_attributes(bio: bio)
 
-    assert_equal bio_capitalized, new_user.bio
+    assert_equal bio_capitalized, user.bio
   end
 
   test "doesn't return an error if there is no bio" do
-    new_user.bio = nil
+    user = fake_user
+    user.save
 
-    new_user.save
+    assert user.update_attributes(bio: nil)
   end
 end
