@@ -12,4 +12,16 @@ class EventTopic < Topic
     def set_priority
       self.priority = PRIORITY
     end
+
+    def slug_candidates
+      [
+        :title,
+        [:title, :event_start_date],
+        [:title, :event_start_date, :group_id]
+      ]
+    end
+
+    def event_start_date
+      event.start_date.strftime("%b %d %Y")
+    end
 end

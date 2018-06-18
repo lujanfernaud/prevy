@@ -24,4 +24,16 @@ class AnnouncementTopic < Topic
 
       NewAnnouncementNotification.call(self)
     end
+
+    def slug_candidates
+      [
+        :title,
+        [:title, :date],
+        [:title, :date, :group_id]
+      ]
+    end
+
+    def date
+      Time.zone.now.strftime("%b %d %Y")
+    end
 end

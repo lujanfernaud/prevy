@@ -5,7 +5,7 @@ class Topic < ApplicationRecord
   EDITED_OFFSET_TIME  = 600 # 10 minutes
 
   include FriendlyId
-  friendly_id :slug_candidates, use: :scoped, scope: :group
+  friendly_id :slug_candidates, use: :slugged
 
   belongs_to :group, touch: true
   belongs_to :user
@@ -98,11 +98,16 @@ class Topic < ApplicationRecord
     def slug_candidates
       [
         :title,
-        [:title, :date]
+        [:title, :group_id],
+        [:title, :group_id, :user_id]
       ]
     end
 
-    def date
-      Time.zone.now.strftime("%b %d %Y")
+    def group_id
+      group.id
+    end
+
+    def user_id
+      user.id
     end
 end
