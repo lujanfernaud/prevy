@@ -31,18 +31,6 @@ class Topic < ApplicationRecord
     where(type: "Topic")
   }
 
-  scope :pinned, -> {
-    where(type: "PinnedTopic")
-  }
-
-  scope :events, -> {
-    where(type: "EventTopic")
-  }
-
-  scope :announcements, -> {
-    where(type: "AnnouncementTopic")
-  }
-
   def normal?
     type == "Topic"
   end
