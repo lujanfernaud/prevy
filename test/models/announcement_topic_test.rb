@@ -2,7 +2,6 @@ require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
   include UserSupport
-  include TopicsSupport
   include TopicsTestCaseSupport
 
   def setup

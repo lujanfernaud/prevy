@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class AnnouncementTopicsTest < ActionDispatch::IntegrationTest
-  include TopicsSupport
   include TopicsIntegrationSupport
 
   def setup
