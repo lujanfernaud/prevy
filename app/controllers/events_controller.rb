@@ -42,7 +42,7 @@ class EventsController < ApplicationController
   def show
     @group    = find_group
     @event    = find_event
-    @comments = @event.comments.includes(:user, :edited_by)
+    @comments = @event.comments.order(:created_at).includes(:user, :edited_by)
     @comment  = TopicComment.new
 
     authorize @event
