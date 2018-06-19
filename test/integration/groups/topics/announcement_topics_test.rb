@@ -34,24 +34,25 @@ class AnnouncementTopicsTest < ActionDispatch::IntegrationTest
   end
 
   test "group admin sets announcement topic to normal topic" do
-    @group.event_topics.destroy_all
-    @group.normal_topics.destroy_all
+    group = fake_group
+    group.save
 
-    announcement_topic = announcement_topics(:announcement_topic_one)
+    topic = fake_topic(group: group, type: "AnnouncementTopic")
+    topic.save
 
     log_in_as @phil
 
-    visit group_topic_path(@group, announcement_topic)
+    visit group_topic_path(group, topic)
 
     click_on "Edit"
     set_topic_type_to "Topic"
     click_on "Update topic"
 
-    topic = find_updated_topic(announcement_topic, group: @group)
+    topic = group.topics.last
 
     assert page.has_content? "Topic set to normal topic."
 
-    visit group_topics_path(@group)
+    visit group_topics_path(group)
 
     refute_topic_has_label "ANNOUNCEMENT:", topic: topic
   end
