@@ -4,6 +4,10 @@
 class SampleEvent
   COMMENT_SEEDS = YAML.load_file("db/seeds/event_comment_seeds.yml").shuffle
 
+  CREATION_DATE = 1.day.ago
+  ONE_MINUTE = 60
+  TWENTY_THREE_HOURS = 82_200
+
   def self.create_for_group(group)
     new(group).create_sample_event
   end
@@ -19,6 +23,7 @@ class SampleEvent
     create_event
     add_sample_attendees
     add_sample_comments
+    update_event_topic_dates
   end
 
   private
@@ -96,15 +101,30 @@ class SampleEvent
 
     def new_comment_with(seed)
       attendee = event.attendees.sample
+      date = CREATION_DATE + rand(ONE_MINUTE..TWENTY_THREE_HOURS)
 
       event_topic.comments.new(
-        user:      attendee,
-        body:      seed["body"],
-        edited_by: attendee
+        user:       attendee,
+        body:       seed["body"],
+        edited_by:  attendee,
+        created_at: date
       )
     end
 
     def event_topic
       event.topic
+    end
+
+    # Since callbacks are not being called when importing the data,
+    # we need to set the last_commented_at date manually.
+    def update_event_topic_dates
+      topic = event_topic
+
+      topic.update_attribute(:created_at, CREATION_DATE)
+      topic.update_attribute(:last_commented_at, last_comment_date(topic))
+    end
+
+    def last_comment_date(topic)
+      topic.comments.last&.created_at
     end
 end
