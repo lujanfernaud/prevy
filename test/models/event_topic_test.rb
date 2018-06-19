@@ -12,6 +12,19 @@ class EventTopicTest < ActiveSupport::TestCase
     assert_equal EventTopic::PRIORITY, event.topic.priority
   end
 
+  test "keeps it as event topic on update" do
+    event = fake_event
+    event.save
+    topic = event.topic
+
+    topic.update_attributes(title: "Event topic updated")
+
+    topic = Topic.last
+
+    assert_equal "EventTopic", topic.type
+    assert_equal EventTopic::PRIORITY, topic.priority
+  end
+
   test "touches event when adding a comment" do
     topic = event_topics(:event_topic_one)
     event = events(:one)
