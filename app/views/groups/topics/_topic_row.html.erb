@@ -15,7 +15,7 @@
   <div class="d-flex flex-column flex-md-row w-100">
     <div class="topic__info">
       <h3 class="lead">
-        <% if topic.type? %>
+        <% if topic.type? && !topic.normal? %>
           <strong class="text-uppercase">
             <%= topic.type_presentable %>:
           </strong>

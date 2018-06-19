@@ -26,7 +26,7 @@ class Topic < ApplicationRecord
   }
 
   scope :normal, -> {
-    where(type: nil)
+    where(type: "Topic")
   }
 
   scope :events, -> {
@@ -38,7 +38,7 @@ class Topic < ApplicationRecord
   }
 
   def normal?
-    !type
+    type == "Topic"
   end
 
   def event?
@@ -46,7 +46,7 @@ class Topic < ApplicationRecord
   end
 
   def type_presentable
-    return unless type
+    return if type == "Topic"
 
     type.gsub("Topic", "")
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180617070656) do
+ActiveRecord::Schema.define(version: 20180619061020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,13 +163,13 @@ ActiveRecord::Schema.define(version: 20180617070656) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type"
+    t.string "type", default: "Topic"
     t.bigint "event_id"
     t.integer "priority", default: 0
-    t.boolean "announcement", default: false
     t.bigint "edited_by_id"
     t.datetime "edited_at"
     t.datetime "last_commented_at"
+    t.boolean "announcement", default: false
     t.index ["event_id"], name: "index_topics_on_event_id"
     t.index ["group_id"], name: "index_topics_on_group_id"
     t.index ["last_commented_at"], name: "index_topics_on_last_commented_at"
