@@ -31,6 +31,10 @@ class Topic < ApplicationRecord
     where(type: "Topic")
   }
 
+  scope :pinned, -> {
+    where(type: "PinnedTopic")
+  }
+
   scope :events, -> {
     where(type: "EventTopic")
   }
@@ -43,12 +47,16 @@ class Topic < ApplicationRecord
     type == "Topic"
   end
 
-  def announcement?
-    type == "AnnouncementTopic"
+  def pinned?
+    type == "PinnedTopic"
   end
 
   def event?
     event_id
+  end
+
+  def announcement?
+    type == "AnnouncementTopic"
   end
 
   def type_presentable

@@ -32,6 +32,14 @@ module TopicsIntegrationSupport
     )
   end
 
+  def submit_new_pinned_topic
+    submit_new_topic_with(
+      "Test topic",
+      "This is the body of the test topic.",
+      type: "PinnedTopic"
+    )
+  end
+
   def update_topic_with(title, body)
     click_on "Edit"
 

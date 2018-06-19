@@ -1,0 +1,2 @@
+class PinnedTopicPolicy < TopicPolicy
+end

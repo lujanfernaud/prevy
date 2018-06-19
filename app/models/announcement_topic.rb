@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AnnouncementTopic < Topic
-  PRIORITY = 2
+  PRIORITY = 3
 
   after_create :notify_group_members
 

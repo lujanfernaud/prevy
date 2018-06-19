@@ -51,6 +51,16 @@ class Groups::TopicsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to group_topic_url(@group, AnnouncementTopic.last)
   end
 
+  test "should create pinned topic" do
+    sign_in @phil
+
+    assert_difference('PinnedTopic.count') do
+      post group_topics_url(@group), params: topic_params(type: "PinnedTopic")
+    end
+
+    assert_redirected_to group_topic_url(@group, PinnedTopic.last)
+  end
+
   test "should show topic" do
     sign_in @penny
     @group.members << @penny

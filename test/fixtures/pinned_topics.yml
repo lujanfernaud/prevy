@@ -1,0 +1,19 @@
+pinned_topic_one:
+  group: one
+  user: phil
+  title: Pinned Topic One
+  body: Body of Pinned Topic One.
+  type: PinnedTopic
+  priority: <%= PinnedTopic::PRIORITY %>
+  edited_by: phil
+  last_commented_at: <%= Time.current %>
+
+pinned_topic_two:
+  group: one
+  user: phil
+  title: Pinned Topic Two
+  body: Body of Pinned Topic Two.
+  type: PinnedTopic
+  priority: <%= PinnedTopic::PRIORITY %>
+  edited_by: phil
+  last_commented_at: <%= Time.current %>

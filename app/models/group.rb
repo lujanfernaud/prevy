@@ -26,6 +26,7 @@ class Group < ApplicationRecord
   has_many :events, dependent: :destroy
 
   has_many :topics,              dependent: :destroy
+  has_many :pinned_topics,       dependent: :destroy
   has_many :event_topics,        dependent: :destroy
   has_many :announcement_topics, dependent: :destroy
 

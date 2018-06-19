@@ -120,6 +120,8 @@ class Groups::TopicsController < ApplicationController
     def flash_save
       if @topic.announcement?
         flash[:success] = "New announcement topic created."
+      elsif @topic.pinned?
+        flash[:success] = "New pinned topic created."
       else
         flash[:success] = "New topic created."
       end
@@ -128,6 +130,8 @@ class Groups::TopicsController < ApplicationController
     def flash_update
       if set_to_normal_topic?
         flash[:success] = "Topic set to normal topic."
+      elsif set_to_pinned_topic?
+        flash[:success] = "Topic set to pinned topic."
       else
         flash[:success] = "Topic updated."
       end
@@ -137,6 +141,12 @@ class Groups::TopicsController < ApplicationController
       return unless @topic.saved_changes.include?("type")
 
       @topic.normal?
+    end
+
+    def set_to_pinned_topic?
+      return unless @topic.saved_changes.include?("type")
+
+      @topic.pinned?
     end
 
     def add_breadcrumbs_for_index

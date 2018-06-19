@@ -79,11 +79,13 @@ class TopicTest < ActiveSupport::TestCase
 
     older_announcement_topic.update_attributes(last_commented_at: Time.current)
     older_event_topic.update_attributes(last_commented_at: Time.current)
+    older_pinned_topic.update_attributes(last_commented_at: Time.current)
     older_normal_topic.update_attributes(last_commented_at: Time.current)
 
     expected_result = [
       older_announcement_topic, newer_announcement_topic,
       older_event_topic, newer_event_topic,
+      older_pinned_topic, newer_pinned_topic,
       older_normal_topic, newer_normal_topic
     ]
 
@@ -233,6 +235,14 @@ class TopicTest < ActiveSupport::TestCase
 
     def older_event_topic
       group.event_topics.order(:last_commented_at).last
+    end
+
+    def newer_pinned_topic
+      group.pinned_topics.order(:last_commented_at).first
+    end
+
+    def older_pinned_topic
+      group.pinned_topics.order(:last_commented_at).last
     end
 
     def newer_normal_topic

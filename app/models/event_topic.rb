@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EventTopic < Topic
-  PRIORITY = 1
+  PRIORITY = 2
 
   belongs_to :event, touch: true
 
