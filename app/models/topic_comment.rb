@@ -14,6 +14,8 @@ class TopicComment < ApplicationRecord
   after_create :update_topic_last_commented_at_date
 
   def edited?
+    return false if topic.group.sample_group?
+
     !edited_by_author? || updated_at - created_at > EDITED_OFFSET_TIME
   end
 
