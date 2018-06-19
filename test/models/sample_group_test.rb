@@ -26,7 +26,9 @@ class SampleGroupTest < ActiveSupport::TestCase
     assert_equal 5, group.organizers.count
     assert_equal 1, group.events.count
 
+    assert_equal 1, group.announcement_topics.count
     assert_equal 1, group.event_topics.count
+    assert_equal 1, group.pinned_topics.count
     assert_equal 6, group.normal_topics.count
   end
 end

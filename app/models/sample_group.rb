@@ -93,15 +93,6 @@ class SampleGroup
     end
 
     def add_sample_topics
-      create_announcement_topic
-      create_normal_topics
-    end
-
-    def create_announcement_topic
-      SampleTopic.create_announcement_topic_for_group(@group)
-    end
-
-    def create_normal_topics
       SampleTopic.create_topics_for_group(@group)
     end
 

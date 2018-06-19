@@ -2,26 +2,36 @@ require 'test_helper'
 
 class SampleTopicTest < ActiveSupport::TestCase
   def setup
-    @group = groups(:one)
-    @group.topics.destroy
+    woodell = users(:woodell)
+    @group = fake_group(owner: woodell)
+    @group.save
+    @group.members << SampleUser.select_random(5)
   end
 
   test "creates normal topics with comments" do
     SampleTopic.create_topics_for_group(@group)
 
-    topic = @group.topics.last
+    topic = @group.normal_topics.last
 
-    assert topic.normal?
-    assert topic.comments.count > 5
+    assert_equal 6, @group.normal_topics.count
+    assert topic.comments.count > 4
   end
 
   test "creates announcement topic with comments" do
-    SampleTopic.create_announcement_topic_for_group(@group)
+    SampleTopic.create_topics_for_group(@group)
 
-    topic = @group.topics.last
+    topic = @group.announcement_topics.last
 
-    assert_equal @group.owner, topic.user
-    assert topic.announcement?
-    assert topic.comments.count > 5
+    assert_equal 1, @group.announcement_topics.count
+    assert topic.comments.count > 4
+  end
+
+  test "creates pinned topic with comments" do
+    SampleTopic.create_topics_for_group(@group)
+
+    topic = @group.pinned_topics.last
+
+    assert_equal 1, @group.pinned_topics.count
+    assert topic.comments.count > 4
   end
 end
