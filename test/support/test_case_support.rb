@@ -58,7 +58,8 @@ module TestCaseSupport
       group: params[:group] || groups(:one),
       user:  params[:user]  || users(:phil),
       title: params[:title] || "Welcome!",
-      body:  params[:body]  || "Welcome to the group :)"
+      body:  params[:body]  || "Welcome to the group :)",
+      type:  params[:type]  || "Topic"
     )
   end
 

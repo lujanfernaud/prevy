@@ -18,28 +18,38 @@
     </div>
   </div>
 
-  <% if is_admin?(@group) && announceable?(@topic) %>
-    <div class="box announcement-box p-4 mb-2rem">
-      <%= f.label :announcement, "Announcement:", class: "mb-0" %>
+  <% if is_admin?(@group) %>
+    <div class="box topic-type-box p-4 mb-2rem">
 
-      <%= f.radio_button :announcement, true,
-        checked: !!@topic.announcement %>
-      <%= f.label :announcement_true, "Yes", class: "mb-0" %>
+      <% if announceable?(@topic) %>
+        <div class="announcement-topic-section">
+          <%= f.radio_button :type, "AnnouncementTopic",
+            checked: @topic.announcement? %>
+          <%= f.label :type_announcementtopic, "Announcement", class: "mb-0" %>
 
-      <%= f.radio_button :announcement, false,
-        checked: checked_if_not_set(@topic.announcement) %>
-      <%= f.label :announcement_false, "No", class: "mb-0" %>
+          <% if action_name == "new" %>
+            <p class="font-italic mt-3 mb-0">
+              If you create the topic as an announcement, all members would receive a notification.
+            </p>
+          <% else %>
+            <p class="font-italic mt-3 mb-0">
+              This action is not reversible.
+            </p>
+          <% end %>
+        </div>
 
-      <% if action_name == "new" %>
-        <p class="font-italic mt-3 mb-0">
-          If you create the topic as an announcement, all members would receive a notification.
-        </p>
-      <% else %>
-        <p class="font-italic mt-3 mb-0">
-          This action is not reversible.
-        </p>
+        <hr>
       <% end %>
-    </div>
+
+
+        <p class="font-italic mt-3 mb-0">
+        </p>
+      <div class="normal-topic-section">
+        <%= f.radio_button :type, "Topic", checked: @topic.normal? %>
+        <%= f.label :type_topic, "Normal", class: "mb-0" %>
+      </div>
+
+    </div><!-- /.box -->
   <% end %>
 
   <% if action_name == "edit" %>

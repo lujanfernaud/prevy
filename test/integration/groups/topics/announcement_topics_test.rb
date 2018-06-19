@@ -41,7 +41,7 @@ class AnnouncementTopicsTest < ActionDispatch::IntegrationTest
     visit group_topic_path(@group, announcement_topic)
 
     click_on "Edit"
-    set_announcement_to false
+    set_topic_type_to "Topic"
     click_on "Update topic"
 
     topic = find_updated_topic(announcement_topic, group: @group)

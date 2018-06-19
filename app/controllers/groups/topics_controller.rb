@@ -104,15 +104,7 @@ class Groups::TopicsController < ApplicationController
     end
 
     def create_topic
-      if set_to_announcement?
-        @group.announcement_topics.new(topic_params_with_user)
-      else
-        @group.topics.new(topic_params_with_user)
-      end
-    end
-
-    def set_to_announcement?
-      topic_params[:announcement] == "true"
+      @group.topics.new(topic_params_with_user)
     end
 
     def topic_params_with_user
@@ -121,12 +113,12 @@ class Groups::TopicsController < ApplicationController
 
     def topic_params
       params.require(:topic)
-            .permit(:title, :body, :announcement)
+            .permit(:title, :body, :type)
             .merge(edited_by: current_user)
     end
 
     def flash_save
-      if set_to_announcement?
+      if @topic.announcement?
         flash[:success] = "New announcement topic created."
       else
         flash[:success] = "New topic created."
@@ -134,11 +126,17 @@ class Groups::TopicsController < ApplicationController
     end
 
     def flash_update
-      if topic_params[:announcement] == "false"
+      if set_to_normal_topic?
         flash[:success] = "Topic set to normal topic."
       else
         flash[:success] = "Topic updated."
       end
+    end
+
+    def set_to_normal_topic?
+      return unless @topic.saved_changes.include?("type")
+
+      @topic.normal?
     end
 
     def add_breadcrumbs_for_index

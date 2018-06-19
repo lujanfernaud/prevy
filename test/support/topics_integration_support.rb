@@ -8,19 +8,19 @@ module TopicsIntegrationSupport
     refute page.has_css? ".topics-container"
   end
 
-  def submit_new_topic_with(title, body, announcement: false)
+  def submit_new_topic_with(title, body, type: "Topic")
     click_on "Submit a new topic"
 
     fill_topic_fields_with title, body
 
-    set_announcement_to(announcement)
+    set_topic_type_to(type)
 
     click_on "Create topic"
   end
 
-  def set_announcement_to(value)
-    within ".announcement-box" do
-      choose "topic_announcement_#{value}"
+  def set_topic_type_to(type)
+    within ".topic-type-box" do
+      choose "topic_type_#{type.downcase}"
     end
   end
 
@@ -28,7 +28,7 @@ module TopicsIntegrationSupport
     submit_new_topic_with(
       "Test topic",
       "This is the body of the test topic.",
-      announcement: true
+      type: "AnnouncementTopic"
     )
   end
 

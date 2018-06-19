@@ -43,7 +43,8 @@ class Groups::TopicsControllerTest < ActionDispatch::IntegrationTest
     sign_in @phil
 
     assert_difference('AnnouncementTopic.count') do
-      post group_topics_url(@group), params: topic_params(announcement: "true")
+      post group_topics_url(@group),
+        params: topic_params(type: "AnnouncementTopic")
     end
 
     assert_equal @group.members.size, ActionMailer::Base.deliveries.size
@@ -91,12 +92,12 @@ class Groups::TopicsControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-    def topic_params(announcement: "false")
+    def topic_params(type: "Topic")
       {
         topic: {
           title: @topic.title,
           body: @topic.body,
-          announcement: announcement
+          type: type
         }
       }
     end
