@@ -34,6 +34,9 @@ class AnnouncementTopicsTest < ActionDispatch::IntegrationTest
   end
 
   test "group admin sets announcement topic to normal topic" do
+    @group.event_topics.destroy_all
+    @group.normal_topics.destroy_all
+
     announcement_topic = announcement_topics(:announcement_topic_one)
 
     log_in_as @phil

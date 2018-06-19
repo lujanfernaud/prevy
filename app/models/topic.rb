@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Topic < ApplicationRecord
+  PRIORITY = 0
   MINIMUM_BODY_LENGTH = 20
   EDITED_OFFSET_TIME  = 600 # 10 minutes
 
@@ -17,6 +18,7 @@ class Topic < ApplicationRecord
   validates :title, presence: true, length: { minimum: 2 }
   validate  :body_length
 
+  before_save   :set_priority
   before_save   :set_default_edited_by, unless: :edited_by
   before_save   :set_edited_at
   before_create :set_default_last_commented_at
@@ -39,6 +41,10 @@ class Topic < ApplicationRecord
 
   def normal?
     type == "Topic"
+  end
+
+  def announcement?
+    type == "AnnouncementTopic"
   end
 
   def event?
@@ -71,6 +77,14 @@ class Topic < ApplicationRecord
 
     def body_length
       BodyLengthValidator.call(self, length: MINIMUM_BODY_LENGTH)
+    end
+
+    def set_priority
+      self.priority = topic_type_priority
+    end
+
+    def topic_type_priority
+      Object.const_get(type)::PRIORITY
     end
 
     def set_default_edited_by
