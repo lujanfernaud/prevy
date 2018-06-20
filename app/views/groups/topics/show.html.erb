@@ -30,11 +30,36 @@
           </small>
 
           <div class="mt-2 pt-1 pb-1">
+            <% if @topic.event? %>
+              <div class="topic-event-data mt-2 mb-4">
+                <p class="mb-3">
+                  <span class="mr-1"><%= calendar_icon %></span>
+                  <%= EventDecorator.new(@topic.event).start_date_prettyfied %>
+                  <% unless same_time?(EventDecorator.new(@topic.event)) %>
+                    - <%= EventDecorator.new(@topic.event).end_date_prettyfied %>
+                  <% end %>
+                </p>
+
+                <p class="mb-3">
+                  <span class="mr-1"><%= location_icon %></span>
+                  <%= link_to EventDecorator.new(@topic.event).full_address, group_event_path(@group, @topic.event) + "#map",
+                    data: { turbolinks: false } %>
+                </p>
+
+                <% if @topic.event&.website? %>
+                  <p class="mb-3">
+                    <span class="mr-1"><%= link_icon %></span>
+                    <%= link_to EventDecorator.new(@topic.event)&.website_prettyfied, @topic.event&.website %>
+                  </p>
+                <% end %>
+              </div>
+            <% end %>
+
             <%= sanitize(@topic.body) %>
           </div>
 
           <% if @topic.event? %>
-            <div class="mt-2">
+            <div class="mt-2 pt-1">
               <%= link_to "See event",
                 group_event_path(@group, @topic.event) %>
             </div>
@@ -45,7 +70,7 @@
           <% end %>
 
           <% if is_authorized_to_edit?(@topic, @group) %>
-            <div class="mt-2">
+            <div class="mt-2 pt-1">
               <%= link_to "Edit", edit_group_topic_path(@group, @topic) %>
             </div>
           <% end %>

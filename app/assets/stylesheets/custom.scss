@@ -481,6 +481,11 @@ a.box-title:hover {
   flex-basis: 100%
 }
 
+.topic-event-data {
+  padding-bottom: .7rem;
+  border-bottom: 1px solid $gray-300;
+}
+
 .latest-topics__hr {
   margin-bottom: 1.75rem;
 
