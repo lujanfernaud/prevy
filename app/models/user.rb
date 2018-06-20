@@ -107,6 +107,10 @@ class User < ApplicationRecord
     attended_events.upcoming.three
   end
 
+  def comments
+    topic_comments
+  end
+
   def password_required?
     super if confirmed?
   end
