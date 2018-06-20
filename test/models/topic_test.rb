@@ -89,7 +89,7 @@ class TopicTest < ActiveSupport::TestCase
       older_normal_topic, newer_normal_topic
     ]
 
-    assert_equal expected_result.map(&:id), group.topics.prioritized.map(&:id)
+    assert_equal expected_result.map(&:id), group.topics_prioritized.map(&:id)
   end
 
   test "sets author as default edited_by on save" do
@@ -246,10 +246,10 @@ class TopicTest < ActiveSupport::TestCase
     end
 
     def newer_normal_topic
-      group.normal_topics.order(:last_commented_at).first
+      group.normal_topics.last
     end
 
     def older_normal_topic
-      group.normal_topics.order(:last_commented_at).last
+      group.normal_topics.first
     end
 end

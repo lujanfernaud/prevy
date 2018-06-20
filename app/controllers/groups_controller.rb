@@ -30,7 +30,7 @@ class GroupsController < ApplicationController
     @group  = find_group
     @events = store_upcoming_events
     @events_count = @group.events.upcoming.count
-    @topics = @group.topics_prioritized.limit(5)
+    @topics = @group.topics_prioritized(normal_topics_limit: 5)
     @unhidden_groups = unhidden_groups_selection_without @group
 
     authorize @group

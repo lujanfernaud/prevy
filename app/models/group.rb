@@ -76,14 +76,18 @@ class Group < ApplicationRecord
     sample_resource? && name =~ /\ASample\s/
   end
 
-  def topics_prioritized
+  # When we pass NULL to LIMIT, Postgres treats it as LIMIT ALL (no limit).
+  # https://www.postgresql.org/docs/current/static/sql-select.html#SQL-LIMIT
+  def topics_prioritized(normal_topics_limit: nil)
     remove_priority_to_past_events_topics
 
-    topics.prioritized
+    ids = topic_ids(normal_topics_limit)
+
+    topics.where(id: ids).prioritized
   end
 
   def normal_topics
-    topics.normal
+    topics.normal.prioritized
   end
 
   def recent_organizers
@@ -223,5 +227,16 @@ class Group < ApplicationRecord
       past_event_ids = events.past.pluck(:id)
 
       topics.where("event_id IN (?)", past_event_ids)
+    end
+
+    def topic_ids(normal_topics_limit)
+      special_topics_ids = special_topics.pluck(:id)
+      normal_topics_ids  = normal_topics.limit(normal_topics_limit).pluck(:id)
+
+      special_topics_ids + normal_topics_ids
+    end
+
+    def special_topics
+      Topic.where(group: self).where.not(type: "Topic").prioritized
     end
 end
