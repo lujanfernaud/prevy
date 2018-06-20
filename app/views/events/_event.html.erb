@@ -30,7 +30,7 @@
 
       <p class="mt-1 mb-0">
         <%= comments_icon %>
-        <%= link_to group_topic_path(event.group, event.topic) do %>
+        <%= link_to group_event_path(event.group, event) + "#comments" do %>
           <%= "#{event.comments.count} " +
             "comment".pluralize(event.comments.count)%>
         <% end %>

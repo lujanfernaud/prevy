@@ -48,7 +48,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
       click_on "#{event.comments.count} comments"
     end
 
-    assert_current_path group_topic_path(group, event.topic)
+    assert_current_path group_event_path(group, event)
   end
 
   test "logged in user clicks on group topics" do
