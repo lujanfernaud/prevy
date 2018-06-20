@@ -180,7 +180,7 @@ class TopicTest < ActiveSupport::TestCase
     group.update_attributes(name: "Test group")
     group.update_attributes(updated_at: 1.day.ago)
 
-    assert_in_delta 1.day.ago, group.updated_at, 1.minute
+    assert_in_delta 1.day.ago, group.updated_at, 2.minutes
 
     group.topics.create!(
       user:  SampleUser.all.sample,
@@ -188,7 +188,7 @@ class TopicTest < ActiveSupport::TestCase
       body:  "This is the body of the test topic."
     )
 
-    assert_in_delta topic.reload.updated_at, group.reload.updated_at, 1.minute
+    assert_in_delta topic.reload.updated_at, group.reload.updated_at, 2.minutes
   end
 
   test "sets default last_commented_at after create" do
