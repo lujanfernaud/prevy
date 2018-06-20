@@ -5,7 +5,7 @@ class TopicComment < ApplicationRecord
   EDITED_OFFSET_TIME  = 300 # 5 minutes
 
   belongs_to :topic, touch: true
-  belongs_to :user
+  belongs_to :user, touch: true
   belongs_to :edited_by, class_name: "User", optional: true
 
   validate :body_length
