@@ -19,6 +19,13 @@ class EventDecoratorTest < ActiveSupport::TestCase
     assert_equal event.short_address, short_address
   end
 
+  test "#website_prettyfied" do
+    event = fake_event_decorator(website: "https://www.testwebsite.com")
+    expected = "www.testwebsite.com"
+
+    assert_equal expected, event.website_prettyfied
+  end
+
   private
 
     def fake_event_decorator(params = {})

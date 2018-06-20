@@ -27,6 +27,10 @@ class EventDecorator < SimpleDelegator
     happens_this_year? ? end_date_formatted : end_date_formatted_with_year
   end
 
+  def website_prettyfied
+    website.gsub("https://", "")
+  end
+
   private
 
     def happens_this_year?
