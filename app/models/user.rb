@@ -34,6 +34,8 @@ class User < ApplicationRecord
   has_many :group_memberships
   has_many :associated_groups, through: :group_memberships, source: "group"
 
+  has_many :user_group_comments_counts, dependent: :destroy
+
   has_many :organized_events, class_name: "Event", foreign_key: "organizer_id"
 
   has_many :attendances, foreign_key: "attendee_id"
@@ -80,6 +82,10 @@ class User < ApplicationRecord
 
   def events_from_groups
     Event.where(group_id: groups.map(&:id)).upcoming
+  end
+
+  def group_comments_count(group)
+    user_group_comments_counts.find_by(group: group)
   end
 
   def total_membership_requests

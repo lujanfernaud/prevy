@@ -96,4 +96,32 @@ class TopicCommentTest < ActiveSupport::TestCase
 
     assert_equal comment.created_at, topic.last_commented_at
   end
+
+  test "increases count for user group comments" do
+    stranger = users(:stranger)
+    comment  = fake_comment(user: stranger)
+
+    comments_count = UserGroupCommentsCount.new
+    UserGroupCommentsCount.expects(:find_or_create_by!).returns(comments_count)
+    comments_count.expects(:increase)
+
+    comment.save!
+  end
+
+  test "decreases count for user group comments" do
+    stranger = users(:stranger)
+    comment  = fake_comment(user: stranger)
+
+    comments_count = UserGroupCommentsCount.new
+    UserGroupCommentsCount.expects(:find_or_create_by!).returns(comments_count)
+    comments_count.expects(:decrease)
+
+    comment.destroy!
+  end
+
+  test "group can be destroyed without a foreign key constraint error" do
+    group = groups(:one)
+
+    assert group.destroy!
+  end
 end

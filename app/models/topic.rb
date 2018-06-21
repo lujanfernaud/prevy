@@ -12,7 +12,7 @@ class Topic < ApplicationRecord
   belongs_to :user
   belongs_to :edited_by, class_name: "User", optional: true
 
-  has_many :topic_comments, dependent: :destroy
+  has_many :topic_comments, dependent: :delete_all
   has_many :notifications,  dependent: :destroy
 
   validates :title, presence: true, length: { minimum: 2 }

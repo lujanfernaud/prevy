@@ -8,17 +8,21 @@ class Group < ApplicationRecord
 
   resourcify
 
-  before_save  :titleize_name
-  before_save  :titleize_location
-  before_save  :capitalize_description
-  after_create :add_owner_as_organizer_and_moderator
-  after_update :update_members_role
-  after_save   :create_image_placeholder
+  before_save    :titleize_name
+  before_save    :titleize_location
+  before_save    :capitalize_description
+  after_create   :add_owner_as_organizer_and_moderator
+  after_create   :create_owner_group_comments_count
+  after_update   :update_members_role
+  after_save     :create_image_placeholder
+  before_destroy :destroy_owner_group_comments_count
 
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
 
-  has_many :group_memberships, dependent: :destroy
+  has_many :group_memberships, dependent: :delete_all
   has_many :members, through: :group_memberships, source: "user"
+
+  has_many :user_group_comments_counts, dependent: :destroy
 
   has_many :membership_requests, dependent: :destroy
   has_many :received_requests, through: :membership_requests, source: "user"
@@ -107,7 +111,7 @@ class Group < ApplicationRecord
   end
 
   def members_with_role
-    User.with_role(:member, self).reverse
+    User.joins(:roles).where(roles: { resource_id: self, name: "member" })
   end
 
   def add_to_organizers(member)
@@ -159,6 +163,14 @@ class Group < ApplicationRecord
 
     def capitalize_description
       self.description = description[0].capitalize + description[1..-1]
+    end
+
+    def create_owner_group_comments_count
+      UserGroupCommentsCount.create!(user: owner, group: self)
+    end
+
+    def destroy_owner_group_comments_count
+      UserGroupCommentsCount.find_by(user: owner, group: self).destroy
     end
 
     def add_owner_as_organizer_and_moderator

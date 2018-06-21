@@ -39,7 +39,7 @@ class Groups::MembershipsControllerTest < ActionDispatch::IntegrationTest
   test "should destroy group_membership" do
     group = groups(:one)
     owner = group.owner
-    user  = users(:penny)
+    user  = users(:woodell)
 
     sign_in(owner)
 

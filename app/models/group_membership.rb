@@ -1,15 +1,17 @@
 class GroupMembership < ApplicationRecord
-  before_save    :add_role_to_user
-  before_destroy :remove_all_user_roles_for_group
-
   belongs_to :user
   belongs_to :group
 
   has_one :notification, dependent: :destroy
 
+  before_save    :add_user_role
+  before_create  :create_user_group_comments_count
+  before_destroy :destroy_user_group_comments_count
+  before_destroy :remove_user_roles
+
   private
 
-    def add_role_to_user
+    def add_user_role
       if group.all_members_can_create_events?
         user.add_role :organizer, group
       else
@@ -17,7 +19,15 @@ class GroupMembership < ApplicationRecord
       end
     end
 
-    def remove_all_user_roles_for_group
+    def create_user_group_comments_count
+      UserGroupCommentsCount.create!(user: user, group: group)
+    end
+
+    def destroy_user_group_comments_count
+      UserGroupCommentsCount.find_by(user: user, group: group).destroy
+    end
+
+    def remove_user_roles
       user_roles.each do |role|
         user.remove_role role, group
       end

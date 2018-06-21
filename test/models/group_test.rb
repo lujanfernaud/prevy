@@ -76,6 +76,17 @@ class GroupTest < ActiveSupport::TestCase
     assert group.events.count > 1
   end
 
+  test "destroys roles" do
+    group = groups(:one)
+    user  = users(:woodell)
+
+    user.add_role :member, group
+
+    group.destroy
+
+    assert_empty group.roles
+  end
+
   test "titleizes name before saving" do
     group = fake_group(name: "john's group")
 
@@ -101,6 +112,29 @@ class GroupTest < ActiveSupport::TestCase
     group.save
 
     assert_equal description_capitalized, group.description
+  end
+
+  test "creates owner UserGroupCommentsCount" do
+    group = fake_group
+    user  = group.owner
+
+    UserGroupCommentsCount.expects(:create!).with(user: user, group: group)
+
+    group.save
+  end
+
+  test "destroys owner UserGroupCommentsCount" do
+    group = fake_group
+    user  = group.owner
+
+    comments_count = UserGroupCommentsCount.new
+    UserGroupCommentsCount.expects(:find_by)
+                          .with(user: user, group: group)
+                          .returns(comments_count)
+    comments_count.expects(:destroy)
+
+    group.save
+    group.destroy
   end
 
   test "adds owner as organizer and moderator after creation" do

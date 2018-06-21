@@ -10,8 +10,10 @@ class TopicComment < ApplicationRecord
 
   validate :body_length
 
-  before_save  :set_default_edited_by, unless: :edited_by
-  after_create :update_topic_last_commented_at_date
+  before_save    :set_default_edited_by, unless: :edited_by
+  after_create   :update_topic_last_commented_at_date
+  after_create   -> { user_group_comments_count.increase }
+  before_destroy -> { user_group_comments_count.decrease }
 
   def edited?
     return false if topic.group.sample_group?
@@ -39,5 +41,9 @@ class TopicComment < ApplicationRecord
 
     def update_topic_last_commented_at_date
       topic.update_attributes(last_commented_at: created_at)
+    end
+
+    def user_group_comments_count
+      UserGroupCommentsCount.find_or_create_by!(user: user, group: topic.group)
     end
 end
