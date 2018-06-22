@@ -30,5 +30,20 @@ class SampleGroupTest < ActiveSupport::TestCase
     assert_equal 1, group.event_topics.count
     assert_equal 1, group.pinned_topics.count
     assert_equal 6, group.normal_topics.count
+
+    assert user.group_comments_count(group)
+  end
+
+  test "all members have a group comments count" do
+    user = users(:stranger)
+
+    SampleGroup.create_for_user(user)
+    group = Group.last
+
+    members = group.members
+
+    members.all? do |member|
+      assert member.group_comments_count(group)
+    end
   end
 end

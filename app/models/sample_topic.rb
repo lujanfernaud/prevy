@@ -90,11 +90,16 @@ class SampleTopic
       )
     end
 
-    # Callbacks are not being called.
+    # Some callbacks are not being called.
     # https://github.com/zdennis/activerecord-import/wiki/Callbacks
     def add_comments
       topics.each do |topic|
         rand(5..13).times { @comments << new_comment_for(topic) }
+      end
+
+      @comments.each do |comment|
+        comment.run_callbacks(:create) { false }
+        comment.user.touch
       end
 
       TopicComment.import(@comments)
@@ -112,8 +117,8 @@ class SampleTopic
       )
     end
 
-    # Since callbacks are not being called when importing the data,
-    # we need to set the last_commented_at date manually.
+    # Since 'after_create' callbacks are not being called when importing
+    # the data, we need to set the last_commented_at date manually.
     def update_topics_last_commented_at
       topics.each do |topic|
         topic.update_attribute(:last_commented_at, last_comment_date(topic))

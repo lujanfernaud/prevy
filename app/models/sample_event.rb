@@ -93,8 +93,15 @@ class SampleEvent
       group.members_with_role.shuffle[0..29]
     end
 
+    # Some callbacks are not being called.
+    # https://github.com/zdennis/activerecord-import/wiki/Callbacks
     def add_sample_comments
       COMMENT_SEEDS.each { |seed| @comments << new_comment_with(seed) }
+
+      @comments.each do |comment|
+        comment.run_callbacks(:create) { false }
+        comment.user.touch
+      end
 
       TopicComment.import(@comments)
     end

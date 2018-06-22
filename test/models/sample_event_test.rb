@@ -3,12 +3,13 @@ require 'test_helper'
 class SampleEventTest < ActiveSupport::TestCase
   def setup
     stub_geocoder
-    @group = Group.last
+
+    @group = groups(:one)
+
+    add_members_with_role
   end
 
-  test "creates event with sample attendees" do
-    add_members_with_role
-
+  test "creates event with sample attendees and sample comments" do
     SampleEvent.create_for_group(@group)
     event = Event.last
 
@@ -16,6 +17,16 @@ class SampleEventTest < ActiveSupport::TestCase
     assert_not_empty event.attendees
 
     assert event.comments.count > 5
+  end
+
+  test "touches users after adding comments" do
+    previous_updated_at = @group.members.pluck(:updated_at)
+
+    SampleEvent.create_for_group(@group)
+
+    updated_at = @group.members.reload.pluck(:updated_at)
+
+    assert_not_equal previous_updated_at, updated_at
   end
 
   private

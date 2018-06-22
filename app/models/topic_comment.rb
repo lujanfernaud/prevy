@@ -12,7 +12,7 @@ class TopicComment < ApplicationRecord
 
   before_save    :set_default_edited_by, unless: :edited_by
   after_create   :update_topic_last_commented_at_date
-  after_create   -> { user_group_comments_count.increase }
+  before_create  -> { user_group_comments_count.increase }
   before_destroy -> { user_group_comments_count.decrease }
 
   def edited?

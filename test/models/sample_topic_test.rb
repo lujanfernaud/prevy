@@ -34,4 +34,22 @@ class SampleTopicTest < ActiveSupport::TestCase
     assert_equal 1, @group.pinned_topics.count
     assert topic.comments.count > 4
   end
+
+  test "updates user topic_comments_count" do
+    SampleTopic.create_topics_for_group(@group)
+
+    @group.members.each do |member|
+      assert_not member.group_comments_count(@group).number.zero?
+    end
+  end
+
+  test "touches users after adding comments" do
+    previous_updated_at = @group.members.pluck(:updated_at)
+
+    SampleTopic.create_topics_for_group(@group)
+
+    updated_at = @group.members.reload.pluck(:updated_at)
+
+    assert_not_equal previous_updated_at, updated_at
+  end
 end

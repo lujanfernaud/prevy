@@ -52,29 +52,22 @@ class SampleGroup
       I18n.t("sample_group.location")
     end
 
-    def add_sample_members
-      create_memberships
-      add_member_role_to_memberships
-    end
-
     # We are using 'activerecord-import' for bulk inserting the data.
     # https://github.com/zdennis/activerecord-import/wiki/Examples
     #
-    # Callbacks are not being called.
+    # Some callbacks are not being called.
     # https://github.com/zdennis/activerecord-import/wiki/Callbacks
-    def create_memberships
+    def add_sample_members
       SampleUser.collection_for_sample_group.each do |user|
         @memberships << GroupMembership.new(group: @group, user: user)
       end
 
-      GroupMembership.import(@memberships)
-    end
-
-    def add_member_role_to_memberships
-      # https://github.com/zdennis/activerecord-import/wiki/Callbacks
       @memberships.each do |membership|
-        membership.run_callbacks(:save) { false }
+        membership.run_callbacks(:save)   { false }
+        membership.run_callbacks(:create) { false }
       end
+
+      GroupMembership.import(@memberships)
     end
 
     def add_sample_organizers
