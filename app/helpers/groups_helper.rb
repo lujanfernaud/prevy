@@ -53,4 +53,12 @@ module GroupsHelper
   def checked_if_not_set(attribute)
     attribute ? false : true
   end
+
+  def top_members(group)
+    if group.members_with_role.size > Group::TOP_MEMBERS_SHOWN
+      group.top_members
+    else
+      group.top_members(limit: Group::TOP_MEMBERS_SHOWN / 2)
+    end
+  end
 end

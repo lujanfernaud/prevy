@@ -1,4 +1,4 @@
-<% cache group.members_with_role.last(12) do %>
+<% cache top_members(group) do %>
 
   <div class="container-fluid bg-light">
     <div class="container members-container pb-4">
@@ -7,28 +7,29 @@
         <div class="col-md-12">
 
           <h2 class="text-center">
-            <%= members_title_with_count %>
+            Most Involved Members
           </h2>
 
           <% if !@group.members_with_role.empty? %>
 
             <div class="row d-flex justify-content-center mt-1rem mb-2rem">
               <%= render partial: "user",
-                collection: group.members_with_role.last(12), as: :user,
+                collection: top_members(group), as: :user,
                 locals: { group: group }, cached: true %>
             </div>
 
           <% else %>
 
             <h3 class="h5 text-center mt-5 mb-2rem pb-3">
-              So far there are no members.
+              We need some members!
             </h3>
 
           <% end %>
 
-          <% if group.members.count > 12 %>
+          <% if group.members_with_role.size > Group::TOP_MEMBERS_SHOWN %>
             <div class="text-center mb-4">
-              <%= see_all_members_link(group, quantity: 12) %>
+              <%= see_all_members_link(group,
+                quantity: Group::TOP_MEMBERS_SHOWN) %>
             </div>
           <% end %>
 

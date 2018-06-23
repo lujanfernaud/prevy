@@ -1,5 +1,6 @@
 class Group < ApplicationRecord
   SPECIAL_ROLES = ["organizer", "moderator"].freeze
+  TOP_MEMBERS_SHOWN = 12
 
   include PgSearch
 
@@ -8,9 +9,11 @@ class Group < ApplicationRecord
 
   resourcify
 
+  # TODO: Merge these methods into '#prepare_text_fields'
   before_save    :titleize_name
   before_save    :titleize_location
   before_save    :capitalize_description
+  # ----------------------------------------------------
   after_create   :add_owner_as_organizer_and_moderator
   after_create   :create_owner_group_comments_count
   after_update   :update_members_role
@@ -112,6 +115,14 @@ class Group < ApplicationRecord
 
   def members_with_role
     User.joins(:roles).where(roles: { resource_id: self, name: "member" })
+  end
+
+  def top_members(limit: TOP_MEMBERS_SHOWN)
+    members_with_role.
+     joins(:user_group_comments_counts).
+     where("user_group_comments_counts.group_id = ?", self).
+     order("user_group_comments_counts.comments_count DESC").
+     limit(limit)
   end
 
   def add_to_organizers(member)

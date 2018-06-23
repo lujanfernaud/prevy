@@ -9,3 +9,25 @@ two:
   user: penny
   group: two
   comments_count: 1
+
+three:
+  user: woodell
+  group: one
+  comments_count: 20
+
+four:
+  user: carolyn
+  group: one
+  comments_count: 13
+
+five:
+  user: stranger
+  group: one
+  comments_count: 11
+
+<% [*10.downto(0)].each.with_index do |number, iteration| %>
+comments_count_<%= iteration %>:
+  user: user_<%= iteration %>
+  group: one
+  comments_count: <%= number %>
+<% end %>

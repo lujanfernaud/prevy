@@ -31,7 +31,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     assert_upcoming_events
     assert_topics(@group)
-    assert_members(@group)
+    assert_top_members(@group)
   end
 
   test "group member visits group" do
@@ -52,7 +52,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     assert_upcoming_events
     assert_topics(@group)
-    assert_members(@group)
+    assert_top_members(@group)
   end
 
   test "logged in user visits group" do
@@ -147,7 +147,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     assert_upcoming_events
     assert_topics(group)
-    assert_members(group)
+    assert_top_members(group)
   end
 
   test "member with unconfirmed email visits group" do
@@ -261,11 +261,12 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
       refute page.has_css?     ".event-box"
     end
 
-    def assert_members(group)
+    def assert_top_members(group)
       within ".members-container" do
-        assert page.has_content? "Members"
-        last_members_names = group.members.last(12).map(&:name)
-        last_members_names.each do |name|
+        assert page.has_content? "Most Involved Members"
+        top_members_names = group.top_members.pluck(:name)
+
+        top_members_names.each do |name|
           assert page.has_link? name
         end
       end
