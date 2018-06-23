@@ -18,6 +18,8 @@
         user_path(user, attending_event: event) %>
     </div>
 
-    <%= yield if block_given? %>
+    <div class="member-name mt-2 pl-4 pr-4 text-center">
+      <%= "#{user.group_comments_number(event.group)} cmts" %>
+    </div>
   </div>
 </div>

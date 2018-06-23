@@ -1,57 +1,65 @@
 require 'test_helper'
 
 class EventsAttendeesTest < ActionDispatch::IntegrationTest
+  def setup
+    @stranger = users(:stranger)
+    @group    = groups(:one)
+    @event    = events(:one)
+    @attendee = @event.attendees.first
+  end
+
   test "logged in user visits attendees" do
-    stranger  = users(:stranger)
-    group     = groups(:one)
-    event     = events(:one)
-    attendees = event.attendees.count
+    attendees_count = @event.attendees.count
 
-    log_in_as stranger
+    visit_event_attendees_logged_in_as_stranger
 
-    visit event_attendances_path(event)
+    assert_breadcrumbs(@group, @event)
 
-    assert_breadcrumbs(group, event)
+    assert page.has_content? @event.title
+    assert page.has_content? "Attendees (#{attendees_count})"
 
-    assert page.has_content? event.title
-    assert page.has_content? "Attendees (#{attendees})"
+    assert_attendees_links(@event)
+  end
 
-    assert_attendees_links(event)
+  test "attendee card shows comments number" do
+    attendee_group_comments = @attendee.group_comments_number(@group)
+
+    visit_event_attendees_logged_in_as_stranger
+
+    within "#user-#{@attendee.id}" do
+      assert page.has_content? attendee_group_comments
+    end
   end
 
   test "logged out user visits attendees" do
-    event     = events(:one)
-    attendees = event.attendees.count
-
-    visit event_attendances_path(event)
+    visit event_attendances_path(@event)
 
     assert page.has_content? "You are not authorized to perform this action"
-
     assert_equal current_path, root_path
   end
 
   test "user visit attendee" do
-    stranger = users(:stranger)
-    event    = events(:one)
-    attendee = event.attendees.first
+    visit_event_attendees_logged_in_as_stranger
 
-    log_in_as stranger
+    click_on @attendee.name
 
-    visit event_attendances_path(event)
-
-    click_on attendee.name
-
-    assert current_path == user_path(attendee.id)
+    assert current_path == user_path(@attendee.id)
 
     within ".breadcrumb" do
       assert page.has_link? "Attendees"
       click_on "Attendees"
     end
 
-    assert current_path == event_attendances_path(event)
+    assert current_path == event_attendances_path(@event)
   end
 
   private
+
+    def visit_event_attendees_logged_in_as_stranger
+      log_in_as @stranger
+
+      visit event_attendances_path(@event)
+    end
 
     def assert_breadcrumbs(group, event)
       assert page.has_css?  ".breadcrumb"

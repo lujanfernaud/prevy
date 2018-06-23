@@ -17,5 +17,9 @@
       <%= link_to user.name,
         user_path(user, member_of: group) %>
     </div>
+
+    <div class="member-name mt-2 pl-4 pr-4 text-center">
+      <%= "#{user.group_comments_number(group)} cmts" %>
+    </div>
   </div>
 </div>

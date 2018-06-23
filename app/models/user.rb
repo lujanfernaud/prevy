@@ -88,6 +88,10 @@ class User < ApplicationRecord
     user_group_comments_counts.find_by(group: group)
   end
 
+  def group_comments_number(group)
+    user_group_comments_counts.find_by(group: group)&.number || 0
+  end
+
   def total_membership_requests
     received_requests + sent_requests
   end
