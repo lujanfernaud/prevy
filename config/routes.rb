@@ -62,7 +62,7 @@ Rails.application.routes.draw do
   # Events
   resources :events do
     # Event Attendees
-    resources :attendances, controller: "events/attendances"
+    resources :attendances, path: "attendees", controller: "events/attendances"
   end
 
   # Search
