@@ -29,8 +29,8 @@ Rails.application.routes.draw do
   end
 
   resources :groups do
-    resources :memberships, as: :members, only: [:index, :create, :destroy],
-      controller: "groups/memberships"
+    resources :memberships, as: :members, path: "members",
+      only: [:index, :create, :destroy], controller: "groups/memberships"
     resources :membership_requests,       only: [:new, :create, :destroy],
       controller: "groups/membership_requests"
     resources :roles,                     only: [:index, :create, :destroy],
