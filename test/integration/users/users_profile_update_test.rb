@@ -1,41 +1,9 @@
 require 'test_helper'
 
-class UsersProfileTest < ActionDispatch::IntegrationTest
+class UsersProfileUpdateTest < ActionDispatch::IntegrationTest
   def setup
-    @phil     = users(:phil)
-    @penny    = users(:penny)
-    @onitsuka = users(:onitsuka)
-  end
-
-  test "user visits someone's profile" do
-    log_in_as(@penny)
-
-    visit user_path(@phil)
-
-    assert page.has_content? @phil.name
-    assert page.has_css?     ".user-avatar"
-
-    assert page.has_content? "Location"
-    assert page.has_content? @phil.location
-
-    assert page.has_content? "Bio"
-    assert page.has_content? @phil.bio
-  end
-
-  test "profile shows edit link for logged in user" do
-    log_in_as(@phil)
-
-    visit user_path(@phil)
-
-    assert page.has_content? "Edit profile"
-  end
-
-  test "profile does not show edit link for other users" do
-    log_in_as(@phil)
-
-    visit user_path(@penny)
-
-    assert_not page.has_content? "Edit profile"
+    @phil  = users(:phil)
+    @penny = users(:penny)
   end
 
   test "active tab in profile settings is 'Profile' tab" do

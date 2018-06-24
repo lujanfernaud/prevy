@@ -36,14 +36,16 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-12 mt-4">
-            <h3 class="h4 profile-heading mb-2 pb-1">Comments</h3>
-            <p class="lead mb-0">
-              <%= @user.comments.size %>
-            </p>
+        <% if @group && authorized?(current_user, @group) %>
+          <div class="row comments-count">
+            <div class="col-md-12 mt-4">
+              <h3 class="h4 profile-heading mb-2 pb-1">Group Comments</h3>
+              <p class="lead mb-0">
+                <%= @user.group_comments_number(@group) %>
+              </p>
+            </div>
           </div>
-        </div>
+        <% end %>
 
         <% if @user.location && !@user.location.empty? %>
           <div class="row">
