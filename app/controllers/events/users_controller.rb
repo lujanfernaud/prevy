@@ -11,7 +11,7 @@ class Events::UsersController < ApplicationController
 
     add_breadcrumbs
 
-    render "groups/users/show"
+    render "users/show"
   end
 
   private

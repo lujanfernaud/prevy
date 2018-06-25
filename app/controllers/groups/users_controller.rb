@@ -10,6 +10,8 @@ class Groups::UsersController < ApplicationController
     authorize @user
 
     add_breadcrumbs
+
+    render "users/show"
   end
 
   private
