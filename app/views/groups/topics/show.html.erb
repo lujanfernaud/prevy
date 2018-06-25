@@ -13,7 +13,8 @@
         <div class="topic__avatar member-image mr-3">
           <div class="intrinsic-ratio-container
             intrinsic-ratio-container--square">
-            <%= link_to user_path(@topic.user), class: "display-block" do %>
+            <%= link_to group_member_path(@group, @topic.user),
+              class: "display-block" do %>
               <%= image_tag gravatar_image_url(@topic.user.email),
                 class: "lazyload blur-up
                   img-fluid intrinsic-ratio-image user-avatar d-block",
@@ -23,7 +24,7 @@
         </div>
 
         <div class="topic__body">
-          <%= link_to @topic.user.name, user_path(@topic.user),
+          <%= link_to @topic.user.name, group_member_path(@group, @topic.user),
             class: "font-weight-bold" %>
           <small class="topic__date text-muted">
             <%= local_time_ago(@topic.created_at) %>

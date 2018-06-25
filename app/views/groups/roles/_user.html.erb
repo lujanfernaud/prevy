@@ -3,7 +3,7 @@
   <div class="roles-user__avatar mr-2">
     <div class="intrinsic-ratio-container
       intrinsic-ratio-container--square">
-      <%= link_to user_path(user), class: "display-block" do %>
+      <%= link_to group_member_path(group, user), class: "display-block" do %>
         <%= image_tag gravatar_image_url(user.email),
           class: "lazyload blur-up
             img-fluid intrinsic-ratio-image user-avatar d-block",
@@ -14,7 +14,7 @@
   </div>
 
   <div class="roles-user__info d-flex flex-column flex-md-row align-self-center">
-    <%= link_to user.name, user_path(user) %>
+    <%= link_to user.name, group_member_path(group, user) %>
 
     <% if user.has_role? :organizer, group %>
       <span class="ml-md-2">[Organizer]</span>

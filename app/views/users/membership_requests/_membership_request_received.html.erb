@@ -1,6 +1,7 @@
 <div id="<%= membership_request.id %>" class="row d-flex mb-4 box bg-white">
 
-  <a href="<%= user_path(membership_request.user) %>"
+  <a href="<%= group_member_path(membership_request.group,
+    membership_request.user) %>"
     class="overflow-hidden">
     <div class="lazyload blur-up membership-request-image"
       style="background-image:
@@ -15,7 +16,8 @@
       <span class="font-weight-normal">From</span>
       <span>
         <%= link_to membership_request.user.name,
-          user_path(membership_request.user) %>
+          group_member_path(membership_request.group,
+            membership_request.user) %>
       </span>
       <span class="font-weight-normal">in</span>
       <span>

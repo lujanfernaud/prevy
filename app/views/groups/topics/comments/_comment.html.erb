@@ -2,7 +2,8 @@
   <div class="comment__avatar member-image mr-3">
     <div class="intrinsic-ratio-container
       intrinsic-ratio-container--square">
-      <%= link_to user_path(comment.user), class: "display-block" do %>
+      <%= link_to group_member_path(comment.topic.group, comment.user),
+        class: "display-block" do %>
         <%= image_tag gravatar_image_url(comment.user.email),
           class: "lazyload blur-up
             img-fluid intrinsic-ratio-image user-avatar d-block",
@@ -12,7 +13,8 @@
   </div>
 
   <div class="comment__body">
-    <%= link_to comment.user.name, user_path(comment.user),
+    <%= link_to comment.user.name,
+      group_member_path(comment.topic.group, comment.user),
       class: "font-weight-bold" %>
     <small class="comment__date text-muted">
       <%= local_time_ago(comment.created_at) %>

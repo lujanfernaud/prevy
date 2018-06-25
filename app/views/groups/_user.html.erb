@@ -3,7 +3,7 @@
 
     <div class="member-image pl-4 pr-4">
       <div class="intrinsic-ratio-container intrinsic-ratio-container--square">
-        <%= link_to user_path(user, member_of: group),
+        <%= link_to group_member_path(group, user),
           class: "d-block" do %>
           <%= image_tag gravatar_image_url(user.email),
             class: "lazyload blur-up
@@ -15,7 +15,7 @@
 
     <div class="member-name mt-2 pl-4 pr-4 text-center">
       <%= link_to user.name,
-        user_path(user, member_of: group) %>
+        group_member_path(group, user) %>
     </div>
 
     <div class="member-name mt-2 pl-4 pr-4 text-center">

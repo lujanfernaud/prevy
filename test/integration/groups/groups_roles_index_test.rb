@@ -51,7 +51,7 @@ class GroupsRolesIndexTest < ActionDispatch::IntegrationTest
       click_on @woodell.name
     end
 
-    assert_equal user_path(@woodell), current_path
+    assert_equal group_member_path(@group, @woodell), current_path
   end
 
   test "add organizer role" do
