@@ -10,6 +10,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     sign_in(@penny)
 
     get user_url(@phil)
+
     assert_response :success
   end
 
@@ -17,6 +18,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     sign_in(@phil)
 
     get edit_user_url(@phil)
+
     assert_response :success
   end
 

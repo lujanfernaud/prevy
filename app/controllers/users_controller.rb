@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
   before_action :redirect_to_sign_up, if: :not_logged_in?
-  before_action :set_event_if_coming_from_event, only: :show
-  before_action :set_group_if_coming_from_group, only: :show
   after_action  :verify_authorized
 
   # User profile
@@ -9,20 +7,16 @@ class UsersController < ApplicationController
     @user = find_user
 
     authorize @user
-
-    if coming_from_group_or_event
-      add_breadcrumbs
-    end
   end
 
-  # Profile settings
+  # Edit profile
   def edit
     @user = find_user
 
     authorize @user
   end
 
-  # Profile settings
+  # Update profile
   def update
     @user = find_user
 
@@ -52,62 +46,5 @@ class UsersController < ApplicationController
 
     def redirect_to_sign_up
       redirect_to new_user_registration_path
-    end
-
-    def set_event_if_coming_from_event
-      @organized_event = params[:organized_event] || false
-      @attending_event = params[:attending_event] || false
-
-      if @organized_event || @attending_event
-        @event = Event.find(@organized_event || @attending_event)
-      end
-    end
-
-    def set_group_if_coming_from_group
-      @organizer_of = params[:organizer_of] || false
-      @member_of    = params[:member_of] || false
-
-      if @organizer_of || @member_of
-        @group = Group.find(@organizer_of || @member_of)
-      end
-    end
-
-    def coming_from_group_or_event
-      @group || @event
-    end
-
-    def add_breadcrumbs
-      if @organized_event
-        add_event_breadcrumbs_for "Organizer"
-      end
-
-      if @attending_event
-        add_event_breadcrumbs_for "Attendees", event_attendances_path(@event)
-      end
-
-      if @organizer_of || @member_of
-        add_group_breadcrumbs_for "Organizers & Members",
-          group_members_path(@group)
-      end
-    end
-
-    def add_event_breadcrumbs_for(title, path = nil)
-      @group = @event.group
-
-      add_breadcrumb @group.name, group_path(@group)
-      add_breadcrumb @event.title, group_event_path(@group, @event)
-      add_breadcrumb title, path
-      add_breadcrumb @user.name
-    end
-
-    def add_group_breadcrumbs_for(title, path = nil)
-      add_breadcrumb @group.name, group_path(@group)
-      add_breadcrumb title, path
-      add_breadcrumb @user.name
-    end
-
-    # TODO: Remove. Not used.
-    def decorators_for(events)
-      EventDecorator.collection(events)
     end
 end
