@@ -13,7 +13,7 @@ class EventsOrganizerTest < ActionDispatch::IntegrationTest
 
     click_on organizer.name
 
-    assert current_path == user_path(organizer)
+    assert current_path == event_attendee_path(event, organizer)
     assert page.has_css? ".breadcrumb"
 
     within ".breadcrumb" do

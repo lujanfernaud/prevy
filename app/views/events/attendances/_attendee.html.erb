@@ -3,7 +3,7 @@
 
     <div class="attendee-image pl-4 pr-4">
       <div class="intrinsic-ratio-container intrinsic-ratio-container--square">
-        <%= link_to user_path(user, attending_event: event),
+        <%= link_to event_attendee_path(event, user),
           class: "d-block" do %>
           <%= image_tag gravatar_image_url(user.email),
             class: "lazyload blur-up
@@ -15,7 +15,7 @@
 
     <div class="attendee-name mt-2 pl-4 pr-4 text-center">
       <%= link_to user.name,
-        user_path(user, attending_event: event) %>
+        event_attendee_path(event, user) %>
     </div>
 
     <div class="member-name mt-2 pl-4 pr-4 text-center">

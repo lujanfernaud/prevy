@@ -43,7 +43,7 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
 
     click_on @attendee.name
 
-    assert current_path == user_path(@attendee.id)
+    assert current_path == event_attendee_path(@event, @attendee.id)
 
     within ".breadcrumb" do
       assert page.has_link? "Attendees"

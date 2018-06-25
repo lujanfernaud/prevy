@@ -12,7 +12,7 @@
         <ul>
           <li>
             <%= link_to event.organizer.name,
-              user_path(event.organizer, organized_event: event),
+              event_attendee_path(event, event.organizer),
               class: "mb-2rem" %>
           </li>
         </ul>
@@ -32,8 +32,7 @@
           </ul>
 
           <% if more_attendees?(event) %>
-            <%= link_to "See all attendees",
-              event_attendances_path(event) %>
+            <%= link_to "See all attendees", event_attendances_path(event) %>
           <% end %>
 
         <% else %>
