@@ -33,7 +33,7 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
     end
 
     within ".breadcrumb" do
-      click_on "Organizers & Members"
+      click_on members_parent_title
     end
 
     assert page.current_path == group_members_path(@group)
@@ -61,7 +61,7 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
     end
 
     within ".breadcrumb" do
-      click_on "Organizers & Members"
+      click_on members_parent_title
     end
 
     assert page.current_path == group_members_path(@group)
@@ -79,7 +79,7 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
     assert_organizer_and_members_breadcrumbs_for @group, @phil
 
     within ".breadcrumb" do
-      click_on "Organizers & Members"
+      click_on members_parent_title
     end
 
     assert page.current_path == group_members_path(@group)
@@ -97,7 +97,7 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
     assert_organizer_and_members_breadcrumbs_for @group, @penny
 
     within ".breadcrumb" do
-      click_on "Organizers & Members"
+      click_on members_parent_title
     end
 
     assert page.current_path == group_members_path(@group)
@@ -130,7 +130,7 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
     end
 
     assert_event_breadcrumbs_for @group, @event do
-      assert page.has_content? "Organizer"
+      assert page.has_content? attendees_parent_title
       assert page.has_content? @phil.name
     end
 
@@ -154,7 +154,7 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
     end
 
     assert_event_breadcrumbs_for @group, @event do
-      assert page.has_content? "Attendees"
+      assert page.has_content? attendees_parent_title
       assert page.has_content? woodell.name
     end
 
@@ -178,7 +178,7 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
     end
 
     assert_event_breadcrumbs_for @group, @event do
-      assert page.has_content? "Attendees"
+      assert page.has_content? attendees_parent_title
       assert page.has_content? woodell.name
     end
 
@@ -194,7 +194,7 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
     def assert_organizer_and_members_breadcrumbs_for(group, user)
       within ".breadcrumb" do
         assert page.has_link? group.name
-        assert page.has_link? "Organizers & Members"
+        assert page.has_link? members_parent_title
         assert page.has_content? user.name
 
         yield if block_given?
@@ -208,5 +208,13 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
 
         yield if block_given?
       end
+    end
+
+    def members_parent_title
+      "Organizers & Members"
+    end
+
+    def attendees_parent_title
+      "Attendees"
     end
 end
