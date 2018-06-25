@@ -36,7 +36,7 @@ module User::UserMembershipsHelper
 
   def cancel_membership_link(group)
     link_to "Cancel membership",
-      group_member_path(group, current_user),
+      group_membership_path(group, current_user),
       method: :delete,
       data: { confirm: "Are you sure to cancel your membership to '#{group.name}'?"}
   end

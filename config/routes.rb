@@ -11,15 +11,17 @@ Rails.application.routes.draw do
     get   "logout"  => "devise/sessions#destroy"
   end
 
+  # ----
   # Root
   root "static_pages#home"
 
+  # -----
   # Users
   resources :users, only: [:show, :edit, :update] do
     # User Groups (My Groups)
     get "groups", to: "users/memberships#index"
 
-    # User Membership Requests
+    # User Membership Requests (Sent and Received)
     resources :membership_requests, only: [:index, :show],
       controller: "users/membership_requests"
 
@@ -36,22 +38,24 @@ Rails.application.routes.draw do
     post "notification_cleaners",   to: "users/notification_cleaners#create"
   end
 
+  # ------
   # Groups
   resources :groups do
-    # Group Members
-    resources :memberships, as: :members, path: "members",
-      only: [:index, :create, :destroy], controller: "groups/memberships"
+    # Group Membership Requests
+    resources :membership_requests, only: [:new, :create, :destroy],
+      controller: "groups/membership_requests"
 
-    resources :users, as: :members, path: "members",
-      only: [:show], controller: "groups/users"
+    # Group Memberships
+    resources :memberships, only: [:create, :destroy],
+      controller: "groups/memberships"
+
+    # Group Members
+    resources :members, only: [:index, :show],
+      controller: "groups/members"
 
     # Group Roles
     resources :roles, only: [:index, :create, :destroy],
       controller: "groups/roles"
-
-    # Group Membership Requests
-    resources :membership_requests, only: [:new, :create, :destroy],
-      controller: "groups/membership_requests"
 
     # Group Events
     resources :events
@@ -62,6 +66,7 @@ Rails.application.routes.draw do
     end
   end
 
+  # ------
   # Events
   resources :events, only: [] do
     # Event Attendees
@@ -72,6 +77,7 @@ Rails.application.routes.draw do
       only: [:show], controller: "events/users"
   end
 
+  # ------
   # Search
   resource :search, only: :show
 end

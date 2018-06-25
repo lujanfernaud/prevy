@@ -1,16 +1,6 @@
 class Groups::MembershipsController < ApplicationController
   after_action :verify_authorized
 
-  def index
-    authorize GroupMembership
-
-    @group = find_group
-    @organizers = @group.organizers
-    @members = @group.members_with_role
-
-    add_breadcrumbs_for_index
-  end
-
   def create
     @group = find_group
     @user  = User.find(params[:user_id])
@@ -57,11 +47,6 @@ class Groups::MembershipsController < ApplicationController
 
     def find_group
       Group.find(params[:group_id])
-    end
-
-    def add_breadcrumbs_for_index
-      add_breadcrumb @group.name, group_path(@group)
-      add_breadcrumb "Organizers & Members"
     end
 
     def destroy_user_sample_group

@@ -32,7 +32,7 @@
 
     <div class="membership-request-links">
       <%= link_to "Accept",
-        group_members_path(
+        group_memberships_path(
           group_id: membership_request.group,
           user_id:  membership_request.user,
           request_id: membership_request),
