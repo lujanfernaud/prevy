@@ -26,9 +26,9 @@
             <%= organizer_title %>
           </h3>
           <ul>
-            <%= render partial: "list_organizer",
+            <%= render partial: "list_member",
               collection: group.recent_organizers,
-              as: :organizer, locals: { group: group }, cached: true %>
+              as: :member, locals: { group: group }, cached: true %>
           </ul>
         </div>
 
@@ -41,7 +41,7 @@
           <ul>
             <li>
               <%= link_to group.owner.name,
-                user_path(group.owner, organizer_of: group) %>
+                group_member_path(group, group.owner) %>
             </li>
           </ul>
         </div>

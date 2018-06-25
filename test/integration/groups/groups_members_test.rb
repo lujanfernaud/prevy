@@ -11,6 +11,14 @@ class GroupsMembersTest < ActionDispatch::IntegrationTest
     @member = @group.members_with_role.first
   end
 
+  test "member visits group members" do
+    log_in_as @phil
+
+    visit group_members_path(@group)
+
+    assert page.has_css? ".member-box"
+  end
+
   test "member card shows comments number" do
     member_group_comments = @member.group_comments_number(@group)
 

@@ -42,6 +42,9 @@ Rails.application.routes.draw do
     resources :memberships, as: :members, path: "members",
       only: [:index, :create, :destroy], controller: "groups/memberships"
 
+    resources :users, as: :members, path: "members",
+      only: [:show], controller: "groups/users"
+
     # Group Roles
     resources :roles, only: [:index, :create, :destroy],
       controller: "groups/roles"

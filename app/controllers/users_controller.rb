@@ -106,6 +106,7 @@ class UsersController < ApplicationController
       add_breadcrumb @user.name
     end
 
+    # TODO: Remove. Not used.
     def decorators_for(events)
       EventDecorator.collection(events)
     end
