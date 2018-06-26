@@ -9,14 +9,6 @@ class Events::AttendancesControllerTest < ActionDispatch::IntegrationTest
     @user.add_role :member, @group
   end
 
-  test "should get index" do
-    sign_in(@user)
-
-    get event_attendances_url(@event)
-
-    assert_response :success
-  end
-
   test "should create attendance" do
     sign_in(@user)
 

@@ -6,6 +6,8 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
     @group    = groups(:one)
     @event    = events(:one)
     @attendee = @event.attendees.first
+
+    @group.members << @stranger
   end
 
   test "logged in user visits attendees" do
@@ -31,11 +33,21 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "logged out user visits attendees" do
-    visit event_attendances_path(@event)
+  test "non-member user visits attendees" do
+    onitsuka = users(:onitsuka)
+
+    log_in_as onitsuka
+
+    visit event_attendees_path(@event)
 
     assert page.has_content? "You are not authorized to perform this action"
     assert_equal current_path, root_path
+  end
+
+  test "logged out user visits attendees" do
+    visit event_attendees_path(@event)
+
+    assert_equal current_path, new_user_registration_path
   end
 
   test "user visit attendee" do
@@ -50,7 +62,7 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
       click_on "Attendees"
     end
 
-    assert current_path == event_attendances_path(@event)
+    assert current_path == event_attendees_path(@event)
   end
 
   private
@@ -58,7 +70,7 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
     def visit_event_attendees_logged_in_as_stranger
       log_in_as @stranger
 
-      visit event_attendances_path(@event)
+      visit event_attendees_path(@event)
     end
 
     def assert_breadcrumbs(group, event)
@@ -71,7 +83,7 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
       end
 
       click_on "See all attendees"
-      assert current_path == event_attendances_path(event)
+      assert current_path == event_attendees_path(event)
     end
 
     def assert_attendees_links(event)

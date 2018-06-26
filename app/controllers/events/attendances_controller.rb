@@ -1,17 +1,7 @@
 class Events::AttendancesController < ApplicationController
   include ApplicationHelper
 
-  after_action :verify_authorized, except: :index
-
-  def index
-    authorize :attendance
-
-    @event = find_event
-    @group = @event.group
-    @attendees = @event.attendees
-
-    add_breadcrumbs
-  end
+  after_action :verify_authorized
 
   def create
     @attendance = Attendance.new(attended_event_id: params[:event_id])
@@ -52,11 +42,5 @@ class Events::AttendancesController < ApplicationController
 
     def find_event
       Event.find(params[:event_id])
-    end
-
-    def add_breadcrumbs
-      add_breadcrumb @group.name, group_path(@group)
-      add_breadcrumb @event.title, group_event_path(@group, @event)
-      add_breadcrumb "Attendees", event_attendances_path
     end
 end

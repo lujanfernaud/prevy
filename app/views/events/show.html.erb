@@ -71,7 +71,7 @@
           <% if !@event.attendees.empty? %>
 
             <div class="row d-flex justify-content-center mt-1rem mb-2rem">
-              <%= render partial: "events/attendances/attendee",
+              <%= render partial: "events/attendees/attendee",
                 collection: @event.attendees.last(12), as: :user,
                 locals: { event: @event }, cached: true %>
             </div>

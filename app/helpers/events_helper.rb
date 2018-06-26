@@ -27,7 +27,7 @@ module EventsHelper
 
   def see_all_attendees_link(event, quantity:)
     if event.attendees.count > quantity
-      link_to "See all attendees", event_attendances_path(event)
+      link_to "See all attendees", event_attendees_path(event)
     end
   end
 

@@ -43,7 +43,7 @@ class UsersProfileShowTest < ActionDispatch::IntegrationTest
 
     log_in_as(@penny)
 
-    visit event_attendances_path(event)
+    visit event_attendees_path(event)
 
     click_on attendee.name
 

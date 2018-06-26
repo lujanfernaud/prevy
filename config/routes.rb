@@ -70,11 +70,12 @@ Rails.application.routes.draw do
   # Events
   resources :events, only: [] do
     # Event Attendances
-    resources :attendances, path: "attendees",
-      only: [:index, :create, :destroy], controller: "events/attendances"
+    resources :attendances, only: [:create, :destroy],
+      controller: "events/attendances"
 
     # Event Attendees
-    resources :attendees, only: [:show], controller: "events/attendees"
+    resources :attendees, only: [:index, :show],
+      controller: "events/attendees"
   end
 
   # ------

@@ -7,6 +7,14 @@ class Events::AttendeesControllerTest < ActionDispatch::IntegrationTest
     @penny = users(:penny)
   end
 
+  test "should get index" do
+    sign_in(@penny)
+
+    get event_attendees_url(@event)
+
+    assert_response :success
+  end
+
   test "should show user" do
     sign_in(@penny)
 

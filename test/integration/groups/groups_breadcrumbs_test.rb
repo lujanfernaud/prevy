@@ -171,7 +171,7 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
 
     log_in_as @phil
 
-    visit event_attendances_path @event
+    visit event_attendees_path @event
 
     within ".attendees" do
       click_on woodell.name

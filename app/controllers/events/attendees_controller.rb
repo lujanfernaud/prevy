@@ -2,6 +2,17 @@ class Events::AttendeesController < ApplicationController
   before_action :redirect_to_sign_up, if: :not_logged_in?
   after_action  :verify_authorized
 
+  # Event attendees
+  def index
+    @event = find_event
+    @group = @event.group
+    @attendees = @event.attendees
+
+    authorize member
+
+    add_breadcrumbs_for_index
+  end
+
   # Event attendee profile
   def show
     @user  = find_user
@@ -9,7 +20,7 @@ class Events::AttendeesController < ApplicationController
 
     authorize member(@event.group)
 
-    add_breadcrumbs
+    add_breadcrumbs_for_show
 
     render "users/show"
   end
@@ -36,12 +47,18 @@ class Events::AttendeesController < ApplicationController
       Member.new(current_user, group)
     end
 
-    def add_breadcrumbs
+    def add_breadcrumbs_for_index
+      add_breadcrumb @group.name, group_path(@group)
+      add_breadcrumb @event.title, group_event_path(@group, @event)
+      add_breadcrumb "Attendees", event_attendees_path(@event)
+    end
+
+    def add_breadcrumbs_for_show
       @group = @event.group
 
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb @event.title, group_event_path(@group, @event)
-      add_breadcrumb "Attendees", event_attendances_path(@event)
+      add_breadcrumb "Attendees", event_attendees_path(@event)
       add_breadcrumb @user.name
     end
 end
