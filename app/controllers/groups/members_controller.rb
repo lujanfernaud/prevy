@@ -39,15 +39,7 @@ class Groups::MembersController < ApplicationController
     end
 
     def authorized?
-      is_member? || is_group_owner?
-    end
-
-    def is_member?
-      @group.members.include? current_user
-    end
-
-    def is_group_owner?
-      current_user == @group.owner
+      @group.user_is_authorized? current_user
     end
 
     def find_user

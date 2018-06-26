@@ -141,6 +141,12 @@ class Group < ApplicationRecord
     remove_role_from member, role: :moderator
   end
 
+  def user_is_authorized?(user)
+    return false unless members.include?(user) || owner == user
+
+    self == user.sample_group || user.confirmed?
+  end
+
   private
 
     def should_generate_new_friendly_id?

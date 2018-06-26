@@ -229,6 +229,44 @@ class GroupTest < ActiveSupport::TestCase
     assert_equal 6, group.top_members(limit: 6).size
   end
 
+  test "#user_is_authorized? is true for member" do
+    result = @group.user_is_authorized? @woodell
+
+    assert result
+  end
+
+  test "#user_is_authorized? is true for owner" do
+    result = @group.user_is_authorized? @group.owner
+
+    assert result
+  end
+
+  test "#user_is_authorized? is true for unconfirmed sample group owner" do
+    group = groups(:sample_group)
+
+    result = group.user_is_authorized? group.owner
+
+    assert_not group.owner.confirmed?
+    assert result
+  end
+
+  test "#user_is_authorized? is false for unconfirmed member" do
+    unconfirmed = users(:unconfirmed)
+    @group.members << unconfirmed
+
+    result = @group.user_is_authorized? unconfirmed
+
+    assert_not result
+  end
+
+  test "#user_is_authorized? is false for everyone else" do
+    stranger = users(:stranger)
+
+    result = @group.user_is_authorized? stranger
+
+    assert_not result
+  end
+
   private
 
     def top_members_sorted

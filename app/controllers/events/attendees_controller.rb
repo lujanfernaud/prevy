@@ -39,15 +39,7 @@ class Events::AttendeesController < ApplicationController
     end
 
     def authorized?
-      is_member? || is_group_owner?
-    end
-
-    def is_member?
-      @event.group.members.include? current_user
-    end
-
-    def is_group_owner?
-      current_user == @event.group.owner
+      @event.group.user_is_authorized? current_user
     end
 
     def find_user
