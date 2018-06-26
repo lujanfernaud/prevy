@@ -1,24 +1,19 @@
 class Events::AttendeesController < ApplicationController
   before_action :redirect_to_sign_up, if: :not_logged_in?
-  after_action  :verify_authorized
+  before_action :find_event
+  before_action :redirect_to_root, unless: :authorized?
 
   # Event attendees
   def index
-    @event = find_event
     @group = @event.group
     @attendees = @event.attendees
-
-    authorize member
 
     add_breadcrumbs_for_index
   end
 
   # Event attendee profile
   def show
-    @user  = find_user
-    @event = find_event
-
-    authorize member(@event.group)
+    @user = find_user
 
     add_breadcrumbs_for_show
 
@@ -36,7 +31,23 @@ class Events::AttendeesController < ApplicationController
     end
 
     def find_event
-      Event.find(params[:event_id])
+      @event = Event.find(params[:event_id])
+    end
+
+    def redirect_to_root
+      redirect_to root_path
+    end
+
+    def authorized?
+      is_member? || is_group_owner?
+    end
+
+    def is_member?
+      @event.group.members.include? current_user
+    end
+
+    def is_group_owner?
+      current_user == @event.group.owner
     end
 
     def find_user

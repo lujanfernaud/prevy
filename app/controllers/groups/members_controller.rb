@@ -1,24 +1,19 @@
 class Groups::MembersController < ApplicationController
   before_action :redirect_to_sign_up, if: :not_logged_in?
-  after_action  :verify_authorized
+  before_action :find_group
+  before_action :redirect_to_root, unless: :authorized?
 
   # Group members
   def index
-    @group = find_group
     @organizers = @group.organizers
     @members = @group.members_with_role
-
-    authorize member
 
     add_breadcrumbs_for_index
   end
 
   # Group member profile
   def show
-    @user  = find_user
-    @group = find_group
-
-    authorize member
+    @user = find_user
 
     add_breadcrumbs_for_show
 
@@ -36,7 +31,23 @@ class Groups::MembersController < ApplicationController
     end
 
     def find_group
-      Group.find(params[:group_id])
+      @group = Group.find(params[:group_id])
+    end
+
+    def redirect_to_root
+      redirect_to root_path
+    end
+
+    def authorized?
+      is_member? || is_group_owner?
+    end
+
+    def is_member?
+      @group.members.include? current_user
+    end
+
+    def is_group_owner?
+      current_user == @group.owner
     end
 
     def find_user

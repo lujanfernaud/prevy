@@ -11,12 +11,36 @@ class GroupsMembersTest < ActionDispatch::IntegrationTest
     @member = @group.members_with_role.first
   end
 
-  test "member visits group members" do
+  test "group owner visits group members" do
     log_in_as @phil
 
     visit group_members_path(@group)
 
     assert page.has_css? ".member-box"
+  end
+
+  test "member visits group members" do
+    log_in_as @member
+
+    visit group_members_path(@group)
+
+    assert page.has_css? ".member-box"
+  end
+
+  test "non-member user visits members" do
+    onitsuka = users(:onitsuka)
+
+    log_in_as onitsuka
+
+    visit group_members_path(@group)
+
+    assert_equal current_path, root_path
+  end
+
+  test "logged out user visits members" do
+    visit group_members_path(@group)
+
+    assert_equal current_path, new_user_registration_path
   end
 
   test "member card shows comments number" do

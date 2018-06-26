@@ -40,7 +40,6 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
 
     visit event_attendees_path(@event)
 
-    assert page.has_content? "You are not authorized to perform this action"
     assert_equal current_path, root_path
   end
 
