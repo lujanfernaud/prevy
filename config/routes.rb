@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
+  # Devise
+  # ------
   devise_for :users,
     controllers: {
       registrations: "users/registrations",
@@ -11,19 +15,19 @@ Rails.application.routes.draw do
     get   "logout"  => "devise/sessions#destroy"
   end
 
-  # ----
   # Root
+  # ----
   root "static_pages#home"
 
-  # -----
   # Users
+  # -----
   resources :users, only: [:show, :edit, :update] do
-    # User Groups (My Groups)
-    get "groups", to: "users/memberships#index"
-
     # User Membership Requests (Sent and Received)
     resources :membership_requests, only: [:index, :show],
       controller: "users/membership_requests"
+
+    # User Groups (My Groups)
+    get "groups", to: "users/memberships#index"
 
     # User Events
     resources :events, only: [:index], controller: "users/events"
@@ -38,8 +42,8 @@ Rails.application.routes.draw do
     post "notification_cleaners",   to: "users/notification_cleaners#create"
   end
 
-  # ------
   # Groups
+  # ------
   resources :groups do
     # Group Membership Requests
     resources :membership_requests, only: [:new, :create, :destroy],
@@ -66,8 +70,8 @@ Rails.application.routes.draw do
     end
   end
 
-  # ------
   # Events
+  # ------
   resources :events, only: [] do
     # Event Attendances
     resources :attendances, only: [:create, :destroy],
@@ -78,7 +82,7 @@ Rails.application.routes.draw do
       controller: "events/attendees"
   end
 
-  # ------
   # Search
+  # ------
   resource :search, only: :show
 end
