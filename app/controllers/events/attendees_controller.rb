@@ -2,13 +2,12 @@ class Events::AttendeesController < ApplicationController
   before_action :redirect_to_sign_up, if: :not_logged_in?
   after_action  :verify_authorized
 
-  # Group member profile
+  # Event attendee profile
   def show
     @user  = find_user
     @event = find_event
-    attendee = Attendee.new(@user, @event)
 
-    authorize attendee
+    authorize member(@event.group)
 
     add_breadcrumbs
 
@@ -25,12 +24,16 @@ class Events::AttendeesController < ApplicationController
       !current_user
     end
 
+    def find_event
+      Event.find(params[:event_id])
+    end
+
     def find_user
       User.find(params[:id])
     end
 
-    def find_event
-      Event.find(params[:event_id])
+    def member(group = @group)
+      Member.new(current_user, group)
     end
 
     def add_breadcrumbs
