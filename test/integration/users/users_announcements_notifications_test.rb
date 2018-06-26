@@ -2,11 +2,14 @@ require 'test_helper'
 
 class UsersAnnouncementsNotificationsTest < ActionDispatch::IntegrationTest
   include TopicsIntegrationSupport
+  include MailerSupport
 
   def setup
     @phil    = users(:phil)
     @woodell = users(:woodell)
     @group   = groups(:one)
+
+    stub_new_announcement_topic_mailer
   end
 
   test "user receives group announcement notification" do

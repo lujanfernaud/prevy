@@ -2,11 +2,13 @@ require 'test_helper'
 
 class AnnouncementTopicsTest < ActionDispatch::IntegrationTest
   include TopicsIntegrationSupport
+  include MailerSupport
 
   def setup
     @group = groups(:one)
     @phil  = users(:phil)
 
+    stub_new_announcement_topic_mailer
     prepare_javascript_driver
   end
 

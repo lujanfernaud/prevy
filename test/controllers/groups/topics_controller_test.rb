@@ -38,7 +38,7 @@ class Groups::TopicsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create announcement topic" do
-    ActionMailer::Base.deliveries.clear
+    NewAnnouncementNotification.expects(:call)
 
     sign_in @phil
 
@@ -47,7 +47,6 @@ class Groups::TopicsControllerTest < ActionDispatch::IntegrationTest
         params: topic_params(type: "AnnouncementTopic")
     end
 
-    assert_equal @group.members.size, ActionMailer::Base.deliveries.size
     assert_redirected_to group_topic_url(@group, AnnouncementTopic.last)
   end
 

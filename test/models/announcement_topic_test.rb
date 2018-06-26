@@ -3,9 +3,12 @@ require 'test_helper'
 class TopicTest < ActiveSupport::TestCase
   include UserSupport
   include TopicsTestCaseSupport
+  include MailerSupport
 
   def setup
     @group = groups(:one)
+
+    stub_new_announcement_topic_mailer
   end
 
   test "has priority" do
