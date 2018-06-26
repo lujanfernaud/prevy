@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Used to authorize member in Groups::MembersController.
+# Used to authorize group members with Pundit for some particular controllers.
 class Member
   attr_reader :group
 

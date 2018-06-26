@@ -4,11 +4,11 @@ class Groups::MembersController < ApplicationController
 
   # Group members
   def index
-    authorize :member
-
     @group = find_group
     @organizers = @group.organizers
     @members = @group.members_with_role
+
+    authorize member
 
     add_breadcrumbs_for_index
   end
@@ -17,7 +17,6 @@ class Groups::MembersController < ApplicationController
   def show
     @user  = find_user
     @group = find_group
-    member = Member.new(@user, @group)
 
     authorize member
 
@@ -36,12 +35,16 @@ class Groups::MembersController < ApplicationController
       !current_user
     end
 
+    def find_group
+      Group.find(params[:group_id])
+    end
+
     def find_user
       User.find(params[:id])
     end
 
-    def find_group
-      Group.find(params[:group_id])
+    def member
+      Member.new(current_user, @group)
     end
 
     def add_breadcrumbs_for_index

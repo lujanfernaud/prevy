@@ -18,6 +18,6 @@ class MemberPolicy < ApplicationPolicy
     end
 
     def group
-      @_group ||= Group.find(params[:group_id])
+      @_group ||= record.group
     end
 end
