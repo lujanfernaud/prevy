@@ -5,6 +5,7 @@ pinned_topic_one:
   body: Body of Pinned Topic One.
   type: PinnedTopic
   priority: <%= PinnedTopic::PRIORITY %>
+  slug: pinned-topic-one
   edited_by: phil
   last_commented_at: <%= Time.current %>
 
@@ -15,5 +16,6 @@ pinned_topic_two:
   body: Body of Pinned Topic Two.
   type: PinnedTopic
   priority: <%= PinnedTopic::PRIORITY %>
+  slug: pinned-topic-two
   edited_by: phil
   last_commented_at: <%= Time.current %>

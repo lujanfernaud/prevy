@@ -150,7 +150,7 @@ class Group < ApplicationRecord
   private
 
     def should_generate_new_friendly_id?
-      name_changed?
+      slug.blank? || saved_change_to_name?
     end
 
     def slug_candidates

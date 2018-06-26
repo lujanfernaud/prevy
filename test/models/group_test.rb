@@ -267,6 +267,15 @@ class GroupTest < ActiveSupport::TestCase
     assert_not result
   end
 
+  test "has name as slug" do
+    group = fake_group
+    name_parameterized = group.name.parameterize
+
+    group.save!
+
+    assert_equal name_parameterized, group.slug
+  end
+
   private
 
     def top_members_sorted

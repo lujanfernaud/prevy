@@ -104,7 +104,7 @@ class Topic < ApplicationRecord
     end
 
     def should_generate_new_friendly_id?
-      title_changed?
+      slug.blank? || saved_change_to_title?
     end
 
     def slug_candidates

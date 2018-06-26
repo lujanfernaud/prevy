@@ -178,4 +178,13 @@ class UserTest < ActiveSupport::TestCase
 
     assert user.update_attributes(bio: nil)
   end
+
+  test "has name as slug" do
+    user = fake_user
+    name_parameterized = user.name.parameterize
+
+    user.save!
+
+    assert_equal name_parameterized, user.slug
+  end
 end

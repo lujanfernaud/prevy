@@ -63,7 +63,7 @@ class TopicTest < ActiveSupport::TestCase
     topic = fake_topic
     title_parameterized = topic.title.parameterize
 
-    topic.save
+    topic.save!
 
     assert_equal title_parameterized, topic.slug
   end

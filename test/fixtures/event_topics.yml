@@ -6,6 +6,7 @@ event_topic_one:
   body: Body of Hatsumode Test Event.
   type: EventTopic
   priority: <%= EventTopic::PRIORITY %>
+  slug: hatsumode-test-event
   edited_by: phil
   last_commented_at: <%= Time.current %>
 
@@ -17,6 +18,7 @@ event_topic_two:
   body: Body of Fushimi Inari-taisha Shrine Tour.
   type: EventTopic
   priority: <%= EventTopic::PRIORITY %>
+  slug: fushimi-inari-taisha-shrine-tour
   edited_by: phil
   last_commented_at: <%= Time.current %>
 
@@ -28,6 +30,7 @@ event_topic_three:
   body: Body of Test event in Tokyo.
   type: EventTopic
   priority: <%= EventTopic::PRIORITY %>
+  slug: test-event-in-tokyo
   edited_by: phil
   last_commented_at: <%= Time.current %>
 
@@ -39,6 +42,7 @@ event_topic_four:
   body: Body of Test event in Tokyo 2.
   type: EventTopic
   priority: <%= EventTopic::PRIORITY %>
+  slug: test-event-in-tokyo-2
   edited_by: penny
   last_commented_at: <%= Time.current %>
 
@@ -50,18 +54,8 @@ event_topic_five:
   body: Body of Test event in Tokyo 3.
   type: EventTopic
   priority: <%= EventTopic::PRIORITY %>
+  slug: test-event-in-tokyo-3
   edited_by: woodell
-  last_commented_at: <%= Time.current %>
-
-sample_event_topic:
-  event: sample_event
-  group: sample_group
-  user: user_1
-  title: Sample event somewhere
-  body: Body of Sample event somewhere
-  type: EventTopic
-  priority: <%= EventTopic::PRIORITY %>
-  edited_by: user_1
   last_commented_at: <%= Time.current %>
 
 past_event_topic_one:
@@ -72,6 +66,7 @@ past_event_topic_one:
   body: Body of Past event 1
   type: EventTopic
   priority: <%= EventTopic::PRIORITY %>
+  slug: past-event-1
   edited_by: penny
   last_commented_at: <%= Time.current %>
 
@@ -83,7 +78,20 @@ past_event_topic_two:
   body: Body of Past event 2
   type: EventTopic
   priority: <%= EventTopic::PRIORITY %>
+  slug: past-event-2
   edited_by: penny
+  last_commented_at: <%= Time.current %>
+
+sample_event_topic:
+  event: sample_event
+  group: sample_group
+  user: user_1
+  title: Sample event somewhere
+  body: Body of Sample event somewhere
+  type: EventTopic
+  priority: <%= EventTopic::PRIORITY %>
+  slug: sample-event-somewhere
+  edited_by: user_1
   last_commented_at: <%= Time.current %>
 
 <% 11.times do |n| %>
@@ -95,6 +103,7 @@ nike_event_topic_<%= n %>:
   body: Body of Nike Test Event <%= n %>
   type: EventTopic
   priority: <%= EventTopic::PRIORITY %>
+  slug: nike-test-event-<%= n %>
   edited_by: phil
   last_commented_at: <%= Time.current %>
 <% end %>
@@ -108,6 +117,7 @@ woodell_event_topic_<%= n %>:
   body: Body of Test event <%= n %>
   type: EventTopic
   priority: <%= EventTopic::PRIORITY %>
+  slug: test-event-<%= n %>
   edited_by: phil
   last_commented_at: <%= Time.current %>
 <% end %>

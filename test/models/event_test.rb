@@ -159,6 +159,15 @@ class EventTest < ActiveSupport::TestCase
     assert_equal topic.body, event.description
   end
 
+  test "has title as slug" do
+    event = fake_event
+    title_parameterized = event.title.parameterize
+
+    event.save!
+
+    assert_equal title_parameterized, event.slug
+  end
+
   test "#comments" do
     event = fake_event
     event.save

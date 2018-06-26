@@ -6,6 +6,7 @@ announcement_topic_one:
   type: AnnouncementTopic
   priority: <%= AnnouncementTopic::PRIORITY %>
   announcement: true
+  slug: announcement-topic-one
   edited_by: phil
   last_commented_at: <%= Time.current %>
 
@@ -17,5 +18,6 @@ announcement_topic_two:
   type: AnnouncementTopic
   priority: <%= AnnouncementTopic::PRIORITY %>
   announcement: true
+  slug: announcement-topic-two
   edited_by: phil
   last_commented_at: <%= Time.current %>

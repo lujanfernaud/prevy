@@ -26,8 +26,10 @@ class EventTopicTest < ActiveSupport::TestCase
   end
 
   test "touches event when adding a comment" do
-    topic = event_topics(:event_topic_one)
-    event = events(:one)
+    event = fake_event
+    event.save
+    topic = event.topic
+
     event.update_attributes(title: "Test event")
     event.update_attributes(updated_at: 1.day.ago)
 
