@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Events::UsersControllerTest < ActionDispatch::IntegrationTest
+class Events::AttendeesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @event = events(:one)
     @phil  = users(:phil)

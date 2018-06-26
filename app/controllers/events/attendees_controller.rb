@@ -1,4 +1,4 @@
-class Events::UsersController < ApplicationController
+class Events::AttendeesController < ApplicationController
   before_action :redirect_to_sign_up, if: :not_logged_in?
   after_action  :verify_authorized
 
@@ -6,8 +6,9 @@ class Events::UsersController < ApplicationController
   def show
     @user  = find_user
     @event = find_event
+    attendee = Attendee.new(@user, @event)
 
-    authorize @user
+    authorize attendee
 
     add_breadcrumbs
 

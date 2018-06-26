@@ -69,12 +69,12 @@ Rails.application.routes.draw do
   # ------
   # Events
   resources :events, only: [] do
-    # Event Attendees
+    # Event Attendances
     resources :attendances, path: "attendees",
       only: [:index, :create, :destroy], controller: "events/attendances"
 
-    resources :users, as: :attendees, path: "attendees",
-      only: [:show], controller: "events/users"
+    # Event Attendees
+    resources :attendees, only: [:show], controller: "events/attendees"
   end
 
   # ------
