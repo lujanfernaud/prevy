@@ -9,7 +9,7 @@ module TestCaseSupport
       owner:        params[:owner]        || users(:phil),
       name:         params[:name]         || "Test group",
       location:     params[:location]     || Faker::Address.city,
-      description:  params[:description]  || Faker::Lorem.paragraph,
+      description:  params[:description]  || Faker::Lorem.paragraph * 2,
       image:        params[:image]        || valid_image,
       sample_group: params[:sample_group] || false,
       hidden:       params[:hidden]       || true,
