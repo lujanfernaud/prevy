@@ -41,7 +41,7 @@ class EventsController < ApplicationController
 
   def show
     @group    = find_group
-    @event    = find_event
+    @event    = find_and_decorate_event
     @comments = @event.comments.order(:created_at).includes(:user, :edited_by)
     @comment  = TopicComment.new
 
@@ -53,6 +53,8 @@ class EventsController < ApplicationController
   def edit
     @group = find_group
     @event = find_event
+
+    authorize @event
 
     add_breadcrumbs_for_edit
   end
@@ -78,7 +80,7 @@ class EventsController < ApplicationController
 
     authorize @event
 
-    redirect_to root_url unless @event
+    redirect_to_root unless @event
 
     @event.destroy
     flash[:success] = "Event deleted."
@@ -87,10 +89,14 @@ class EventsController < ApplicationController
 
   private
 
-    def find_event
+    def find_and_decorate_event
       event = Event.find(params[:id])
       authorize event
-      EventDecorator.new(event)
+      @event = EventDecorator.new(event)
+    end
+
+    def find_event
+      Event.find(params[:id])
     end
 
     def find_group
