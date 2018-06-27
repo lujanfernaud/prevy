@@ -61,6 +61,7 @@ gem 'geocoder',                        '~> 1.4', '>= 1.4.5'
 
 group :development, :test do
   gem 'awesome_print',                 '~> 1.8'
+  gem 'factory_bot_rails',             '~> 4.10'
   gem 'pry-byebug',                    '~> 3.6'
   gem 'pry-rails',                     '~> 0.3.6'
   gem 'rubocop-rails',                 '~> 1.4'

@@ -39,6 +39,7 @@ class ActionDispatch::IntegrationTest
   include Capybara::Minitest::Assertions
   include Capybara::Screenshot::MiniTestPlugin
   include Devise::Test::IntegrationHelpers
+  include FactoryBot::Syntax::Methods
 
   include ApplicationHelper
   include EventsHelper
@@ -58,6 +59,7 @@ end
 
 class ActiveSupport::TestCase
   fixtures :all
+  include FactoryBot::Syntax::Methods
 
   include TestCaseSupport
   include GeocoderSupport
