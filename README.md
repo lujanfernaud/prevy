@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/4ff8c244d2d53411887b/maintainability)](https://codeclimate.com/github/lujanfernaud/prevy/maintainability)
+
 # Prevy
 
 ## Private Events With Your People
