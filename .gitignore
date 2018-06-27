@@ -33,3 +33,6 @@ coverage
 
 # Ignore application configuration
 /config/application.yml
+
+# Ignore Sublime Text workspaces configuration
+*.sublime-workspace
