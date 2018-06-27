@@ -2,9 +2,10 @@ require 'test_helper'
 
 class HomePageTest < ActionDispatch::IntegrationTest
   def setup
-    @phil     = users(:phil)
-    @onitsuka = users(:onitsuka)
-    @carolyn  = users(:carolyn)
+    stub_sample_content_for_new_users
+
+    @phil  = create :user, :confirmed, name: "Phil"
+    @group = create :group, owner: @phil
   end
 
   test "logged out user visits home page" do
@@ -16,7 +17,9 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert_unhidden_groups
   end
 
-  test "logged in user visits home page" do
+  test "logged in user with events visits home page" do
+    create_list :event, 7, group: @group
+
     log_in_as(@phil)
 
     visit root_path
@@ -37,8 +40,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
   end
 
   test "logged in user clicks on event comments" do
-    group = groups(:one)
-    event = events(:one)
+    event = create :event, group: @group
 
     log_in_as(@phil)
 
@@ -48,25 +50,23 @@ class HomePageTest < ActionDispatch::IntegrationTest
       click_on "#{event.comments.count} comments"
     end
 
-    assert_current_path group_event_path(group, event)
+    assert_current_path group_event_path(@group, event)
   end
 
   test "logged in user clicks on group topics" do
-    group = groups(:one)
-
     log_in_as(@phil)
 
     visit root_path
 
-    within "#group-#{group.id}" do
-      click_on "#{group.topics.count} topics"
+    within "#group-#{@group.id}" do
+      click_on "#{@group.topics.count} topics"
     end
 
-    assert_current_path group_topics_path(group)
+    assert_current_path group_topics_path(@group)
   end
 
   test "logged in user without upcoming events visits home page" do
-    log_in_as(@onitsuka)
+    log_in_as(@phil)
 
     visit root_path
 
@@ -79,14 +79,16 @@ class HomePageTest < ActionDispatch::IntegrationTest
 
     assert_user_groups do
       refute page.has_content? no_group_memberships
-      assert_groups_for(@onitsuka)
+      assert_groups_for(@phil)
     end
 
     assert_unhidden_groups
   end
 
   test "logged in user without groups visits home page" do
-    log_in_as(@carolyn)
+    carolyn = create :user, :confirmed, name: "Carolyn"
+
+    log_in_as(carolyn)
 
     visit root_path
 
@@ -105,7 +107,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
   end
 
   test "new and unconfirmed user visits home page" do
-    unconfirmed = users(:unconfirmed)
+    unconfirmed = create :user, name: "Unconfirmed"
 
     log_in_as(unconfirmed)
 

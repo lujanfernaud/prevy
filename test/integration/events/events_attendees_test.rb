@@ -2,12 +2,17 @@ require 'test_helper'
 
 class EventsAttendeesTest < ActionDispatch::IntegrationTest
   def setup
-    @stranger = users(:stranger)
-    @group    = groups(:one)
-    @event    = events(:one)
-    @attendee = @event.attendees.first
+    stub_sample_content_for_new_users
 
-    @group.members << @stranger
+    @stranger = create :user, :confirmed, name: "Stranger"
+    attendees = build_list :user, 10, :confirmed
+    @attendee = attendees.first
+
+    @group = create :group
+    @event = create :event, group: @group
+
+    @group.members << [@stranger] + attendees
+    @event.attendees << attendees
   end
 
   test "logged in user visits attendees" do
@@ -54,14 +59,14 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
 
     click_on @attendee.name
 
-    assert current_path == event_attendee_path(@event, @attendee.id)
+    assert_current_path event_attendee_path(@event, @attendee)
 
     within ".breadcrumb" do
       assert page.has_link? "Attendees"
       click_on "Attendees"
     end
 
-    assert current_path == event_attendees_path(@event)
+    assert_current_path event_attendees_path(@event)
   end
 
   private
@@ -78,11 +83,11 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
 
       within ".breadcrumb" do
         click_on event.title
-        assert current_path == group_event_path(group, event)
+        assert_current_path group_event_path(group, event)
       end
 
       click_on "See all attendees"
-      assert current_path == event_attendees_path(event)
+      assert_current_path event_attendees_path(event)
     end
 
     def assert_attendees_links(event)

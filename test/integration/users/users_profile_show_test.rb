@@ -2,12 +2,14 @@ require 'test_helper'
 
 class UsersProfileShowTest < ActionDispatch::IntegrationTest
   def setup
-    @phil    = users(:phil)
-    @penny   = users(:penny)
-    @woodell = users(:woodell)
-    @group   = groups(:one)
+    stub_sample_content_for_new_users
 
-    add_members_to_group(@group, @penny, @woodell)
+    @phil    = create :user, :confirmed, :with_info, name: "Phil"
+    @penny   = create :user, :confirmed, name: "Penny"
+    @woodell = create :user, :confirmed, name: "Woodell"
+    @group   = create :group, owner: @phil
+
+    @group.members << [@penny, @woodell]
   end
 
   test "user visits someone's profile" do
@@ -38,14 +40,14 @@ class UsersProfileShowTest < ActionDispatch::IntegrationTest
   end
 
   test "group member visits event attendee's profile" do
-    event = events(:one)
-    attendee = event.attendees.first
+    event = create :event, group: @group
+    event.attendees << @woodell
 
     log_in_as(@penny)
 
     visit event_attendees_path(event)
 
-    click_on attendee.name
+    click_on @woodell.name
 
     assert page.has_css? ".comments-count"
   end

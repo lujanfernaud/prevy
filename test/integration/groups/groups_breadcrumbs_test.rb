@@ -2,109 +2,112 @@ require 'test_helper'
 
 class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
   def setup
-    @group = groups(:one)
-    @event = @group.events.first
-    @phil  = users(:phil)
-    @penny = users(:penny)
+    stub_sample_content_for_new_users
 
-    add_group_owner_to_organizers @group
-    add_members_to_group @group, @penny
+    @member   = build :user, :confirmed, name: "Member"
+    @attendee = build :user, :confirmed, name: "Attendee"
+
+    @group = create :group
+    @event = create :event, group: @group, organizer: @group.owner
+
+    @group.members   << [@member, @attendee]
+    @event.attendees << @attendee
   end
 
-  test "user visits group organizer from group 'show' view" do
-    log_in_as @phil
+  test "member visits group organizer from group 'show' view" do
+    log_in_as @member
 
     visit group_path @group
 
     within ".organizers-preview" do
-      click_on @phil.name
+      click_on @event.organizer.name
     end
 
-    assert_organizer_and_members_breadcrumbs_for @group, @phil
+    assert_organizer_and_members_breadcrumbs_for @group, @event.organizer
 
     within ".breadcrumb" do
       click_on @group.name
     end
 
-    assert page.current_path == group_path(@group)
+    assert_current_path group_path(@group)
 
     within ".organizers-preview" do
-      click_on @phil.name
+      click_on @event.organizer.name
     end
 
     within ".breadcrumb" do
       click_on members_parent_title
     end
 
-    assert page.current_path == group_members_path(@group)
+    assert_current_path group_members_path(@group)
   end
 
-  test "user visits group member from group 'show' view" do
-    log_in_as @phil
+  test "member visits group member from group 'show' view" do
+    log_in_as @member
 
     visit group_path @group
 
     within ".members-preview" do
-      click_on @penny.name
+      click_on @attendee.name
     end
 
-    assert_organizer_and_members_breadcrumbs_for @group, @penny
+    assert_organizer_and_members_breadcrumbs_for @group, @attendee
 
     within ".breadcrumb" do
       click_on @group.name
     end
 
-    assert page.current_path == group_path(@group)
+    assert_current_path group_path(@group)
 
     within ".members-preview" do
-      click_on @penny.name
+      click_on @attendee.name
     end
 
     within ".breadcrumb" do
       click_on members_parent_title
     end
 
-    assert page.current_path == group_members_path(@group)
+    assert_current_path group_members_path(@group)
   end
 
-  test "user visits group organizer from group members 'index' view" do
-    log_in_as @phil
+  test "member visits group organizer from group members 'index' view" do
+    log_in_as @member
 
     visit group_members_path @group
 
     within ".organizers" do
-      click_on @phil.name
+      click_on @event.organizer.name
     end
 
-    assert_organizer_and_members_breadcrumbs_for @group, @phil
+    assert_organizer_and_members_breadcrumbs_for @group, @event.organizer
 
     within ".breadcrumb" do
       click_on members_parent_title
     end
 
-    assert page.current_path == group_members_path(@group)
+    assert_current_path group_members_path(@group)
   end
 
-  test "user visits group member from group members 'index' view" do
-    log_in_as @phil
+  test "member visits group member from group members 'index' view" do
+    log_in_as @member
 
     visit group_members_path @group
 
     within ".members" do
-      click_on @penny.name
+      click_on @attendee.name
     end
 
-    assert_organizer_and_members_breadcrumbs_for @group, @penny
+    assert_organizer_and_members_breadcrumbs_for @group, @attendee
 
     within ".breadcrumb" do
       click_on members_parent_title
     end
 
-    assert page.current_path == group_members_path(@group)
+    assert_current_path group_members_path(@group)
   end
 
-  test "user visits event from group 'show' view" do
-    log_in_as @phil
+  test "member visits event from group 'show' view" do
+    log_in_as @member
 
     visit group_path @group
 
@@ -117,76 +120,72 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
       click_on @group.name
     end
 
-    assert page.current_path == group_path(@group)
+    assert_current_path group_path(@group)
   end
 
-  test "user visits event organizer from event 'show' view" do
-    log_in_as @phil
+  test "member visits event organizer from event 'show' view" do
+    log_in_as @member
 
     visit group_event_path @group, @event
 
     within ".organizers-preview" do
-      click_on @phil.name
+      click_on @event.organizer.name
     end
 
     assert_event_breadcrumbs_for @group, @event do
       assert page.has_content? attendees_parent_title
-      assert page.has_content? @phil.name
+      assert page.has_content? @event.organizer.name
     end
 
     within ".breadcrumb" do
       click_on @event.title
     end
 
-    assert page.current_path == group_event_path(@group, @event)
+    assert_current_path group_event_path(@group, @event)
   end
 
-  test "user visits event attendee from event 'show' view" do
-    woodell = users(:woodell)
-    @event.attendees << woodell
-
-    log_in_as @phil
+  test "member visits event attendee from event 'show' view" do
+    log_in_as @member
 
     visit group_event_path @group, @event
 
     within ".attendees-preview" do
-      click_on woodell.name
+      click_on @attendee.name
     end
 
     assert_event_breadcrumbs_for @group, @event do
       assert page.has_content? attendees_parent_title
-      assert page.has_content? woodell.name
+      assert page.has_content? @attendee.name
     end
 
     within ".breadcrumb" do
       click_on @group.name
     end
 
-    assert page.current_path == group_path(@group)
+    assert_current_path group_path(@group)
   end
 
-  test "user visits event attendee from event attendees 'index' view" do
-    woodell = users(:woodell)
-    @event.attendees << woodell
-
-    log_in_as @phil
+  test "member visits event attendee from event attendees 'index' view" do
+    log_in_as @member
 
     visit event_attendees_path @event
 
     within ".attendees" do
-      click_on woodell.name
+      click_on @attendee.name
     end
+
+    assert_current_path event_attendee_path(@event, @attendee)
 
     assert_event_breadcrumbs_for @group, @event do
       assert page.has_content? attendees_parent_title
-      assert page.has_content? woodell.name
+      assert page.has_content? @attendee.name
     end
 
     within ".breadcrumb" do
       click_on @group.name
     end
 
-    assert page.current_path == group_path(@group)
+    assert_current_path group_path(@group)
   end
 
   private
