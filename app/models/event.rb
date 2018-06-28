@@ -1,6 +1,6 @@
 class Event < ApplicationRecord
-  RECENT_ATTENDEES_NUMBER = 8
-  RANDOM_ATTENDEES_NUMBER = 6
+  RECENT_ATTENDEES_SHOWN = 8
+  RANDOM_ATTENDEES_SHOWN = 6
 
   include FriendlyId
   friendly_id :slug_candidates, use: :scoped, scope: :group
@@ -80,13 +80,13 @@ class Event < ApplicationRecord
   end
 
   def recent_attendees
-    attendees.order(:created_at).limit(RECENT_ATTENDEES_NUMBER)
+    attendees.order(:created_at).limit(RECENT_ATTENDEES_SHOWN)
   end
 
   def random_attendees
-    random_offset = rand(attendees.count - RANDOM_ATTENDEES_NUMBER)
+    random_offset = rand(attendees.count - RANDOM_ATTENDEES_SHOWN)
 
-    attendees.offset(random_offset).limit(RANDOM_ATTENDEES_NUMBER)
+    attendees.offset(random_offset).limit(RANDOM_ATTENDEES_SHOWN)
   end
 
   private
