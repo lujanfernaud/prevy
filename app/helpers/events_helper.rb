@@ -13,10 +13,6 @@ module EventsHelper
     logged_in? && !event.attendees.include?(current_user)
   end
 
-  def no_attendees?(event)
-    event.attendees.count.zero?
-  end
-
   def more_attendees?(event)
     event.attendees.count > 5
   end

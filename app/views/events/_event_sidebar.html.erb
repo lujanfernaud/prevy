@@ -23,7 +23,7 @@
           Attendees (<%= event.attendees.count %>)
         </h3>
 
-        <% unless no_attendees?(event) %>
+        <% unless event.attendees.empty? %>
 
           <ul>
             <%= render partial: "list_attendee",
