@@ -174,4 +174,15 @@ class EventTest < ActiveSupport::TestCase
 
     assert event.comments
   end
+
+  test "#recent_attendees" do
+    event = build_stubbed :event
+    attendee_one = SampleUser.all.last
+    attendee_two = SampleUser.all.first
+
+    Attendance.create!(attended_event: event, attendee: attendee_one)
+    Attendance.create!(attended_event: event, attendee: attendee_two)
+
+    assert_equal [attendee_one, attendee_two], event.recent_attendees
+  end
 end

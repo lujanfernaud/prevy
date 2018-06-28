@@ -1,6 +1,6 @@
 <div class="col-md-12 col-lg-4">
 
-  <% cache [event.organizer.name, event.attendees.last(5)] do %>
+  <% cache [event.organizer.name, event.recent_attendees] do %>
 
     <div class="box box--sidebar mt-lg-0 p-3">
 
@@ -27,7 +27,7 @@
 
           <ul>
             <%= render partial: "list_attendee",
-              collection: event.attendees.last(5), as: :attendee,
+              collection: event.recent_attendees, as: :attendee,
               locals: { event: event }, cached: true %>
           </ul>
 

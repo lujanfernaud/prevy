@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  RECENT_ATTENDEES_NUMBER = 8
+
   include FriendlyId
   friendly_id :slug_candidates, use: :scoped, scope: :group
 
@@ -74,6 +76,10 @@ class Event < ApplicationRecord
 
   def topic
     event_topic
+  end
+
+  def recent_attendees
+    attendees.order(:created_at).limit(RECENT_ATTENDEES_NUMBER)
   end
 
   private

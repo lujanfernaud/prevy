@@ -14,7 +14,7 @@ module EventsHelper
   end
 
   def more_attendees?(event)
-    event.attendees.count > 5
+    event.attendees.count > Event::RECENT_ATTENDEES_NUMBER
   end
 
   def same_time?(event)
