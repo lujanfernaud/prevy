@@ -22,8 +22,11 @@
           </strong>
         <% end %>
 
-        <%= link_to topic.title,
-          group_topic_path(group, topic) %>
+        <% if topic.event? %>
+          <%= link_to topic.title, group_event_path(group, topic.event) %>
+        <% else %>
+          <%= link_to topic.title, group_topic_path(group, topic) %>
+        <% end %>
       </h3>
 
       <% if topic.comments.empty? %>
