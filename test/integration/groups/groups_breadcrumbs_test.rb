@@ -14,34 +14,6 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
     @event.attendees << @attendee
   end
 
-  test "member visits group organizer from group 'show' view" do
-    log_in_as @member
-
-    visit group_path @group
-
-    within ".organizers-preview" do
-      click_on @event.organizer.name
-    end
-
-    assert_organizer_and_members_breadcrumbs_for @group, @event.organizer
-
-    within ".breadcrumb" do
-      click_on @group.name
-    end
-
-    assert_current_path group_path(@group)
-
-    within ".organizers-preview" do
-      click_on @event.organizer.name
-    end
-
-    within ".breadcrumb" do
-      click_on members_parent_title
-    end
-
-    assert_current_path group_members_path(@group)
-  end
-
   test "member visits group member from group 'show' view" do
     log_in_as @member
 

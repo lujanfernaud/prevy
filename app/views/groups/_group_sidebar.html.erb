@@ -3,8 +3,7 @@
   <% cache [
     group.location,
     group.owner.name,
-    group.recent_organizers,
-    group.recent_members_with_role
+    group.recent_members
     ] do %>
 
     <div class="box box--sidebar group-info-box mt-lg-0 p-3">
@@ -19,20 +18,7 @@
         </p>
       </div>
 
-      <% if authorized?(current_user, group) %>
-
-        <div class="organizers-preview">
-          <h3 class="h4 mb-3">
-            <%= organizer_title %>
-          </h3>
-          <ul>
-            <%= render partial: "list_member",
-              collection: group.recent_organizers,
-              as: :member, locals: { group: group }, cached: true %>
-          </ul>
-        </div>
-
-      <% else %>
+      <% unless authorized?(current_user, group)  %>
 
         <div class="admin-preview">
           <h3 class="h4 mb-3">
@@ -57,7 +43,7 @@
           <ul class="mt-3">
             <% if !group.members_with_role.empty? %>
               <%= render partial: "list_member",
-                collection: group.recent_members_with_role,
+                collection: group.recent_members,
                 as: :member, locals: { group: group }, cached: true %>
             <% else %>
               <li>

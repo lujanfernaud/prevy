@@ -218,6 +218,20 @@ class GroupTest < ActiveSupport::TestCase
     assert_not topics_have_zero_priority? upcoming_events_topics
   end
 
+  test "#recent_members" do
+    group = create :group
+    member_one = SampleUser.all.last
+    member_one.created_at = 1.month.ago
+    member_two = SampleUser.all.first
+    member_two.created_at = 1.day.ago
+
+    group.members << [member_one, member_two]
+
+    expected = [member_one.name, member_two.name]
+
+    assert_equal expected, group.recent_members.pluck(:name)
+  end
+
   test "#top_members" do
     group = groups(:one)
     add_member_role(group: group, users: top_members_sorted.shuffle)

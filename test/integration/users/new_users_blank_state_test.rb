@@ -44,7 +44,6 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     click_on sample_group_name
 
     assert page.has_content? "Welcome to #{@user.name}'s group!"
-    assert_organizers
     assert_members
     assert page.has_link? sample_event_name
   end
@@ -131,14 +130,6 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
 
     def sample_event_name
       "Sample Event"
-    end
-
-    def assert_organizers
-      within ".organizers-preview" do
-        group_organizers.last(3).each do |organizer|
-          assert page.has_link? organizer.name, count: 1
-        end
-      end
     end
 
     def group_organizers

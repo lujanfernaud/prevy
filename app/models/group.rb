@@ -1,5 +1,6 @@
 class Group < ApplicationRecord
   SPECIAL_ROLES = ["organizer", "moderator"].freeze
+  RECENT_MEMBERS_SHOWN = 8
   TOP_MEMBERS_SHOWN = 12
 
   include PgSearch
@@ -97,14 +98,6 @@ class Group < ApplicationRecord
     topics.normal.prioritized
   end
 
-  def recent_organizers
-    organizers.last(3).reverse
-  end
-
-  def recent_members_with_role
-    members_with_role.last(3).reverse
-  end
-
   def organizers
     User.with_role(:organizer, self).reverse
   end
@@ -115,6 +108,10 @@ class Group < ApplicationRecord
 
   def members_with_role
     User.joins(:roles).where(roles: { resource_id: self, name: "member" })
+  end
+
+  def recent_members
+    members.limit(RECENT_MEMBERS_SHOWN)
   end
 
   def top_members(limit: TOP_MEMBERS_SHOWN)

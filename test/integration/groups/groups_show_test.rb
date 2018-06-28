@@ -21,7 +21,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     visit group_path(@group)
 
     assert_group_info_and_image(@group)
-    assert_organizers(@group)
     assert_members_preview(@group)
     assert_copy_group_link
 
@@ -42,7 +41,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     visit group_path(@group)
 
     assert_group_info_and_image(@group)
-    assert_organizers(@group)
     assert_members_preview(@group)
     assert_copy_group_link
 
@@ -64,7 +62,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     visit group_path(@group)
 
     assert_group_info_and_image(@group)
-    refute_organizers
     assert_admin(@group)
     assert_members_preview_title(@group)
     refute_copy_group_link
@@ -84,7 +81,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     visit group_path(@group)
 
     assert_group_info_and_image(@group)
-    refute_organizers
     assert_admin(@group)
     assert_members_preview_title(@group)
     assert_members_count(1)
@@ -140,7 +136,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     visit group_path(group)
 
-    assert_organizers(group)
     assert_members_preview(group)
     assert_copy_group_link
     assert_create_group_unconfirmed_alert
@@ -189,20 +184,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
       assert page.has_content? group.description
     end
 
-    def assert_organizers(group)
-      within ".organizers-preview" do
-        assert page.has_content? "Organizer"
-
-        group.organizers.last(3).each do |organizer|
-          assert page.has_link? organizer.name
-        end
-      end
-    end
-
-    def refute_organizers
-      refute page.has_css? ".organizers-preview"
-    end
-
     def assert_admin(group)
       assert page.has_content? "Admin"
       assert page.has_link?    group.owner.name
@@ -223,11 +204,14 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     def assert_members_preview_shows_members(group)
       within ".members-preview" do
-        last_members_names = group.members_with_role.last(5).map(&:name)
-        last_members_names.each do |name|
+        recent_members_names(group).each do |name|
           assert page.has_link? name
         end
       end
+    end
+
+    def recent_members_names(group)
+      group.members.last(Group::RECENT_MEMBERS_SHOWN).pluck(&:name)
     end
 
     def assert_members_count(number)
