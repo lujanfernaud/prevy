@@ -4,9 +4,8 @@ class Events::AttendancesController < ApplicationController
   after_action :verify_authorized
 
   def create
-    @attendance = Attendance.new(attended_event_id: params[:event_id])
-    @attendance.attendee_id = current_user.id
     @event = find_event
+    @attendance = new_attendance
 
     authorize @attendance
 
@@ -21,8 +20,8 @@ class Events::AttendancesController < ApplicationController
   end
 
   def destroy
-    @attendance = find_attendance
     @event = find_event
+    @attendance = find_attendance
 
     authorize @attendance
 
@@ -35,12 +34,21 @@ class Events::AttendancesController < ApplicationController
 
   private
 
-    def find_attendance
-      Attendance.find_by(attended_event_id: params[:event_id],
-                         attendee_id: current_user.id)
-    end
-
     def find_event
       Event.find(params[:event_id])
+    end
+
+    def new_attendance
+      Attendance.new(
+        attended_event_id: @event.id,
+        attendee_id: current_user.id
+      )
+    end
+
+    def find_attendance
+      Attendance.find_by(
+        attended_event_id: @event.id,
+        attendee_id: current_user.id
+      )
     end
 end
