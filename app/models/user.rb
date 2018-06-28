@@ -81,7 +81,7 @@ class User < ApplicationRecord
   end
 
   def events_from_groups
-    Event.where(group_id: groups.map(&:id)).upcoming
+    Event.where(group_id: groups.pluck(:id)).upcoming
   end
 
   def group_comments_count(group)
