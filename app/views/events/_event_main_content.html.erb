@@ -23,6 +23,7 @@
 
       <div class="event-box-big__text">
         <div class="event-box-big__data mt-2 mb-4">
+          <!-- Event Date -->
           <p class="event-box-big__date mb-3">
             <span class="mr-1"><%= calendar_icon %></span>
             <%= event.start_date_prettyfied %>
@@ -31,18 +32,12 @@
             <% end %>
           </p>
 
+          <!-- Event Address -->
           <p class="event-box-big__address mb-3">
             <span class="mr-1"><%= location_icon %></span>
             <%= link_to event.full_address, "#map",
               data: { turbolinks: false } %>
           </p>
-
-          <% if website? %>
-            <p class="event-box-big__website mb-3">
-              <span class="mr-1"><%= link_icon %></span>
-              <%= link_to event.website, event.website %>
-            </p>
-          <% end %>
         </div>
 
         <%= sanitize event.description %>

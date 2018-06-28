@@ -53,9 +53,18 @@
 
       <div class="quick-access">
 
-        <span class="mr-1"><%= location_icon %></span>
-        <%= link_to "See location in map", "#map",
-          data: { turbolinks: false } %>
+        <div>
+          <span class="mr-1"><%= location_icon %></span>
+          <%= link_to "See location in map", "#map",
+            data: { turbolinks: false } %>
+        </div>
+
+        <% if website? %>
+          <div class="mt-2">
+            <span class="mr-1"><%= link_icon %></span>
+            <%= link_to "Visit event website", event.website %>
+          </div>
+        <% end %>
 
       </div>
 

@@ -88,7 +88,6 @@ class EventsShowTest < ActionDispatch::IntegrationTest
         event.title,
         event.start_date_prettyfied,
         event.full_address,
-        event.website,
         event.description
       ]
     end
@@ -110,6 +109,7 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     def assert_quick_access
       within ".quick-access" do
         assert page.has_link? "See location in map"
+        assert page.has_link? "Visit event website"
       end
     end
 
