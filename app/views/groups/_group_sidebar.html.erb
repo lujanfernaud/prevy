@@ -24,12 +24,11 @@
           <h3 class="h4 mb-3">
             Admin
           </h3>
-          <ul>
-            <li>
-              <%= link_to group.owner.name,
-                group_member_path(group, group.owner) %>
-            </li>
-          </ul>
+          <p class="mr-1">
+            <%= person_icon %>
+            <%= link_to group.owner.name,
+              group_member_path(group, group.owner) %>
+          </p>
         </div>
 
       <% end %>
