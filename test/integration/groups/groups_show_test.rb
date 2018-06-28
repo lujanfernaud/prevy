@@ -95,14 +95,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     refute_members
   end
 
-  test "logged out user clicks on group owner name" do
-    visit group_path(@group)
-
-    click_on @group.owner.name
-
-    assert page.has_current_path? new_user_registration_path
-  end
-
   test "logged in user visits sample group" do
     group    = groups(:sample_group)
     stranger = users(:stranger)
@@ -186,7 +178,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     def assert_admin(group)
       assert page.has_content? "Admin"
-      assert page.has_link?    group.owner.name
+      assert page.has_content? group.owner.name
     end
 
     def assert_members_preview(group)
