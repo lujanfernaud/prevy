@@ -6,7 +6,7 @@ class Events::AttendeesController < ApplicationController
   # Event attendees
   def index
     @group = @event.group
-    @attendees = @event.attendees
+    @attendees = @event.attendees.order(name: :desc)
 
     add_breadcrumbs_for_index
   end
