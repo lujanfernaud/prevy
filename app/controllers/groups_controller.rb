@@ -74,7 +74,8 @@ class GroupsController < ApplicationController
     end
 
     def store_unhidden_groups
-      Group.unhidden
+      Group.includes(:image_placeholder)
+           .unhidden
            .order(created_at: :desc)
            .paginate(page: params[:page], per_page: 15)
     end
