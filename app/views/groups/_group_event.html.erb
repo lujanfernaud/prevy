@@ -21,16 +21,19 @@
 
     <div class="event-box-text--orientation-switch box-text--orientation-switch event-box-text--accented
       card-body col-md-8 d-flex flex-column justify-content-between">
+      <!-- Event Title -->
       <h2 class="h4 event-box__event-title mb-3 mb-md-1">
         <%= link_to event.title, group_event_path(event.group, event),
           class: "font-weight-bold" %>
       </h2>
 
+      <!-- Event Date -->
       <p class="event-box__date font-italic mb-0 mb-md-1">
         <%= calendar_icon %>
         <%= event.start_date_prettyfied %>
       </p>
 
+      <!-- Event Description -->
       <% if controller_name == "groups" %>
         <p class="event-box__short-description mb-0">
           <%= truncate(strip_tags(event.description),
@@ -44,8 +47,12 @@
         </p>
       <% end %>
 
+      <!-- Event Attendees -->
       <p class="event-box__attending mb-0 mb-xl-2">
-        Attending: <%= event.attendees.count %>
+        <%= person_icon %>
+        <%= link_to "#{event.attendees.count} " +
+          "attendee".pluralize(event.attendees.count),
+          event_attendees_path(event) %>
       </p>
     </div>
 
