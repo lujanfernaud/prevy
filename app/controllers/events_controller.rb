@@ -76,7 +76,7 @@ class EventsController < ApplicationController
 
   def destroy
     @group = find_group
-    @event = current_user.organized_events.find_by(id: params[:id])
+    @event = current_user.organized_events.find(params[:id])
 
     authorize @event
 
