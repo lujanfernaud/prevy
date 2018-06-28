@@ -167,6 +167,19 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     refute_members
   end
 
+  test "events section is not shown if there are no events" do
+    stranger = users(:stranger)
+    group    = groups(:sample_group)
+    group.members << stranger
+    group.events.destroy_all
+
+    log_in_as(stranger)
+
+    visit group_path(group)
+
+    refute_upcoming_events
+  end
+
   private
 
     def assert_group_info_and_image(group)
@@ -252,13 +265,12 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     end
 
     def assert_upcoming_events
-      assert page.has_content? "Upcoming"
-      assert page.has_css?     ".event-box"
+      assert page.has_css? ".upcoming-events-container"
+      assert page.has_css? ".event-box"
     end
 
     def refute_upcoming_events
-      refute page.has_content? "Upcoming"
-      refute page.has_css?     ".event-box"
+      refute page.has_css? ".upcoming-events-container"
     end
 
     def assert_top_members(group)

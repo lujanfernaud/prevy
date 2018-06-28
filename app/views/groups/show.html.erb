@@ -17,8 +17,10 @@
 
 <% if authorized?(current_user, @group) %>
 
-  <%= render "events", group: @group,
-    events: @events, events_count: @events_count %>
+  <% unless @events.empty? %>
+    <%= render "events", group: @group,
+      events: @events, events_count: @events_count %>
+  <% end %>
 
   <%= render "topics", group: @group %>
 
