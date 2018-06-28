@@ -99,11 +99,11 @@ class Group < ApplicationRecord
   end
 
   def organizers
-    User.with_role(:organizer, self).reverse
+    User.joins(:roles).where(roles: { resource_id: self, name: "organizer" })
   end
 
   def moderators
-    User.with_role(:moderator, self).reverse
+    User.joins(:roles).where(roles: { resource_id: self, name: "moderator" })
   end
 
   def members_with_role

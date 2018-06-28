@@ -5,8 +5,8 @@ class Groups::MembersController < ApplicationController
 
   # Group members
   def index
-    @organizers = @group.organizers
-    @members = @group.members_with_role
+    @organizers = @group.organizers.order(name: :desc)
+    @members = @group.members_with_role.order(name: :desc)
 
     add_breadcrumbs_for_index
   end
