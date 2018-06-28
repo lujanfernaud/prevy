@@ -1,3 +1,5 @@
+<!-- Main Content & Sidebar -->
+
 <div class="container-fluid bg-light">
   <div class="container">
 
@@ -15,6 +17,8 @@
     </div>
   </div>
 </div>
+
+<!-- Comments -->
 
 <div class="container-fluid bg-light pt-4" id="comments">
   <div class="container mb-2rem pb-1">
@@ -56,45 +60,45 @@
   </div>
 </div>
 
-<% cache @event.attendees.last(12) do %>
+<!-- Random Attendees -->
 
-  <div class="container-fluid bg-light">
-    <div class="container attendees-container pb-4">
+<div class="container-fluid bg-light">
+  <div class="container attendees-container pb-4">
 
-      <div class="row mt-2">
-        <div class="col-md-12 mb-2rem">
+    <div class="row mt-2">
+      <div class="col-md-12 mb-2rem">
 
-          <h2 class="text-center">
-            <%= attendees_title_with_count %>
-          </h2>
+        <h2 class="text-center">
+          <%= attendees_title_with_count %>
+        </h2>
 
-          <% if !@event.attendees.empty? %>
+        <% unless @event.attendees.empty? %>
 
-            <div class="row d-flex justify-content-center mt-1rem mb-2rem">
-              <%= render partial: "events/attendees/attendee",
-                collection: @event.attendees.last(12), as: :user,
-                locals: { event: @event }, cached: true %>
-            </div>
-
-          <% else %>
-
-            <h3 class="h5 text-center mt-5">
-              So far there are no attendees.
-            </h3>
-
-          <% end %>
-
-          <div class="text-center">
-            <%= see_all_attendees_link(@event, quantity: 12) %>
+          <div class="row d-flex justify-content-center mt-1rem mb-2rem">
+            <%= render partial: "events/attendees/attendee",
+              collection: @event.random_attendees, as: :user,
+              locals: { event: @event }, cached: true %>
           </div>
 
+        <% else %>
+
+          <h3 class="h5 text-center mt-5">
+            So far there are no attendees.
+          </h3>
+
+        <% end %>
+
+        <div class="text-center">
+          <%= see_all_attendees_link(@event, quantity: 12) %>
         </div>
+
       </div>
-
     </div>
-  </div>
 
-<% end %>
+  </div>
+</div>
+
+<!-- Map -->
 
 <% cache @event.address do %>
 
