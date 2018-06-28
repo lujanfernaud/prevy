@@ -2,7 +2,7 @@
   group.image,
   group.name,
   group.description,
-  is_group_owner(current_user, group) && current_user.confirmed?,
+  is_group_owner?(current_user, group) && current_user.confirmed?,
   has_membership_but_is_not_confirmed?(current_user, group)
   ] do %>
 

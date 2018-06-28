@@ -5,7 +5,7 @@ module GroupsHelper
   include Group::TopicsHelper
 
   def show_create_group_link_or_unconfirmed_alert(user, group)
-    return unless is_group_owner(user, group)
+    return unless is_group_owner?(user, group)
     return unless group.sample_group?
 
     if user.confirmed?
@@ -31,7 +31,7 @@ module GroupsHelper
 
   def authorized?(user, group)
     has_membership_and_is_confirmed?(user, group) ||
-      is_group_owner(user, group)
+      is_group_owner?(user, group)
   end
 
   def has_membership_and_is_confirmed?(user, group)
@@ -46,7 +46,7 @@ module GroupsHelper
     has_membership?(user, group) && !user.confirmed?
   end
 
-  def is_group_owner(user, group)
+  def is_group_owner?(user, group)
     group.owner == user
   end
 
