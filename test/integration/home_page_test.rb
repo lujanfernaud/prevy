@@ -129,7 +129,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     end
 
     def promotional_message
-      "Organize private events with your people"
+      "Private Communities Around Events"
     end
 
     def assert_upcoming_events
