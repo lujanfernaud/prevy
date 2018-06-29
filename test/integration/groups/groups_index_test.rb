@@ -17,9 +17,8 @@ class GroupsIndexTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "user sees members count if not member or owner" do
-    group = fake_group(owner: @phil)
-    group.save
+  test "group card shows members count" do
+    group = create :group, owner: @phil
 
     log_in_as @onitsuka
 
@@ -30,21 +29,4 @@ class GroupsIndexTest < ActionDispatch::IntegrationTest
       assert page.has_content? "members"
     end
   end
-
-  private
-
-    # TODO: Extract to a support file.
-    def fake_group(params = {})
-      Group.new(
-        owner:        params[:owner]        || users(:phil),
-        name:         params[:name]         || "Test group",
-        location:     params[:location]     || Faker::Address.city,
-        description:  params[:description]  || Faker::Lorem.paragraph * 2,
-        image:        params[:image]        || valid_image,
-        sample_group: params[:sample_group] || false,
-        hidden:       params[:hidden]       || false,
-        all_members_can_create_events:
-          params[:all_members_can_create_events] || false
-      )
-    end
 end
