@@ -66,7 +66,7 @@
   <div class="container attendees-container pb-4">
 
     <div class="row mt-2">
-      <div class="col-md-12 mb-2rem">
+      <div class="col-md-12">
 
         <h2 class="text-center">
           <%= attendees_title_with_count %>
@@ -88,9 +88,11 @@
 
         <% end %>
 
-        <div class="text-center">
-          <%= see_all_attendees_link(@event, quantity: 12) %>
-        </div>
+        <% if @event.attendees.size > Event::RANDOM_ATTENDEES_SHOWN %>
+          <div class="text-center mb-4">
+            <%= link_to "See all attendees", event_attendees_path(@event) %>
+          </div>
+        <% end %>
 
       </div>
     </div>

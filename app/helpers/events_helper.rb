@@ -21,12 +21,6 @@ module EventsHelper
     event.start_date.strftime("%H:%M") == event.end_date.strftime("%H:%M")
   end
 
-  def see_all_attendees_link(event, quantity:)
-    if event.attendees.count > quantity
-      link_to "See all attendees", event_attendees_path(event)
-    end
-  end
-
   def default_start_date
     1.week.from_now.round_to(1.hour)
   end
