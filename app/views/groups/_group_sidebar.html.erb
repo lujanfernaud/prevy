@@ -51,7 +51,8 @@
             <% end %>
           </ul>
 
-          <%= see_all_members_link(group, quantity: 5) %>
+          <%= see_all_members_link(group,
+            quantity: Group::RECENT_MEMBERS_SHOWN) %>
         <% end %>
       </div>
 
