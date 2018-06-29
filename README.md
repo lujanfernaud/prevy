@@ -2,7 +2,7 @@
 
 # Prevy
 
-## Private Events With Your People
+## Private Communities Around Events
 
 1. All groups are *private* and can be *hidden* (so only the people you want can see them).
 
