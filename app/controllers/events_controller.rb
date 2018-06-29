@@ -13,32 +13,6 @@ class EventsController < ApplicationController
     add_breadcrumbs_for_index
   end
 
-  def new
-    @group = find_group
-    @event = @group.events.build
-    @event.build_address
-
-    authorize @event
-
-    add_breadcrumbs_for_new
-  end
-
-  def create
-    @group = find_group
-    @event = @group.events.build event_params
-    @event.organizer = current_user
-
-    authorize @event
-
-    if @event.save
-      flash[:success] = "Event successfully created."
-      send_new_event_email
-      redirect_to group_event_path(@group, @event)
-    else
-      render :new
-    end
-  end
-
   def show
     @group    = find_group
     @event    = find_and_decorate_event
@@ -50,13 +24,41 @@ class EventsController < ApplicationController
     add_breadcrumbs_for_show
   end
 
+  def new
+    @group = find_group
+    @event = @group.events.build
+    @event.build_address
+
+    authorize @event
+
+    add_breadcrumbs_for_creation
+  end
+
   def edit
     @group = find_group
     @event = find_event
 
     authorize @event
 
-    add_breadcrumbs_for_edit
+    add_breadcrumbs_for_edition
+  end
+
+  def create
+    @group = find_group
+    @event = @group.events.build event_params
+    @event.organizer = current_user
+
+    authorize @event
+
+    add_breadcrumbs_for_creation
+
+    if @event.save
+      flash[:success] = "Event successfully created."
+      send_new_event_email
+      redirect_to group_event_path(@group, @event)
+    else
+      render :new
+    end
   end
 
   def update
@@ -64,6 +66,8 @@ class EventsController < ApplicationController
     @event = find_event
 
     authorize @event
+
+    add_breadcrumbs_for_edition
 
     if @event.update_attributes event_params
       flash[:success] = "Event updated."
@@ -113,17 +117,17 @@ class EventsController < ApplicationController
       add_breadcrumb "Events", group_events_path(@group)
     end
 
-    def add_breadcrumbs_for_new
-      add_breadcrumb @group.name, group_path(@group)
-      add_breadcrumb "Create event"
-    end
-
     def add_breadcrumbs_for_show
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb @event.title
     end
 
-    def add_breadcrumbs_for_edit
+    def add_breadcrumbs_for_creation
+      add_breadcrumb @group.name, group_path(@group)
+      add_breadcrumb "Create event"
+    end
+
+    def add_breadcrumbs_for_edition
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb @event.title, group_event_path(@group, @event)
       add_breadcrumb "Edit event"
