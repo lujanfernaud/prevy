@@ -28,8 +28,8 @@
 
           <% if group.members_with_role.size > Group::TOP_MEMBERS_SHOWN %>
             <div class="text-center mb-4">
-              <%= see_all_members_link(group,
-                quantity: Group::TOP_MEMBERS_SHOWN) %>
+              <%= link_to "See all organizers and members",
+                group_members_path(group) %>
             </div>
           <% end %>
 
