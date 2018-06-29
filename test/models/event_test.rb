@@ -185,4 +185,15 @@ class EventTest < ActiveSupport::TestCase
 
     assert_equal [attendee_one, attendee_two], event.recent_attendees
   end
+
+  test "#random_attendees" do
+    event = build_stubbed :event
+    attendee_one = SampleUser.all.last
+    attendee_two = SampleUser.all.first
+
+    Attendance.create!(attended_event: event, attendee: attendee_one)
+    Attendance.create!(attended_event: event, attendee: attendee_two)
+
+    assert_not_empty event.random_attendees
+  end
 end

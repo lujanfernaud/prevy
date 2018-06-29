@@ -84,6 +84,8 @@ class Event < ApplicationRecord
   end
 
   def random_attendees
+    return attendees unless attendees.count > RANDOM_ATTENDEES_SHOWN
+
     random_offset = rand(attendees.count - RANDOM_ATTENDEES_SHOWN)
 
     attendees.offset(random_offset).limit(RANDOM_ATTENDEES_SHOWN)
