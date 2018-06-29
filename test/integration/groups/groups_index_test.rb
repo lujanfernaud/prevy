@@ -17,35 +17,6 @@ class GroupsIndexTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "user sees topics link if owner" do
-    group = fake_group(owner: @phil)
-    group.save
-
-    log_in_as @phil
-
-    visit groups_path
-
-    within "#group-#{group.id}" do
-      assert page.has_link? "topics"
-      refute page.has_link? "members"
-    end
-  end
-
-  test "user sees topics link if member" do
-    group = fake_group(owner: @phil)
-    group.save
-    group.members << @onitsuka
-
-    log_in_as @onitsuka
-
-    visit groups_path
-
-    within "#group-#{group.id}" do
-      assert page.has_link? "topics"
-      refute page.has_link? "members"
-    end
-  end
-
   test "user sees members count if not member or owner" do
     group = fake_group(owner: @phil)
     group.save

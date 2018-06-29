@@ -96,16 +96,14 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
   end
 
   test "logged in user visits sample group" do
-    group    = groups(:sample_group)
     stranger = users(:stranger)
+    group = groups(:sample_group)
 
     log_in_as(stranger)
 
     visit group_path(group)
 
-    refute_copy_group_link
-    assert page.has_button? "Request membership", disabled: true
-    refute_unconfirmed_account_alerts
+    assert_current_path root_path
   end
 
   test "logged out user visits sample group" do
@@ -113,9 +111,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     visit group_path(group)
 
-    refute_copy_group_link
-    assert page.has_button? "Request membership", disabled: true
-    refute_unconfirmed_account_alerts
+    assert_current_path root_path
   end
 
   test "owner with unconfirmed email visits sample group" do
@@ -138,13 +134,12 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
   end
 
   test "member with unconfirmed email visits group" do
-    group = groups(:sample_group)
-    user  = users(:unconfirmed)
-    group.members << user
+    user = users(:unconfirmed)
+    @group.members << user
 
     log_in_as(user)
 
-    visit group_path(group)
+    visit group_path(@group)
 
     refute_create_group_unconfirmed_alert
     assert_show_group_unconfirmed_alert
@@ -156,9 +151,8 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
   test "events section is not shown if there are no events" do
     stranger = users(:stranger)
-    group    = groups(:sample_group)
+    group    = create :group
     group.members << stranger
-    group.events.destroy_all
 
     log_in_as(stranger)
 
