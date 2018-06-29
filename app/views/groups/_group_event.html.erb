@@ -22,37 +22,39 @@
     <div class="event-box-text--orientation-switch box-text--orientation-switch event-box-text--accented
       card-body col-md-8 d-flex flex-column justify-content-between">
       <!-- Event Title -->
-      <h2 class="h4 event-box__event-title mb-3 mb-md-1">
+      <h2 class="h4 event-box__event-title mb-2 mb-md-1">
         <%= link_to event.title, group_event_path(event.group, event),
           class: "font-weight-bold" %>
       </h2>
 
       <!-- Event Date -->
-      <p class="event-box__date font-italic mb-0 mb-md-1">
+      <p class="event-box__date mb-0">
         <%= calendar_icon %>
         <%= event.start_date_prettyfied %>
       </p>
 
-      <!-- Event Description -->
-      <% if controller_name == "groups" %>
-        <p class="event-box__short-description mb-0">
-          <%= truncate(strip_tags(event.description),
-            length: 170, separator: " ") %>
-        </p>
-      <% else %>
-        <p class="event-box__group mb-0">Group: <%= event.group.name %></p>
-        <p class="event-box__short-description mb-0">
-          <%= truncate(strip_tags(event.description),
-            length: 80, separator: " ") %>
-        </p>
-      <% end %>
+      <!-- Event Address -->
+      <p class="event-box__address mb-0">
+        <%= location_icon %>
+        <%= link_to event.full_address,
+          group_event_path(event.group, event) + "#map" %>
+      </p>
 
       <!-- Event Attendees -->
-      <p class="event-box__attending mb-0 mb-xl-2">
+      <p class="event-box__attending mb-0">
         <%= person_icon %>
         <%= link_to "#{event.attendees.count} " +
           "attendee".pluralize(event.attendees.count),
           event_attendees_path(event) %>
+      </p>
+
+      <!-- Event Comments -->
+      <p class="event-box__comments mb-0 mb-xl-1 mt-2 mt-md-0">
+        <%= comments_icon %>
+        <%= link_to group_event_path(event.group, event) + "#comments" do %>
+          <%= "#{event.comments.count} " +
+            "comment".pluralize(event.comments.count)%>
+        <% end %>
       </p>
     </div>
 
