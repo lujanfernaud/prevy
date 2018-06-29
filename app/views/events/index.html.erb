@@ -1,26 +1,40 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12 mt-4">
+<div class="container-fluid bg-light">
+  <div class="container">
 
-      <div class="row">
+    <%= render partial: "application/breadcrumbs" %>
+
+    <div class="row mb-2rem">
+      <div class="col-md-12 mt-3">
+
+        <h2 class="text-center mt-0 mb-0">Events</h2>
+
         <% if !@events.empty? %>
-          <%= render @events %>
+
+          <div class="row d-flex justify-content-center mt-2">
+            <%= render @events %>
+          </div>
+
         <% else %>
+
           <h3 class="h5 text-center mt-4">
             There are no upcoming events in the group.
           </h3>
+
         <% end %>
-      </div>
 
-      <% if @events %>
-        <div class="row">
-          <div class="mx-auto mt-2rem mb-2rem">
-            <%= will_paginate @events,
-              :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+        <% if @events %>
+          <div class="row">
+            <div class="col">
+              <div class="mx-auto mt-2rem mb-2rem">
+                <%= will_paginate @events,
+                  :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+              </div>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
 
+      </div>
     </div>
+
   </div>
 </div>
