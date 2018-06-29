@@ -10,11 +10,7 @@ class Group < ApplicationRecord
 
   resourcify
 
-  # TODO: Merge these methods into '#prepare_text_fields'
-  before_save    :titleize_name
-  before_save    :titleize_location
-  before_save    :capitalize_description
-  # ----------------------------------------------------
+  before_save    :prepare_text_fields
   after_create   :add_owner_as_organizer_and_moderator
   after_create   :create_owner_group_comments_count
   after_update   :update_members_role
@@ -167,15 +163,9 @@ class Group < ApplicationRecord
       owner.id
     end
 
-    def titleize_name
+    def prepare_text_fields
       self.name = name.titleize
-    end
-
-    def titleize_location
       self.location = location.titleize
-    end
-
-    def capitalize_description
       self.description = description[0].capitalize + description[1..-1]
     end
 
