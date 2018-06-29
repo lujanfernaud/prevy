@@ -9,7 +9,7 @@
 
           <div class="row d-flex justify-content-center">
             <% if !user_groups.empty? %>
-              <%= render partial: "groups/group",
+              <%= render partial: "group",
                collection: user_groups, as: :group, cached: true %>
             <% else %>
               <h3 class="h5 text-center mt-4">

@@ -29,11 +29,13 @@
         <%= group.location %>
       </p>
 
-      <!-- Members Count -->
+      <!-- Topics Count -->
       <p class="mt-1 mb-0">
-        <%= person_icon %>
-        <%= "#{group.members_with_role.count} " +
-          "member".pluralize(group.members_with_role.count) %>
+        <%= topics_icon %>
+        <%= link_to group_topics_path(group) do %>
+          <%= "#{group.topics.count} " +
+            "topic".pluralize(group.topics.count) %>
+        <% end %>
       </p>
     </div>
 
