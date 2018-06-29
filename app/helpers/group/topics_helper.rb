@@ -14,4 +14,12 @@ module Group::TopicsHelper
   def announceable?(topic)
     action_name == "new" || action_name == "edit" && topic.announcement?
   end
+
+  def resource_comments_path(group, topic)
+    if topic.event?
+      group_event_path(group, topic.event) + "#comments"
+    else
+      group_topic_path(group, topic)
+    end
+  end
 end
