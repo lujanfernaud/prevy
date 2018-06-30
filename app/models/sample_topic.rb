@@ -36,23 +36,32 @@ class SampleTopic
     # Callbacks are not being called.
     # https://github.com/zdennis/activerecord-import/wiki/Callbacks
     def create_topics
-      add_normal_topics
-      add_announcement_topic
-      add_pinned_topic
+      build_topics_from_topic_seeds
 
       Topic.import(@topics)
     end
 
-    def add_normal_topics
-      TOPIC_SEEDS.each { |seed| @topics << new_topic_with_seed(seed) }
+    def build_topics_from_topic_seeds
+      TOPIC_SEEDS.each { |seed| @topics << new_topic_from(seed) }
     end
 
-    def new_topic_with_seed(seed)
+    def new_topic_from(seed)
+      user = select_user_for(seed)
+
       new_topic(
-        user:  members.sample,
-        title: Faker::Music.album,
-        body:  seed["body"]
+        user:  user,
+        title: seed["title"],
+        body:  seed["body"],
+        type:  seed["type"]
       )
+    end
+
+    def select_user_for(seed)
+      if seed["type"] == "AnnouncementTopic" || "PinnedTopic"
+        prevy_bot
+      else
+        members.sample
+      end
     end
 
     def new_topic(params = {})
@@ -60,29 +69,11 @@ class SampleTopic
         user:       params[:user],
         title:      params[:title],
         body:       params[:body],
-        type:       params[:type] || "Topic",
+        type:       params[:type],
         edited_by:  params[:user],
         edited_at:  CREATION_DATE,
         created_at: CREATION_DATE,
         last_commented_at: CREATION_DATE
-      )
-    end
-
-    def add_announcement_topic
-      @topics << new_topic(
-        user:  prevy_bot,
-        title: "Sample announcement",
-        body:  "You can create an announcement topic and all members of the group will receive a notification email.",
-        type:  "AnnouncementTopic"
-      )
-    end
-
-    def add_pinned_topic
-      @topics << new_topic(
-        user:  prevy_bot,
-        title: "Sample pinned topic",
-        body:  "Pinned topics can be handy for specifying group rules, introductions ('Introduce Yourself'), or to give more importance to normal topics for a while.",
-        type:  "PinnedTopic"
       )
     end
 

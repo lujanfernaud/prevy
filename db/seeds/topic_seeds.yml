@@ -2,21 +2,42 @@
 # It is meant to be as real as possible.
 
 -
+  title: <%= Faker::Music.album %>
   body: The other day I was listening again to this album and realizing how amazing it is. Would anyone recommend me something similar?
+  type: Topic
 
 -
+  title: <%= Faker::Music.album %>
   body: This is maybe one of the best records released under their label. What do you think?
+  type: Topic
 
 -
+  title: <%= Faker::Music.album %>
   body: I have in mind to prepare some tracks from this album for the next party. Which ones are your favorites?
+  type: Topic
 
 -
+  title: <%= Faker::Music.album %>
   body: "It seems that for the 20th anniversary a special edition with some unreleased tracks is going to be available. My guess is that some of the tracks they've been playing lately are going to be included.
   Which ones would you say are going to be released in this special edition?"
+  type: Topic
 
 -
+  title: <%= Faker::Music.album %>
   body: I just got the vinyl today, the one with the typo in the record label name that includes the ghost track. I might drop it in the next event :D
+  type: Topic
 
 -
+  title: <%= Faker::Music.album %>
   body: The special edition is available in Very Hard To Find Records. I was lucky to get one and they had a few more. Go get it before it disappears!
+  type: Topic
 
+-
+  title: Sample announcement
+  body: You can create an announcement topic and all members of the group will receive a notification email.
+  type: AnnouncementTopic
+
+-
+  title: Sample pinned topic
+  body: Pinned topics can be handy for specifying group rules, introductions ('Introduce Yourself'), or to give more importance to normal topics for a while.
+  type: PinnedTopic
