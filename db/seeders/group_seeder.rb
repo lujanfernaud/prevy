@@ -15,7 +15,7 @@ class GroupSeeder
     end
 
     def create_unhidden_group_for(group_seed)
-      user = SampleUser.select_random_users(1)
+      user = SampleUser.select_random_users(1).first
 
       user.owned_groups.create!(
         name:        group_seed["name"],
@@ -26,8 +26,9 @@ class GroupSeeder
     end
 
     def add_random_members_to(group)
-      max_number = rand(9..SampleUser.collection_for_sample_group.count)
-      selected_users = SampleUser.collection_for_sample_group(0..max_number)
+      sample_users = SampleUser.collection_for_sample_group
+      max_number = rand(9..sample_users.count)
+      selected_users = sample_users[0..max_number]
 
       selected_users.each { |user| group.members << user }
     end

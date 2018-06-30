@@ -34,7 +34,7 @@ class SampleUserTest < ActiveSupport::TestCase
     sample_users_count = SampleUser.count
 
     (sample_users_count * 2).times do
-      assert_not_equal prevy_bot, SampleUser.select_random_users(1)
+      assert_not_equal prevy_bot, SampleUser.select_random_users(1).first
     end
   end
 
