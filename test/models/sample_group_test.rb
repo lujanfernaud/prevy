@@ -23,7 +23,7 @@ class SampleGroupTest < ActiveSupport::TestCase
     assert_equal sample_users_collection.count, group.members.count
     assert_equal members_with_role_count, group.members_with_role.count
 
-    assert_equal 5, group.organizers.count
+    assert_equal 4, group.organizers.count
     assert_equal 1, group.events.count
 
     assert_equal 1, group.announcement_topics.count

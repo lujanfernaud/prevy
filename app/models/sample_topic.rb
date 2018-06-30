@@ -13,9 +13,10 @@ class SampleTopic
   end
 
   def initialize(group)
-    @group    = group
-    @topics   = []
-    @comments = []
+    @group     = group
+    @topics    = []
+    @comments  = []
+    @prevy_bot = SampleUser.find_by(email: "prevybot@prevy.test")
   end
 
   def create_sample_topics
@@ -26,7 +27,7 @@ class SampleTopic
 
   private
 
-    attr_reader :group, :topics
+    attr_reader :group, :topics, :prevy_bot
 
     # We are using 'activerecord-import' for bulk inserting the data.
     # https://github.com/zdennis/activerecord-import/wiki/Examples
@@ -69,10 +70,8 @@ class SampleTopic
     end
 
     def add_announcement_topic
-      user = group.owner
-
       @topics << new_topic(
-        user:  user,
+        user:  prevy_bot,
         title: "Sample announcement",
         body:  "You can create an announcement topic and all members of the group will receive a notification email.",
         type:  "AnnouncementTopic"
@@ -80,10 +79,8 @@ class SampleTopic
     end
 
     def add_pinned_topic
-      user = group.owner
-
       @topics << new_topic(
-        user:  user,
+        user:  prevy_bot,
         title: "Sample pinned topic",
         body:  "Pinned topics can be handy for specifying group rules, introductions ('Introduce Yourself'), or to give more importance to normal topics for a while.",
         type:  "PinnedTopic"

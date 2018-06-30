@@ -71,14 +71,15 @@ class SampleGroup
     end
 
     def add_sample_organizers
-      random_members(4).each { |member| group.add_to_organizers(member) }
+      group.add_to_organizers(prevy_bot)
+
+      SampleUser.select_random_users(2).each do |member|
+        group.add_to_organizers(member)
+      end
     end
 
-    def random_members(number)
-      members = group.members
-      random_offset = rand(members.count - number)
-
-      members.offset(random_offset).limit(number)
+    def prevy_bot
+      SampleUser.find_by(email: "prevybot@prevy.test")
     end
 
     def add_sample_event

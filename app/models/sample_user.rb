@@ -11,10 +11,9 @@ class SampleUser < User
     all[0..-2]
   end
 
-  def self.select_random(users_number)
-    random_offset = rand(SampleUser.all.count - users_number)
-
-    SampleUser.offset(random_offset).limit(users_number)
+  # Prevy Bot has index 0. We want to exclude it.
+  def self.select_random_users(users_number)
+    collection_for_sample_group[1..-1].shuffle.pop(users_number)
   end
 
   private

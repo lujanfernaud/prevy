@@ -4,7 +4,7 @@ class AttendancePolicy < ApplicationPolicy
   end
 
   def create?
-    logged_in? && is_a_group_member?
+    logged_in? && is_a_group_member? || is_sample_group_owner?
   end
 
   def destroy?
@@ -17,9 +17,12 @@ class AttendancePolicy < ApplicationPolicy
       user.has_role? :member, group
     end
 
-    def group
-      event = Event.find(params[:event_id])
+    def is_sample_group_owner?
+      group.owner == user
+    end
 
-      event.group
+    def group
+      @_event ||= Event.find(params[:event_id])
+      @_group ||= @_event.group
     end
 end

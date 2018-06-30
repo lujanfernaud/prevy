@@ -13,7 +13,7 @@ class GroupSeeder
     end
 
     def create_unhidden_group_for(group_seed)
-      user = SampleUser.select_random(1).first
+      user = SampleUser.select_random_users(1)
 
       user.owned_groups.create!(
         name:        group_seed["name"],
@@ -24,9 +24,10 @@ class GroupSeeder
     end
 
     def add_random_members_to(group)
-      users_number = rand(6..56)
+      max_number = rand(9..SampleUser.collection_for_sample_group.count)
+      selected_users = SampleUser.collection_for_sample_group(0..max_number)
 
-      SampleUser.select_random(users_number).each do |user|
+      selected_users.each do |user|
         group.members << user
         user.add_role :member, group
       end

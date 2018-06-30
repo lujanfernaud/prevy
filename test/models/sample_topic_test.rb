@@ -2,10 +2,11 @@ require 'test_helper'
 
 class SampleTopicTest < ActiveSupport::TestCase
   def setup
+    @prevy_bot = users(:prevy_bot)
     woodell = users(:woodell)
     @group = fake_group(owner: woodell)
     @group.save
-    @group.members << SampleUser.select_random(5)
+    @group.members << SampleUser.collection_for_sample_group
   end
 
   test "creates normal topics with comments" do
@@ -22,7 +23,9 @@ class SampleTopicTest < ActiveSupport::TestCase
 
     topic = @group.announcement_topics.last
 
+
     assert_equal 1, @group.announcement_topics.count
+    assert_equal @prevy_bot, @group.announcement_topics.first.user
     assert topic.comments.count > 4
   end
 
@@ -32,15 +35,14 @@ class SampleTopicTest < ActiveSupport::TestCase
     topic = @group.pinned_topics.last
 
     assert_equal 1, @group.pinned_topics.count
+    assert_equal @prevy_bot, @group.pinned_topics.first.user
     assert topic.comments.count > 4
   end
 
   test "updates user topic_comments_count" do
     SampleTopic.create_topics_for_group(@group)
 
-    @group.members.each do |member|
-      assert_not member.group_comments_count(@group).number.zero?
-    end
+    assert_not all_members_have_a_zero_comments_count?
   end
 
   test "touches users after adding comments" do
@@ -52,4 +54,10 @@ class SampleTopicTest < ActiveSupport::TestCase
 
     assert_not_equal previous_updated_at, updated_at
   end
+
+  private
+
+    def all_members_have_a_zero_comments_count?
+      @group.members.all? { |m| m.group_comments_count(@group).number.zero? }
+    end
 end

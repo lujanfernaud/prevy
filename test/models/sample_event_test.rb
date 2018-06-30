@@ -12,8 +12,9 @@ class SampleEventTest < ActiveSupport::TestCase
   test "creates event with sample attendees and sample comments" do
     SampleEvent.create_for_group(@group)
     event = Event.last
+    prevy_bot = SampleUser.find_by(email: "prevybot@prevy.test")
 
-    assert_equal @group.owner, event.organizer
+    assert_equal event.organizer.email, prevy_bot.email
     assert_not_empty event.attendees
 
     assert event.comments.count > 5

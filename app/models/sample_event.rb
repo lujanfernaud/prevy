@@ -31,8 +31,10 @@ class SampleEvent
     attr_reader :group, :event
 
     def create_event
+      prevy_bot = SampleUser.find_by(email: "prevybot@prevy.test")
+
       @event = group.events.build(
-        organizer_id: group.owner.id,
+        organizer_id: prevy_bot.id,
         title:        event_title,
         description:  event_description,
         website:      event_website,

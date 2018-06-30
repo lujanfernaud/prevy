@@ -77,8 +77,13 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     click_on sample_event_name
 
     assert page.has_content? "This is how your event could look like."
-    assert page.has_css?     ".btn.disabled", text: "Edit event"
+    assert page.has_content? "Would you like to attend?"
     assert_attendees
+
+    click_on "Attend"
+
+    assert page.has_content? "Yay! You are attending this event!"
+    assert page.has_link?    "Cancel attendance"
   end
 
   test "new and confirmed user creates a group" do

@@ -26,7 +26,16 @@ class SampleUserTest < ActiveSupport::TestCase
   end
 
   test ".collection_for_sample_group" do
-    refute_equal SampleUser.all, SampleUser.collection_for_sample_group
+    assert_not_equal SampleUser.all, SampleUser.collection_for_sample_group
+  end
+
+  test ".select_random_users" do
+    prevy_bot = users(:prevy_bot)
+    sample_users_count = SampleUser.count
+
+    (sample_users_count * 2).times do
+      assert_not_equal prevy_bot, SampleUser.select_random_users(1)
+    end
   end
 
   private
