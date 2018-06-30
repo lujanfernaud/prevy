@@ -16,6 +16,22 @@ admin:
   }
   admin: true
 
+prevy_bot:
+  name: Prevy Bot
+  email: prevybot@prevy.test
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+  location: The Interwebs
+  bio: Full-time Prevy sample content creator, and loving it!
+  confirmed_at: <%= Time.zone.now - 1.day %>
+  settings: {
+    "membership_request_emails": false,
+    "group_membership_emails": false,
+    "group_role_emails": false,
+    "group_event_emails": false,
+    "group_announcement_emails": false
+  }
+  sample_user: true
+
 phil:
   name: Phil
   email: phil@sample.com

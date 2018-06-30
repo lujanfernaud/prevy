@@ -9,13 +9,29 @@ puts "Creating admin"
 
 User.create!(
   name:         "Luján Fernaud",
-  email:        "lujanfernaud@test.test",
+  email:        "lujanfernaud@prevy.test",
   location:     "Tenerife, Canary Islands, Spain",
   bio:          "Full-stack Rails Developer. Rubyist. Tinkerer.",
   password:     "changeme",
   confirmed_at: Time.zone.now,
   admin:        true
 )
+
+#
+# Create Prevy Bot
+#
+
+puts "Creating Prevy Bot"
+
+SampleUser.create!(
+  name:         "Prevy Bot",
+  email:        "prevybot@prevy.test",
+  location:     "The Interwebs",
+  bio:          "Full-time Prevy sample content creator, and loving it!",
+  password:     SecureRandom.base64(21),
+  confirmed_at: Time.zone.now
+)
+
 
 #
 # Create Sample Users
