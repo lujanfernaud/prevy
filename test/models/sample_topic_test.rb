@@ -14,6 +14,8 @@ class SampleTopicTest < ActiveSupport::TestCase
 
     @topic = @group.normal_topics.last
 
+    assert theres_no_normal_topic_created_by_prevy_bot?
+
     assert_equal 6, @group.normal_topics.count
     assert comments_count > 4
     assert_equal comments_count, commenters.count
@@ -58,6 +60,10 @@ class SampleTopicTest < ActiveSupport::TestCase
   end
 
   private
+
+    def theres_no_normal_topic_created_by_prevy_bot?
+      @group.normal_topics.none? { |topic| topic.user == @prevy_bot }
+    end
 
     def comments_count
       @topic.comments.count

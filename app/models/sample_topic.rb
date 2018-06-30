@@ -14,10 +14,10 @@ class SampleTopic
 
   def initialize(group)
     @group     = group
-    @members   = group.members.to_a
+    @prevy_bot = group.members[0]
+    @members   = group.members[1..-1].to_a
     @topics    = []
     @comments  = []
-    @prevy_bot = SampleUser.find_by(email: "prevybot@prevy.test")
   end
 
   def create_sample_topics
@@ -28,7 +28,7 @@ class SampleTopic
 
   private
 
-    attr_reader :group, :members, :topics, :prevy_bot
+    attr_reader :group, :prevy_bot, :members, :topics
 
     # We are using 'activerecord-import' for bulk inserting the data.
     # https://github.com/zdennis/activerecord-import/wiki/Examples
@@ -57,7 +57,8 @@ class SampleTopic
     end
 
     def select_user_for(seed)
-      if seed["type"] == "AnnouncementTopic" || "PinnedTopic"
+      case seed["type"]
+      when "AnnouncementTopic", "PinnedTopic"
         prevy_bot
       else
         members.sample
@@ -89,7 +90,7 @@ class SampleTopic
     def build_comments
       topics.each do |topic|
         comments = rand(6..14)
-        users = @members.shuffle[0..comments]
+        users = members.shuffle[0..comments]
 
         users.each { |user| @comments << new_comment_for(topic, user) }
       end
