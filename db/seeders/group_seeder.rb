@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Seeds groups.
 class GroupSeeder
   class << self
@@ -27,10 +29,7 @@ class GroupSeeder
       max_number = rand(9..SampleUser.collection_for_sample_group.count)
       selected_users = SampleUser.collection_for_sample_group(0..max_number)
 
-      selected_users.each do |user|
-        group.members << user
-        user.add_role :member, group
-      end
+      selected_users.each { |user| group.members << user }
     end
 
   end
