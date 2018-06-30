@@ -12,31 +12,33 @@ class SampleTopicTest < ActiveSupport::TestCase
   test "creates normal topics with comments" do
     SampleTopic.create_topics_for_group(@group)
 
-    topic = @group.normal_topics.last
+    @topic = @group.normal_topics.last
 
     assert_equal 6, @group.normal_topics.count
-    assert topic.comments.count > 4
+    assert comments_count > 4
+    assert_equal comments_count, commenters.count
   end
 
   test "creates announcement topic with comments" do
     SampleTopic.create_topics_for_group(@group)
 
-    topic = @group.announcement_topics.last
-
+    @topic = @group.announcement_topics.last
 
     assert_equal 1, @group.announcement_topics.count
     assert_equal @prevy_bot, @group.announcement_topics.first.user
-    assert topic.comments.count > 4
+    assert comments_count > 4
+    assert_equal comments_count, commenters.count
   end
 
   test "creates pinned topic with comments" do
     SampleTopic.create_topics_for_group(@group)
 
-    topic = @group.pinned_topics.last
+    @topic = @group.pinned_topics.last
 
     assert_equal 1, @group.pinned_topics.count
     assert_equal @prevy_bot, @group.pinned_topics.first.user
-    assert topic.comments.count > 4
+    assert comments_count > 4
+    assert_equal comments_count, commenters.count
   end
 
   test "updates user topic_comments_count" do
@@ -56,6 +58,14 @@ class SampleTopicTest < ActiveSupport::TestCase
   end
 
   private
+
+    def comments_count
+      @topic.comments.count
+    end
+
+    def commenters
+      @topic.comments.pluck(:user_id).uniq
+    end
 
     def all_members_have_a_zero_comments_count?
       @group.members.all? { |m| m.group_comments_count(@group).number.zero? }

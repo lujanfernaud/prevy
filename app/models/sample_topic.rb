@@ -14,6 +14,7 @@ class SampleTopic
 
   def initialize(group)
     @group     = group
+    @members   = group.members.to_a
     @topics    = []
     @comments  = []
     @prevy_bot = SampleUser.find_by(email: "prevybot@prevy.test")
@@ -27,7 +28,7 @@ class SampleTopic
 
   private
 
-    attr_reader :group, :topics, :prevy_bot
+    attr_reader :group, :members, :topics, :prevy_bot
 
     # We are using 'activerecord-import' for bulk inserting the data.
     # https://github.com/zdennis/activerecord-import/wiki/Examples
@@ -47,10 +48,8 @@ class SampleTopic
     end
 
     def new_topic_with_seed(seed)
-      user = group.members.sample
-
       new_topic(
-        user:  user,
+        user:  members.sample,
         title: Faker::Music.album,
         body:  seed["body"]
       )
@@ -90,28 +89,37 @@ class SampleTopic
     # Some callbacks are not being called.
     # https://github.com/zdennis/activerecord-import/wiki/Callbacks
     def add_comments
-      topics.each do |topic|
-        rand(5..13).times { @comments << new_comment_for(topic) }
-      end
-
-      @comments.each do |comment|
-        comment.run_callbacks(:create) { false }
-        comment.user.touch
-      end
+      build_comments
+      run_comments_before_create_callbacks
 
       TopicComment.import(@comments)
     end
 
-    def new_comment_for(topic)
-      user = group.members.sample
+    def build_comments
+      topics.each do |topic|
+        comments = rand(6..14)
+        users = @members.shuffle[0..comments]
+
+        users.each { |user| @comments << new_comment_for(topic, user) }
+      end
+    end
+
+    def new_comment_for(topic, user)
       date = CREATION_DATE + rand(ONE_MINUTE..TWENTY_THREE_HOURS)
 
-      topic = topic.comments.new(
+      topic.comments.new(
         user:       user,
         body:       Faker::BackToTheFuture.quote,
         edited_by:  user,
         created_at: date
       )
+    end
+
+    def run_comments_before_create_callbacks
+      @comments.each do |comment|
+        comment.run_callbacks(:create) { false }
+        comment.user.touch
+      end
     end
 
     # Since 'after_create' callbacks are not being called when importing
