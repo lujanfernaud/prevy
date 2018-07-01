@@ -168,6 +168,14 @@ class EventTest < ActiveSupport::TestCase
     assert_equal title_parameterized, event.slug
   end
 
+  test "slug candidates work" do
+    event_one = create :event, title: "Test Event"
+    event_two = create :event, title: "Test Event"
+
+    assert_equal "test-event", event_one.slug
+    assert_equal "test-event-#{start_date(event_two)}", event_two.slug
+  end
+
   test "#comments" do
     event = fake_event
     event.save
@@ -196,4 +204,10 @@ class EventTest < ActiveSupport::TestCase
 
     assert_not_empty event.random_attendees
   end
+
+  private
+
+    def start_date(event)
+      event.start_date.strftime("%b %d %Y").parameterize
+    end
 end

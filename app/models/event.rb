@@ -3,7 +3,7 @@ class Event < ApplicationRecord
   RANDOM_ATTENDEES_SHOWN = 6
 
   include FriendlyId
-  friendly_id :slug_candidates, use: :scoped, scope: :group
+  friendly_id :slug_candidates, use: :slugged
 
   include Storext.model
 
@@ -93,21 +93,6 @@ class Event < ApplicationRecord
 
   private
 
-    def should_generate_new_friendly_id?
-      slug.blank? || saved_change_to_title?
-    end
-
-    def slug_candidates
-      [
-        :title,
-        [:title, :date]
-      ]
-    end
-
-    def date
-      start_date.strftime("%b %d %Y")
-    end
-
     def titleize_title
       self.title = title.titleize
     end
@@ -171,5 +156,25 @@ class Event < ApplicationRecord
       elsif end_date < start_date
         errors.add(:start_date, "can't be later than end date")
       end
+    end
+
+    def should_generate_new_friendly_id?
+      slug.blank? || saved_change_to_title?
+    end
+
+    def slug_candidates
+      [
+        :title,
+        [:title, :date],
+        [:title, :date, :group_id]
+      ]
+    end
+
+    def group_id
+      group.id
+    end
+
+    def date
+      start_date.strftime("%b %d %Y")
     end
 end
