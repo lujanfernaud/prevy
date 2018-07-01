@@ -33,11 +33,11 @@
   }
 
   @include media-breakpoint-up(lg) {
-    padding: 1rem .37rem .9rem .37rem;
+    padding: 1rem .33rem .9rem .33rem;
   }
 
   @include media-breakpoint-up(xl) {
-    padding: .5rem .37rem;
+    padding: .5rem .33rem .6rem .33rem;
   }
 }
 
