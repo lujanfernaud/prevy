@@ -7,7 +7,7 @@
       <%= @topic.title %>
     </h2>
 
-    <div class="box topic-box mb-2 p-4">
+    <div class="box topic-box mb-1 p-4">
 
       <div class="d-flex flex-row topic-container">
         <div class="topic__avatar member-image mr-3">
@@ -78,15 +78,11 @@
         </div>
       </div>
 
-      <% unless @comments.nil? || @comments.empty? %>
-        <hr>
-      <% end %>
-
-      <%= render partial: "groups/topics/comments/comment",
-        collection: @comments,
-        locals: { comments: @comments } %>
-
     </div><!-- /.box -->
+
+    <%= render partial: "groups/topics/comments/comment",
+      collection: @comments,
+      locals: { comments: @comments } %>
 
     <h3 class="text-center mt-2rem">Comment</h3>
 

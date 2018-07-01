@@ -27,15 +27,17 @@
       Comments
     </h2>
 
-    <div class="box topic-box comments-container mb-2 p-4">
+    <div class="comments-container mb-2">
       <% unless @comments.empty? %>
         <%= render partial: "groups/topics/comments/comment",
           collection: @comments,
           locals: { comments: @comments } %>
       <% else %>
-        <p class="lead text-center mb-0">
-          So far there are no comments. You can be the first commenter!
-        </p>
+        <div class="box topic-box p-4">
+          <p class="lead text-center mb-0">
+            So far there are no comments. You can be the first commenter!
+          </p>
+        </div>
       <% end %>
     </div>
 

@@ -549,6 +549,24 @@ a.box-title:hover {
   margin-bottom: 0;
 }
 
+.comment-separator__line {
+  padding: .75rem;
+  flex-basis: 10.4%;
+  border-right: 3px solid $gray-300;
+
+  @include media-breakpoint-up(md) {
+    flex-basis: 7%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    flex-basis: 6%;
+  }
+
+  @include media-breakpoint-up(xl) {
+    flex-basis: 5.6%;
+  }
+}
+
 .comment-box--event {
   margin-top: 1.75rem;
 }
