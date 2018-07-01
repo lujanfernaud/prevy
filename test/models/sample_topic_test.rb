@@ -9,12 +9,24 @@ class SampleTopicTest < ActiveSupport::TestCase
     @group.members << SampleUser.collection_for_sample_group
   end
 
+  test "normal topics are not created by Prevy bot" do
+    SampleTopic.create_topics_for_group(@group)
+
+    @group.normal_topics.none? { |topic| topic.user == @prevy_bot }
+  end
+
+  test "there are no topic comments from topic creator" do
+    SampleTopic.create_topics_for_group(@group)
+
+    @group.normal_topics.none? do |topic|
+      topic.comments.include?(topic.user.id)
+    end
+  end
+
   test "creates normal topics with comments" do
     SampleTopic.create_topics_for_group(@group)
 
     @topic = @group.normal_topics.last
-
-    assert theres_no_normal_topic_created_by_prevy_bot?
 
     assert_equal 6, @group.normal_topics.count
     assert comments_count > 4
@@ -61,10 +73,6 @@ class SampleTopicTest < ActiveSupport::TestCase
 
   private
 
-    def theres_no_normal_topic_created_by_prevy_bot?
-      @group.normal_topics.none? { |topic| topic.user == @prevy_bot }
-    end
-
     def comments_count
       @topic.comments.count
     end
@@ -74,6 +82,8 @@ class SampleTopicTest < ActiveSupport::TestCase
     end
 
     def all_members_have_a_zero_comments_count?
-      @group.members.all? { |m| m.group_comments_count(@group).number.zero? }
+      @group.members.all? do |member|
+        member.group_comments_count(@group).number.zero?
+      end
     end
 end
