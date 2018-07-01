@@ -12,17 +12,17 @@ class Group < ApplicationRecord
 
   before_save    :prepare_text_fields
   after_create   :add_owner_as_organizer_and_moderator
-  after_create   :create_owner_group_comments_count
+  after_create   :create_owner_group_points
   after_update   :update_members_role
   after_save     :create_image_placeholder
-  before_destroy :destroy_owner_group_comments_count
+  before_destroy :destroy_owner_group_points
 
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
 
   has_many :group_memberships, dependent: :delete_all
   has_many :members, through: :group_memberships, source: "user"
 
-  has_many :user_group_comments_counts, dependent: :destroy
+  has_many :user_group_points, dependent: :destroy
 
   has_many :membership_requests, dependent: :destroy
   has_many :received_requests, through: :membership_requests, source: "user"
@@ -112,9 +112,9 @@ class Group < ApplicationRecord
 
   def top_members(limit: TOP_MEMBERS_SHOWN)
     members_with_role.
-     joins(:user_group_comments_counts).
-     where("user_group_comments_counts.group_id = ?", self).
-     order("user_group_comments_counts.comments_count DESC").
+     joins(:user_group_points).
+     where("user_group_points.group_id = ?", self).
+     order("user_group_points.amount DESC").
      limit(limit)
   end
 
@@ -169,12 +169,12 @@ class Group < ApplicationRecord
       self.description = description[0].capitalize + description[1..-1]
     end
 
-    def create_owner_group_comments_count
-      UserGroupCommentsCount.create!(user: owner, group: self)
+    def create_owner_group_points
+      UserGroupPoints.create!(user: owner, group: self)
     end
 
-    def destroy_owner_group_comments_count
-      UserGroupCommentsCount.find_by(user: owner, group: self).destroy
+    def destroy_owner_group_points
+      UserGroupPoints.find_by(user: owner, group: self).destroy
     end
 
     def add_owner_as_organizer_and_moderator

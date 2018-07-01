@@ -13,7 +13,10 @@ class CommentsShowTest < ActionDispatch::IntegrationTest
 
     visit group_topic_path(@group, @topic)
 
-    assert page.has_link?    @comment.user.name
-    assert page.has_content? @comment.body
+    within "#comment-#{@comment.id}" do
+      assert page.has_link?    @comment.user.name
+      assert page.has_content? user_points(@group, @comment.user)
+      assert page.has_content? @comment.body
+    end
   end
 end

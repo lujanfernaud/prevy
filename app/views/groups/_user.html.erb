@@ -1,9 +1,11 @@
 <div class="col-sm-6 col-md-3 col-lg-2 mt-2rem" id="user-<%= user.id %>">
-  <div class="box member-box d-flex flex-column align-items-center pt-4 pb-3">
+  <div class="user-box box d-flex flex-column
+    align-items-center pt-4 pb-3">
 
-    <div class="member-image pl-4 pr-4">
+    <!-- User Avatar -->
+    <div class="user-box__image pl-4 pr-4">
       <div class="intrinsic-ratio-container intrinsic-ratio-container--square">
-        <%= link_to group_member_path(group, user),
+        <%= link_to self.send("#{path}", object, user),
           class: "d-block" do %>
           <%= image_tag gravatar_image_url(user.email),
             class: "lazyload blur-up
@@ -13,13 +15,16 @@
       </div>
     </div>
 
-    <div class="member-name mt-2 pl-4 pr-4 text-center">
+    <!-- User Name -->
+    <div class="user-box__name mt-2 pl-4 pr-4 text-center">
       <%= link_to user.name,
-        group_member_path(group, user) %>
+        self.send("#{path}", object, user) %>
     </div>
 
-    <div class="member-name mt-2 pl-4 pr-4 text-center">
-      <%= "#{user.group_comments_number(group)} cmts" %>
+    <!-- User Group Points -->
+    <div class="user-box__points mt-2 pl-4 pr-4 text-center"
+      title="Group points">
+      <%= "#{user.group_points_amount(group)} pts" %>
     </div>
   </div>
 </div>

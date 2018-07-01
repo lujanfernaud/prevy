@@ -5,8 +5,8 @@ class GroupMembership < ApplicationRecord
   has_one :notification, dependent: :destroy
 
   before_save    :add_user_role
-  before_create  :create_user_group_comments_count
-  before_destroy :destroy_user_group_comments_count
+  before_create  :create_user_group_points
+  before_destroy :destroy_user_group_points
   before_destroy :remove_user_roles
 
   private
@@ -19,12 +19,12 @@ class GroupMembership < ApplicationRecord
       end
     end
 
-    def create_user_group_comments_count
-      UserGroupCommentsCount.create!(user: user, group: group)
+    def create_user_group_points
+      UserGroupPoints.create!(user: user, group: group)
     end
 
-    def destroy_user_group_comments_count
-      UserGroupCommentsCount.find_by(user: user, group: group).destroy
+    def destroy_user_group_points
+      UserGroupPoints.find_by(user: user, group: group).destroy
     end
 
     def remove_user_roles

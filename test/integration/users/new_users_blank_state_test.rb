@@ -146,7 +146,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
         assert page.has_content? group_members.count
       end
 
-      assert page.has_css? ".member-box"
+      assert page.has_css? ".user-box"
     end
 
     def group_members

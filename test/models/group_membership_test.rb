@@ -16,18 +16,18 @@ class GroupMembershipTest < ActiveSupport::TestCase
     assert @user.roles.where(resource: @group).empty?
   end
 
-  test "creates UserGroupCommentsCount" do
-    UserGroupCommentsCount.expects(:create!).with(user: @user, group: @group)
+  test "creates UserGroupPoints" do
+    UserGroupPoints.expects(:create!).with(user: @user, group: @group)
 
     GroupMembership.create!(user: @user, group: @group)
   end
 
-  test "destroys UserGroupCommentsCount" do
-    comments_count = UserGroupCommentsCount.new
-    UserGroupCommentsCount.expects(:find_by)
-                          .with(user: @user, group: @group)
-                          .returns(comments_count)
-    comments_count.expects(:destroy)
+  test "destroys UserGroupPoints" do
+    group_points = UserGroupPoints.new
+    UserGroupPoints.expects(:find_by)
+                   .with(user: @user, group: @group)
+                   .returns(group_points)
+    group_points.expects(:destroy)
 
     membership = GroupMembership.create!(user: @user, group: @group)
     membership.destroy

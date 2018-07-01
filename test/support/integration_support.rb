@@ -106,4 +106,8 @@ module IntegrationSupport
       click_on "Previous"
     end
   end
+
+  def user_points(group, user)
+    user.group_points(group).amount
+  end
 end

@@ -28,13 +28,13 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
     assert_attendees_links(@event)
   end
 
-  test "attendee card shows comments number" do
-    attendee_group_comments = @attendee.group_comments_number(@group)
+  test "attendee card shows points number" do
+    attendee_group_points = @attendee.group_points_amount(@group)
 
     visit_event_attendees_logged_in_as_stranger
 
     within "#user-#{@attendee.id}" do
-      assert page.has_content? attendee_group_comments
+      assert page.has_content? attendee_group_points
     end
   end
 

@@ -437,20 +437,31 @@ a.box-title:hover {
   margin-top: 1.75rem;
 }
 
-.member-box,
-.attendee-box {
+.user-box {
   height: 100%;
 }
 
-.member-image,
-.attendee-image {
+.user-box__image {
   width: 100%;
   max-width: 150px;
 }
 
-.member-name,
-.attendee-name {
+.user-box__name,
+.user-box__points {
   flex: 1;
+}
+
+.user-box__points,
+.user-profile__points {
+  flex: 0;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  background-color: rgba($gray-200, .65);
+  border-radius: 25px;
+}
+
+.user-profile__points {
+  flex-basis: 120px;
 }
 
 

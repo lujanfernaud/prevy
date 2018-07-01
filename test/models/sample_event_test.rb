@@ -20,6 +20,22 @@ class SampleEventTest < ActiveSupport::TestCase
     assert event.comments.count > 5
   end
 
+  test "increases count for UserGroupPoints" do
+    group_points = UserGroupPoints.new
+
+    UserGroupPoints.expects(:find_or_create_by!)
+                   .at_least_once.returns(group_points)
+
+    group_points.expects(:increase)
+                .with(by: Attendance::POINTS).at_least_once
+    group_points.expects(:increase)
+                .with(by: Topic::POINTS).at_least_once
+    group_points.expects(:increase)
+                .with(by: TopicComment::POINTS).at_least_once
+
+    SampleEvent.create_for_group(@group)
+  end
+
   test "touches users after adding comments" do
     previous_updated_at = @group.members.pluck(:updated_at)
 

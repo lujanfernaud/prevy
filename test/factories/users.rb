@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :user, aliases: [:owner, :organizer] do
+  factory :user, aliases: [:owner, :organizer, :attendee] do
     name     { Faker::Name.first_name }
     email    { "#{name}@test.test".downcase }
     password "password"

@@ -17,9 +17,13 @@
                 </h2>
 
                 <div class="row">
-                  <%= render partial: "attendee",
+                  <%= render partial: "groups/user",
                     collection: @attendees.reverse, as: :user,
-                    locals: { event: @event }, cached: true %>
+                    locals: {
+                      object: @event,
+                      group:  @event.group,
+                      path:   "event_attendee_path"
+                    }, cached: true %>
                 </div>
               </div>
 

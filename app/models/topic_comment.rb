@@ -3,17 +3,18 @@
 class TopicComment < ApplicationRecord
   MINIMUM_BODY_LENGTH = 2
   EDITED_OFFSET_TIME  = 300 # 5 minutes
+  POINTS = 1
 
   belongs_to :topic, touch: true
-  belongs_to :user, counter_cache: true, touch: true
+  belongs_to :user,  touch: true
   belongs_to :edited_by, class_name: "User", optional: true
 
   validate :body_length
 
   before_save    :set_default_edited_by, unless: :edited_by
   after_create   :update_topic_last_commented_at_date
-  before_create  -> { user_group_comments_count.increase }
-  before_destroy -> { user_group_comments_count.decrease }
+  before_create  -> { user_group_points.increase by: POINTS }
+  before_destroy -> { user_group_points.decrease by: POINTS }
 
   def edited?
     return false if topic.group.sample_group?
@@ -27,6 +28,10 @@ class TopicComment < ApplicationRecord
 
   def edited_at
     updated_at
+  end
+
+  def group
+    topic.group
   end
 
   private
@@ -43,7 +48,7 @@ class TopicComment < ApplicationRecord
       topic.update_attributes(last_commented_at: created_at)
     end
 
-    def user_group_comments_count
-      UserGroupCommentsCount.find_or_create_by!(user: user, group: topic.group)
+    def user_group_points
+      UserGroupPoints.find_or_create_by!(user: user, group: topic.group)
     end
 end

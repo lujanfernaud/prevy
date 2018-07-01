@@ -31,18 +31,19 @@ class User < ApplicationRecord
   has_many :membership_requests, dependent: :destroy
   has_many :sent_requests, through: :membership_requests, source: "group"
 
-  has_many :group_memberships
+  has_many :group_memberships, dependent: :delete_all
   has_many :associated_groups, through: :group_memberships, source: "group"
 
-  has_many :user_group_comments_counts, dependent: :destroy
+  has_many :user_group_points, dependent: :destroy
 
-  has_many :organized_events, class_name: "Event", foreign_key: "organizer_id"
+  has_many :organized_events, class_name: "Event", foreign_key: "organizer_id",
+    dependent: :destroy
 
-  has_many :attendances, foreign_key: "attendee_id"
+  has_many :attendances, foreign_key: "attendee_id", dependent: :destroy
   has_many :attended_events, through: :attendances
 
   has_many :topics, dependent: :destroy
-  has_many :topic_comments, dependent: :destroy
+  has_many :topic_comments, dependent: :delete_all
 
   has_many :notifications, dependent: :destroy
   has_many :membership_request_notifications
@@ -84,12 +85,12 @@ class User < ApplicationRecord
     Event.where(group_id: groups.pluck(:id)).upcoming
   end
 
-  def group_comments_count(group)
-    user_group_comments_counts.find_by(group: group)
+  def group_points(group)
+    user_group_points.find_or_create_by!(group: group)
   end
 
-  def group_comments_number(group)
-    user_group_comments_counts.find_by(group: group)&.number || 0
+  def group_points_amount(group)
+    group_points(group).amount
   end
 
   def total_membership_requests

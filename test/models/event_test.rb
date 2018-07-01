@@ -184,7 +184,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test "#recent_attendees" do
-    event = build_stubbed :event
+    event = create :event
     attendee_one = SampleUser.all.last
     attendee_two = SampleUser.all.first
 
@@ -195,7 +195,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test "#random_attendees" do
-    event = build_stubbed :event
+    event = create :event
     attendee_one = SampleUser.all.last
     attendee_two = SampleUser.all.first
 

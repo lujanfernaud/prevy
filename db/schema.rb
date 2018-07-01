@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180627073834) do
+ActiveRecord::Schema.define(version: 20180702132543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,10 +166,10 @@ ActiveRecord::Schema.define(version: 20180627073834) do
     t.string "type", default: "Topic"
     t.bigint "event_id"
     t.integer "priority", default: 0
+    t.boolean "announcement", default: false
     t.bigint "edited_by_id"
     t.datetime "edited_at"
     t.datetime "last_commented_at"
-    t.boolean "announcement", default: false
     t.index ["event_id"], name: "index_topics_on_event_id"
     t.index ["group_id"], name: "index_topics_on_group_id"
     t.index ["last_commented_at"], name: "index_topics_on_last_commented_at"
@@ -178,14 +178,14 @@ ActiveRecord::Schema.define(version: 20180627073834) do
     t.index ["user_id"], name: "index_topics_on_user_id"
   end
 
-  create_table "user_group_comments_counts", force: :cascade do |t|
+  create_table "user_group_points", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "group_id"
-    t.integer "comments_count", default: 0, null: false
+    t.integer "amount", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_user_group_comments_counts_on_group_id"
-    t.index ["user_id"], name: "index_user_group_comments_counts_on_user_id"
+    t.index ["group_id"], name: "index_user_group_points_on_group_id"
+    t.index ["user_id"], name: "index_user_group_points_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -212,7 +212,6 @@ ActiveRecord::Schema.define(version: 20180627073834) do
     t.boolean "sample_user", default: false
     t.boolean "admin", default: false
     t.string "slug"
-    t.integer "topic_comments_count", default: 0, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug"
@@ -238,6 +237,6 @@ ActiveRecord::Schema.define(version: 20180627073834) do
   add_foreign_key "topics", "events"
   add_foreign_key "topics", "groups"
   add_foreign_key "topics", "users"
-  add_foreign_key "user_group_comments_counts", "groups"
-  add_foreign_key "user_group_comments_counts", "users"
+  add_foreign_key "user_group_points", "groups", on_delete: :cascade
+  add_foreign_key "user_group_points", "users", on_delete: :cascade
 end

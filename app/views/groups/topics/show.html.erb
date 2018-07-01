@@ -9,7 +9,7 @@
 
     <div class="box topic-box mb-1 p-4">
 
-      <div class="d-flex flex-row topic-container">
+      <div class="d-flex flex-row topic-container" id="topic-<%= @topic.id %>">
         <div class="topic__avatar member-image mr-3">
           <div class="intrinsic-ratio-container
             intrinsic-ratio-container--square">
@@ -24,13 +24,24 @@
         </div>
 
         <div class="topic__body">
+          <!-- User Name -->
           <%= link_to @topic.user.name, group_member_path(@group, @topic.user),
             class: "font-weight-bold" %>
+
+          <!-- User Group Points -->
+          <small class="topic__user-points">
+            <%= user_points(@group, @topic.user) %>
+          </small>
+
+          <!-- Date -->
           <small class="topic__date text-muted">
             <%= local_time_ago(@topic.created_at) %>
           </small>
 
+          <!-- Body -->
           <div class="mt-2 pt-1 pb-1">
+            <!-- TODO: Remove Event Topic Data -->
+            <!----------------------------------->
             <% if @topic.event? %>
               <div class="topic-event-data mt-2 mb-4">
                 <p class="mb-3">
@@ -55,21 +66,26 @@
                 <% end %>
               </div>
             <% end %>
+            <!----------------------------------->
 
             <%= sanitize(@topic.body) %>
           </div>
 
+          <!-- TODO: Remove Event Topic Data -->
           <% if @topic.event? %>
             <div class="mt-2 pt-1">
               <%= link_to "See event",
                 group_event_path(@group, @topic.event) %>
             </div>
           <% end %>
+          <!----------------------------------->
 
+          <!-- Edited On Date -->
           <% if @topic.edited? %>
             <%= render "edited_by", object: @topic %>
           <% end %>
 
+          <!-- Edit Link -->
           <% if is_authorized_to_edit?(@topic, @group) %>
             <div class="mt-2 pt-1">
               <%= link_to "Edit", edit_group_topic_path(@group, @topic) %>

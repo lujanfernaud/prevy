@@ -3,31 +3,31 @@
 one:
   user: phil
   group: one
-  comments_count: 1
+  amount: 1
 
 two:
   user: penny
   group: two
-  comments_count: 1
+  amount: 1
 
 three:
   user: woodell
   group: one
-  comments_count: 20
+  amount: 20
 
 four:
   user: carolyn
   group: one
-  comments_count: 13
+  amount: 13
 
 five:
   user: stranger
   group: one
-  comments_count: 11
+  amount: 11
 
 <% [*10.downto(0)].each.with_index do |number, iteration| %>
-comments_count_<%= iteration %>:
+user_group_points_<%= iteration %>:
   user: user_<%= iteration %>
   group: one
-  comments_count: <%= number %>
+  amount: <%= number %>
 <% end %>

@@ -77,9 +77,13 @@
         <% unless @event.attendees.empty? %>
 
           <div class="row d-flex justify-content-center mt-1rem mb-2rem">
-            <%= render partial: "events/attendees/attendee",
+            <%= render partial: "groups/user",
               collection: @event.random_attendees, as: :user,
-              locals: { event: @event }, cached: true %>
+              locals: {
+                object: @event,
+                group:  @event.group,
+                path:   "event_attendee_path"
+              }, cached: true %>
           </div>
 
         <% else %>

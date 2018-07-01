@@ -26,7 +26,7 @@ class UsersProfileShowTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Bio"
     assert page.has_content? @phil.bio
 
-    assert_not page.has_css? ".comments-count"
+    assert_not page.has_css? ".group-points"
   end
 
   test "group member visits group members's profile" do
@@ -36,7 +36,7 @@ class UsersProfileShowTest < ActionDispatch::IntegrationTest
 
     click_on @woodell.name
 
-    assert page.has_css? ".comments-count"
+    assert page.has_css? ".group-points"
   end
 
   test "group member visits event attendee's profile" do
@@ -49,7 +49,7 @@ class UsersProfileShowTest < ActionDispatch::IntegrationTest
 
     click_on @woodell.name
 
-    assert page.has_css? ".comments-count"
+    assert page.has_css? ".group-points"
   end
 
   test "profile shows edit link for logged in user" do

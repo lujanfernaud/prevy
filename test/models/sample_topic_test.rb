@@ -55,10 +55,18 @@ class SampleTopicTest < ActiveSupport::TestCase
     assert_equal comments_count, commenters.count
   end
 
-  test "updates user topic_comments_count" do
-    SampleTopic.create_topics_for_group(@group)
+  test "increases count for UserGroupPoints" do
+    group_points = UserGroupPoints.new
 
-    assert_not all_members_have_a_zero_comments_count?
+    UserGroupPoints.expects(:find_or_create_by!)
+                   .at_least_once.returns(group_points)
+
+    group_points.expects(:increase)
+                .with(by: Topic::POINTS).at_least_once
+    group_points.expects(:increase)
+                .with(by: TopicComment::POINTS).at_least_once
+
+    SampleTopic.create_topics_for_group(@group)
   end
 
   test "touches users after adding comments" do
@@ -71,6 +79,15 @@ class SampleTopicTest < ActiveSupport::TestCase
     assert_not_equal previous_updated_at, updated_at
   end
 
+  test "last_commented_at date is the same as last comment's creation date" do
+    SampleTopic.create_topics_for_group(@group)
+
+    topic = @group.normal_topics.last
+    last_comment_created_at = topic.comments.last.created_at
+
+    assert_equal last_comment_created_at, topic.last_commented_at
+  end
+
   private
 
     def comments_count
@@ -79,11 +96,5 @@ class SampleTopicTest < ActiveSupport::TestCase
 
     def commenters
       @topic.comments.pluck(:user_id).uniq
-    end
-
-    def all_members_have_a_zero_comments_count?
-      @group.members.all? do |member|
-        member.group_comments_count(@group).number.zero?
-      end
     end
 end

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class Topic < ApplicationRecord
-  PRIORITY = 0
+  PRIORITY            = 0
   MINIMUM_BODY_LENGTH = 20
   EDITED_OFFSET_TIME  = 600 # 10 minutes
+  POINTS              = 3
 
   include FriendlyId
   friendly_id :slug_candidates, use: :slugged
@@ -18,10 +19,12 @@ class Topic < ApplicationRecord
   validates :title, presence: true, length: { minimum: 2 }
   validate  :body_length
 
-  before_save   :set_priority
-  before_save   :set_default_edited_by, unless: :edited_by
-  before_save   :set_edited_at
-  before_create :set_default_last_commented_at
+  before_save    :set_priority
+  before_save    :set_default_edited_by, unless: :edited_by
+  before_save    :set_edited_at
+  before_create  :set_default_last_commented_at
+  before_create  -> { user_group_points.increase by: POINTS }
+  before_destroy -> { user_group_points.decrease by: POINTS }
 
   scope :prioritized, -> {
     order(priority: :desc, last_commented_at: :desc).includes(:user)
@@ -101,6 +104,10 @@ class Topic < ApplicationRecord
 
     def set_default_last_commented_at
       self.last_commented_at = Time.current
+    end
+
+    def user_group_points
+      UserGroupPoints.find_or_create_by!(user: user, group: group)
     end
 
     def should_generate_new_friendly_id?

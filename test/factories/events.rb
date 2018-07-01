@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :event do
+  factory :event, aliases: [:attended_event] do
     group
     organizer
     sequence(:title) { |n| "Test Event #{n}" }

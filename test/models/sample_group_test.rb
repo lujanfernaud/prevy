@@ -31,7 +31,7 @@ class SampleGroupTest < ActiveSupport::TestCase
     assert_equal 1, group.pinned_topics.count
     assert_equal 6, group.normal_topics.count
 
-    assert user.group_comments_count(group)
+    assert user.group_points_amount(group)
   end
 
   test "all members have a group comments count" do
@@ -43,7 +43,7 @@ class SampleGroupTest < ActiveSupport::TestCase
     members = group.members
 
     members.all? do |member|
-      assert member.group_comments_count(group)
+      assert member.group_points_amount(group)
     end
   end
 end

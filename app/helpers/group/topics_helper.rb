@@ -22,4 +22,9 @@ module Group::TopicsHelper
       group_topic_path(group, topic)
     end
   end
+
+  def user_points(group, user)
+    "(#{user.group_points(group).amount} " \
+    "#{"point".pluralize(user.group_points(group).amount)})"
+  end
 end

@@ -5,7 +5,7 @@ class SampleEvent
   COMMENT_SEEDS = YAML.load_file("db/seeds/event_comment_seeds.yml").shuffle
 
   CREATION_DATE = 1.day.ago
-  ONE_MINUTE = 60
+  ONE_MINUTE    = 60
   TWENTY_THREE_HOURS = 82_200
 
   def self.create_for_group(group)
@@ -13,10 +13,10 @@ class SampleEvent
   end
 
   def initialize(group)
-    @group = group
-    @event = nil
+    @group       = group
+    @event       = nil
     @attendances = []
-    @comments = []
+    @comments    = []
   end
 
   def create_sample_event
@@ -84,28 +84,41 @@ class SampleEvent
     end
 
     def add_sample_attendees
+      build_attendances
+      run_attendances_before_create_callbacks
+
+      Attendance.import(@attendances)
+    end
+
+    def build_attendances
       random_members.each do |member|
         @attendances << Attendance.new(attendee: member, attended_event: event)
       end
-
-      Attendance.import(@attendances)
     end
 
     def random_members
       group.members_with_role.shuffle[0..29]
     end
 
+    def run_attendances_before_create_callbacks
+      @attendances.each do |attendance|
+        attendance.run_callbacks(:create) { false }
+      end
+    end
+
     # Some callbacks are not being called.
     # https://github.com/zdennis/activerecord-import/wiki/Callbacks
     def add_sample_comments
-      COMMENT_SEEDS.each { |seed| @comments << new_comment_with(seed) }
-
-      @comments.each do |comment|
-        comment.run_callbacks(:create) { false }
-        comment.user.touch
-      end
+      build_comments
+      run_comments_before_create_callbacks
 
       TopicComment.import(@comments)
+    end
+
+    def build_comments
+      COMMENT_SEEDS.each do |seed|
+        @comments << new_comment_with(seed)
+      end
     end
 
     def new_comment_with(seed)
@@ -122,6 +135,13 @@ class SampleEvent
 
     def event_topic
       event.topic
+    end
+
+    def run_comments_before_create_callbacks
+      @comments.each do |comment|
+        comment.run_callbacks(:create) { false }
+        comment.user.touch
+      end
     end
 
     # Since callbacks are not being called when importing the data,

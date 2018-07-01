@@ -97,24 +97,24 @@ class TopicCommentTest < ActiveSupport::TestCase
     assert_equal comment.created_at, topic.last_commented_at
   end
 
-  test "increases count for user group comments" do
+  test "increases count for UserGroupPoints" do
     stranger = users(:stranger)
     comment  = fake_comment(user: stranger)
 
-    comments_count = UserGroupCommentsCount.new
-    UserGroupCommentsCount.expects(:find_or_create_by!).returns(comments_count)
-    comments_count.expects(:increase)
+    points_amount = UserGroupPoints.new
+    UserGroupPoints.expects(:find_or_create_by!).returns(points_amount)
+    points_amount.expects(:increase)
 
     comment.save!
   end
 
-  test "decreases count for user group comments" do
+  test "decreases count for UserGroupPoints" do
     stranger = users(:stranger)
     comment  = fake_comment(user: stranger)
 
-    comments_count = UserGroupCommentsCount.new
-    UserGroupCommentsCount.expects(:find_or_create_by!).returns(comments_count)
-    comments_count.expects(:decrease)
+    group_points = UserGroupPoints.new
+    UserGroupPoints.expects(:find_or_create_by!).returns(group_points)
+    group_points.expects(:decrease)
 
     comment.destroy!
   end

@@ -16,7 +16,7 @@ class GroupsMembersTest < ActionDispatch::IntegrationTest
 
     visit group_members_path(@group)
 
-    assert page.has_css? ".member-box"
+    assert page.has_css? ".user-box"
   end
 
   test "member visits group members" do
@@ -24,7 +24,7 @@ class GroupsMembersTest < ActionDispatch::IntegrationTest
 
     visit group_members_path(@group)
 
-    assert page.has_css? ".member-box"
+    assert page.has_css? ".user-box"
   end
 
   test "non-member user visits members" do
@@ -43,15 +43,15 @@ class GroupsMembersTest < ActionDispatch::IntegrationTest
     assert_equal current_path, new_user_registration_path
   end
 
-  test "member card shows comments number" do
-    member_group_comments = @member.group_comments_number(@group)
+  test "member card shows points number" do
+    member_group_points = @member.group_points_amount(@group)
 
     log_in_as @phil
 
     visit group_members_path(@group)
 
     within "#user-#{@member.id}" do
-      assert page.has_content? member_group_comments
+      assert page.has_content? member_group_points
     end
   end
 end

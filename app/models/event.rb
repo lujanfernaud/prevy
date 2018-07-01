@@ -23,7 +23,7 @@ class Event < ApplicationRecord
   belongs_to :organizer, class_name: "User"
   belongs_to :group, touch: true
 
-  has_one :address
+  has_one :address, dependent: :destroy
   accepts_nested_attributes_for :address, update_only: true
 
   delegate :place_name, :street1, :street2, :city,
@@ -32,7 +32,7 @@ class Event < ApplicationRecord
            :full_address, :full_address_changed?,
             to: :address, allow_nil: true
 
-  has_many :attendances, foreign_key: "attended_event_id"
+  has_many :attendances, foreign_key: "attended_event_id", dependent: :destroy
   has_many :attendees, through: :attendances
 
   has_one  :image_placeholder, as: :resource, dependent: :destroy

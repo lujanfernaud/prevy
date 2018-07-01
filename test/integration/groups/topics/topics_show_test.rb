@@ -45,9 +45,14 @@ class TopicsShowTest < ActionDispatch::IntegrationTest
     end
 
     def assert_topic_content
-      assert page.has_link?    @topic.user.name
       assert page.has_content? @topic.title
-      assert page.has_content? @topic.body
+
+      within "#topic-#{@topic.id}" do
+        assert page.has_link?    @topic.user.name
+        assert page.has_content? @topic.body
+        assert page.has_content? user_points(@group, @topic.user)
+        assert page.has_content? @topic.body
+      end
     end
 
     def assert_all_comments_are_shown

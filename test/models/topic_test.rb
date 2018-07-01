@@ -201,8 +201,29 @@ class TopicTest < ActiveSupport::TestCase
     assert topic.last_commented_at
   end
 
+  test "increases count for UserGroupPoints" do
+    topic = build :topic
+
+    points_amount = UserGroupPoints.new
+    UserGroupPoints.expects(:find_or_create_by!).returns(points_amount)
+    points_amount.expects(:increase).with(by: Topic::POINTS)
+
+    topic.save!
+  end
+
+  test "decreases count for UserGroupPoints" do
+    topic = create :topic
+
+    group_points = UserGroupPoints.new
+    UserGroupPoints.expects(:find_or_create_by!).returns(group_points)
+    group_points.expects(:decrease).with(by: Topic::POINTS)
+
+    topic.destroy!
+  end
+
   private
 
+    # TODO: Remove and use factory.
     def fake_event_topic(params = {})
       fake_topic(
         event: fake_event,

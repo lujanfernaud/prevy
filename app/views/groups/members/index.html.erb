@@ -18,7 +18,11 @@
                 <div class="row">
                   <%= render partial: "groups/user",
                     collection: @organizers.reverse, as: :user,
-                    locals: { group: @group } %>
+                    locals: {
+                      object: @group,
+                      group:  @group,
+                      path:   "group_member_path"
+                    } %>
                 </div>
               </div>
 
@@ -29,7 +33,11 @@
                 <div class="row">
                   <%= render partial: "groups/user",
                     collection: @members.reverse, as: :user,
-                    locals: { group: @group } %>
+                    locals: {
+                      object: @group,
+                      group:  @group,
+                      path:   "group_member_path"
+                    } %>
                 </div>
               </div>
 

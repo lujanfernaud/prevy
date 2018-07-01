@@ -114,24 +114,24 @@ class GroupTest < ActiveSupport::TestCase
     assert_equal description_capitalized, group.description
   end
 
-  test "creates owner UserGroupCommentsCount" do
+  test "creates owner UserGroupPoints" do
     group = fake_group
     user  = group.owner
 
-    UserGroupCommentsCount.expects(:create!).with(user: user, group: group)
+    UserGroupPoints.expects(:create!).with(user: user, group: group)
 
     group.save
   end
 
-  test "destroys owner UserGroupCommentsCount" do
+  test "destroys owner UserGroupPoints" do
     group = fake_group
     user  = group.owner
 
-    comments_count = UserGroupCommentsCount.new
-    UserGroupCommentsCount.expects(:find_by)
-                          .with(user: user, group: group)
-                          .returns(comments_count)
-    comments_count.expects(:destroy)
+    group_points = UserGroupPoints.new
+    UserGroupPoints.expects(:find_by)
+                   .with(user: user, group: group)
+                   .returns(group_points)
+    group_points.expects(:destroy)
 
     group.save
     group.destroy

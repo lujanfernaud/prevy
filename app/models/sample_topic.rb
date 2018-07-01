@@ -38,6 +38,7 @@ class SampleTopic
     # https://github.com/zdennis/activerecord-import/wiki/Callbacks
     def create_topics
       build_topics_from_topic_seeds
+      run_topics_before_create_callbacks
 
       Topic.import(@topics)
     end
@@ -78,6 +79,12 @@ class SampleTopic
 
     def members
       @_members ||= group.members[1..-1].to_a
+    end
+
+    def run_topics_before_create_callbacks
+      @topics.each do |topic|
+        topic.run_callbacks(:create) { false }
+      end
     end
 
     # Some callbacks are not being called.

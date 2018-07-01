@@ -15,7 +15,11 @@
             <div class="row d-flex justify-content-center mt-1rem mb-2rem">
               <%= render partial: "user",
                 collection: top_members(group), as: :user,
-                locals: { group: group }, cached: true %>
+                locals: {
+                  object: group,
+                  group:  group,
+                  path:   "group_member_path"
+                }, cached: true %>
             </div>
 
           <% else %>

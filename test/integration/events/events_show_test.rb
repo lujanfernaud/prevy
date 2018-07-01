@@ -141,7 +141,7 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     def assert_attendees(event)
       within ".attendees-container" do
         assert page.has_content? "Attendees (#{event.attendees.count})"
-        assert page.has_css?     ".attendee-box"
+        assert page.has_css?     ".user-box"
       end
     end
 end
