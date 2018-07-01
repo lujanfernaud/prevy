@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="d-flex flex-column flex-md-row w-100">
+  <div class="d-flex flex-column flex-md-row align-items-md-center w-100">
     <div class="topic__info">
       <h3 class="lead">
         <% if topic.type? && !topic.normal? %>
@@ -70,5 +70,5 @@
 </div><!-- /.topic-row -->
 
 <% unless topic == topics.last %>
-  <hr>
+  <hr class="topic-separator">
 <% end %>
