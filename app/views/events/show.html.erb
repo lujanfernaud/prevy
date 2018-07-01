@@ -85,7 +85,11 @@
         <% else %>
 
           <h3 class="h5 text-center mt-5 mb-2rem pb-3">
-            So far there are no attendees.
+            <% if current_user == @event.organizer %>
+              So far there are no attendees. We need to promote this!
+            <% else %>
+              So far there are no attendees. You can be the first one!
+            <% end %>
           </h3>
 
         <% end %>

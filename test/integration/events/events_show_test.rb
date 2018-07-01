@@ -45,6 +45,31 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     refute page.has_link?    "Attend"
   end
 
+  test "event organizer visits event without attendees" do
+    event = create :event
+    group = event.group
+    group.members << event.organizer
+
+    log_in_as(event.organizer)
+    visit group_event_path(event.group, event)
+
+    assert page.has_content? "So far there are no attendees. " \
+                             "We need to promote this!"
+  end
+
+  test "user visits event without attendees" do
+    user  = create :user
+    event = create :event
+    group = event.group
+    group.members << user
+
+    log_in_as(user)
+    visit group_event_path(event.group, event)
+
+    assert page.has_content? "So far there are no attendees. " \
+                             "You can be the first one!"
+  end
+
   test "user attends and cancels attendance" do
     group = groups(:one)
     event = events(:one)
