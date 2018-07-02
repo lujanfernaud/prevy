@@ -2,7 +2,8 @@
 
   <% cache [event.organizer.name, event.recent_attendees] do %>
 
-    <div class="box box--sidebar mt-lg-0 p-3">
+    <!-- Event Organizer and Attendees -->
+    <div class="event-info-box box box--sidebar mt-lg-0 py-3">
 
       <div class="organizers-preview">
         <h3 class="h4 mb-3">
@@ -46,8 +47,9 @@
 
     </div><!-- /.box -->
 
-  <% end %>
+  <% end %><!-- cache end -->
 
+  <!-- Sidebar Links -->
   <% if logged_in? %>
     <div class="box box--sidebar p-3">
 
@@ -71,6 +73,7 @@
     </div><!-- /.box -->
   <% end %>
 
+  <!-- Attendance Button -->
   <% if logged_in? && !author?(event) %>
     <div class="box box--sidebar p-3">
 
@@ -101,4 +104,4 @@
 
   <%= edit_event_box(event, @group) %>
 
-</div><!-- /.col-md-4 -->
+</div>

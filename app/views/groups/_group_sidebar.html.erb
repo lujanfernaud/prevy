@@ -7,8 +7,10 @@
     group.recent_members
     ] do %>
 
-    <div class="box box--sidebar group-info-box mt-lg-0 p-3">
+    <!-- Group Info -->
+    <div class="group-info-box box box--sidebar mt-lg-0 py-3">
 
+      <!-- Group Location -->
       <div class="group-location">
         <h3 class="h4 mb-3 pb-1">
           Location
@@ -19,6 +21,7 @@
         </p>
       </div>
 
+      <!-- Group Admin Preview -->
       <% unless authorized?(current_user, group)  %>
 
         <div class="admin-preview">
@@ -33,6 +36,7 @@
 
       <% end %>
 
+      <!-- Group Members -->
       <div class="members-preview mt-3">
         <h3 class="h4 mb-1">
           <%= members_title_with_count %>
@@ -56,11 +60,12 @@
         <% end %>
       </div>
 
-    </div>
+    </div><!-- /.group-info-box -->
 
-  <% end %>
+  <% end %><!-- cache end -->
 
-  <div class="box box--sidebar group-info-box p-3">
+  <!-- Group Buttons -->
+  <div class="group-buttons-box box box--sidebar p-3">
 
     <% if authorized?(current_user, group) %>
       <div class="group-link mt-1">
@@ -91,6 +96,6 @@
       </div>
     <% end %>
 
-  </div>
+  </div><!-- /.group-buttons-box -->
 
 </div>

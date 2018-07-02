@@ -433,6 +433,12 @@ a.box-title:hover {
   padding: .72rem .5rem .5rem .5rem;
 }
 
+.group-info-box,
+.event-info-box {
+  padding-left: 1.19rem;
+  padding-right: 1.19rem;
+}
+
 .box--sidebar {
   margin-top: 1.75rem;
 }
@@ -493,8 +499,8 @@ a.box-title:hover {
 }
 
 .topic-separator {
-  margin-top: 1.45rem;
-  margin-bottom: 1.45rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .topic-event-data {
@@ -506,6 +512,7 @@ a.box-title:hover {
   margin-bottom: 1.75rem;
 
   @media (min-width: 568px) {
+    margin-top: .4rem;
     margin-bottom: 2rem;
   }
 }
