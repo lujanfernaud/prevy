@@ -9,21 +9,19 @@ module Application::HeaderHelpers
 
   def create_group_menu_link(user)
     if user&.confirmed?
-      create_group_link_enabled
+      create_group_link_confirmed_user
     else
-      create_group_link_disabled
+      create_group_link_unconfirmed_user
     end
   end
 
-  def create_group_link_enabled
+  def create_group_link_confirmed_user
     link_to "Create group", new_group_path,
       class: "dropdown-item create-group-link"
   end
 
-  def create_group_link_disabled
-    link_to "Create group", "",
-      class: "dropdown-item  create-group-link disabled",
-      title: "You need to activate your account to create your own group.",
-      aria: { disabled: "true" }, disabled: true
+  def create_group_link_unconfirmed_user
+    link_to "Create group", create_group_unconfirmed_path,
+      class: "dropdown-item create-group-link"
   end
 end

@@ -25,7 +25,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_copy_group_link
 
     refute_membership
-    refute_unconfirmed_account_alerts
     refute_other_unhidden_groups
 
     assert_upcoming_events
@@ -45,7 +44,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_copy_group_link
 
     refute_membership
-    refute_unconfirmed_account_alerts
     refute_other_unhidden_groups
 
     assert_upcoming_events
@@ -126,7 +124,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     assert_members_preview(group)
     assert_copy_group_link
-    assert_create_group_unconfirmed_alert
 
     assert_upcoming_events
     assert_topics(group)

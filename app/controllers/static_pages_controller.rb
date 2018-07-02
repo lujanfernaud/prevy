@@ -10,6 +10,9 @@ class StaticPagesController < ApplicationController
     store_unhidden_groups
   end
 
+  def create_group_unconfirmed
+  end
+
   private
 
     def store_user_events

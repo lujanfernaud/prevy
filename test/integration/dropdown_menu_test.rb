@@ -25,11 +25,9 @@ class DropdownMenuTest < ActionDispatch::IntegrationTest
     click_on user.name
 
     within ".dropdown-menu" do
-      assert_create_group_link_disabled
-      assert page.has_content? "My groups"
-      assert page.has_content? "Profile"
-      assert page.has_content? "Account settings"
-      assert page.has_content? "Log out"
+      click_on "Create group"
     end
+
+    assert_current_path create_group_unconfirmed_path
   end
 end

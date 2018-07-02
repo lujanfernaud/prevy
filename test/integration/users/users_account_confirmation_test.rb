@@ -1,13 +1,19 @@
 require 'test_helper'
 
 class UsersAccountConfirmationTest < ActionDispatch::IntegrationTest
-  test "owner with unconfirmed email visits sample group" do
+  test "user with unconfirmed email tries to create a group" do
     group = groups(:sample_group)
     user  = users(:user_1)
 
     log_in_as(user)
 
-    visit group_path(group)
+    within ".navbar" do
+      click_on user.name
+      click_on "Create group"
+    end
+
+    assert page.has_content? "Create Group"
+    assert page.has_content? "You need to activate your account"
 
     click_on_resend_confirmation_link
 

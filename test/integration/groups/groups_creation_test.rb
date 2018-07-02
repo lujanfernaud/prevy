@@ -11,6 +11,7 @@ class GroupsCreationTest < ActionDispatch::IntegrationTest
     user = users(:phil)
 
     log_in_as(user)
+
     visit root_path
 
     page.execute_script("$('#navbarCollapse').toggle('.show')")
@@ -39,17 +40,14 @@ class GroupsCreationTest < ActionDispatch::IntegrationTest
     user = users(:unconfirmed)
 
     log_in_as(user)
+
     visit root_path
 
     within ".navbar" do
       click_on user.name
-    end
-
-    within ".dropdown-menu" do
-      assert_create_group_link_disabled
       click_on "Create group"
     end
 
-    refute page.has_current_path?(new_group_path)
+    assert_current_path create_group_unconfirmed_path
   end
 end

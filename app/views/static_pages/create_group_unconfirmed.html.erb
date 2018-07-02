@@ -1,0 +1,28 @@
+<% cache do %>
+
+  <div class="container-fluid bg-light">
+    <div class="container">
+
+      <div class="row justify-content-md-center">
+        <div class="col-md-8 mt-2rem mb-2">
+
+          <h2 class="text-center mb-4 pb-1">Create Group</h2>
+
+          <div class="lead text-center">
+            <p>
+              You need to activate your account to be able to create your own group.
+            </p>
+
+            <p>
+              Please follow the link we sent to your email address to activate it, <br>
+              <a href="<%= new_user_confirmation_path %>" class="alert-link">or click here to resend confirmation instructions</a>.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<% end %>

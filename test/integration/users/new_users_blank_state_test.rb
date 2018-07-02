@@ -94,8 +94,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
 
     log_in_as(user)
 
-    page.find(".group-card-link", text: sample_group_name).click
-    click_on "Click here to create your first group!"
+    visit new_group_path
 
     fill_in_group_details_with name: "Urban Sketchers"
     click_on_create_group
