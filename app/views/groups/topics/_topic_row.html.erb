@@ -1,5 +1,6 @@
 <div class="d-flex flex-row topic-row" id="topic-<%= topic.id %>">
 
+  <!-- Topic Creator Avatar -->
   <div class="topic__avatar member-image mr-3">
     <div class="intrinsic-ratio-container
       intrinsic-ratio-container--square">
@@ -16,12 +17,15 @@
   <div class="d-flex flex-column flex-md-row align-items-md-center w-100">
     <div class="topic__info">
       <h3 class="lead">
+
+        <!-- Topic Type -->
         <% if topic.type? && !topic.normal? %>
           <strong class="text-uppercase">
             <%= topic.type_presentable %>:
           </strong>
         <% end %>
 
+        <!-- Topic Title -->
         <% if topic.event? %>
           <%= link_to topic.title, group_event_path(group, topic.event) %>
         <% else %>
@@ -29,6 +33,7 @@
         <% end %>
       </h3>
 
+      <!-- Topic Date -->
       <% if topic.comments.empty? %>
 
         <span class="topic__date">
@@ -54,6 +59,7 @@
       <% end %>
     </div>
 
+    <!-- Topic Comments Count -->
     <div class="topic__comments-count text-md-center mt-1 mt-md-0">
       <%= link_to resource_comments_path(group, topic),
         class: "d-block text-dark" do %>
