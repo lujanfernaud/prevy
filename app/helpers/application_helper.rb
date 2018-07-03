@@ -14,21 +14,25 @@ module ApplicationHelper
     [
       ["registrations", "new"],
       ["registrations", "edit"],
-      ["sessions", "new"],
-      ["passwords", "new"],
+      ["sessions",      "new"],
+      ["passwords",     "new"],
       ["confirmations", "show"],
-      ["confirmations", "new"]
+      ["confirmations", "new"],
+      ["static_pages",  "create_group_unconfirmed"]
     ]
   end
 
   def user_settings?
-    user_settings.include? [controller_name, action_name]
+    user_settings.include? [controller_path, action_name]
   end
 
   def user_settings
     [
-      ["users", "edit"],
-      ["notifications", "edit"]
+      ["users",                     "edit"],  # Edit Profile
+      ["users",                     "show"],  # Profile
+      ["users/notifications",       "edit"],  # Email Notifications
+      ["users/memberships",         "index"], # My Groups
+      ["users/membership_requests", "index"]  # Membership Requests
     ]
   end
 
