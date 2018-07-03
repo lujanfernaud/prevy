@@ -33,9 +33,9 @@
 
 FactoryBot.define do
   factory :user, aliases: [:owner, :organizer, :attendee] do
-    name     { Faker::Name.first_name }
-    email    { "#{name}@test.test".downcase }
-    password "password"
+    sequence(:name)  { |n| "Factory User #{n}" }
+    sequence(:email) { |n| "factoryuser#{n}@test.test" }
+    password         "password"
 
     trait :confirmed do
       after(:build) { |user| user.confirm }
