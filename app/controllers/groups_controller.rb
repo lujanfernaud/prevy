@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GroupsController < ApplicationController
   before_action :find_group, only: [:show, :edit, :update, :destroy]
   before_action :redirect_to_root_if_not_own_sample_group, only: [:show]

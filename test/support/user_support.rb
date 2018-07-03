@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UserSupport
   def fake_user(params = {})
     User.new(

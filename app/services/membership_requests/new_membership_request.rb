@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NewMembershipRequest
   def self.call(membership_request)
     new(membership_request).call

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Seeds sample users.
 class UserSeeder
   class << self

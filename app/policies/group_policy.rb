@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GroupPolicy < ApplicationPolicy
   def create?
     logged_in? && user.confirmed?

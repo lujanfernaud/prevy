@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A sample membership request created for every new user.
 class SampleMembershipRequest
 

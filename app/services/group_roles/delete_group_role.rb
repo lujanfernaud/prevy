@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DeleteGroupRole
   def self.call(params)
     new(params).call

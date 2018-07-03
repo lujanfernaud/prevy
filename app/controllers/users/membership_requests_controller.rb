@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::MembershipRequestsController < ApplicationController
   def index
     @user = find_user

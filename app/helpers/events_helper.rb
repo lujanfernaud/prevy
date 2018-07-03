@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EventsHelper
   def website?
     @event.website && !@event.website.empty?

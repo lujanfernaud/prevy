@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :redirect_to_sign_up, if: :not_logged_in?
   after_action  :verify_authorized

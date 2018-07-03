@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventDecorator < SimpleDelegator
   def self.collection(events)
     events.map { |event| EventDecorator.new(event) }

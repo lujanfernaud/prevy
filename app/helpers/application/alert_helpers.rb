@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Application::AlertHelpers
   #
   # We do it this way to show these alerts on different places of the layout.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdatedEventEmail
   def self.call(event)
     new(event).call

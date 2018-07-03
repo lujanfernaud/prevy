@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::NotificationsController < ApplicationController
   after_action :verify_authorized
 

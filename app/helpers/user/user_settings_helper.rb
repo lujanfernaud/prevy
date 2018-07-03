@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module User::UserSettingsHelper
   def link_to_account_settings_for(user)
     link_to "Account", edit_user_registration_path(user),

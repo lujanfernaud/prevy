@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Group::ButtonsHelper
   def membership_button(group)
     return request_membership_button_disabled if group.sample_group?

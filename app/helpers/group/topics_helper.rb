@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Group::TopicsHelper
   def is_admin?(group)
     current_user == group.owner

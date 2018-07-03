@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module IntegrationSupport
   def prepare_javascript_driver
     Capybara.current_driver = :webkit

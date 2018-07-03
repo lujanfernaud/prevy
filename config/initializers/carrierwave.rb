@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if Rails.env.development? && ENV["skip_cloudinary"]
   CarrierWave.configure do |config|
     config.storage = :file

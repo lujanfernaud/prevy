@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module IconsHelper
   def location_icon
     octicon "location"

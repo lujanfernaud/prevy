@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TestCaseSupport
   def stub_requests_to_googleapis
     WebMock.stub_request(:get, /maps.googleapis.com/)

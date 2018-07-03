@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AttendancePolicy < ApplicationPolicy
   def index?
     logged_in?

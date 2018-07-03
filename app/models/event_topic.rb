@@ -21,7 +21,6 @@
 #  last_commented_at :datetime
 #
 
-
 class EventTopic < Topic
   PRIORITY = 2
 

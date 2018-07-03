@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class UsersNotificationsTest < ActionDispatch::IntegrationTest

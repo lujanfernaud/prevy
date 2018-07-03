@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NewGroupMembership
   def self.call(group_membership)
     new(group_membership).call

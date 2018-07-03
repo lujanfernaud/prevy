@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 GravatarImageTag.configure do |config|
   config.default_image           = :monsterid
   config.filetype                = nil

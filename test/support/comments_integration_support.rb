@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CommentsIntegrationSupport
   def submit_new_comment_with(body)
     fill_in_body_with body

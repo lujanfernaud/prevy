@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module User::UserMembershipsHelper
   def group_name_with_link(group)
     link_to group.name, group_path(group)

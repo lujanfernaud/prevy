@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UsersHelper
   def organized_events_header(events)
     if events.count > 3

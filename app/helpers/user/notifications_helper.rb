@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module User::NotificationsHelper
   def notifications_button
     return unless current_user

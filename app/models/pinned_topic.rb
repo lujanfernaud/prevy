@@ -21,7 +21,6 @@
 #  last_commented_at :datetime
 #
 
-
 class PinnedTopic < Topic
   PRIORITY = 1
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MailerSupport
   def stub_new_announcement_topic_mailer
     mailer = NotificationMailer.new

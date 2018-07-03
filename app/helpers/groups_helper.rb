@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GroupsHelper
   include SessionsHelper
   include Group::CountersHelper

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TopicsTestCaseSupport
   def fake_announcement_topic(group)
     group.announcement_topics.new(

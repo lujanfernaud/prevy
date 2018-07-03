@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
   require "will_paginate/array"
   include ApplicationHelper

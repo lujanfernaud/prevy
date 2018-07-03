@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "seeders/user_seeder"
 require_relative "seeders/group_seeder"
 

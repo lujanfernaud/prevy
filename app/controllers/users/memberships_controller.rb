@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::MembershipsController < ApplicationController
   after_action :verify_authorized
 

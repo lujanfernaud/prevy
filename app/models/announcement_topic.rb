@@ -21,7 +21,6 @@
 #  last_commented_at :datetime
 #
 
-
 class AnnouncementTopic < Topic
   PRIORITY = 3
 

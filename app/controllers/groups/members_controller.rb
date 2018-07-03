@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Groups::MembersController < ApplicationController
   before_action :redirect_to_sign_up, if: :not_logged_in?
   before_action :find_group

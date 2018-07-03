@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Application::HeaderHelpers
   def groups_index?
     controller_name == "groups" && action_name == "index"

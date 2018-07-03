@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Groups::MembershipRequestsController < ApplicationController
   def new
     @membership_request = MembershipRequest.new

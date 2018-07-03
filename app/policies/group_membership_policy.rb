@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GroupMembershipPolicy < ApplicationPolicy
   def index?
     logged_in? && is_a_group_member

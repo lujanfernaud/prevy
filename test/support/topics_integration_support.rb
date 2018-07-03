@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TopicsIntegrationSupport
   def assert_topics(group)
     assert page.has_content? "Topics"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Group::CountersHelper
   def organizer_title
     count = @group.organizers.count
