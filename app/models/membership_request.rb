@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: membership_requests
+#
+#  id         :bigint(8)        not null, primary key
+#  message    :string
+#  group_id   :bigint(8)
+#  user_id    :bigint(8)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class MembershipRequest < ApplicationRecord
   belongs_to :group
   belongs_to :user

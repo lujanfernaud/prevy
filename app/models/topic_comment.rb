@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: topic_comments
+#
+#  id           :bigint(8)        not null, primary key
+#  topic_id     :bigint(8)
+#  user_id      :bigint(8)
+#  body         :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  edited_by_id :bigint(8)
+#
+
+
 class TopicComment < ApplicationRecord
   MINIMUM_BODY_LENGTH = 2
   EDITED_OFFSET_TIME  = 300 # 5 minutes

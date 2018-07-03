@@ -81,6 +81,7 @@ group :test do
 end
 
 group :development do
+  gem 'annotate',                      '~> 2.7', '>= 2.7.4'
   gem 'better_errors',                 '~> 2.4'
   gem 'binding_of_caller',             '~> 0.8.0'
   gem 'bullet',                        '~> 5.7', '>= 5.7.5'

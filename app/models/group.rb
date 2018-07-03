@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: groups
+#
+#  id                            :bigint(8)        not null, primary key
+#  name                          :string
+#  description                   :string
+#  image                         :string
+#  hidden                        :boolean          default(FALSE)
+#  all_members_can_create_events :boolean          default(FALSE)
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  user_id                       :bigint(8)
+#  location                      :string
+#  sample_group                  :boolean          default(FALSE)
+#  slug                          :string
+#
+
 class Group < ApplicationRecord
   SPECIAL_ROLES = ["organizer", "moderator"].freeze
   RECENT_MEMBERS_SHOWN = 8
