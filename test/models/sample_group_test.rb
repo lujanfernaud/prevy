@@ -16,22 +16,22 @@ class SampleGroupTest < ActiveSupport::TestCase
     group = Group.last
 
     sample_users_collection = SampleUser.collection_for_sample_group
-    organizers_count        = group.organizers.count - GROUP_OWNER_COUNT
-    members_with_role_count = sample_users_collection.count - organizers_count
+    organizers_count        = group.organizers.size - GROUP_OWNER_COUNT
+    members_with_role_count = sample_users_collection.size - organizers_count
 
     assert group.sample_group?
     assert_equal user, group.owner
 
-    assert_equal sample_users_collection.count, group.members.count
-    assert_equal members_with_role_count, group.members_with_role.count
+    assert_equal sample_users_collection.size, group.members.size
+    assert_equal members_with_role_count, group.members_with_role.size
 
-    assert_equal 4, group.organizers.count
-    assert_equal 1, group.events.count
+    assert_equal 4, group.organizers.size
+    assert_equal 1, group.events.size
 
-    assert_equal 1, group.announcement_topics.count
-    assert_equal 1, group.event_topics.count
-    assert_equal 1, group.pinned_topics.count
-    assert_equal 6, group.normal_topics.count
+    assert_equal 1, group.announcement_topics.size
+    assert_equal 1, group.event_topics.size
+    assert_equal 1, group.pinned_topics.size
+    assert_equal 6, group.normal_topics.size
 
     assert user.group_points_amount(group)
   end

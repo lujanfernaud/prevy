@@ -14,7 +14,7 @@
         </div>
 
         <div class="mt-2 text-center">
-          <% if @membership_requests_received.count > 1 %>
+          <% if @membership_requests_received.size > 1 %>
             <%= link_to "See all membership requests",
               user_membership_requests_path(@user) %>
           <% end %>

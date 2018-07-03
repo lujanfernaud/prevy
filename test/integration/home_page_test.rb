@@ -49,7 +49,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     visit root_path
 
     within "#event-#{event.id}" do
-      click_on "#{event.comments.count} comments"
+      click_on "#{event.comments.size} comments"
     end
 
     assert_current_path group_event_path(@group, event)
@@ -61,7 +61,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     visit root_path
 
     within "#group-#{@group.id}" do
-      click_on "#{@group.topics.count} topics"
+      click_on "#{@group.topics.size} topics"
     end
 
     assert_current_path group_topics_path(@group)

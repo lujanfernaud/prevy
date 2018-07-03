@@ -133,8 +133,8 @@ class UserTest < ActiveSupport::TestCase
     penny = users(:penny)
     phil  = users(:phil)
 
-    assert_equal 2, penny.owned_groups.count
-    assert_equal 1, phil.owned_groups.count
+    assert_equal 2, penny.owned_groups.size
+    assert_equal 1, phil.owned_groups.size
   end
 
   test "#associated_groups" do
@@ -148,26 +148,26 @@ class UserTest < ActiveSupport::TestCase
   test "#received_requests" do
     phil = users(:phil)
 
-    assert_equal 2, phil.received_requests.count
+    assert_equal 2, phil.received_requests.size
   end
 
   test "#sent_requests" do
     onitsuka = users(:onitsuka)
 
-    assert_equal 1, onitsuka.sent_requests.count
+    assert_equal 1, onitsuka.sent_requests.size
   end
 
   test "#notifications" do
     phil = users(:phil)
 
-    assert_equal 4, phil.notifications.count
+    assert_equal 4, phil.notifications.size
   end
 
   test "#upcoming_attended_events" do
     user = users(:woodell)
     upcoming_attended_events = user.upcoming_attended_events
 
-    assert_equal 3, upcoming_attended_events.count
+    assert_equal 3, upcoming_attended_events.size
   end
 
   test "titleizes name before saving" do

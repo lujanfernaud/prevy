@@ -93,7 +93,7 @@ class GroupTest < ActiveSupport::TestCase
   test "#events" do
     group = groups(:one)
 
-    assert group.events.count > 1
+    assert group.events.size > 1
   end
 
   test "destroys roles" do

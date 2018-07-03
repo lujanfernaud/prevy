@@ -58,7 +58,7 @@ class TopicsShowTest < ActionDispatch::IntegrationTest
     end
 
     def assert_all_comments_are_shown
-      assert page.has_css? ".comment-container", count: @topic.comments.count
+      assert page.has_css? ".comment-container", count: @topic.comments.size
     end
 
     def assert_new_comment_form

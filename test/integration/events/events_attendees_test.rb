@@ -18,7 +18,7 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
   end
 
   test "logged in user visits attendees" do
-    attendees_count = @event.attendees.count
+    attendees_count = @event.attendees.size
 
     visit_event_attendees_logged_in_as_stranger
 

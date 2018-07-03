@@ -63,7 +63,7 @@ class SampleUserTest < ActiveSupport::TestCase
 
   test ".select_random_users" do
     prevy_bot = users(:prevy_bot)
-    sample_users_count = SampleUser.count
+    sample_users_count = SampleUser.all.size
 
     (sample_users_count * 2).times do
       assert_not_equal prevy_bot, SampleUser.select_random_users(1).first

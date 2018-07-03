@@ -30,9 +30,9 @@ class SampleTopicTest < ActiveSupport::TestCase
 
     @topic = @group.normal_topics.last
 
-    assert_equal 6, @group.normal_topics.count
+    assert_equal 6, @group.normal_topics.size
     assert comments_count > 4
-    assert_equal comments_count, commenters.count
+    assert_equal comments_count, commenters.size
   end
 
   test "creates announcement topic with comments" do
@@ -40,10 +40,10 @@ class SampleTopicTest < ActiveSupport::TestCase
 
     @topic = @group.announcement_topics.last
 
-    assert_equal 1, @group.announcement_topics.count
+    assert_equal 1, @group.announcement_topics.size
     assert_equal @prevy_bot, @group.announcement_topics.first.user
     assert comments_count > 4
-    assert_equal comments_count, commenters.count
+    assert_equal comments_count, commenters.size
   end
 
   test "creates pinned topic with comments" do
@@ -51,10 +51,10 @@ class SampleTopicTest < ActiveSupport::TestCase
 
     @topic = @group.pinned_topics.last
 
-    assert_equal 1, @group.pinned_topics.count
+    assert_equal 1, @group.pinned_topics.size
     assert_equal @prevy_bot, @group.pinned_topics.first.user
     assert comments_count > 4
-    assert_equal comments_count, commenters.count
+    assert_equal comments_count, commenters.size
   end
 
   test "increases count for UserGroupPoints" do
@@ -93,7 +93,7 @@ class SampleTopicTest < ActiveSupport::TestCase
   private
 
     def comments_count
-      @topic.comments.count
+      @topic.comments.size
     end
 
     def commenters

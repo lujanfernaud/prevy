@@ -19,7 +19,7 @@ module User::UserMembershipsHelper
   end
 
   def pluralize_with_count(title, scope:)
-    count = scope.count
+    count = scope.size
 
     title.pluralize(count) + ": #{count}"
   end

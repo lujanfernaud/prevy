@@ -125,7 +125,7 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     end
 
     def assert_attendees_preview(event)
-      attendees_number = event.attendees.count
+      attendees_number = event.attendees.size
 
       within ".attendees-preview" do
         assert page.has_content? "Attendees (#{attendees_number})"
@@ -142,7 +142,7 @@ class EventsShowTest < ActionDispatch::IntegrationTest
 
     def assert_attendees(event)
       within ".attendees-container" do
-        assert page.has_content? "Attendees (#{event.attendees.count})"
+        assert page.has_content? "Attendees (#{event.attendees.size})"
         assert page.has_css?     ".user-box"
       end
     end

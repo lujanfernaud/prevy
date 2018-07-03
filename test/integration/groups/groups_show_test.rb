@@ -180,7 +180,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     end
 
     def assert_members_preview_title(group)
-      count = group.members_with_role.count
+      count = group.members_with_role.size
 
       within ".members-preview" do
         assert page.has_content? "Members (#{count})"

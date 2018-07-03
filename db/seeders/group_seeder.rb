@@ -7,7 +7,7 @@ class GroupSeeder
 
     def create_unhidden_groups
       GROUP_SEEDS.shuffle.each_with_index do |group_seed, index|
-        puts "Creating unhidden group #{index + 1} of #{GROUP_SEEDS.count}"
+        puts "Creating unhidden group #{index + 1} of #{GROUP_SEEDS.size}"
 
         group = create_unhidden_group_for group_seed
         add_random_members_to group
@@ -27,7 +27,7 @@ class GroupSeeder
 
     def add_random_members_to(group)
       sample_users = SampleUser.collection_for_sample_group
-      max_number = rand(9..sample_users.count)
+      max_number = rand(9..sample_users.size)
       selected_users = sample_users[0..max_number]
 
       selected_users.each { |user| group.members << user }

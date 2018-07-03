@@ -19,7 +19,7 @@ class SampleEventTest < ActiveSupport::TestCase
     assert_equal event.organizer.email, prevy_bot.email
     assert_not_empty event.attendees
 
-    assert event.comments.count > 5
+    assert event.comments.size > 5
   end
 
   test "increases count for UserGroupPoints" do

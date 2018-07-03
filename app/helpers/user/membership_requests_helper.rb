@@ -27,10 +27,10 @@ module User::MembershipRequestsHelper
   end
 
   def membership_requests?
-    current_user.total_membership_requests.count > 0
+    current_user.total_membership_requests.size > 0
   end
 
   def membership_requests_count
-    current_user.total_membership_requests.count
+    current_user.total_membership_requests.size
   end
 end

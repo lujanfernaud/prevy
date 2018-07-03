@@ -30,7 +30,7 @@
 
           <div class="latest-topics__buttons row">
             <div class="col text-center">
-              <% if @group.topics.count > 5 %>
+              <% if @group.topics.size > 5 %>
                 <%= link_to "See all topics", group_topics_path(group),
                   class: "all-topics-btn btn btn-outline-primary btn-lg" %>
               <% end %>

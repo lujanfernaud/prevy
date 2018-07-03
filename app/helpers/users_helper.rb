@@ -2,7 +2,7 @@
 
 module UsersHelper
   def organized_events_header(events)
-    if events.count > 3
+    if events.size > 3
       "Organized (last 3)"
     else
       "Organized"

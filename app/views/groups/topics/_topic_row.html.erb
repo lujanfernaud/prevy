@@ -64,10 +64,10 @@
       <%= link_to resource_comments_path(group, topic),
         class: "d-block text-dark" do %>
         <div class="d-inline-block d-md-block lead mb-1">
-          <%= topic.topic_comments.count %>
+          <%= topic.topic_comments.size %>
         </div>
         <div class="d-inline-block d-md-block">
-          <%= "comment".pluralize(topic.topic_comments.count) %>
+          <%= "comment".pluralize(topic.topic_comments.size) %>
         </div>
       <% end %>
     </div>

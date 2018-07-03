@@ -60,13 +60,13 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
 
     visit group_roles_path @group
 
-    assert_equal 1, @group.organizers.count
+    assert_equal 1, @group.organizers.size
 
     within "#roles-user-#{@woodell.id}" do
       click_on "Add organizer role"
     end
 
-    assert_equal 2, @group.organizers.count
+    assert_equal 2, @group.organizers.size
 
     log_out
 
@@ -90,13 +90,13 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
 
     visit group_roles_path @group
 
-    assert_equal 2, @group.organizers.count
+    assert_equal 2, @group.organizers.size
 
     within "#roles-user-#{@woodell.id}" do
       click_on "Remove organizer role"
     end
 
-    assert_equal 1, @group.organizers.count
+    assert_equal 1, @group.organizers.size
 
     log_out
 

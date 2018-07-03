@@ -1,5 +1,5 @@
 <% content_for :groups_header_title do %>
-  <%= "#{@groups.count} #{'group'.pluralize(@groups.count)}" %> found
+  <%= "#{@groups.size} #{'group'.pluralize(@groups.size)}" %> found
 <% end %>
 
 <%= render "groups/groups", groups: @groups %>

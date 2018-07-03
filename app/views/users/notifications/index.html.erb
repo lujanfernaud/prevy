@@ -9,7 +9,7 @@
         <% unless @notifications.empty? %>
 
           <div class="mb-4 text-center">
-            <% if @notifications.count > 1 %>
+            <% if @notifications.size > 1 %>
               <%= link_to "Mark all as read",
                 user_notification_cleaners_path(@user), method: :post %>
             <% else %>

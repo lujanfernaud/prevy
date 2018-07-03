@@ -144,7 +144,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
 
     def assert_members
       within ".members-preview" do
-        assert page.has_content? group_members.count
+        assert page.has_content? group_members.size
       end
 
       assert page.has_css? ".user-box"
@@ -155,7 +155,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     end
 
     def assert_attendees
-      attendees_number = group_members.count
+      attendees_number = group_members.size
 
       within ".attendees-preview" do
         assert page.has_content? attendees_number

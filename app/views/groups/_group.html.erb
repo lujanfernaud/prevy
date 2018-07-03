@@ -32,8 +32,8 @@
       <!-- Members Count -->
       <p class="mt-1 mb-0">
         <%= person_icon %>
-        <%= "#{group.members_with_role.count} " +
-          "member".pluralize(group.members_with_role.count) %>
+        <%= "#{group.members_with_role.size} " +
+          "member".pluralize(group.members_with_role.size) %>
       </p>
     </div>
 
