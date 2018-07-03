@@ -34,7 +34,7 @@ en:
     name: "Sample Group"
     description: >
       <p>Welcome to %{user_name}'s group!</p>
-      <p>This is how your group could look like. Once you have your group, you can:</p>
+      <p>This is how your group could look like. Once you have your own group, you can:</p>
       <ul class='mb-0'>
       <li>Make the group hidden so that it doesn't appear in groups listing</li>
       <li>
