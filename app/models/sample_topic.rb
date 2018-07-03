@@ -25,6 +25,7 @@ class SampleTopic
     create_topics
     add_comments
     update_topics_last_commented_at
+    update_topics_comments_count
   end
 
   private
@@ -147,5 +148,14 @@ class SampleTopic
 
     def last_comment_date(topic)
       topic.comments.last&.created_at
+    end
+
+    def update_topics_comments_count
+      ActiveRecord::Base.connection.execute <<-SQL.squish
+        UPDATE topics
+           SET comments_count = (SELECT count(1)
+                                   FROM topic_comments
+                                  WHERE topic_comments.topic_id = topics.id)
+      SQL
     end
 end

@@ -31,8 +31,8 @@
       <p class="mt-1 mb-0">
         <%= comments_icon %>
         <%= link_to group_event_path(event.group, event) + "#comments" do %>
-          <%= "#{event.comments.size} " +
-            "comment".pluralize(event.comments.size)%>
+          <%= "#{event.topic.comments_count} " +
+            "comment".pluralize(event.topic.comments_count)%>
         <% end %>
       </p>
     </div>

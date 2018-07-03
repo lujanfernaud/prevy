@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180702132543) do
+ActiveRecord::Schema.define(version: 20180703191441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +170,7 @@ ActiveRecord::Schema.define(version: 20180702132543) do
     t.bigint "edited_by_id"
     t.datetime "edited_at"
     t.datetime "last_commented_at"
+    t.integer "comments_count", default: 0, null: false
     t.index ["event_id"], name: "index_topics_on_event_id"
     t.index ["group_id"], name: "index_topics_on_group_id"
     t.index ["last_commented_at"], name: "index_topics_on_last_commented_at"

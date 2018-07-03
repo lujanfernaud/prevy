@@ -93,7 +93,7 @@ class SampleTopicTest < ActiveSupport::TestCase
   private
 
     def comments_count
-      @topic.comments.size
+      @topic.comments_count
     end
 
     def commenters
