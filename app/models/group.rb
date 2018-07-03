@@ -1,21 +1,30 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: groups
 #
 #  id                            :bigint(8)        not null, primary key
-#  name                          :string
-#  description                   :string
-#  image                         :string
-#  hidden                        :boolean          default(FALSE)
 #  all_members_can_create_events :boolean          default(FALSE)
+#  description                   :string
+#  hidden                        :boolean          default(FALSE)
+#  image                         :string
+#  location                      :string
+#  name                          :string
+#  sample_group                  :boolean          default(FALSE)
+#  slug                          :string
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
 #  user_id                       :bigint(8)
-#  location                      :string
-#  sample_group                  :boolean          default(FALSE)
-#  slug                          :string
+#
+# Indexes
+#
+#  index_groups_on_location  (location)
+#  index_groups_on_slug      (slug)
+#  index_groups_on_user_id   (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
 
 class Group < ApplicationRecord

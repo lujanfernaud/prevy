@@ -1,25 +1,33 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: events
 #
 #  id             :bigint(8)        not null, primary key
-#  title          :string
 #  description    :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  organizer_id   :bigint(8)
-#  start_date     :datetime
 #  end_date       :datetime
 #  image          :string
-#  website        :string
-#  group_id       :bigint(8)
-#  updated_fields :jsonb            not null
 #  sample_event   :boolean          default(FALSE)
 #  slug           :string
+#  start_date     :datetime
+#  title          :string
+#  updated_fields :jsonb            not null
+#  website        :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  group_id       :bigint(8)
+#  organizer_id   :bigint(8)
 #
-
+# Indexes
+#
+#  index_events_on_group_id      (group_id)
+#  index_events_on_organizer_id  (organizer_id)
+#  index_events_on_slug          (slug)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (group_id => groups.id)
+#
 
 FactoryBot.define do
   factory :event, aliases: [:attended_event] do
