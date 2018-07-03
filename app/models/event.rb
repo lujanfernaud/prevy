@@ -22,16 +22,24 @@ class Event < ApplicationRecord
   RECENT_ATTENDEES_SHOWN = 8
   RANDOM_ATTENDEES_SHOWN = 6
 
-  include FriendlyId
-  friendly_id :slug_candidates, use: :slugged
+  belongs_to :organizer, class_name: "User"
+  belongs_to :group,     touch: true
 
-  include Storext.model
+  has_many :attendances, foreign_key: "attended_event_id", dependent: :destroy
+  has_many :attendees,   through: :attendances
 
-  store_attributes :updated_fields do
-    updated_start_date DateTime
-    updated_end_date   DateTime
-    updated_address    String
-  end
+  has_one  :event_topic, dependent: :destroy
+  has_many :comments,    through: :event_topic, source: "topic_comments"
+
+  has_one :address, dependent: :destroy
+  accepts_nested_attributes_for :address, update_only: true
+
+  has_one :image_placeholder, as: :resource, dependent: :destroy
+
+  validates :description, presence: true, length: { in: 32..1000 }
+  validates :image,       presence: true
+  validate  :no_past_date
+  validates :title,       presence: true, length: { in: 4..140 }
 
   before_save   :titleize_title
   before_save   :check_website_url
@@ -40,30 +48,24 @@ class Event < ApplicationRecord
   before_update :update_event_topic
   after_save    :create_image_placeholder
 
-  belongs_to :organizer, class_name: "User"
-  belongs_to :group, touch: true
+  # CarrierWave
+  mount_uploader :image, ImageUploader
+  include CarrierWave::ImageLocation
+  include CarrierWave::SampleImage
 
-  has_one :address, dependent: :destroy
-  accepts_nested_attributes_for :address, update_only: true
+  # FriendlyId
+  include FriendlyId
+  friendly_id :slug_candidates, use: :slugged
 
-  delegate :place_name, :street1, :street2, :city,
-           :state, :post_code, :country,
-           :latitude, :longitude,
-           :full_address, :full_address_changed?,
-            to: :address, allow_nil: true
-
-  has_many :attendances, foreign_key: "attended_event_id", dependent: :destroy
-  has_many :attendees, through: :attendances
-
-  has_one  :image_placeholder, as: :resource, dependent: :destroy
-
-  has_one  :event_topic, dependent: :destroy
-  has_many :comments, through: :event_topic, source: "topic_comments"
-
-  validates :title,       presence: true, length: { in: 4..140 }
-  validates :description, presence: true, length: { in: 32..1000 }
-  validates :image,       presence: true
-  validate  :no_past_date
+  # Storext
+  include Storext.model
+  #
+  # Store typecasted values in 'updated_fields' jsonb column.
+  store_attributes :updated_fields do
+    updated_start_date DateTime
+    updated_end_date   DateTime
+    updated_address    String
+  end
 
   scope :upcoming, -> {
     where("end_date > ?", Time.zone.now).order("start_date ASC")
@@ -73,13 +75,17 @@ class Event < ApplicationRecord
     where("end_date < ?", Time.zone.now).order("end_date ASC")
   }
 
+  # TODO: Remove
   scope :three, -> {
     limit(3)
   }
 
-  mount_uploader :image, ImageUploader
-  include CarrierWave::ImageLocation
-  include CarrierWave::SampleImage
+  # TODO: Refactor
+  delegate :place_name, :street1, :street2, :city,
+           :state, :post_code, :country,
+           :latitude, :longitude,
+           :full_address, :full_address_changed?,
+            to: :address, allow_nil: true
 
   def image_base64
     return image_url(:thumb) unless image_placeholder
@@ -112,6 +118,14 @@ class Event < ApplicationRecord
   end
 
   private
+
+    def no_past_date
+      if start_date < Time.zone.now
+        errors.add(:start_date, "can't be in the past")
+      elsif end_date < start_date
+        errors.add(:start_date, "can't be later than end date")
+      end
+    end
 
     def titleize_title
       self.title = title.titleize
@@ -168,14 +182,6 @@ class Event < ApplicationRecord
 
     def create_image_placeholder
       ImagePlaceholderCreator.new(self).call
-    end
-
-    def no_past_date
-      if start_date < Time.zone.now
-        errors.add(:start_date, "can't be in the past")
-      elsif end_date < start_date
-        errors.add(:start_date, "can't be later than end date")
-      end
     end
 
     def should_generate_new_friendly_id?

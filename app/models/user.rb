@@ -29,33 +29,8 @@
 #
 
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
-
-  include FriendlyId
-  friendly_id :slug_candidates, use: :slugged
-
-  before_save   :format_name
-  before_update :titleize_location
-  before_update :capitalize_bio
-  after_create  :create_user_sample_content
-
-  rolify
-
-  include Storext.model
-
-  store_attributes :settings do
-    membership_request_emails Boolean, default: true
-    group_membership_emails   Boolean, default: true
-    group_role_emails         Boolean, default: true
-    group_event_emails        Boolean, default: true
-    group_announcement_emails Boolean, default: true
-  end
-
   has_many :owned_groups, class_name: "Group", foreign_key: "user_id",
-    dependent: :destroy
+            dependent: :destroy
   has_many :received_requests, through: :owned_groups
 
   has_many :membership_requests, dependent: :destroy
@@ -67,12 +42,12 @@ class User < ApplicationRecord
   has_many :user_group_points, dependent: :destroy
 
   has_many :organized_events, class_name: "Event", foreign_key: "organizer_id",
-    dependent: :destroy
+            dependent: :destroy
 
   has_many :attendances, foreign_key: "attendee_id", dependent: :destroy
   has_many :attended_events, through: :attendances
 
-  has_many :topics, dependent: :destroy
+  has_many :topics,         dependent: :destroy
   has_many :topic_comments, dependent: :delete_all
 
   has_many :notifications, dependent: :destroy
@@ -81,14 +56,42 @@ class User < ApplicationRecord
   has_many :group_role_notifications
   has_many :announcement_topic_notifications
 
-  validates :name, presence: true, length: { in: 3..50 }
-
+  # TODO: Extract EmailValidator
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
+  validates :name, presence: true, length: { in: 3..50 }
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
+  before_save   :format_name
+  before_update :titleize_location
+  before_update :capitalize_bio
+  after_create  :create_user_sample_content
+
+  # Devise
+  devise :database_authenticatable, :registerable, :confirmable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  # FriendlyId
+  include FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
+  # Rolify
+  rolify
+
+  # Storext
+  include Storext.model
+  #
+  # Store typecasted values in 'settings' jsonb column.
+  store_attributes :settings do
+    membership_request_emails Boolean, default: true
+    group_membership_emails   Boolean, default: true
+    group_role_emails         Boolean, default: true
+    group_event_emails        Boolean, default: true
+    group_announcement_emails Boolean, default: true
+  end
 
   scope :recent, -> (users_number = 5) {
     order("created_at DESC").limit(users_number)
@@ -107,10 +110,12 @@ class User < ApplicationRecord
          .references(:group_memberships)
   end
 
+  # TODO: Refactor. Currently making 3 calls to the database.
   def group_roles(group)
     roles.where(resource_id: group).map(&:name)
   end
 
+  # TODO: Refactor. Add 'distinct' before 'pluck'.
   def events_from_groups
     Event.where(group_id: groups.pluck(:id)).upcoming
   end
@@ -164,17 +169,6 @@ class User < ApplicationRecord
 
   private
 
-    def should_generate_new_friendly_id?
-      slug.blank? || saved_change_to_name?
-    end
-
-    def slug_candidates
-      [
-        :name,
-        [:name, :id]
-      ]
-    end
-
     def format_name
       self.name = NameFormatter.call(name)
     end
@@ -212,5 +206,16 @@ class User < ApplicationRecord
 
     def add_password_match_error
       self.errors[:password_confirmation] << "does not match password"
+    end
+
+    def should_generate_new_friendly_id?
+      slug.blank? || saved_change_to_name?
+    end
+
+    def slug_candidates
+      [
+        :name,
+        [:name, :id]
+      ]
     end
 end

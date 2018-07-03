@@ -17,25 +17,13 @@
 #
 
 class Group < ApplicationRecord
-  SPECIAL_ROLES = ["organizer", "moderator"].freeze
+  SPECIAL_ROLES        = ["organizer", "moderator"].freeze
   RECENT_MEMBERS_SHOWN = 8
-  TOP_MEMBERS_SHOWN = 12
-
-  include PgSearch
-
-  include FriendlyId
-  friendly_id :slug_candidates, use: :slugged
-
-  resourcify
-
-  before_save    :prepare_text_fields
-  after_create   :add_owner_as_organizer_and_moderator
-  after_create   :create_owner_group_points
-  after_update   :update_members_role
-  after_save     :create_image_placeholder
-  before_destroy :destroy_owner_group_points
+  TOP_MEMBERS_SHOWN    = 12
 
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
+
+  has_one  :image_placeholder, as: :resource, dependent: :destroy
 
   has_many :group_memberships, dependent: :delete_all
   has_many :members, through: :group_memberships, source: "user"
@@ -54,16 +42,42 @@ class Group < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
-  has_one  :image_placeholder, as: :resource, dependent: :destroy
-
-  validates :name,        presence: true, length: { minimum: 3 }
-  validates :location,    presence: true, length: { minimum: 3 }
   validates :description, presence: true, length: { minimum: 70 }
   validates :image,       presence: true
+  validates :location,    presence: true, length: { minimum: 3 }
+  validates :name,        presence: true, length: { minimum: 3 }
+
+  before_save    :prepare_text_fields
+  after_create   :add_owner_as_organizer_and_moderator
+  after_create   :create_owner_group_points
+  after_update   :update_members_role
+  after_save     :create_image_placeholder
+  before_destroy :destroy_owner_group_points
+
+  # CarrierWave
+  mount_uploader :image, ImageUploader
+  include CarrierWave::ImageLocation
+  include CarrierWave::SampleImage
+
+  # FriendlyId
+  include FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
+  # PgSearch
+  include PgSearch
+
+  # Rolify
+  resourcify
 
   pg_search_scope :search,
     against: [:name, :location, :description],
-    using: { tsearch: { prefix: true } }
+    using:   { tsearch: { prefix: true } }
+
+  scope :random_selection, -> (groups_number) {
+    random_offset = rand(1..self.count - groups_number)
+
+    offset(random_offset).limit(groups_number)
+  }
 
   scope :unhidden, -> {
     where(hidden: false, sample_group: false)
@@ -73,16 +87,6 @@ class Group < ApplicationRecord
     where(hidden: false, sample_group: false).
     where.not(id: group.id)
   }
-
-  scope :random_selection, -> (groups_number) {
-    random_offset = rand(1..self.count - groups_number)
-
-    offset(random_offset).limit(groups_number)
-  }
-
-  mount_uploader :image, ImageUploader
-  include CarrierWave::ImageLocation
-  include CarrierWave::SampleImage
 
   def image_base64
     return image_url(:thumb) unless image_placeholder
@@ -160,27 +164,6 @@ class Group < ApplicationRecord
 
   private
 
-    def should_generate_new_friendly_id?
-      slug.blank? || saved_change_to_name?
-    end
-
-    def slug_candidates
-      [
-        :name,
-        [:name, :location],
-        [:name, :location, :owner_name],
-        [:name, :location, :owner_name, :owner_id]
-      ]
-    end
-
-    def owner_name
-      owner.name
-    end
-
-    def owner_id
-      owner.id
-    end
-
     def prepare_text_fields
       self.name = name.titleize
       self.location = location.titleize
@@ -192,7 +175,11 @@ class Group < ApplicationRecord
     end
 
     def destroy_owner_group_points
-      UserGroupPoints.find_by(user: owner, group: self).destroy
+      group_points = UserGroupPoints.find_by(user: owner, group: self)
+
+      return unless group_points
+
+      group_points.destroy
     end
 
     def add_owner_as_organizer_and_moderator
@@ -272,5 +259,26 @@ class Group < ApplicationRecord
 
     def special_topics
       Topic.where(group: self).where.not(type: "Topic").prioritized
+    end
+
+    def should_generate_new_friendly_id?
+      slug.blank? || saved_change_to_name?
+    end
+
+    def slug_candidates
+      [
+        :name,
+        [:name, :location],
+        [:name, :location, :owner_name],
+        [:name, :location, :owner_name, :owner_id]
+      ]
+    end
+
+    def owner_name
+      owner.name
+    end
+
+    def owner_id
+      owner.id
     end
 end

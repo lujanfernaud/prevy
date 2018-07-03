@@ -13,11 +13,10 @@
 #  edited_by_id :bigint(8)
 #
 
-
 class TopicComment < ApplicationRecord
   MINIMUM_BODY_LENGTH = 2
   EDITED_OFFSET_TIME  = 300 # 5 minutes
-  POINTS = 1
+  POINTS              = 1
 
   belongs_to :topic, touch: true
   belongs_to :user,  touch: true

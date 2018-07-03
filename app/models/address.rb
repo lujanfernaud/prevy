@@ -20,13 +20,14 @@
 class Address < ApplicationRecord
   belongs_to :event
 
-  geocoded_by :full_address
-  after_validation :geocode, if: :full_address_changed?
+  validates  :city,      presence: true
+  validates  :country,   presence: true
+  validates  :post_code, presence: true
+  validates  :street1,   presence: true
 
-  validates :street1,   presence: true
-  validates :city,      presence: true
-  validates :post_code, presence: true
-  validates :country,   presence: true
+  # Geocoder
+  geocoded_by      :full_address
+  after_validation :geocode, if: :full_address_changed?
 
   def full_address
     attributes = [place_name, street1, street2, city, state, post_code]

@@ -21,25 +21,21 @@
 #  last_commented_at :datetime
 #
 
-
 class Topic < ApplicationRecord
   PRIORITY            = 0
   MINIMUM_BODY_LENGTH = 20
   EDITED_OFFSET_TIME  = 600 # 10 minutes
   POINTS              = 3
 
-  include FriendlyId
-  friendly_id :slug_candidates, use: :slugged
-
   belongs_to :group, touch: true
   belongs_to :user
   belongs_to :edited_by, class_name: "User", optional: true
 
-  has_many :topic_comments, dependent: :delete_all
-  has_many :notifications,  dependent: :destroy
+  has_many   :topic_comments, dependent: :delete_all
+  has_many   :notifications,  dependent: :destroy
 
-  validates :title, presence: true, length: { minimum: 2 }
-  validate  :body_length
+  validate   :body_length
+  validates  :title, presence: true, length: { minimum: 2 }
 
   before_save    :set_priority
   before_save    :set_default_edited_by, unless: :edited_by
@@ -47,6 +43,10 @@ class Topic < ApplicationRecord
   before_create  :set_default_last_commented_at
   before_create  -> { user_group_points.increase by: POINTS }
   before_destroy -> { user_group_points.decrease by: POINTS }
+
+  # FriendlyId
+  include FriendlyId
+  friendly_id :slug_candidates, use: :slugged
 
   scope :prioritized, -> {
     order(priority: :desc, last_commented_at: :desc).includes(:user)
