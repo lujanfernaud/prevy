@@ -17,8 +17,7 @@ class DeleteGroupRole
         "#{user.name} doesn't have #{role} role in #{group.name}"
     end
 
-    # TODO: Use public_send instead
-    group.send("remove_from_#{role.pluralize}", user)
+    group.public_send("remove_from_#{role.pluralize}", user)
 
     notify_user unless group.sample_group?
   end
