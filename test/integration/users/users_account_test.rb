@@ -42,7 +42,7 @@ class UsersAccountTest < ActionDispatch::IntegrationTest
     click_on "Update"
 
     assert_invalid do
-      assert page.has_content? "Email is invalid"
+      assert page.has_content? "Email is not valid"
     end
   end
 
