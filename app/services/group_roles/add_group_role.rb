@@ -17,8 +17,7 @@ class AddGroupRole
         "#{user.name} already has #{role} role in #{group.name}"
     end
 
-    # TODO: Use public_send instead
-    group.send("add_to_#{role.pluralize}", user)
+    group.public_send("add_to_#{role.pluralize}", user)
 
     notify_user unless group.sample_group?
   end
