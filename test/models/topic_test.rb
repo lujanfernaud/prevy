@@ -108,7 +108,7 @@ class TopicTest < ActiveSupport::TestCase
   end
 
   test "#type_presentable" do
-    topic = fake_event_topic(type: "EventTopic")
+    topic = build :topic, type: "EventTopic"
 
     assert "Event", topic.type_presentable
   end
@@ -133,14 +133,14 @@ class TopicTest < ActiveSupport::TestCase
 
   test "sets author as default edited_by on save" do
     topic = fake_topic
-    topic.save
+    topic.save!
 
     assert_equal topic.user, topic.edited_by
   end
 
   test "#edited? is true when outside of EDITED_OFFSET_TIME" do
     topic = fake_topic
-    topic.save
+    topic.save!
 
     topic.update_attributes(
       created_at: 10.minutes.ago,
@@ -161,7 +161,7 @@ class TopicTest < ActiveSupport::TestCase
     phil  = users(:phil)
     penny = users(:penny)
     topic = fake_topic(user: phil)
-    topic.save
+    topic.save!
 
     topic.update_attributes(
       created_at: 10.minutes.ago,
@@ -174,7 +174,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test "edited_at changes when the topic title is updated" do
     topic = fake_topic
-    topic.save
+    topic.save!
 
     previous_edited_at = topic.edited_at
 
@@ -185,7 +185,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test "edited_at changes when the topic body is updated" do
     topic = fake_topic
-    topic.save
+    topic.save!
 
     previous_edited_at = topic.edited_at
 
@@ -196,14 +196,14 @@ class TopicTest < ActiveSupport::TestCase
 
   test "edited_at is set if it was empty" do
     topic = fake_topic
-    topic.save
+    topic.save!
 
     assert topic.edited_at
   end
 
   test "edited_at remains unchanged when the topic is touched" do
     topic = fake_topic
-    topic.save
+    topic.save!
 
     previous_edited_at = topic.edited_at
 
@@ -261,16 +261,6 @@ class TopicTest < ActiveSupport::TestCase
   end
 
   private
-
-    # TODO: Remove and use factory.
-    def fake_event_topic(params = {})
-      fake_topic(
-        event: fake_event,
-        group: fake_group,
-        user:  fake_user,
-        type:  params[:type] || "EventTopic"
-      )
-    end
 
     def prepare_group_topics
       group.event_topics.offset(2).destroy_all
