@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module GeocoderSupport
+module StubsSupport
   def stub_geocoder
     Geocoder.configure(:lookup => :test)
 
@@ -17,5 +17,15 @@ module GeocoderSupport
         }
       ]
     )
+  end
+
+  def stub_requests_to_googleapis
+    WebMock.stub_request(:get, /maps.googleapis.com/)
+           .to_return(status: 200, body: "", headers: {})
+  end
+
+  def stub_sample_content_for_new_users
+    SampleGroup.stubs(:create_for_user)
+    SampleMembershipRequest.stubs(:create_for_user)
   end
 end

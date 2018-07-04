@@ -46,8 +46,8 @@ class ActionDispatch::IntegrationTest
   include ApplicationHelper
   include EventsHelper
 
+  include StubsSupport
   include IntegrationSupport
-  include GeocoderSupport
   include UserSupport
 
   # Reset sessions and driver between tests
@@ -63,8 +63,8 @@ class ActiveSupport::TestCase
   fixtures :all
   include FactoryBot::Syntax::Methods
 
+  include StubsSupport
   include TestCaseSupport
-  include GeocoderSupport
   include UserSupport
 end
 

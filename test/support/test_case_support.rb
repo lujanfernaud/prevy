@@ -1,17 +1,6 @@
 # frozen_string_literal: true
 
 module TestCaseSupport
-  def stub_requests_to_googleapis
-    WebMock.stub_request(:get, /maps.googleapis.com/)
-           .to_return(status: 200, body: "", headers: {})
-  end
-
-  # TODO: Extract to an independent support file.
-  def stub_sample_content_for_new_users
-    SampleGroup.stubs(:create_for_user)
-    SampleMembershipRequest.stubs(:create_for_user)
-  end
-
   def fake_group(params = {})
     Group.new(
       owner:        params[:owner]        || users(:phil),

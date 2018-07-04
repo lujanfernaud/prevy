@@ -6,11 +6,6 @@ module IntegrationSupport
     Capybara.raise_server_errors = false
   end
 
-  def stub_sample_content_for_new_users
-    SampleGroup.stubs(:create_for_user)
-    SampleMembershipRequest.stubs(:create_for_user)
-  end
-
   def log_in_as(user)
     visit login_path
     introduce_log_in_information_as(user)
