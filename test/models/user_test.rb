@@ -173,8 +173,9 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 4, user.notifications_count
   end
 
-  # TODO: Add missing stub_sample_content_for_new_users
   test "titleizes name before saving" do
+    stub_sample_content_for_new_users
+
     user = fake_user(name: "john stevenson")
     user.save!
 
@@ -182,26 +183,32 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "titleizes location before updating" do
+    stub_sample_content_for_new_users
+
     user = fake_user
-    user.save
+    user.save!
     user.update_attributes(location: "tenerife")
 
     assert_equal "Tenerife", user.location
   end
 
   test "doesn't return an error if there is no location" do
+    stub_sample_content_for_new_users
+
     user = fake_user
-    user.save
+    user.save!
 
     assert user.update_attributes(location: nil)
   end
 
   test "capitalizes bio before updating" do
+    stub_sample_content_for_new_users
+
     bio = "it is impossible to build one's own happiness on the unhappiness of others."
     bio_capitalized = "It is impossible to build one's own happiness on the unhappiness of others."
 
     user = fake_user
-    user.save
+    user.save!
 
     user.update_attributes(bio: bio)
 
@@ -209,13 +216,17 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "doesn't return an error if there is no bio" do
+    stub_sample_content_for_new_users
+
     user = fake_user
-    user.save
+    user.save!
 
     assert user.update_attributes(bio: nil)
   end
 
   test "has name as slug" do
+    stub_sample_content_for_new_users
+
     user = fake_user
     name_parameterized = user.name.parameterize
 
