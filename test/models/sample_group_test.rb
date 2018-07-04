@@ -17,13 +17,13 @@ class SampleGroupTest < ActiveSupport::TestCase
 
     sample_users_collection = SampleUser.collection_for_sample_group
     organizers_count        = group.organizers.size - GROUP_OWNER_COUNT
-    members_with_role_count = sample_users_collection.size - organizers_count
+    members_count           = sample_users_collection.size
 
     assert group.sample_group?
     assert_equal user, group.owner
 
     assert_equal sample_users_collection.size, group.members.size
-    assert_equal members_with_role_count, group.members_with_role.size
+    assert_equal members_count, group.members_count
 
     assert_equal 4, group.organizers.size
     assert_equal 1, group.events_count

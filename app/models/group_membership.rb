@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: group_memberships
@@ -22,7 +23,7 @@
 
 class GroupMembership < ApplicationRecord
   belongs_to :user
-  belongs_to :group
+  belongs_to :group, counter_cache: :members_count
 
   has_one :notification, dependent: :destroy
 

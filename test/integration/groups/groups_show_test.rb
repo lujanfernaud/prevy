@@ -76,7 +76,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
   end
 
   test "logged out user visits group" do
-    add_members_to_group(@group, @penny)
+    @group.members << @penny
 
     visit group_path(@group)
 
@@ -180,10 +180,8 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     end
 
     def assert_members_preview_title(group)
-      count = group.members_with_role.size
-
       within ".members-preview" do
-        assert page.has_content? "Members (#{count})"
+        assert page.has_content? "Members (#{group.members_count})"
       end
     end
 

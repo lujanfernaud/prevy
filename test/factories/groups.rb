@@ -11,6 +11,7 @@
 #  hidden                        :boolean          default(FALSE)
 #  image                         :string
 #  location                      :string
+#  members_count                 :integer          default(0), not null
 #  name                          :string
 #  sample_group                  :boolean          default(FALSE)
 #  slug                          :string

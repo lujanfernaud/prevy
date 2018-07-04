@@ -144,21 +144,21 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
 
     def assert_members
       within ".members-preview" do
-        assert page.has_content? group_members.size
+        assert page.has_content? sample_group.members_count
       end
 
       assert page.has_css? ".user-box"
     end
 
-    def group_members
-      @group_members ||= @user.sample_group.members_with_role
+    def sample_group
+      @user.sample_group
     end
 
     def assert_attendees
-      attendees_number = group_members.size
+      attendees_count = sample_group.events.first.attendees_count
 
       within ".attendees-preview" do
-        assert page.has_content? attendees_number
+        assert page.has_content? attendees_count
         assert page.has_link?    "See all attendees"
       end
     end

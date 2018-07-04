@@ -16,6 +16,7 @@ class SampleGroup
   def create_sample_group
     create_group
     add_sample_members
+    update_members_count
     add_sample_organizers
     add_sample_event
     add_sample_topics
@@ -69,6 +70,15 @@ class SampleGroup
       end
 
       GroupMembership.import(@memberships)
+    end
+
+    def update_members_count
+      ActiveRecord::Base.connection.execute <<-SQL.squish
+        UPDATE groups
+           SET members_count = (SELECT count(1)
+                                  FROM group_memberships
+                                 WHERE group_memberships.group_id = groups.id)
+      SQL
     end
 
     def add_sample_organizers
