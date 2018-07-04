@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: groups
@@ -12,6 +13,7 @@
 #  name                          :string
 #  sample_group                  :boolean          default(FALSE)
 #  slug                          :string
+#  topics_count                  :integer          default(0), not null
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
 #  user_id                       :bigint(8)

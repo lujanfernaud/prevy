@@ -33,8 +33,8 @@
       <p class="mt-1 mb-0">
         <%= topics_icon %>
         <%= link_to group_topics_path(group) do %>
-          <%= "#{group.topics.size} " +
-            "topic".pluralize(group.topics.size) %>
+          <%= "#{group.topics_count} " +
+            "topic".pluralize(group.topics_count) %>
         <% end %>
       </p>
     </div>

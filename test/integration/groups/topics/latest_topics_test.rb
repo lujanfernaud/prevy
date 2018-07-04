@@ -6,26 +6,29 @@ class LatestTopicsTest < ActionDispatch::IntegrationTest
   include TopicsIntegrationSupport
 
   def setup
-    @phil = users(:phil)
-    @nike_group   = groups(:one)
-    @pennys_group = groups(:two)
+    @phil  = users(:phil)
+    @group = create :group, owner: @phil
   end
 
   test "doesn't show 'see all topics' button with not enough topics" do
+    create_list :topic, 5, group: @group
+
     log_in_as(@phil)
 
-    visit group_path(@pennys_group)
+    visit group_path(@group)
 
-    assert_topics(@pennys_group)
+    assert_topics(@group)
 
     refute_topics_box_button "See all topics"
     assert_topics_box_button "Submit a new topic"
   end
 
   test "shows 'see all topics' button with enough topics" do
+    create_list :topic, 10, group: @group
+
     log_in_as(@phil)
 
-    visit group_path(@nike_group)
+    visit group_path(@group)
 
     assert_topics_box_button "See all topics"
     assert_topics_box_button "Submit a new topic"
@@ -34,11 +37,11 @@ class LatestTopicsTest < ActionDispatch::IntegrationTest
   test "submit a new topic" do
     log_in_as(@phil)
 
-    visit group_path(@nike_group)
+    visit group_path(@group)
 
     click_on "Submit a new topic"
 
-    assert_equal current_path, new_group_topic_path(@nike_group)
+    assert_equal current_path, new_group_topic_path(@group)
   end
 
   private

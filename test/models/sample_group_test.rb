@@ -28,6 +28,7 @@ class SampleGroupTest < ActiveSupport::TestCase
     assert_equal 4, group.organizers.size
     assert_equal 1, group.events.size
 
+    assert_equal 9, group.topics_count
     assert_equal 1, group.announcement_topics.size
     assert_equal 1, group.event_topics.size
     assert_equal 1, group.pinned_topics.size

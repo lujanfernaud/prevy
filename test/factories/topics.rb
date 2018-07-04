@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: topics
@@ -40,8 +41,8 @@ FactoryBot.define do
   factory :topic do
     group
     user
-    title "Test Topic"
-    body  "This is the body of the test topic."
-    type  "Topic"
+    sequence(:title) { |n| "Test Topic #{n}" }
+    body             "This is the body of #{:title}."
+    type             "Topic"
   end
 end

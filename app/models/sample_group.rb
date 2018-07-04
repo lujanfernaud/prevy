@@ -19,6 +19,7 @@ class SampleGroup
     add_sample_organizers
     add_sample_event
     add_sample_topics
+    update_topics_count
   end
 
   private
@@ -90,4 +91,12 @@ class SampleGroup
       SampleTopic.create_topics_for_group(@group)
     end
 
+    def update_topics_count
+      ActiveRecord::Base.connection.execute <<-SQL.squish
+        UPDATE groups
+           SET topics_count = (SELECT count(1)
+                                 FROM topics
+                                WHERE topics.group_id = groups.id)
+      SQL
+    end
 end

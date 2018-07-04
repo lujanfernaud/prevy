@@ -43,7 +43,7 @@ class Topic < ApplicationRecord
   EDITED_OFFSET_TIME  = 600 # 10 minutes
   POINTS              = 3
 
-  belongs_to :group, touch: true
+  belongs_to :group, touch: true, counter_cache: true
   belongs_to :user
   belongs_to :edited_by, class_name: "User", optional: true
 

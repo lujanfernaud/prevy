@@ -61,7 +61,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     visit root_path
 
     within "#group-#{@group.id}" do
-      click_on "#{@group.topics.size} topics"
+      click_on "#{@group.topics_count} topics"
     end
 
     assert_current_path group_topics_path(@group)
