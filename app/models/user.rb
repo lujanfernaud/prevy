@@ -119,14 +119,13 @@ class User < ApplicationRecord
          .references(:group_memberships)
   end
 
-  # TODO: Refactor. Currently making 3 calls to the database.
+  # TODO: Find a way to refactor. Currently making 2 calls to the database.
   def group_roles(group)
     roles.where(resource_id: group).map(&:name)
   end
 
-  # TODO: Refactor. Add 'distinct' before 'pluck'.
   def events_from_groups
-    Event.where(group_id: groups.pluck(:id)).upcoming
+    Event.where(group_id: groups.distinct.pluck(:id)).upcoming
   end
 
   def group_points(group)
