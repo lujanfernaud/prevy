@@ -158,10 +158,6 @@ class User < ApplicationRecord
     announcement_topic_notifications
   end
 
-  def upcoming_attended_events
-    attended_events.upcoming.three
-  end
-
   def comments
     topic_comments
   end

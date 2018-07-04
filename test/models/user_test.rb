@@ -173,15 +173,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 4, user.notifications_count
   end
 
-  test "#upcoming_attended_events" do
-    stub_sample_content_for_new_users
-
-    user = users(:woodell)
-    upcoming_attended_events = user.upcoming_attended_events
-
-    assert_equal 3, upcoming_attended_events.size
-  end
-
   # TODO: Add missing stub_sample_content_for_new_users
   test "titleizes name before saving" do
     user = fake_user(name: "john stevenson")

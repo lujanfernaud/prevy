@@ -88,11 +88,6 @@ class Event < ApplicationRecord
     where("end_date < ?", Time.zone.now).order("end_date ASC")
   }
 
-  # TODO: Remove
-  scope :three, -> {
-    limit(3)
-  }
-
   # TODO: Refactor
   delegate :place_name, :street1, :street2, :city,
            :state, :post_code, :country,
