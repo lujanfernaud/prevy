@@ -1,6 +1,7 @@
 <div class="col-sm-12 col-md-6 col-lg-4 mt-2rem">
   <div class="box event-box" id="event-<%= event.id %>">
 
+    <!-- Event Image -->
     <div class="intrinsic-ratio-container card card-inverse text-center accent-border-bottom">
       <%= image_tag  event.image_base64,
         data: {
@@ -23,11 +24,13 @@
     </div>
 
     <div class="event-box-text">
+      <!-- Event Date -->
       <p class="event-box__date mb-0 ">
         <%= calendar_icon %>
         <%= event.start_date_prettyfied %>
       </p>
 
+      <!-- Event Comments -->
       <p class="mt-1 mb-0">
         <%= comments_icon %>
         <%= link_to group_event_path(event.group, event) + "#comments" do %>

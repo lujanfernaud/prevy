@@ -43,8 +43,8 @@
       <!-- Event Attendees -->
       <p class="event-box__attending mb-0">
         <%= person_icon %>
-        <%= link_to "#{event.attendees.size} " +
-          "attendee".pluralize(event.attendees.size),
+        <%= link_to "#{event.attendees_count} " +
+          "attendee".pluralize(event.attendees_count),
           event_attendees_path(event) %>
       </p>
 

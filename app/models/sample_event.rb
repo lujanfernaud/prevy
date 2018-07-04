@@ -22,6 +22,7 @@ class SampleEvent
   def create_sample_event
     create_event
     add_sample_attendees
+    update_attendees_count
     add_sample_comments
     update_event_topic_dates
   end
@@ -155,5 +156,16 @@ class SampleEvent
 
     def last_comment_date(topic)
       topic.comments.last&.created_at
+    end
+
+    def update_attendees_count
+      ActiveRecord::Base.connection.execute <<-SQL.squish
+        UPDATE events
+           SET attendees_count = (
+             SELECT count(1)
+               FROM attendances
+              WHERE attendances.attended_event_id = events.id
+           )
+      SQL
     end
 end

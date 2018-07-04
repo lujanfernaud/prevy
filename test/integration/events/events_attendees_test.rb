@@ -10,22 +10,21 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
     attendees = build_list :user, 10, :confirmed
     @attendee = attendees.first
 
-    @group = create :group
-    @event = create :event, group: @group
+    @event = create :event
+    @group = @event.group
 
-    @group.members << [@stranger] + attendees
+    @group.members   << [@stranger] + attendees
     @event.attendees << attendees
+    @event.reload
   end
 
   test "logged in user visits attendees" do
-    attendees_count = @event.attendees.size
-
     visit_event_attendees_logged_in_as_stranger
 
     assert_breadcrumbs(@group, @event)
 
     assert page.has_content? @event.title
-    assert page.has_content? "Attendees (#{attendees_count})"
+    assert page.has_content? "Attendees (#{@event.attendees_count})"
 
     assert_attendees_links(@event)
   end

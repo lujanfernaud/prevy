@@ -6,12 +6,17 @@ class EventsShowTest < ActionDispatch::IntegrationTest
   test "logged in user visits event" do
     penny = users(:penny)
     group = groups(:one)
-    event = EventDecorator.new(events(:one))
+    event = events(:one)
+    decorated_event = EventDecorator.new(event)
+
+    attendees = build_list :user, 10
+    event.attendees << attendees
+    event.reload
 
     log_in_as(penny)
     visit group_event_path(group, event)
 
-    assert_event_information(event)
+    assert_event_information(decorated_event)
     assert_comments
     assert_attendees_preview(event)
     assert_quick_access
@@ -125,10 +130,8 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     end
 
     def assert_attendees_preview(event)
-      attendees_number = event.attendees.size
-
       within ".attendees-preview" do
-        assert page.has_content? "Attendees (#{attendees_number})"
+        assert page.has_content? "Attendees (#{event.attendees_count})"
         assert page.has_content? "See all attendees"
       end
     end
@@ -142,7 +145,7 @@ class EventsShowTest < ActionDispatch::IntegrationTest
 
     def assert_attendees(event)
       within ".attendees-container" do
-        assert page.has_content? "Attendees (#{event.attendees.size})"
+        assert page.has_content? "Attendees (#{event.attendees_count})"
         assert page.has_css?     ".user-box"
       end
     end

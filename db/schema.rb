@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180704073454) do
+ActiveRecord::Schema.define(version: 20180704081745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20180704073454) do
     t.jsonb "updated_fields", default: {}, null: false
     t.boolean "sample_event", default: false
     t.string "slug"
+    t.integer "attendees_count", default: 0, null: false
     t.index ["group_id"], name: "index_events_on_group_id"
     t.index ["organizer_id"], name: "index_events_on_organizer_id"
     t.index ["slug"], name: "index_events_on_slug"

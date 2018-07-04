@@ -4,20 +4,21 @@
 #
 # Table name: events
 #
-#  id             :bigint(8)        not null, primary key
-#  description    :string
-#  end_date       :datetime
-#  image          :string
-#  sample_event   :boolean          default(FALSE)
-#  slug           :string
-#  start_date     :datetime
-#  title          :string
-#  updated_fields :jsonb            not null
-#  website        :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  group_id       :bigint(8)
-#  organizer_id   :bigint(8)
+#  id              :bigint(8)        not null, primary key
+#  attendees_count :integer          default(0), not null
+#  description     :string
+#  end_date        :datetime
+#  image           :string
+#  sample_event    :boolean          default(FALSE)
+#  slug            :string
+#  start_date      :datetime
+#  title           :string
+#  updated_fields  :jsonb            not null
+#  website         :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  group_id        :bigint(8)
+#  organizer_id    :bigint(8)
 #
 # Indexes
 #
@@ -122,9 +123,9 @@ class Event < ApplicationRecord
   end
 
   def random_attendees
-    return attendees unless attendees.size > RANDOM_ATTENDEES_SHOWN
+    return attendees unless attendees_count > RANDOM_ATTENDEES_SHOWN
 
-    random_offset = rand(attendees.size - RANDOM_ATTENDEES_SHOWN)
+    random_offset = rand(attendees_count - RANDOM_ATTENDEES_SHOWN)
 
     attendees.offset(random_offset).limit(RANDOM_ATTENDEES_SHOWN)
   end

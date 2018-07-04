@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: attendances
@@ -19,7 +20,8 @@ class Attendance < ApplicationRecord
   POINTS = 5
 
   belongs_to :attendee,       class_name: "User"
-  belongs_to :attended_event, class_name: "Event"
+  belongs_to :attended_event, class_name: "Event",
+              counter_cache: :attendees_count
 
   before_create  -> { user_group_points.increase by: POINTS }
   before_destroy -> { user_group_points.decrease by: POINTS }

@@ -1,22 +1,24 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: events
 #
-#  id             :bigint(8)        not null, primary key
-#  description    :string
-#  end_date       :datetime
-#  image          :string
-#  sample_event   :boolean          default(FALSE)
-#  slug           :string
-#  start_date     :datetime
-#  title          :string
-#  updated_fields :jsonb            not null
-#  website        :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  group_id       :bigint(8)
-#  organizer_id   :bigint(8)
+#  id              :bigint(8)        not null, primary key
+#  attendees_count :integer          default(0), not null
+#  description     :string
+#  end_date        :datetime
+#  image           :string
+#  sample_event    :boolean          default(FALSE)
+#  slug            :string
+#  start_date      :datetime
+#  title           :string
+#  updated_fields  :jsonb            not null
+#  website         :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  group_id        :bigint(8)
+#  organizer_id    :bigint(8)
 #
 # Indexes
 #

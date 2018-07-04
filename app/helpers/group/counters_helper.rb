@@ -18,6 +18,6 @@ module Group::CountersHelper
   end
 
   def attendees_title_with_count
-    "Attendees (#{@event.attendees.size})"
+    "Attendees (#{@event.attendees_count})"
   end
 end

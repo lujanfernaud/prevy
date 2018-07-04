@@ -17,7 +17,7 @@ class SampleEventTest < ActiveSupport::TestCase
     prevy_bot = SampleUser.find_by(email: "prevybot@prevy.test")
 
     assert_equal event.organizer.email, prevy_bot.email
-    assert_not_empty event.attendees
+    assert_not   event.attendees_count.zero?
 
     assert event.comments.size > 5
   end
