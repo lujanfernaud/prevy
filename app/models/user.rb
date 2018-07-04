@@ -66,7 +66,7 @@ class User < ApplicationRecord
   has_many :announcement_topic_notifications
 
   validates :email,    presence: true, email: true
-  validates :name,     presence: true, length: { in: 3..50 }
+  validates :name,     presence: true, length: { in: 2..50 }
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   before_save   :format_name

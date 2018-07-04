@@ -34,7 +34,7 @@ class UsersProfileUpdateTest < ActionDispatch::IntegrationTest
 
     visit edit_user_path(@phil)
 
-    fill_in  "Name", with: "Ph"
+    fill_in  "Name", with: "P"
     click_on "Update"
 
     assert_invalid_for(@phil) do

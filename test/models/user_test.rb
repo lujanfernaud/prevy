@@ -54,7 +54,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "is invalid with short name" do
     user = users(:phil)
-    user.name = "Ph"
+    user.name = "P"
 
     refute user.valid?
   end
