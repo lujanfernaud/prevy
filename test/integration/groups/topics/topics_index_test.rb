@@ -27,7 +27,7 @@ class TopicsIndexTest < ActionDispatch::IntegrationTest
 
   test "topic row shows 'opened' and topic author" do
     topic = fake_topic(user: @phil)
-    topic.save
+    topic.save!
 
     log_in_as @phil
 
@@ -44,10 +44,10 @@ class TopicsIndexTest < ActionDispatch::IntegrationTest
     @group.members << woodell
 
     topic = fake_topic(user: @phil)
-    topic.save
+    topic.save!
 
     comment = fake_comment(user: woodell, topic: topic)
-    comment.save
+    comment.save!
 
     log_in_as @phil
 

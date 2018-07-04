@@ -40,68 +40,80 @@ class EventTest < ActiveSupport::TestCase
 
   test "is valid" do
     event = fake_event
+
     assert event.valid?
   end
 
   test "is invalid without title" do
     event = fake_event(title: "")
+
     refute event.valid?
   end
 
   test "is invalid with short title" do
     event = fake_event(title: "Eve")
+
     refute event.valid?
   end
 
   test "is invalid without description" do
     event = fake_event(description: "")
+
     refute event.valid?
   end
 
   test "is invalid with short description" do
     event = fake_event(description: "An event")
+
     refute event.valid?
   end
 
   test "is invalid without image" do
     event = fake_event(image: "")
+
     refute event.valid?
   end
 
   test "is invalid with a start date that has already passed" do
     event = fake_event(start_date: 1.day.ago)
+
     refute event.valid?
   end
 
   test "is invalid with an end date that has already passed" do
     event = fake_event(end_date: 1.day.ago)
+
     refute event.valid?
   end
 
   test "is invalid without a street" do
     event = fake_event(street1: "")
+
     refute event.valid?
   end
 
   test "is invalid without a city" do
     event = fake_event(city: "")
+
     refute event.valid?
   end
 
   test "is invalid without a post code" do
     event = fake_event(post_code: "")
+
     refute event.valid?
   end
 
   test "is invalid without a country" do
     event = fake_event(country: "")
+
     refute event.valid?
   end
 
   test "titleizes event title before saving" do
     event = fake_event(title: "john's event")
 
-    event.save
+    event.save!
 
     assert_equal "John's Event", event.title
   end
@@ -135,20 +147,20 @@ class EventTest < ActiveSupport::TestCase
 
   test "stores updated fields" do
     event = fake_event
-    event.save
+    event.save!
 
     assert event.updated_fields.empty?
 
     event.start_date = 1.month.from_now
     event.end_date   = 1.month.from_now + 1.hour
-    event.save
+    event.save!
 
     assert event.updated_fields.include?("updated_start_date")
     assert event.updated_fields.include?("updated_end_date")
     refute event.updated_fields.include?("updated_address")
 
     event.address.city = "Santa Cruz de Tenerife"
-    event.save
+    event.save!
 
     refute event.updated_fields.include?("updated_start_date")
     refute event.updated_fields.include?("updated_end_date")
@@ -161,21 +173,21 @@ class EventTest < ActiveSupport::TestCase
 
     group_original_updated_at = group.updated_at
 
-    event.save
+    event.save!
 
     refute_equal group_original_updated_at, group.reload.updated_at
   end
 
   test "creates event's topic" do
     event = fake_event
-    event.save
+    event.save!
 
     assert event.topic
   end
 
   test "updates event's topic" do
     event = fake_event
-    event.save
+    event.save!
 
     topic = event.topic
     original_topic_title = topic.title
@@ -211,7 +223,7 @@ class EventTest < ActiveSupport::TestCase
 
   test "#comments" do
     event = fake_event
-    event.save
+    event.save!
 
     assert event.comments
   end

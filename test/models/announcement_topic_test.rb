@@ -52,14 +52,14 @@ class TopicTest < ActiveSupport::TestCase
 
   test "has priority" do
     topic = fake_topic(type: "AnnouncementTopic")
-    topic.save
+    topic.save!
 
     assert_equal AnnouncementTopic::PRIORITY, topic.priority
   end
 
   test "priority changes to 0 when updating type to 'Topic'" do
     topic = fake_topic(type: "AnnouncementTopic")
-    topic.save
+    topic.save!
 
     topic.update_attributes(type: "Topic")
 
@@ -70,7 +70,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test "keeps it as announcement on update" do
     topic = fake_topic(type: "AnnouncementTopic")
-    topic.save
+    topic.save!
 
     topic.update_attributes(title: "Announcement topic updated")
 
@@ -85,7 +85,7 @@ class TopicTest < ActiveSupport::TestCase
 
     NewAnnouncementNotification.expects(:call).with(topic)
 
-    topic.save
+    topic.save!
   end
 
   test "does not notify group members if group is a sample group" do
@@ -94,6 +94,6 @@ class TopicTest < ActiveSupport::TestCase
 
     NewAnnouncementNotification.expects(:call).never
 
-    topic.save
+    topic.save!
   end
 end

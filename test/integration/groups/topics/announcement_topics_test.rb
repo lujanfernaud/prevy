@@ -38,10 +38,10 @@ class AnnouncementTopicsTest < ActionDispatch::IntegrationTest
 
   test "group admin sets announcement topic to normal topic" do
     group = fake_group
-    group.save
+    group.save!
 
     topic = fake_topic(group: group, type: "AnnouncementTopic")
-    topic.save
+    topic.save!
 
     log_in_as @phil
 

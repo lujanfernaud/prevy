@@ -7,7 +7,7 @@ class SampleTopicTest < ActiveSupport::TestCase
     @prevy_bot = users(:prevy_bot)
     woodell = users(:woodell)
     @group = fake_group(owner: woodell)
-    @group.save
+    @group.save!
     @group.members << SampleUser.collection_for_sample_group
   end
 

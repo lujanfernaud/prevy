@@ -46,14 +46,14 @@ class EventTopicTest < ActiveSupport::TestCase
 
   test "has priority" do
     event = fake_event
-    event.save
+    event.save!
 
     assert_equal EventTopic::PRIORITY, event.topic.priority
   end
 
   test "keeps it as event topic on update" do
     event = fake_event
-    event.save
+    event.save!
     topic = event.topic
 
     topic.update_attributes(title: "Event topic updated")
@@ -66,7 +66,7 @@ class EventTopicTest < ActiveSupport::TestCase
 
   test "touches event when adding a comment" do
     event = fake_event
-    event.save
+    event.save!
     topic = event.topic
 
     event.update_attributes(title: "Test event")

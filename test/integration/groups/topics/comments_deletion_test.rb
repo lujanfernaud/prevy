@@ -31,7 +31,7 @@ class CommentsDeletionTest < ActionDispatch::IntegrationTest
   test "user is redirected back after deleting the only comment" do
     @topic.comments.destroy_all
     comment = fake_comment(user: @phil, topic: @topic)
-    comment.save
+    comment.save!
 
     log_in_as @phil
 

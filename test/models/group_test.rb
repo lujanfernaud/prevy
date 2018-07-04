@@ -47,31 +47,37 @@ class GroupTest < ActiveSupport::TestCase
 
   test "is invalid without location" do
     group = fake_group(location: "")
+
     refute group.valid?
   end
 
   test "is invalid without name" do
     group = fake_group(name: "")
+
     refute group.valid?
   end
 
   test "is invalid with short name" do
     group = fake_group(name: "Gr")
+
     refute group.valid?
   end
 
   test "is invalid without description" do
     group = fake_group(description: "")
+
     refute group.valid?
   end
 
   test "is invalid with short description" do
     group = fake_group(description: "Our group")
+
     refute group.valid?
   end
 
   test "is invalid without an image" do
     group = fake_group(image: "")
+
     refute group.valid?
   end
 
@@ -124,7 +130,7 @@ class GroupTest < ActiveSupport::TestCase
   test "titleizes name before saving" do
     group = fake_group(name: "john's group")
 
-    group.save
+    group.save!
 
     assert_equal "John's Group", group.name
   end
@@ -132,7 +138,7 @@ class GroupTest < ActiveSupport::TestCase
   test "titleizes location before saving" do
     group = fake_group(location: "the universe")
 
-    group.save
+    group.save!
 
     assert_equal "The Universe", group.location
   end
@@ -143,7 +149,7 @@ class GroupTest < ActiveSupport::TestCase
 
     group = fake_group(description: description)
 
-    group.save
+    group.save!
 
     assert_equal description_capitalized, group.description
   end
@@ -154,7 +160,7 @@ class GroupTest < ActiveSupport::TestCase
 
     UserGroupPoints.expects(:create!).with(user: user, group: group)
 
-    group.save
+    group.save!
   end
 
   test "destroys owner UserGroupPoints" do
@@ -167,7 +173,7 @@ class GroupTest < ActiveSupport::TestCase
                    .returns(group_points)
     group_points.expects(:destroy)
 
-    group.save
+    group.save!
     group.destroy
   end
 
@@ -177,7 +183,7 @@ class GroupTest < ActiveSupport::TestCase
 
     assert_empty group.organizers
 
-    group.save
+    group.save!
 
     assert_equal owner, group.organizers.last
     assert_equal owner, group.moderators.last

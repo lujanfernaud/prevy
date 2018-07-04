@@ -36,10 +36,10 @@ class PinnedTopicsTest < ActionDispatch::IntegrationTest
 
   test "group admin sets pinned topic to normal topic" do
     group = fake_group
-    group.save
+    group.save!
 
     topic = fake_topic(group: group, type: "PinnedTopic")
-    topic.save
+    topic.save!
 
     log_in_as @phil
 

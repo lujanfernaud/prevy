@@ -32,7 +32,7 @@ class AddressTest < ActiveSupport::TestCase
 
   test "#full_address_changed?" do
     event = fake_event
-    event.save
+    event.save!
     address = event.address
 
     refute address.full_address_changed?

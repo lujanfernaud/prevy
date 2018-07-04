@@ -10,7 +10,7 @@ class TopicsDeletionTest < ActionDispatch::IntegrationTest
 
   test "author deletes topic" do
     topic = fake_topic(group: @group, user: @phil)
-    topic.save
+    topic.save!
 
     log_in_as @phil
 
