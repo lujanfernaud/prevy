@@ -11,7 +11,7 @@ class GroupsController < ApplicationController
 
   def show
     @events = store_upcoming_events
-    @events_count = @group.events.upcoming.count
+    @events_count = @group.events.upcoming.size
     @topics = @group.topics_prioritized(normal_topics_limit: 5)
     @unhidden_groups = unhidden_groups_selection_without @group
 

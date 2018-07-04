@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180704071749) do
+ActiveRecord::Schema.define(version: 20180704073454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20180704071749) do
     t.boolean "sample_group", default: false
     t.string "slug"
     t.integer "topics_count", default: 0, null: false
+    t.integer "events_count", default: 0, null: false
     t.index ["location"], name: "index_groups_on_location"
     t.index ["slug"], name: "index_groups_on_slug"
     t.index ["user_id"], name: "index_groups_on_user_id"

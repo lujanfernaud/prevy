@@ -7,6 +7,7 @@
 #  id                            :bigint(8)        not null, primary key
 #  all_members_can_create_events :boolean          default(FALSE)
 #  description                   :string
+#  events_count                  :integer          default(0), not null
 #  hidden                        :boolean          default(FALSE)
 #  image                         :string
 #  location                      :string
@@ -102,9 +103,10 @@ class GroupTest < ActiveSupport::TestCase
   end
 
   test "#events" do
-    group = groups(:one)
+    event = create :event
+    group = event.group
 
-    assert group.events.size > 1
+    assert_not group.events_count.zero?
   end
 
   test "destroys roles" do

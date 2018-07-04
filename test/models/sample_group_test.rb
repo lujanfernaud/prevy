@@ -26,7 +26,7 @@ class SampleGroupTest < ActiveSupport::TestCase
     assert_equal members_with_role_count, group.members_with_role.size
 
     assert_equal 4, group.organizers.size
-    assert_equal 1, group.events.size
+    assert_equal 1, group.events_count
 
     assert_equal 9, group.topics_count
     assert_equal 1, group.announcement_topics.size

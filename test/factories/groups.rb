@@ -7,6 +7,7 @@
 #  id                            :bigint(8)        not null, primary key
 #  all_members_can_create_events :boolean          default(FALSE)
 #  description                   :string
+#  events_count                  :integer          default(0), not null
 #  hidden                        :boolean          default(FALSE)
 #  image                         :string
 #  location                      :string

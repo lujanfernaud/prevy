@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: events
@@ -34,7 +35,7 @@ class Event < ApplicationRecord
   RANDOM_ATTENDEES_SHOWN = 6
 
   belongs_to :organizer, class_name: "User"
-  belongs_to :group,     touch: true
+  belongs_to :group,     touch: true, counter_cache: true
 
   has_many :attendances, foreign_key: "attended_event_id", dependent: :destroy
   has_many :attendees,   through: :attendances

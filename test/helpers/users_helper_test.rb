@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# TODO: Remove file
+
 require 'test_helper'
 
 class UsersHelperTest < ActionView::TestCase
