@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notifications
@@ -29,7 +30,7 @@
 #
 
 class Notification < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, counter_cache: true
 
   validates :message, presence: true
 

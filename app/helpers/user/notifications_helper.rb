@@ -12,7 +12,7 @@ module User::NotificationsHelper
   end
 
   def notifications?
-    current_user.notifications.size > 0
+    current_user.notifications_count > 0
   end
 
   def button_with_notifications
@@ -31,7 +31,7 @@ module User::NotificationsHelper
   end
 
   def notifications_count
-    current_user.notifications.size
+    current_user.notifications_count
   end
 
   def button_without_notifications

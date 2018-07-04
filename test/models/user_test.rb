@@ -18,6 +18,7 @@
 #  last_sign_in_ip        :inet
 #  location               :string
 #  name                   :string
+#  notifications_count    :integer          default(0), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -164,18 +165,24 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "#notifications" do
-    phil = users(:phil)
+    stub_sample_content_for_new_users
 
-    assert_equal 4, phil.notifications.size
+    user = create :user
+    create_list   :notification, 4, user: user
+
+    assert_equal 4, user.notifications_count
   end
 
   test "#upcoming_attended_events" do
+    stub_sample_content_for_new_users
+
     user = users(:woodell)
     upcoming_attended_events = user.upcoming_attended_events
 
     assert_equal 3, upcoming_attended_events.size
   end
 
+  # TODO: Add missing stub_sample_content_for_new_users
   test "titleizes name before saving" do
     user = fake_user(name: "john stevenson")
     user.save!

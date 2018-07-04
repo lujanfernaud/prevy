@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -17,6 +18,7 @@
 #  last_sign_in_ip        :inet
 #  location               :string
 #  name                   :string
+#  notifications_count    :integer          default(0), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string

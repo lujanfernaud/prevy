@@ -6,6 +6,12 @@ module TestCaseSupport
            .to_return(status: 200, body: "", headers: {})
   end
 
+  # TODO: Extract to an independent support file.
+  def stub_sample_content_for_new_users
+    SampleGroup.stubs(:create_for_user)
+    SampleMembershipRequest.stubs(:create_for_user)
+  end
+
   def fake_group(params = {})
     Group.new(
       owner:        params[:owner]        || users(:phil),
