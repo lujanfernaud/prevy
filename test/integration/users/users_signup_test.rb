@@ -5,6 +5,8 @@ require 'test_helper'
 class UsersSignupTest < ActionDispatch::IntegrationTest
   def setup
     stub_geocoder
+
+    stub_sample_content_for_new_users
   end
 
   test "sign up with valid data" do
@@ -110,7 +112,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
   test "user is redirected to the previous location after signing up" do
     user  = users(:phil)
-    group = groups(:strangers_group)
+    group = create :group
 
     visit group_path(group)
 
@@ -125,7 +127,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
   test "user is redirected to new membership request after signing up" do
     user  = users(:phil)
-    group = groups(:strangers_group)
+    group = create :group
 
     visit group_path(group)
 

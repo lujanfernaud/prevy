@@ -5,26 +5,36 @@
       <div class="col-md-12 mt-4 pt-1">
 
         <div class="row mb-2rem">
+
+          <% if params[:invited] %>
+            <%= render "group_welcome" %>
+          <% end %>
+
           <%= render "group_main_content", group: @group %>
-          <%= render "group_sidebar", group: @group %>
-        </div><!-- /.row -->
+          <%= render "group_sidebar",      group: @group %>
+
+        </div>
 
       </div>
-    </div><!-- /.row -->
+    </div>
 
   </div>
 </header>
 
-<% if authorized?(current_user, @group) %>
+<% if authorized?(current_user, @group) || invited?(@group) %>
 
   <% unless @events.empty? %>
     <%= render "events", group: @group,
       events: @events, events_count: @events_count %>
   <% end %>
 
-  <%= render "topics", group: @group %>
+  <% unless @group.topics.empty? && invited?(@group) %>
+    <%= render "topics", group: @group %>
+  <% end %>
 
-  <%= render "members", group: @group %>
+  <% unless @group.members.empty? && !is_group_owner?(current_user, @group) %>
+    <%= render "members", group: @group %>
+  <% end %>
 
 <% else %>
 
@@ -33,5 +43,28 @@
   <% end %>
 
   <%= render "groups/unhidden_groups", unhidden_groups: @unhidden_groups %>
+
+<% end %>
+
+<% if invited?(@group) %>
+
+  <div class="container-fluid bg-light">
+    <div class="container invitee-container mb-2rem pb-4">
+
+      <div class="row mt-2">
+        <div class="col-md-12 mb-2 text-center">
+
+          <div class="box p-3">
+            <h2 class="h3 mt-2 mb-3">You've been invited to this group.</h2>
+            <p class="lead mb-4">Would you like to be part?</p>
+
+            <%= join_link %>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 <% end %>

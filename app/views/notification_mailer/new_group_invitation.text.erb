@@ -1,0 +1,5 @@
+Hello <%= @name %>,
+
+<%= @sender.name %> invites you to join <%= @group.name %> in Prevy.
+
+Go to group: <%= group_url(@group, token: @token) %>

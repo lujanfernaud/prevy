@@ -3,6 +3,8 @@
 class GroupsController < ApplicationController
   before_action :find_group, only: [:show, :edit, :update, :destroy]
   before_action :redirect_to_root_if_not_own_sample_group, only: [:show]
+  before_action :store_invitation_token_in_session, only: [:show]
+  before_action :render_notice_if_group_hidden, only: [:show]
   after_action  :verify_authorized, except: [:index]
 
   def index
@@ -10,9 +12,9 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @events = store_upcoming_events
-    @events_count = @group.events.upcoming.size
-    @topics = @group.topics_prioritized(normal_topics_limit: 5)
+    @events          = store_upcoming_events
+    @events_count    = @group.events.upcoming.size
+    @topics          = @group.topics_prioritized(normal_topics_limit: 5)
     @unhidden_groups = unhidden_groups_selection_without @group
 
     authorize @group
@@ -81,6 +83,27 @@ class GroupsController < ApplicationController
       @group.owner != current_user
     end
 
+    def store_invitation_token_in_session
+      return if params[:token].blank?
+
+      session[:token] = params[:token]
+    end
+
+    def render_notice_if_group_hidden
+      return if     invited_to_group?
+      return unless @group.hidden? && not_authorized?
+
+      render "static_pages/hidden_group"
+    end
+
+    def invited_to_group?
+      GroupInvitation.find_by(group: @group, token: session[:token])
+    end
+
+    def not_authorized?
+      not_owned_by_current_user? && !@group.members.include?(current_user)
+    end
+
     def store_unhidden_groups
       Group.includes(:image_placeholder)
            .unhidden
@@ -107,7 +130,8 @@ class GroupsController < ApplicationController
       params.require(:group)
             .permit(
               :name, :location, :description, :image,
-              :hidden, :all_members_can_create_events
+              :hidden, :all_members_can_create_events,
+              :token
             )
     end
 end

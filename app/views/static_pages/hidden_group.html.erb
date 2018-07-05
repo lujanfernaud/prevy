@@ -1,0 +1,39 @@
+<div class="container-fluid bg-light">
+  <div class="container hidden-group-notice-container">
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-8 mt-2rem mb-2 text-center">
+
+        <h2 class="mb-4 pb-1">
+          Sorry
+        </h2>
+
+        <div class="mb-4 pb-1">
+          <%= shield_icon %>
+        </div>
+
+        <div class="lead">
+          <p>
+            This group is hidden.
+          </p>
+
+          <% if logged_in? %>
+            <p>
+              You need to receive an invitation to be able to see the group.
+            </p>
+          <% else %>
+            <p>
+              If you are a member you need to <em><a href="<%= new_user_session_path %>" class="font-weight-bold">log in</a></em>.
+            </p>
+
+            <p>
+              Otherwise you need to receive an invitation to be able to see the group.
+            </p>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

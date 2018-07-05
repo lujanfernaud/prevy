@@ -87,6 +87,19 @@ class NotificationMailer < ApplicationMailer
     )
   end
 
+  def new_group_invitation(invitation)
+    @sender = invitation.sender
+    @name   = invitation.name
+    @email  = invitation.email
+    @group  = invitation.group
+    @token  = invitation.token
+
+    mail(
+      to: @email,
+      subject: "#{@sender.name} invites you to #{@group.name}"
+    )
+  end
+
   private
 
     def default_notification_email(user, group, subject:)

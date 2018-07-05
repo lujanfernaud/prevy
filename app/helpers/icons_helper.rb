@@ -24,4 +24,16 @@ module IconsHelper
   def person_icon
     octicon "person"
   end
+
+  def people_icon
+    octicon "organization"
+  end
+
+  def rocket_icon
+    octicon "rocket"
+  end
+
+  def shield_icon
+    octicon "shield"
+  end
 end

@@ -143,6 +143,27 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match "Go to announcement", email.body.encoded
   end
 
+  test "#new_group_invitation" do
+    invitation = build_stubbed :group_invitation
+
+    sender  = invitation.sender
+    address = invitation.email
+    group   = invitation.group
+
+    email = NotificationMailer.new_group_invitation(invitation)
+
+    assert_equal [address], email.to
+    assert_email_from(email)
+    assert_email_subject(email,
+                         "#{sender.name} invites you to #{group.name}")
+
+    assert_match "Hello #{invitation.name},", email.body.encoded
+    assert_match "#{sender.name} invites you to join #{group.name} " \
+                 "in Prevy.", email.body.encoded
+
+    assert_match "Go to group", email.body.encoded
+  end
+
   private
 
     def assert_email_to(email, user)

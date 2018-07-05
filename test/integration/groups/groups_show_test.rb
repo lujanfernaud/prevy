@@ -13,6 +13,8 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     @group    = groups(:one)
 
     add_group_owner_to_organizers(@group)
+
+    stub_sample_content_for_new_users
   end
 
   test "group owner visits group" do
@@ -24,7 +26,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     assert_group_info_and_image(@group)
     assert_members_preview(@group)
-    assert_copy_group_link
+    assert_invite_someone_link
 
     refute_membership
     refute_other_unhidden_groups
@@ -43,7 +45,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     assert_group_info_and_image(@group)
     assert_members_preview(@group)
-    assert_copy_group_link
+    refute_invite_someone_link
 
     refute_membership
     refute_other_unhidden_groups
@@ -64,7 +66,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_group_info_and_image(@group)
     assert_admin(@group)
     assert_members_preview_title(@group)
-    refute_copy_group_link
+    refute_invite_someone_link
     assert_membership_button "Request membership"
     refute_unconfirmed_account_alerts
 
@@ -84,7 +86,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_admin(@group)
     assert_members_preview_title(@group)
     assert_members_count(1)
-    refute_copy_group_link
+    refute_invite_someone_link
     assert_membership_button "Request membership"
     refute_unconfirmed_account_alerts
 
@@ -114,6 +116,80 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_current_path root_path
   end
 
+  test "logged in user tries to visit hidden group" do
+    stranger = users(:stranger)
+    group = create :group, hidden: true
+
+    log_in_as(stranger)
+
+    visit group_path(group)
+
+    assert page.has_content? "Sorry"
+    assert page.has_content? "This group is hidden."
+    assert_current_path group_path(group)
+  end
+
+  test "logged out user tries to visit hidden group" do
+    group = create :group, hidden: true
+
+    visit group_path(group)
+
+    assert page.has_content? "Sorry"
+    assert page.has_content? "This group is hidden."
+    assert_current_path group_path(group)
+  end
+
+  test "owner visits hidden group" do
+    group = create :group, hidden: true
+    user  = group.owner
+
+    log_in_as(user)
+
+    visit group_path(group)
+
+    assert_current_path group_path(group)
+  end
+
+  test "member visits hidden group" do
+    user  = create :user
+    group = create :group, hidden: true
+    group.members << user
+
+    log_in_as(user)
+
+    visit group_path(group)
+
+    assert_current_path group_path(group)
+  end
+
+  test "logged out member visits hidden group" do
+    user  = create :user
+    group = create :group, hidden: true
+    group.members << user
+
+    visit group_path(group)
+
+    assert_current_path group_path(group)
+
+    within ".hidden-group-notice-container" do
+      click_on "log in"
+    end
+
+    fill_in "Email",    with: user.email
+    fill_in "Password", with: user.password
+
+    within "form" do
+      click_on "Log in"
+    end
+
+    assert_current_path group_path(group)
+
+    assert_not page.has_css? ".hidden-group-notice-container"
+
+    assert page.has_content? group.owner.name
+    assert page.has_content? group.description
+  end
+
   test "owner with unconfirmed email visits sample group" do
     group = groups(:sample_group)
     user  = users(:user_1)
@@ -125,7 +201,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     visit group_path(group)
 
     assert_members_preview(group)
-    assert_copy_group_link
+    assert_invite_someone_link
 
     assert_upcoming_events
     assert_topics(group)
@@ -203,12 +279,12 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
       end
     end
 
-    def assert_copy_group_link
-      assert page.has_button? "Copy group link"
+    def assert_invite_someone_link
+      assert page.has_link? "Invite someone"
     end
 
-    def refute_copy_group_link
-      refute page.has_button? "Copy group link"
+    def refute_invite_someone_link
+      refute page.has_link? "Invite someone"
     end
 
     def assert_membership_button(button_text)

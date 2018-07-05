@@ -38,9 +38,15 @@
 #
 
 class User < ApplicationRecord
+  attribute :skip_sample_content, :boolean
+
   has_many :owned_groups, class_name: "Group", foreign_key: "user_id",
             dependent: :destroy
   has_many :received_requests, through: :owned_groups
+
+  has_many :group_invitations, dependent: :destroy
+  has_many :sent_invitations,  class_name: "GroupInvitation",
+            foreign_key: "sender_id"
 
   has_many :membership_requests, dependent: :destroy
   has_many :sent_requests, through: :membership_requests, source: "group"
@@ -64,8 +70,9 @@ class User < ApplicationRecord
   has_many :group_membership_notifications
   has_many :group_role_notifications
   has_many :announcement_topic_notifications
+  has_many :group_invitation_notifications
 
-  validates :email,    presence: true, email: true
+  validates :email,    presence: true, email:  true
   validates :name,     presence: true, length: { in: 2..50 }
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
@@ -95,6 +102,7 @@ class User < ApplicationRecord
     group_role_emails         Boolean, default: true
     group_event_emails        Boolean, default: true
     group_announcement_emails Boolean, default: true
+    group_invitation_emails   Boolean, default: true
   end
 
   scope :recent, -> (users_number = 5) {
@@ -145,7 +153,8 @@ class User < ApplicationRecord
     membership_request_notifications.includes(:membership_request) +
       group_membership_notifications.includes(group_membership: :group) +
       group_role_notifications.includes(:group) +
-      announcement_topic_notifications
+      announcement_topic_notifications +
+      group_invitation_notifications
   end
 
   def announcement_notifications
@@ -192,7 +201,7 @@ class User < ApplicationRecord
     end
 
     def user_without_sample_content?
-      self.sample_user? || self.admin?
+      self.skip_sample_content? || self.sample_user? || self.admin?
     end
 
     def create_sample_group

@@ -37,11 +37,13 @@
 #  index_users_on_slug                  (slug)
 #
 
+
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   test "is valid" do
     user = users(:phil)
+
     assert user.valid?
   end
 
@@ -233,5 +235,12 @@ class UserTest < ActiveSupport::TestCase
     user.save!
 
     assert_equal name_parameterized, user.slug
+  end
+
+  test "skips sample content" do
+    user = create :user, skip_sample_content: true
+
+    SampleGroup.expects(:create_for_user).with(user).never
+    SampleMembershipRequest.expects(:create_for_user).with(user).never
   end
 end

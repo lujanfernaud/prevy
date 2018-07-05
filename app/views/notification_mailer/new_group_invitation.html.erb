@@ -1,0 +1,9 @@
+<p>
+  Hello <%= @name %>,
+</p>
+<p>
+  <%= @sender.name %> invites you to join <%= @group.name %> in <%= link_to "Prevy", "https://prevy.herokuapp.com" %>.
+</p>
+<p>
+  Go to group: <%= link_to @group.name, group_url(@group, token: @token) %>
+</p>

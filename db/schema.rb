@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180704125849) do
+ActiveRecord::Schema.define(version: 20180706063411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,20 @@ ActiveRecord::Schema.define(version: 20180704125849) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "group_invitations", force: :cascade do |t|
+    t.bigint "group_id"
+    t.bigint "user_id"
+    t.string "email"
+    t.string "token"
+    t.bigint "sender_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.index ["group_id"], name: "index_group_invitations_on_group_id"
+    t.index ["sender_id"], name: "index_group_invitations_on_sender_id"
+    t.index ["user_id"], name: "index_group_invitations_on_user_id"
   end
 
   create_table "group_memberships", force: :cascade do |t|
@@ -232,6 +246,8 @@ ActiveRecord::Schema.define(version: 20180704125849) do
   end
 
   add_foreign_key "events", "groups"
+  add_foreign_key "group_invitations", "groups"
+  add_foreign_key "group_invitations", "users"
   add_foreign_key "group_memberships", "groups"
   add_foreign_key "group_memberships", "users"
   add_foreign_key "groups", "users"

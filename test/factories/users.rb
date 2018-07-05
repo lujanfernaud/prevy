@@ -37,8 +37,9 @@
 #  index_users_on_slug                  (slug)
 #
 
+
 FactoryBot.define do
-  factory :user, aliases: [:owner, :organizer, :attendee] do
+  factory :user, aliases: [:owner, :sender, :organizer, :attendee] do
     sequence(:name)  { |n| "Factory User #{n}" }
     sequence(:email) { |n| "factoryuser#{n}@test.test" }
     password         "password"
@@ -51,6 +52,19 @@ FactoryBot.define do
     trait :with_info do
       location "Tenerife"
       bio      "Some random bio goes here."
+    end
+
+    trait :no_emails do
+      settings {
+        {
+          membership_request_emails: false,
+          group_membership_emails:   false,
+          group_role_emails:         false,
+          group_event_emails:        false,
+          group_announcement_emails: false,
+          group_invitation_emails:   false
+        }
+      }
     end
   end
 end

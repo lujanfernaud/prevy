@@ -13,6 +13,6 @@
       <%= yield %>
     </main>
 
-    <%= render "footer" unless devise_action? || user_settings? %>
+    <%= render "footer" unless page_without_footer? %>
   </body>
 </html>

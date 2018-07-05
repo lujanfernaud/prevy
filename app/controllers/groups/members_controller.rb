@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Groups::MembersController < ApplicationController
-  before_action :redirect_to_sign_up, if: :not_logged_in?
   before_action :find_group
-  before_action :redirect_to_root, unless: :authorized?
+  before_action :redirect_to_sign_up, if: :not_authorized?
+  before_action :redirect_to_root,    unless: :authorized?
 
   # Group members
   def index
@@ -24,16 +24,21 @@ class Groups::MembersController < ApplicationController
 
   private
 
+    def find_group
+      @group = Group.find(params[:group_id])
+    end
+
     def redirect_to_sign_up
       redirect_to new_user_registration_path
     end
 
-    def not_logged_in?
-      !current_user
+    def not_authorized?
+      !current_user && !invited_to_group?
     end
 
-    def find_group
-      @group = Group.find(params[:group_id])
+    def invited_to_group?
+      @_invitation ||= GroupInvitation.find_by(
+        group: @group, token: params[:token])
     end
 
     def redirect_to_root
@@ -41,6 +46,8 @@ class Groups::MembersController < ApplicationController
     end
 
     def authorized?
+      return true if invited_to_group?
+
       @group.user_is_authorized? current_user
     end
 

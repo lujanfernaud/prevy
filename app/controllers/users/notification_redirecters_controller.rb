@@ -7,6 +7,7 @@ class Users::NotificationRedirectersController < ApplicationController
     @membership_request = params[:membership_request]
     @group              = params[:group]
     @topic              = params[:topic]
+    @token              = params[:token]
 
     delete_notification_and_redirect
   end
@@ -26,7 +27,15 @@ class Users::NotificationRedirectersController < ApplicationController
       end
 
       if @group
-        redirect_to group_path(@group) and return
+        redirect_to group_path(@group, token_param) and return
+      end
+    end
+
+    def token_param
+      if @token
+        { token: @token }
+      else
+        ""
       end
     end
 end

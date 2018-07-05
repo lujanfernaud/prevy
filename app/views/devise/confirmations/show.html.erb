@@ -13,6 +13,11 @@
       <%= form_for(resource, as: resource_name, url: confirm_path) do |f| %>
         <%= devise_error_messages! %>
 
+        <% if params[:invited] %>
+          <%= f.hidden_field :invited,  value: true %>
+          <%= f.hidden_field :group_id, value: params[:group_id] %>
+        <% end %>
+
         <div class="form-group">
           <%= f.label :password %>
           <% if @minimum_password_length %>

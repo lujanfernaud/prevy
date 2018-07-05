@@ -3,6 +3,8 @@
 # Preview all emails at http://localhost:3000/rails/mailers/notification_mailer
 
 class NotificationMailerPreview < ActionMailer::Preview
+  include FactoryBot::Syntax::Methods
+
   def new_membership_request
     NotificationMailer.new_membership_request(User.last, Group.last)
   end
@@ -39,6 +41,15 @@ class NotificationMailerPreview < ActionMailer::Preview
 
   def new_announcement_topic
     NotificationMailer.new_announcement_topic(user, announcement_topic)
+  end
+
+  def new_group_invitation
+    invitation = build_stubbed :group_invitation,
+                                name:  "Doris",
+                                email: "doris@test.test",
+                                token: "123456789"
+
+    NotificationMailer.new_group_invitation(invitation)
   end
 
   private

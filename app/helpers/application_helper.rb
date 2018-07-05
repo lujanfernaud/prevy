@@ -8,6 +8,10 @@ module ApplicationHelper
     controller_name == "static_pages" && action_name == "home"
   end
 
+  def page_without_footer?
+    devise_action? || user_settings? || group_settings?
+  end
+
   def devise_action?
     devise_actions.include? [controller_name, action_name]
   end
@@ -35,6 +39,18 @@ module ApplicationHelper
       ["users/notifications",       "edit"],  # Email Notifications
       ["users/memberships",         "index"], # My Groups
       ["users/membership_requests", "index"]  # Membership Requests
+    ]
+  end
+
+  def group_settings?
+    group_settings.include? [controller_path, action_name]
+  end
+
+  def group_settings
+    [
+      ["groups/invitations", "new"],  # Invite Someone
+      ["groups/invitations", "index"], # Invitations Index
+      ["static_pages", "hidden_group"] # Hidden Group Notice
     ]
   end
 

@@ -17,12 +17,14 @@ Rails.application.routes.draw do
 
   # Static Pages
   # ------------
-
   # Root
   root "static_pages#home"
-
-  # Create Group Unconfirmed
+  #
+  # Create Group Unconfirmed Notice
   get  "create_group_unconfirmed", to: "static_pages#create_group_unconfirmed"
+  #
+  # Hidden Group Notice
+  get  "hidden_group", to: "static_pages#hidden_group"
 
   # Users
   # -----
@@ -50,6 +52,14 @@ Rails.application.routes.draw do
   # Groups
   # ------
   resources :groups do
+    # Group Invitations
+    resources :invitations, only: [:index, :new, :create],
+      controller: "groups/invitations"
+
+    # Group Invited Members
+    resources :invited_members, only: [:create],
+      controller: "groups/invited_members"
+
     # Group Membership Requests
     resources :membership_requests, only: [:new, :create, :destroy],
       controller: "groups/membership_requests"

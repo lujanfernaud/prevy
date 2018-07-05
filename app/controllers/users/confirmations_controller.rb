@@ -25,11 +25,14 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
     self.resource = find_resource_by_confirmation_token
 
-    if resource_update_attributes? && resource.password_match?
-      confirm_resource
-      sign_in_and_redirect(resource_name, resource)
+    return render :show unless attributes_update_and_password_matches?
+
+    confirm_resource
+
+    if user_invited?
+      sign_in_and_redirect_to_group_path
     else
-      render :show
+      sign_in_and_redirect(resource_name, resource)
     end
   end
 
@@ -55,6 +58,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
       resource.nil? || resource.confirmed?
     end
 
+    def attributes_update_and_password_matches?
+      resource_update_attributes? && resource.password_match?
+    end
+
     def resource_update_attributes?
       resource.update_attributes(
         params[resource_name].
@@ -65,6 +72,20 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
     def confirm_resource
       self.resource = resource_class.confirm_by_token(@confirmation_token)
-      set_flash_message :notice, :confirmed
+      set_flash_message :notice, :confirmed unless user_invited?
+    end
+
+    def user_invited?
+      params[:user][:invited]
+    end
+
+    def sign_in_and_redirect_to_group_path
+      scope = Devise::Mapping.find_scope!(resource_name)
+      sign_in(scope, resource)
+      redirect_to group_path(group, invited: true)
+    end
+
+    def group
+      @_group ||= Group.find(params[:user][:group_id].to_i)
     end
 end

@@ -52,6 +52,20 @@ module GroupsHelper
     group.owner == user
   end
 
+  def invited?(group)
+    group.invitation_tokens.include?(session[:token])
+  end
+
+  def admin_name_or_link(group)
+    owner = group.owner
+
+    if invited?(group)
+      link_to owner.name, group_member_path(group, owner)
+    else
+      owner.name
+    end
+  end
+
   def checked_if_not_set(attribute)
     attribute ? false : true
   end

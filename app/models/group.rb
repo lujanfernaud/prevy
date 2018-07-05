@@ -40,6 +40,8 @@ class Group < ApplicationRecord
 
   has_one  :image_placeholder, as: :resource, dependent: :destroy
 
+  has_many :group_invitations, dependent: :destroy
+
   has_many :group_memberships, dependent: :delete_all
   has_many :members, through: :group_memberships, source: "user"
 
@@ -117,6 +119,14 @@ class Group < ApplicationRecord
     sample_resource? && name =~ /\ASample\s/
   end
 
+  def invitation_tokens
+    invitations.pluck(:token)
+  end
+
+  def invitations
+    group_invitations.order(created_at: :desc)
+  end
+
   # When we pass NULL to LIMIT, Postgres treats it as LIMIT ALL (no limit).
   # https://www.postgresql.org/docs/current/static/sql-select.html#SQL-LIMIT
   def topics_prioritized(normal_topics_limit: nil)
@@ -143,8 +153,8 @@ class Group < ApplicationRecord
     User.joins(:roles).where(roles: { resource_id: self, name: "member" })
   end
 
-  def recent_members
-    members.limit(RECENT_MEMBERS_SHOWN)
+  def recent_members(limit: RECENT_MEMBERS_SHOWN)
+    members.limit(limit)
   end
 
   def top_members(limit: TOP_MEMBERS_SHOWN)

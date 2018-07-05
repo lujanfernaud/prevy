@@ -471,6 +471,17 @@ a.box-title:hover {
 }
 
 
+// Invitations
+
+
+.invitation__email {
+  margin-top: .625rem;
+  margin-bottom: .625rem;
+  background-color: rgba($gray-200, .65);
+  border-radius: 25px;
+}
+
+
 // Topics
 
 
@@ -700,6 +711,14 @@ a.box-title:hover {
   overflow: hidden;
 }
 
+.pt-0125 {
+  padding-top: .125rem;
+}
+
+.pb-0125 {
+  padding-bottom: .125rem;
+}
+
 
 // Lazysizes
 
@@ -781,8 +800,14 @@ trix-editor {
   vertical-align: sub;
 }
 
-.octicon-person {
+.octicon-person,
+.octicon-organization {
   vertical-align: sub;
+}
+
+.octicon-shield {
+  width: 150px;
+  height: 150px;
 }
 
 

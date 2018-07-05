@@ -6,6 +6,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   def setup
     @user  = users(:phil)
     @group = groups(:strangers_group)
+
+    stub_sample_content_for_new_users
   end
 
   test "login with valid data" do
@@ -62,24 +64,28 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
 
   test "user is redirected to the previous location after logging in" do
-    visit group_path(@group)
+    group = create :group
+
+    visit group_path(group)
 
     click_on "Log in"
 
     introduce_log_in_information_as(@user)
 
-    assert current_path == group_path(@group)
+    assert current_path == group_path(group)
   end
 
   test "user is redirected to new membership request after logging in" do
-    visit group_path(@group)
+    group = create :group
+
+    visit group_path(group)
 
     click_on "Request membership"
     click_on "Log in"
 
     introduce_log_in_information_as(@user)
 
-    assert current_path == new_group_membership_request_path(@group)
+    assert current_path == new_group_membership_request_path(group)
   end
 
   test "logout" do

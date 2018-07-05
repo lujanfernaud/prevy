@@ -1,0 +1,13 @@
+<div class="box invitation-box p-3 mb-4">
+  <p class="invitation__name mb-0">
+    <%= invitation.name %>
+  </p>
+
+  <p class="invitation__email py-1 px-3 d-inline-block">
+    <%= invitation.email %>
+  </p>
+
+  <p class="invitation__date mb-0">
+    Sent <%= local_time_ago(invitation.created_at) %>
+  </p>
+</div>
