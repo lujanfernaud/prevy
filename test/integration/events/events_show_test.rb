@@ -3,6 +3,10 @@
 require 'test_helper'
 
 class EventsShowTest < ActionDispatch::IntegrationTest
+  def setup
+    stub_sample_content_for_new_users
+  end
+
   test "logged in user visits event" do
     penny = users(:penny)
     group = groups(:one)
@@ -34,9 +38,40 @@ class EventsShowTest < ActionDispatch::IntegrationTest
 
     visit group_event_path(group, event)
 
-    assert page.has_content? "You are not authorized to perform this action"
+    assert_current_path new_user_session_path
+  end
 
-    assert_equal current_path, root_path
+  test "logged out invited user visits event" do
+    event = create :event
+    group = event.group
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  "test@test.test"
+
+    visit group_path(group, token: invitation.token)
+    visit group_event_path(group, event)
+
+    assert_current_path group_event_path(group, event)
+  end
+
+  test "logged in invited user visits event" do
+    user  = create :user
+    event = create :event
+    group = event.group
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  user.email
+
+    log_in_as user
+
+    visit group_path(group, token: invitation.token)
+    visit group_event_path(group, event)
+
+    assert_current_path group_event_path(group, event)
   end
 
   test "event organizer visits event" do

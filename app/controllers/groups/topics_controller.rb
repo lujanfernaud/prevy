@@ -1,30 +1,26 @@
 # frozen_string_literal: true
 
 class Groups::TopicsController < ApplicationController
-  after_action :verify_authorized
+  include Groups::AuthorizationRedirecter
+
+  before_action :find_group
+  after_action  :verify_authorized, except: [:index, :show]
 
   def index
-    @group  = find_group
     @topics = find_all_topics
-
-    authorize :topic
 
     add_breadcrumbs_for_index
   end
 
   def show
-    @group    = find_group
     @topic    = find_topic
     @comments = find_comments
     @comment  = TopicComment.new
-
-    authorize @topic
 
     add_breadcrumbs_for_show
   end
 
   def new
-    @group = find_group
     @topic = Topic.new
 
     authorize @topic
@@ -33,7 +29,6 @@ class Groups::TopicsController < ApplicationController
   end
 
   def edit
-    @group = find_group
     @topic = find_topic
 
     authorize @topic
@@ -42,7 +37,6 @@ class Groups::TopicsController < ApplicationController
   end
 
   def create
-    @group = find_group
     @topic = create_topic
 
     authorize @topic
@@ -58,7 +52,6 @@ class Groups::TopicsController < ApplicationController
   end
 
   def update
-    @group = find_group
     @topic = find_topic
 
     authorize @topic
@@ -74,7 +67,6 @@ class Groups::TopicsController < ApplicationController
   end
 
   def destroy
-    @group = find_group
     @topic = find_topic
 
     authorize @topic
@@ -88,7 +80,7 @@ class Groups::TopicsController < ApplicationController
   private
 
     def find_group
-      Group.find(params[:group_id])
+      @group ||= Group.find(params[:group_id])
     end
 
     def find_all_topics

@@ -29,20 +29,48 @@ class GroupsMembersTest < ActionDispatch::IntegrationTest
     assert page.has_css? ".user-box"
   end
 
-  test "non-member user visits members" do
-    onitsuka = users(:onitsuka)
+  test "logged out invited user visits group members" do
+    invitation = create :group_invitation,
+                         group:  @group,
+                         sender: @group.owner,
+                         email:  "test@test.test"
 
-    log_in_as onitsuka
+    visit group_path(@group, token: invitation.token)
+    visit group_members_path(@group)
+
+    assert_current_path group_members_path(@group)
+  end
+
+  test "logged in invited user visits group members" do
+    user = create :user
+
+    invitation = create :group_invitation,
+                         group:  @group,
+                         sender: @group.owner,
+                         email:  user.email
+
+    log_in_as user
+
+    visit group_path(@group, token: invitation.token)
+    visit group_members_path(@group)
+
+    assert_current_path group_members_path(@group)
+  end
+
+  test "non-member user visits members" do
+    user = create :user
+
+    log_in_as user
 
     visit group_members_path(@group)
 
-    assert_equal current_path, root_path
+    assert_current_path root_path
   end
 
   test "logged out user visits members" do
     visit group_members_path(@group)
 
-    assert_equal current_path, new_user_registration_path
+    assert_current_path new_user_session_path
   end
 
   test "member card shows points number" do

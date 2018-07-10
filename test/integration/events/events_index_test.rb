@@ -4,40 +4,68 @@ require 'test_helper'
 
 class EventsIndexTest < ActionDispatch::IntegrationTest
   def setup
-    @phil = users(:phil)
-    @onitsuka = users(:onitsuka)
+    stub_sample_content_for_new_users
   end
 
-  test "user with events visits events index" do
-    log_in_as(@phil)
+  test "logged in group member visits events index" do
+    user  = create :user
+    group = create :group
+    group.members << user
 
-    visit user_events_path(@phil)
-
-    assert page.has_css? ".box", count: 15
-  end
-
-  test "user without events visits events index" do
-    log_in_as(@onitsuka)
-
-    visit user_events_path(@onitsuka)
-
-    refute page.has_css?     ".box"
-    assert page.has_content? "There are no upcoming events"
-  end
-
-  test "user visits group events index" do
-    group = groups(:one)
-
-    log_in_as(@phil)
+    log_in_as user
 
     visit group_events_path(group)
 
-    within ".breadcrumb" do
-      assert page.has_link?    group.name
-      assert page.has_content? "Events"
-    end
+    assert_current_path group_events_path(group)
+  end
 
-    assert page.has_content? "Events"
-    assert page.has_css?     ".box"
+  test "logged in user visits events index" do
+    user  = create :user
+    group = create :group
+
+    log_in_as user
+
+    visit group_events_path(group)
+
+    assert_current_path root_path
+  end
+
+  test "logged out user visits events index" do
+    group = create :group
+
+    visit group_events_path(group)
+
+    assert_current_path new_user_session_path
+  end
+
+  test "logged out invited user visits events index" do
+    group = create :group
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  "test@test.test"
+
+    visit group_path(group, token: invitation.token)
+    visit group_events_path(group)
+
+    assert_current_path group_events_path(group)
+  end
+
+  test "logged in invited user visits events index" do
+    user  = create :user
+    group = create :group
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  user.email
+
+    log_in_as user
+
+    visit group_path(group, token: invitation.token)
+    visit group_events_path(group)
+
+    assert_current_path group_events_path(group)
   end
 end

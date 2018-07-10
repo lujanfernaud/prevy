@@ -2,32 +2,28 @@
 
 class EventsController < ApplicationController
   require "will_paginate/array"
-  include ApplicationHelper
 
-  after_action :verify_authorized, except: :index
+  include ApplicationHelper
+  include Groups::AuthorizationRedirecter
+
+  before_action :find_group
+  after_action  :verify_authorized, except: [:index, :show]
 
   def index
-    authorize :event
-
-    @group  = find_group
     @events = events_decorators_for @group.events
 
     add_breadcrumbs_for_index
   end
 
   def show
-    @group    = find_group
     @event    = find_and_decorate_event
     @comments = @event.comments.order(:created_at).includes(:user, :edited_by)
     @comment  = TopicComment.new
-
-    authorize @event
 
     add_breadcrumbs_for_show
   end
 
   def new
-    @group = find_group
     @event = @group.events.build
     @event.build_address
 
@@ -37,7 +33,6 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @group = find_group
     @event = find_event
 
     authorize @event
@@ -46,7 +41,6 @@ class EventsController < ApplicationController
   end
 
   def create
-    @group = find_group
     @event = @group.events.build event_params
     @event.organizer = current_user
 
@@ -64,7 +58,6 @@ class EventsController < ApplicationController
   end
 
   def update
-    @group = find_group
     @event = find_event
 
     authorize @event
@@ -81,7 +74,6 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @group = find_group
     @event = current_user.organized_events.find(params[:id])
 
     authorize @event
@@ -89,29 +81,28 @@ class EventsController < ApplicationController
     redirect_to_root unless @event
 
     @event.destroy
+
     flash[:success] = "Event deleted."
     redirect_to group_path(@group)
   end
 
   private
 
-    def find_and_decorate_event
-      event = Event.find(params[:id])
-      authorize event
-      @event = EventDecorator.new(event)
-    end
-
-    def find_event
-      Event.find(params[:id])
-    end
-
     def find_group
-      Group.find(params[:group_id])
+      @group ||= Group.find(params[:group_id])
     end
 
     def events_decorators_for(concern)
       EventDecorator.collection(concern)
                     .paginate(page: params[:page], per_page: 15)
+    end
+
+    def find_and_decorate_event
+      EventDecorator.new(Event.find(params[:id]))
+    end
+
+    def find_event
+      Event.find(params[:id])
     end
 
     def add_breadcrumbs_for_index

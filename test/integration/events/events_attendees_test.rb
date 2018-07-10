@@ -18,7 +18,7 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
     @event.reload
   end
 
-  test "logged in user visits attendees" do
+  test "member visits attendees index" do
     visit_event_attendees_logged_in_as_stranger
 
     assert_breadcrumbs(@group, @event)
@@ -27,6 +27,55 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Attendees (#{@event.attendees_count})"
 
     assert_attendees_links(@event)
+  end
+
+  test "logged out user visits attendees index" do
+    visit event_attendees_path(@event)
+
+    assert_current_path new_user_session_path
+  end
+
+  test "logged in user visits attendees index" do
+    user = create :user
+
+    log_in_as user
+
+    visit event_attendees_path(@event)
+
+    assert_current_path root_path
+  end
+
+  test "logged out invited user visits attendees index" do
+    event = create :event
+    group = event.group
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  "test@test.test"
+
+    visit group_path(group, token: invitation.token)
+    visit event_attendees_path(event)
+
+    assert_current_path event_attendees_path(event)
+  end
+
+  test "logged in invited user visits attendees index" do
+    user  = create :user
+    event = create :event
+    group = event.group
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  user.email
+
+    log_in_as user
+
+    visit group_path(group, token: invitation.token)
+    visit event_attendees_path(event)
+
+    assert_current_path event_attendees_path(event)
   end
 
   test "attendee card shows points number" do
@@ -49,12 +98,6 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
     assert_equal current_path, root_path
   end
 
-  test "logged out user visits attendees" do
-    visit event_attendees_path(@event)
-
-    assert_equal current_path, new_user_registration_path
-  end
-
   test "user visit attendee" do
     visit_event_attendees_logged_in_as_stranger
 
@@ -68,6 +111,47 @@ class EventsAttendeesTest < ActionDispatch::IntegrationTest
     end
 
     assert_current_path event_attendees_path(@event)
+  end
+
+  test "logged out invited user visits attendee" do
+    attendee = create :user
+    event    = create :event
+    group    = event.group
+
+    group.members   << attendee
+    event.attendees << attendee
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  "test@test.test"
+
+    visit group_path(group, token: invitation.token)
+    visit event_attendee_path(event, attendee)
+
+    assert_current_path event_attendee_path(event, attendee)
+  end
+
+  test "logged in invited user visits attendee" do
+    attendee = create :user
+    user     = create :user
+    event    = create :event
+    group    = event.group
+
+    group.members   << attendee
+    event.attendees << attendee
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  user.email
+
+    log_in_as user
+
+    visit group_path(group, token: invitation.token)
+    visit event_attendee_path(event, attendee)
+
+    assert_current_path event_attendee_path(event, attendee)
   end
 
   private

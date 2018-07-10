@@ -9,6 +9,8 @@ class TopicsShowTest < ActionDispatch::IntegrationTest
     @group = groups(:one)
     @phil  = users(:phil)
     @topic = topics(:one)
+
+    stub_sample_content_for_new_users
   end
 
   test "user visits topic" do
@@ -34,6 +36,60 @@ class TopicsShowTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal group_event_path(@group, topic.event), current_path
+  end
+
+  test "logged out user visits topic" do
+    topic = create :topic
+    group = topic.group
+
+    visit group_topic_path(group, topic)
+
+    assert_current_path new_user_session_path
+  end
+
+  test "logged in user visits topic" do
+    user  = create :user
+    topic = create :topic
+    group = topic.group
+
+    log_in_as user
+
+    visit group_topic_path(group, topic)
+
+    assert_current_path root_path
+  end
+
+  test "logged out invited user visits topic" do
+    topic = create :topic
+    group = topic.group
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  "test@test.test"
+
+    visit group_path(group, token: invitation.token)
+    visit group_topic_path(group, topic)
+
+    assert_current_path group_topic_path(group, topic)
+  end
+
+  test "logged in invited user visits topic" do
+    user  = create :user
+    topic = create :topic
+    group = topic.group
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  user.email
+
+    log_in_as user
+
+    visit group_path(group, token: invitation.token)
+    visit group_topic_path(group, topic)
+
+    assert_current_path group_topic_path(group, topic)
   end
 
   private

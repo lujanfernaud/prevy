@@ -9,6 +9,8 @@ class TopicsIndexTest < ActionDispatch::IntegrationTest
     @topic = topics(:one)
     @group = groups(:one)
     @phil  = users(:phil)
+
+    stub_sample_content_for_new_users
   end
 
   test "user visits index" do
@@ -23,6 +25,60 @@ class TopicsIndexTest < ActionDispatch::IntegrationTest
     click_on "Submit a new topic"
 
     assert_equal current_path, new_group_topic_path(@group)
+  end
+
+  test "logged out user visits index" do
+    topic = create :topic
+    group = topic.group
+
+    visit group_topics_path(group)
+
+    assert_current_path new_user_session_path
+  end
+
+  test "logged in user visits index" do
+    user  = create :user
+    topic = create :topic
+    group = topic.group
+
+    log_in_as user
+
+    visit group_topics_path(group)
+
+    assert_current_path root_path
+  end
+
+  test "logged out invited user visits index" do
+    topic = create :topic
+    group = topic.group
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  "test@test.test"
+
+    visit group_path(group, token: invitation.token)
+    visit group_topics_path(group)
+
+    assert_current_path group_topics_path(group)
+  end
+
+  test "logged in invited user visits index" do
+    user  = create :user
+    topic = create :topic
+    group = topic.group
+
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  user.email
+
+    log_in_as user
+
+    visit group_path(group, token: invitation.token)
+    visit group_topics_path(group)
+
+    assert_current_path group_topics_path(group)
   end
 
   test "topic row shows 'opened' and topic author" do
