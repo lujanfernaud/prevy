@@ -46,7 +46,7 @@ module Group::ButtonsHelper
 
   def see_all_members_link(group, quantity:)
     if group.members.size > quantity
-      link_to "See all organizers and members", group_members_path(group)
+      link_to "See all members", group_members_path(group)
     end
   end
 end
