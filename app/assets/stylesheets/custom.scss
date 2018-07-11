@@ -470,6 +470,13 @@ a.box-title:hover {
   flex-basis: 120px;
 }
 
+// Hack to offset screen position when using anchor link.
+// It can be removed if we remove the link to 'See most involved members'.
+.members-container {
+  margin-top: -41px;
+  padding-top: 30px;
+}
+
 
 // Invitations
 
@@ -796,12 +803,10 @@ trix-editor {
   margin-top: -.1rem;
 }
 
-.octicon-location {
-  vertical-align: sub;
-}
-
+.octicon-location,
 .octicon-person,
-.octicon-organization {
+.octicon-organization,
+.octicon-star {
   vertical-align: sub;
 }
 

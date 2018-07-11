@@ -36,4 +36,8 @@ module IconsHelper
   def shield_icon
     octicon "shield"
   end
+
+  def star_icon
+    octicon "star"
+  end
 end
