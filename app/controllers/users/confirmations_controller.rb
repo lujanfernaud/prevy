@@ -17,7 +17,11 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
     self.resource = find_resource_by_confirmation_token
 
-    super if resource_is_not_confirmable?
+    if resource.confirmed?
+      return sign_in_and_redirect(resource_name, resource)
+    end
+
+    super if !resource
   end
 
   def confirm
@@ -54,10 +58,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
       resource_class.find_by_confirmation_token(@confirmation_token)
     end
 
-    def resource_is_not_confirmable?
-      resource.nil? || resource.confirmed?
-    end
-
     def attributes_update_and_password_matches?
       resource_update_attributes? && resource.password_match?
     end
@@ -76,7 +76,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     end
 
     def user_invited?
-      params[:user][:invited]
+      params[:user][:invited] == "true"
     end
 
     def sign_in_and_redirect_to_group_path

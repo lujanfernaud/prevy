@@ -45,8 +45,9 @@ FactoryBot.define do
     password         "password"
 
     trait :confirmed do
-      after(:build) { |user| user.confirm }
-      after(:build) { |user| user.skip_confirmation_notification! }
+      confirmation_token "123456789"
+      after(:build)      { |user| user.confirm }
+      after(:build)      { |user| user.skip_confirmation_notification! }
     end
 
     trait :with_info do
