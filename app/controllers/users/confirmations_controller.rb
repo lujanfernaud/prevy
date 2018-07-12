@@ -34,6 +34,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     confirm_resource
 
     if user_invited?
+      invitation.destroy
       sign_in_and_redirect_to_group_path
     else
       sign_in_and_redirect(resource_name, resource)
@@ -77,6 +78,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
     def user_invited?
       params[:user][:invited] == "true"
+    end
+
+    def invitation
+      GroupInvitation.find_by(group: group, token: @confirmation_token)
     end
 
     def sign_in_and_redirect_to_group_path

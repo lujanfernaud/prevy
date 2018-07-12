@@ -8,7 +8,7 @@ class Groups::InvitedMembersController < ApplicationController
       prepare_membership_for_registered_user
       redirect_to group_path(invitation.group, invited: true)
     else
-      prepare_membership_for_new_user
+      create_user_and_membership
       redirect_to user_confirmation_path(invited_user_params)
     end
   end
@@ -24,16 +24,15 @@ class Groups::InvitedMembersController < ApplicationController
       invitation.destroy
     end
 
-    def prepare_membership_for_new_user
+    def create_user_and_membership
       GroupInvitedMember.create_from invitation
-      invitation.destroy
     end
 
     def invited_user_params
       {
         confirmation_token: invitation.token,
-        group_id: invitation.group.id,
-        invited: true
+        group_id:           invitation.group.id,
+        invited:            true
       }
     end
 end
