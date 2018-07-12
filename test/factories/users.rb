@@ -37,7 +37,6 @@
 #  index_users_on_slug                  (slug)
 #
 
-
 FactoryBot.define do
   factory :user, aliases: [:owner, :sender, :organizer, :attendee] do
     sequence(:name)  { |n| "Factory User #{n}" }
@@ -45,9 +44,8 @@ FactoryBot.define do
     password         "password"
 
     trait :confirmed do
-      confirmation_token "123456789"
-      after(:build)      { |user| user.confirm }
-      after(:build)      { |user| user.skip_confirmation_notification! }
+      after(:build) { |user| user.confirm }
+      after(:build) { |user| user.skip_confirmation_notification! }
     end
 
     trait :with_info do
