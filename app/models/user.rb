@@ -175,6 +175,13 @@ class User < ApplicationRecord
     password == password_confirmation && !password.blank?
   end
 
+  protected
+
+    # Devise
+    def after_confirmation
+      WelcomeEmailJob.perform_async(self)
+    end
+
   private
 
     def format_name
