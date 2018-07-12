@@ -25,6 +25,7 @@ class GroupInvitedMember
     def prepare_user
       user.skip_sample_content = true
       user.confirmation_token  = invitation.token
+      user.skip_confirmation_notification!
     end
 
     def add_user_to_group_members
