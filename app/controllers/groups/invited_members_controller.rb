@@ -2,9 +2,7 @@
 
 class Groups::InvitedMembersController < ApplicationController
   def create
-    @registered_user = invitation.user
-
-    if @registered_user
+    if registered_user
       prepare_membership_for_registered_user
       redirect_to group_path(invitation.group, invited: true)
     else
@@ -15,17 +13,33 @@ class Groups::InvitedMembersController < ApplicationController
 
   private
 
+    def registered_user
+      @_registered_user ||= invitation.user
+    end
+
     def invitation
       @_invitation ||= GroupInvitation.find_by(token: params[:token])
     end
 
     def prepare_membership_for_registered_user
-      invitation.group.members << @registered_user
+      invitation.group.members << registered_user
       invitation.destroy
     end
 
     def create_user_and_membership
+      return if user_was_created_but_not_confirmed?
+
       GroupInvitedMember.create_from invitation
+    end
+
+    # This is needed in case the process was previously stopped at the
+    # account confirmation screen.
+    def user_was_created_but_not_confirmed?
+      user && !user.confirmed?
+    end
+
+    def user
+      @_user ||= User.find_by(email: invitation.email)
     end
 
     def invited_user_params

@@ -9,7 +9,7 @@ class Groups::InvitedMembersControllerTest < ActionDispatch::IntegrationTest
     @group = create :group
   end
 
-  test "create group member for registered user" do
+  test "create membership for registered user" do
     user       = create :user
     invitation = create :group_invitation,
                          group:  @group,
@@ -22,7 +22,7 @@ class Groups::InvitedMembersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to group_path(@group, invited: true)
   end
 
-  test "create group member for new user" do
+  test "create account and membership for new user" do
     invitation = create :group_invitation,
                          group:  @group,
                          sender: @group.owner,
@@ -34,6 +34,19 @@ class Groups::InvitedMembersControllerTest < ActionDispatch::IntegrationTest
 
     assert @group.members.include?     user
     assert @group.invitations.include? invitation
+    assert_redirected_to user_confirmation_path invited_user_params(invitation)
+  end
+
+  test "created but not confirmed user is redirected again to confirmation" do
+    invitation = create :group_invitation,
+                         group:  @group,
+                         sender: @group.owner,
+                         email:  "jojo@prevy.test"
+
+    post group_invited_members_path(@group, token: invitation.token)
+
+    post group_invited_members_path(@group, token: invitation.token)
+
     assert_redirected_to user_confirmation_path invited_user_params(invitation)
   end
 

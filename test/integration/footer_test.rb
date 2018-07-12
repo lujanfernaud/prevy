@@ -33,12 +33,6 @@ class FooterTest < ActionDispatch::IntegrationTest
     refute page.has_css? footer_css
   end
 
-  test "footer is not shown in account confirmation page" do
-    visit user_confirmation_path
-
-    refute page.has_css? footer_css
-  end
-
   test "footer is not shown in notifications settings page" do
     user = users(:phil)
 
