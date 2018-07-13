@@ -31,6 +31,12 @@ module GroupsHelper
     group.owner == user || user&.has_role?(:member, group)
   end
 
+  def has_member_role_and_is_confirmed?(user, group)
+    return false unless user
+
+    user.has_role?(:member, group) && user.confirmed?
+  end
+
   def authorized?(user, group)
     has_membership_and_is_confirmed?(user, group) ||
       is_group_owner?(user, group)

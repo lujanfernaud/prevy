@@ -3,34 +3,37 @@
 require 'test_helper'
 
 class InvitationsCreationTest < ActionDispatch::IntegrationTest
-  def setup
-    @group = create :group
-    @scott = build_stubbed :user, name: "Scott", email: "scott@test.test"
-
-    stub_sample_content_for_new_users
-  end
-
   test "group owner invites person" do
-    log_in_as @group.owner
+    stub_sample_content_for_new_users
 
-    visit group_path(@group)
+    group = create :group
+    scott = build_stubbed :user, name: "Scott", email: "scott@test.test"
+
+    log_in_as group.owner
+
+    visit group_path(group)
 
     click_on "Invite someone"
 
-    fill_in_details_for @scott
+    fill_in_details_for scott
 
     click_on "Invite"
 
     assert_not page.has_content? "error"
-    assert_current_path group_invitations_path(@group)
+    assert_current_path group_invitations_path(group)
   end
 
   test "group owner invites person without filling in the name" do
-    log_in_as @group.owner
+    stub_sample_content_for_new_users
 
-    visit new_group_invitation_path(@group)
+    group = create :group
+    scott = build_stubbed :user, name: "Scott", email: "scott@test.test"
 
-    fill_in "Email", with: @scott.email
+    log_in_as group.owner
+
+    visit new_group_invitation_path(group)
+
+    fill_in "Email", with: scott.email
 
     click_on "Invite"
 
@@ -39,13 +42,18 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "group owner invites person that already has a group invitation" do
-    create :group_invitation, group: @group, email: @scott.email
+    stub_sample_content_for_new_users
 
-    log_in_as @group.owner
+    group = create :group
+    scott = build_stubbed :user, name: "Scott", email: "scott@test.test"
 
-    visit new_group_invitation_path(@group)
+    create :group_invitation, group: group, email: scott.email
 
-    fill_in_details_for @scott
+    log_in_as group.owner
+
+    visit new_group_invitation_path(group)
+
+    fill_in_details_for scott
 
     click_on "Invite"
 
@@ -54,12 +62,15 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "group owner invites existing group member" do
-    user = create :user
-    @group.members << user
+    stub_sample_content_for_new_users
 
-    log_in_as @group.owner
+    user  = create :user
+    group = create :group
+    group.members << user
 
-    visit group_invitations_path(@group)
+    log_in_as group.owner
+
+    visit group_invitations_path(group)
 
     click_on "Invite someone"
 
@@ -72,7 +83,9 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "unregistered person visits hidden group following invitation link" do
-    group = create :group, hidden: true
+    stub_sample_content_for_new_users
+
+    group      = create :group, hidden: true
     invitation = create :group_invitation, group: group, sender: group.owner
 
     visit group_path group, token: invitation.token
@@ -87,7 +100,10 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "unregistered invited person joins group" do
-    users = SampleUser.select_random_users(10)
+    stub_sample_content_for_new_users
+
+    users  = SampleUser.select_random_users(10)
+    @group = create :group
     @group.members << users
     @invitation = create :group_invitation, group: @group, sender: @group.owner
 
@@ -116,9 +132,12 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "registered invited user joins group" do
-    user = create :user, :confirmed
+    stub_sample_content_for_new_users
 
-    create_invitation_as_group_owner_for user
+    group = create :group
+    user  = create :user, :confirmed
+
+    create_invitation_as_group_owner_for user, group
 
     log_in_as user
 
@@ -133,37 +152,72 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
       click_on "Yes!"
     end
 
-    assert_current_path group_path(@group, invited: true)
+    assert_current_path group_path(group, invited: true)
 
     assert_not page.has_css? ".alert"
     assert page.has_content? "Welcome to the group!"
   end
 
-  test "invitations index breadcrumbs" do
-    log_in_as @group.owner
+  test "registered invited and unconfirmed user joins group" do
+    group = create :group
+    user  = create :user
 
-    visit new_group_invitation_path(@group)
+    create_invitation_as_group_owner_for user, group
+    invitation = GroupInvitation.last
+
+    log_in_as user
+
+    visit group_path(group, token: invitation.token)
+
+    within ".group-buttons-box" do
+      click_on "Yes!"
+    end
+
+    assert_current_path group_path(group, invited: true)
+
+    assert page.has_content? "Welcome to the group!"
+    refute page.has_content? "See most involved members"
+    assert page.has_css?     ".alert"
+
+    visit root_path
+
+    assert_not page.has_content? "Sample Group"
+    assert_not page.has_content? "Sample Event"
+  end
+
+  test "invitations index breadcrumbs" do
+    stub_sample_content_for_new_users
+
+    group = create :group
+
+    log_in_as group.owner
+
+    visit new_group_invitation_path(group)
 
     within ".breadcrumb" do
-      assert page.has_link?    @group.name
+      assert page.has_link?    group.name
       assert page.has_content? "Invitations"
     end
   end
 
   test "new invitation breadcrumbs" do
-    log_in_as @group.owner
+    stub_sample_content_for_new_users
 
-    visit new_group_invitation_path(@group)
+    group = create :group
+
+    log_in_as group.owner
+
+    visit new_group_invitation_path(group)
 
     within ".breadcrumb" do
-      assert page.has_link?    @group.name
+      assert page.has_link?    group.name
       assert page.has_link?    "Invitations"
       assert page.has_content? "Invite someone"
 
       click_on "Invitations"
     end
 
-    assert_current_path group_invitations_path(@group)
+    assert_current_path group_invitations_path(group)
   end
 
   private
@@ -176,15 +230,15 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
     def invited_member_params
       {
         confirmation_token: @invitation.token,
-        group_id: @group.id,
-        invited: true
+        group_id:           @group.id,
+        invited:            true
       }
     end
 
-    def create_invitation_as_group_owner_for(user)
-      log_in_as @group.owner
+    def create_invitation_as_group_owner_for(user, group)
+      log_in_as group.owner
 
-      visit new_group_invitation_path(@group)
+      visit new_group_invitation_path(group)
 
       fill_in_details_for(user)
 

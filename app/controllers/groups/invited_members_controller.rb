@@ -4,6 +4,7 @@ class Groups::InvitedMembersController < ApplicationController
   def create
     if registered_user
       create_membership_and_destroy_invitation
+      destroy_user_sample_content
       redirect_to group_path(invitation.group, invited: true)
     else
       create_user_and_membership
@@ -24,6 +25,10 @@ class Groups::InvitedMembersController < ApplicationController
     def create_membership_and_destroy_invitation
       invitation.group.members << registered_user
       invitation.destroy
+    end
+
+    def destroy_user_sample_content
+      UserSampleContentDestroyer.call(registered_user)
     end
 
     # The invitation is destroyed after the account is confirmed.

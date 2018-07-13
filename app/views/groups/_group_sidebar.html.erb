@@ -102,7 +102,7 @@
     <% end %>
 
     <!-- Member -->
-    <% if current_user && current_user.has_role?(:member, group) %>
+    <% if has_member_role_and_is_confirmed?(current_user, group) %>
       <div class="group-options">
         <%= star_icon %>
         <%= link_to "See most involved members", "#top-members" %>

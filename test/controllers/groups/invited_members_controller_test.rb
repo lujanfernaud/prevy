@@ -16,6 +16,8 @@ class Groups::InvitedMembersControllerTest < ActionDispatch::IntegrationTest
                          sender: @group.owner,
                          email:  user.email
 
+    UserSampleContentDestroyer.expects(:call).with(user)
+
     post group_invited_members_path(@group, token: invitation.token)
 
     assert @group.members.include? user
