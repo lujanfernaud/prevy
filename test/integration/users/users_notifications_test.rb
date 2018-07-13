@@ -229,6 +229,28 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
     assert_equal 0, ActionMailer::Base.deliveries.size
   end
 
+  test "user doesn't receive group invitation email notifications" do
+    stub_sample_content_for_new_users
+
+    user  = create :user, :no_emails
+    group = create :group
+
+    log_in_as(group.owner)
+
+    visit group_url(group)
+
+    click_on "Invite someone"
+
+    fill_in "First name", with: user.name
+    fill_in "Email",      with: user.email
+
+    ActionMailer::Base.deliveries.clear
+
+    click_on "Invite"
+
+    assert_equal 0, ActionMailer::Base.deliveries.size
+  end
+
   test "user marks all notifications as read" do
     log_in_as(@onitsuka)
 
@@ -363,7 +385,8 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
         "user_group_membership_emails",
         "user_group_role_emails",
         "user_group_event_emails",
-        "user_group_announcement_emails"
+        "user_group_announcement_emails",
+        "user_group_invitation_emails"
       ]
     end
 

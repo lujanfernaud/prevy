@@ -59,7 +59,7 @@
 
           <hr class="mt-3 mb-3">
 
-          <div class="form-group">
+          <div class="form-group mb-2">
             <div class="row">
               <div class="col-md-10">
                 <%= f.label :group_event_emails, class: "m-0" do %>
@@ -76,7 +76,7 @@
 
           <hr class="mt-3 mb-3">
 
-          <div class="form-group mb-2rem">
+          <div class="form-group mb-2">
             <div class="row">
               <div class="col-md-10">
                 <%= f.label :group_announcement_emails, class: "m-0" do %>
@@ -87,6 +87,23 @@
 
               <div class="col-md-2 d-flex justify-content-end">
                 <%= f.check_box :group_announcement_emails %>
+              </div>
+            </div>
+          </div>
+
+          <hr class="mt-3 mb-3">
+
+          <div class="form-group mb-2rem">
+            <div class="row">
+              <div class="col-md-10">
+                <%= f.label :group_invitation_emails, class: "m-0" do %>
+                  Group invitations
+                  <small>(New group invitations)</small>
+                <% end %>
+              </div>
+
+              <div class="col-md-2 d-flex justify-content-end">
+                <%= f.check_box :group_invitation_emails %>
               </div>
             </div>
           </div>

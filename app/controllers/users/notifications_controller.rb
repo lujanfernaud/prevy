@@ -56,6 +56,7 @@ class Users::NotificationsController < ApplicationController
                                    :group_membership_emails,
                                    :group_role_emails,
                                    :group_event_emails,
-                                   :group_announcement_emails)
+                                   :group_announcement_emails,
+                                   :group_invitation_emails)
     end
 end
