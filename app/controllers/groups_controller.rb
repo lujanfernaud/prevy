@@ -37,7 +37,7 @@ class GroupsController < ApplicationController
     authorize @group
 
     if @group.save
-      destroy_user_sample_group
+      destroy_user_sample_content
       flash[:success] = "Yay! You created a group!"
       redirect_to group_path(@group)
     else
@@ -120,10 +120,8 @@ class GroupsController < ApplicationController
       Group.unhidden_without(group).random_selection(3)
     end
 
-    def destroy_user_sample_group
-      if sample_group = @user.sample_group
-        sample_group.destroy
-      end
+    def destroy_user_sample_content
+      UserSampleContentDestroyer.call(@user)
     end
 
     def group_params

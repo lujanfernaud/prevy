@@ -10,7 +10,7 @@ class Groups::MembershipsController < ApplicationController
 
     authorize @membership
 
-    destroy_user_sample_group
+    destroy_user_sample_content
     destroy_membership_request
 
     if current_user == @user
@@ -51,10 +51,8 @@ class Groups::MembershipsController < ApplicationController
       Group.find(params[:group_id])
     end
 
-    def destroy_user_sample_group
-      if sample_group = @user.sample_group
-        sample_group.destroy
-      end
+    def destroy_user_sample_content
+      UserSampleContentDestroyer.call(@user)
     end
 
     def destroy_membership_request
