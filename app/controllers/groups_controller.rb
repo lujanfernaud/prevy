@@ -97,7 +97,9 @@ class GroupsController < ApplicationController
     end
 
     def invited_to_group?
-      GroupInvitation.find_by(group: @group, token: session[:token])
+      return false if session[:token].blank?
+
+      InvitationAuthorizer.call(session[:token], @group, current_user)
     end
 
     def not_authorized?

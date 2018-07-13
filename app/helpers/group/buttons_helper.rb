@@ -6,7 +6,7 @@ module Group::ButtonsHelper
 
     if requested_membership_for? group
       membership_requested_button
-    elsif invited? group
+    elsif invited?
       join_link
     else
       request_membership_link_for group

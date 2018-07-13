@@ -61,7 +61,7 @@
             quantity: Group::RECENT_MEMBERS_SHOWN) %>
 
         <!-- If Invited -->
-        <% elsif invited?(group) %>
+        <% elsif invited? %>
 
           <% if group.members_with_role.empty? %>
             <p class="mt-3 mb-1">
@@ -110,7 +110,7 @@
     <% end %>
 
     <!-- Invited -->
-    <% if invited?(group) %>
+    <% if invited? %>
       <div class="group-membership">
         <h4 class="h5">
           You've been invited! <span class="align-bottom">😊</span>
@@ -121,7 +121,7 @@
     <% end %>
 
     <!-- Foreign User -->
-    <% unless authorized?(current_user, group) || invited?(group) %>
+    <% unless authorized?(current_user, group) || invited? %>
       <div class="group-membership">
         <h4 class="h5">Would you like to be part?</h4>
         <%= membership_button(group) %>

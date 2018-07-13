@@ -185,6 +185,35 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
     assert_not page.has_content? "Sample Event"
   end
 
+  test "unregistered invited user uses breadcrumbs" do
+    stub_sample_content_for_new_users
+
+    users      = SampleUser.select_random_users(10)
+    group      = create :group
+    event      = create :event, group: group, organizer: group.owner
+    topic      = create :topic, group: group
+    invitation = create :group_invitation, group: group, sender: group.owner
+    group.members   << users
+    event.attendees << users
+
+    visit group_path(group, token: invitation.token)
+
+    click_on "See all members"
+    click_on group.name
+
+    click_on event.title
+    click_on group.name
+
+    click_on event.title
+    click_on "See all attendees"
+    click_on group.name
+
+    click_on topic.title
+    click_on group.name
+
+    assert_not page.has_content? "This group is hidden."
+  end
+
   test "invitations index breadcrumbs" do
     stub_sample_content_for_new_users
 

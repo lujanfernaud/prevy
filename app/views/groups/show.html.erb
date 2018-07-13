@@ -21,14 +21,14 @@
   </div>
 </header>
 
-<% if authorized?(current_user, @group) || invited?(@group) %>
+<% if authorized?(current_user, @group) || invited? %>
 
   <% unless @events.empty? %>
     <%= render "events", group: @group,
       events: @events, events_count: @events_count %>
   <% end %>
 
-  <% unless @group.topics.empty? && invited?(@group) %>
+  <% unless @group.topics.empty? && invited? %>
     <%= render "topics", group: @group %>
   <% end %>
 
@@ -46,7 +46,7 @@
 
 <% end %>
 
-<% if invited?(@group) %>
+<% if invited? %>
 
   <div class="container-fluid bg-light">
     <div class="container invitee-container mb-2rem pb-4">

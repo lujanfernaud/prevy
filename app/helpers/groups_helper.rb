@@ -58,14 +58,16 @@ module GroupsHelper
     group.owner == user
   end
 
-  def invited?(group)
-    group.invitation_tokens.include?(session[:token])
+  def invited?
+    return false unless session[:token]
+
+    InvitationAuthorizer.call(session[:token], @group, current_user)
   end
 
   def admin_name_or_link(group)
     owner = group.owner
 
-    if invited?(group)
+    if invited?
       link_to owner.name, group_member_path(group, owner)
     else
       owner.name

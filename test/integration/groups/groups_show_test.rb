@@ -126,6 +126,8 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     assert page.has_content? "Sorry"
     assert page.has_content? "This group is hidden."
+    assert_not page.has_css? ".box"
+
     assert_current_path group_path(group)
   end
 
@@ -136,8 +138,30 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     assert page.has_content? "Sorry"
     assert page.has_content? "This group is hidden."
+    assert_not page.has_css? ".box"
+
     assert_current_path group_path(group)
   end
+
+  test "user visits hidden group with someone else's invitation token" do
+    user       = create :user
+    group      = create :group, hidden: true
+    invitation = create :group_invitation,
+                         group:  group,
+                         sender: group.owner,
+                         email:  "test@test.test"
+
+    log_in_as(user)
+
+    visit group_path(group, token: invitation.token)
+
+    assert page.has_content? "Sorry"
+    assert page.has_content? "This group is hidden."
+    assert_not page.has_css? ".box"
+
+    assert_current_path group_path(group, token: invitation.token)
+  end
+
 
   test "owner visits hidden group" do
     group = create :group, hidden: true
