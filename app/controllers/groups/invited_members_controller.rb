@@ -3,7 +3,7 @@
 class Groups::InvitedMembersController < ApplicationController
   def create
     if registered_user
-      prepare_membership_for_registered_user
+      create_membership_and_destroy_invitation
       redirect_to group_path(invitation.group, invited: true)
     else
       create_user_and_membership
@@ -21,11 +21,13 @@ class Groups::InvitedMembersController < ApplicationController
       @_invitation ||= GroupInvitation.find_by(token: params[:token])
     end
 
-    def prepare_membership_for_registered_user
+    def create_membership_and_destroy_invitation
       invitation.group.members << registered_user
       invitation.destroy
     end
 
+    # The invitation is destroyed after the account is confirmed.
+    # See Users::ConfirmationsController#confirm
     def create_user_and_membership
       return if user_was_created_but_not_confirmed?
 
