@@ -9,7 +9,8 @@ class GroupsBreadcrumbsTest < ActionDispatch::IntegrationTest
     @member   = build :user, :confirmed, name: "Member"
     @attendee = build :user, :confirmed, name: "Attendee"
 
-    @group = create :group
+    user   = create :user, :confirmed
+    @group = create :group, owner: user
     @event = create :event, group: @group, organizer: @group.owner
 
     @group.members   << [@member, @attendee]

@@ -142,19 +142,19 @@ class Group < ApplicationRecord
   end
 
   def organizers
-    User.joins(:roles).where(roles: { resource_id: self, name: "organizer" })
+    group_users_with_role :organizer
   end
 
   def moderators
-    User.joins(:roles).where(roles: { resource_id: self, name: "moderator" })
+    group_users_with_role :moderator
   end
 
   def members_with_role
-    User.joins(:roles).where(roles: { resource_id: self, name: "member" })
+    group_users_with_role :member
   end
 
   def recent_members(limit: RECENT_MEMBERS_SHOWN)
-    members.limit(limit)
+    members.confirmed.limit(limit)
   end
 
   def top_members(limit: TOP_MEMBERS_SHOWN)
@@ -228,6 +228,12 @@ class Group < ApplicationRecord
 
     def remove_members_from_organizers
       members.each { |member| remove_from_organizers(member) }
+    end
+
+    def group_users_with_role(role)
+      User.confirmed
+          .joins(:roles)
+          .where(roles: { resource_id: self, name: role.to_s })
     end
 
     def add_role_to(member, role:)

@@ -55,6 +55,21 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_top_members(@group)
   end
 
+  test "unconfirmed members are not shown" do
+    stub_sample_content_for_new_users
+
+    user        = create :user, :confirmed
+    unconfirmed = create :user
+    group       = create :group
+    group.members << [user, unconfirmed]
+
+    log_in_as user
+
+    visit group_path(group)
+
+    assert_not page.has_content? unconfirmed.name
+  end
+
   test "logged in user visits group" do
     stranger = users(:stranger)
     add_members_to_group(@group, @penny)

@@ -4,6 +4,8 @@ require 'test_helper'
 
 class GroupsMembersTest < ActionDispatch::IntegrationTest
   def setup
+    stub_sample_content_for_new_users
+
     @phil  = users(:phil)
     @group = groups(:one)
 
@@ -27,6 +29,38 @@ class GroupsMembersTest < ActionDispatch::IntegrationTest
     visit group_members_path(@group)
 
     assert page.has_css? ".user-box"
+  end
+
+  test "unconfirmed members are not shown" do
+    stub_sample_content_for_new_users
+
+    user        = create :user, :confirmed
+    unconfirmed = create :user
+    group       = create :group
+    group.members << [user, unconfirmed]
+
+    log_in_as user
+
+    visit group_members_path(group)
+
+    assert_not page.has_content? unconfirmed.name
+  end
+
+  test "unconfirmed organizers are not shown" do
+    stub_sample_content_for_new_users
+
+    user        = create :user, :confirmed
+    unconfirmed = create :user
+    group       = create :group
+    group.members << [user, unconfirmed]
+
+    group.add_to_organizers unconfirmed
+
+    log_in_as user
+
+    visit group_members_path(group)
+
+    assert_not page.has_content? unconfirmed.name
   end
 
   test "logged out invited user visits group members" do

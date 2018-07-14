@@ -105,6 +105,8 @@ class User < ApplicationRecord
     group_invitation_emails   Boolean, default: true
   end
 
+  scope :confirmed, -> { where.not(confirmed_at: nil) }
+
   scope :recent, -> (users_number = 5) {
     order("created_at DESC").limit(users_number)
   }
