@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-# A sample membership request created for every new user.
-class SampleMembershipRequest
-
-  def self.create_for_user(user)
-    new(user).create_request
+# Creates a sample membership request for every new user.
+class SampleMembershipRequestCreator
+  def self.call(user)
+    new(user).call
   end
 
   def initialize(user)
@@ -13,7 +12,7 @@ class SampleMembershipRequest
     @membership_request = nil
   end
 
-  def create_request
+  def call
     create_membership_request
     create_notification
   end
@@ -24,8 +23,8 @@ class SampleMembershipRequest
 
     def create_membership_request
       @membership_request = MembershipRequest.create(
-        user: sample_user,
-        group: group,
+        user:    sample_user,
+        group:   group,
         message: I18n.t("sample_membership_request.message")
       )
     end
@@ -43,5 +42,4 @@ class SampleMembershipRequest
     def sample_user
       (SampleUser.all - group.members).sample
     end
-
 end

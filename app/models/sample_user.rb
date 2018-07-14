@@ -50,9 +50,16 @@ class SampleUser < User
     all[0..-2]
   end
 
-  # Prevy Bot has index 0. We want to exclude it.
   def self.select_random_users(users_number)
-    collection_for_sample_group[1..-1].shuffle.pop(users_number)
+    collection_without_prevy_bot.shuffle.pop(users_number)
+  end
+
+  def self.collection_without_prevy_bot
+    collection_for_sample_group - [prevy_bot]
+  end
+
+  def self.prevy_bot
+    User.find_by(email: "prevybot@prevy.test")
   end
 
   private

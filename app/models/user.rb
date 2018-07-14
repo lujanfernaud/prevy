@@ -210,22 +210,7 @@ class User < ApplicationRecord
     end
 
     def create_user_sample_content
-      return if user_without_sample_content?
-
-      create_sample_group
-      create_sample_membership_request
-    end
-
-    def user_without_sample_content?
-      self.skip_sample_content? || self.sample_user? || self.admin?
-    end
-
-    def create_sample_group
-      SampleGroup.create_for_user(self)
-    end
-
-    def create_sample_membership_request
-      SampleMembershipRequest.create_for_user(self)
+      UserSampleContentCreator.call(self)
     end
 
     def add_password_match_error

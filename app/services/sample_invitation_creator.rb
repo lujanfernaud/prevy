@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
-# Sample invitations created for every new user's sample group.
-class SampleInvitation
-  CREATION_DATE      = 1.day.ago
-  ONE_MINUTE         = 60
-  TWENTY_THREE_HOURS = 82_200
-
-  def self.create_invitations_for(group, quantity:)
-    new(group, quantity).create_sample_invitations
+# Creates sample invitations for every new user's sample group.
+class SampleInvitationCreator
+  def self.call(group, quantity:)
+    new(group, quantity).call
   end
 
   def initialize(group, quantity)
@@ -16,7 +12,7 @@ class SampleInvitation
     @invitations = []
   end
 
-  def create_sample_invitations
+  def call
     build_invitations
 
     GroupInvitation.import(@invitations)

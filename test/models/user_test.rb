@@ -239,7 +239,6 @@ class UserTest < ActiveSupport::TestCase
   test "skips sample content" do
     user = create :user, skip_sample_content: true
 
-    SampleGroup.expects(:create_for_user).with(user).never
-    SampleMembershipRequest.expects(:create_for_user).with(user).never
+    UserSampleContentCreator.expects(:call).with(user).never
   end
 end

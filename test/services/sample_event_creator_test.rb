@@ -2,24 +2,23 @@
 
 require 'test_helper'
 
-class SampleEventTest < ActiveSupport::TestCase
+class SampleEventCreatorTest < ActiveSupport::TestCase
   def setup
     stub_geocoder
+    stub_sample_content_for_new_users
 
-    @group = groups(:one)
-
-    add_members_with_role
+    users  = SampleUser.collection_for_sample_group
+    @group = create :group, sample_group: true
+    @group.members << users
   end
 
-  test "creates event with sample attendees and sample comments" do
-    SampleEvent.create_for_group(@group)
-    event = Event.last
+  test "creates event with sample attendees" do
+    SampleEventCreator.call(@group)
+    event     = Event.last
     prevy_bot = SampleUser.find_by(email: "prevybot@prevy.test")
 
     assert_equal event.organizer.email, prevy_bot.email
     assert_not   event.attendees_count.zero?
-
-    assert event.comments.size > 5
   end
 
   test "increases count for UserGroupPoints" do
@@ -35,24 +34,20 @@ class SampleEventTest < ActiveSupport::TestCase
     group_points.expects(:increase)
                 .with(by: TopicComment::POINTS).at_least_once
 
-    SampleEvent.create_for_group(@group)
+    SampleEventCreator.call(@group)
   end
 
-  test "touches users after adding comments" do
-    previous_updated_at = @group.members.pluck(:updated_at)
+  test "updates attendees count" do
+    SampleEventCreator.call(@group)
 
-    SampleEvent.create_for_group(@group)
+    event = Event.last
 
-    updated_at = @group.members.reload.pluck(:updated_at)
-
-    assert_not_equal previous_updated_at, updated_at
+    assert_equal event.attendees.size, event.reload.attendees_count
   end
 
-  private
+  test "creates events sample comments" do
+    SampleEventCommentsCreator.expects(:call)
 
-    def add_members_with_role
-      @group.members.each do |user|
-        user.add_role :member, @group
-      end
-    end
+    SampleEventCreator.call(@group)
+  end
 end

@@ -25,7 +25,6 @@ module StubsSupport
   end
 
   def stub_sample_content_for_new_users
-    SampleGroup.stubs(:create_for_user)
-    SampleMembershipRequest.stubs(:create_for_user)
+    UserSampleContentCreator.stubs(:call)
   end
 end

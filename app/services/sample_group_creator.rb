@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
-# A sample group created for every new user.
-class SampleGroup
-  def self.create_for_user(user)
-    new(user).create_sample_group
+# Creates a sample group for every new user.
+class SampleGroupCreator
+  RANDOM_ORGANIZERS = 2
+  PREVY_BOT         = 1
+  GROUP_OWNER       = 1
+  TOTAL_ORGANIZERS  = RANDOM_ORGANIZERS + PREVY_BOT + GROUP_OWNER
+
+  def self.call(user)
+    new(user).call
   end
 
   def initialize(user)
@@ -12,15 +17,11 @@ class SampleGroup
     @memberships = []
   end
 
-  def create_sample_group
+  def call
     create_group
     add_sample_members
     update_members_count
     add_sample_organizers
-    add_sample_event
-    add_sample_topics
-    update_topics_count
-    add_sample_invitations
   end
 
   private
@@ -60,16 +61,23 @@ class SampleGroup
     # Some callbacks are not being called.
     # https://github.com/zdennis/activerecord-import/wiki/Callbacks
     def add_sample_members
+      build_memberships
+      run_before_callbacks
+
+      GroupMembership.import(@memberships)
+    end
+
+    def build_memberships
       SampleUser.collection_for_sample_group.each do |user|
         @memberships << GroupMembership.new(group: @group, user: user)
       end
+    end
 
+    def run_before_callbacks
       @memberships.each do |membership|
         membership.run_callbacks(:save)   { false }
         membership.run_callbacks(:create) { false }
       end
-
-      GroupMembership.import(@memberships)
     end
 
     def update_members_count
@@ -77,40 +85,16 @@ class SampleGroup
         UPDATE groups
            SET members_count = (SELECT count(1)
                                   FROM group_memberships
-                                 WHERE group_memberships.group_id = groups.id)
+                                 WHERE group_memberships.group_id = groups.id
+                                   AND groups.id = '#{group.id}')
       SQL
     end
 
     def add_sample_organizers
-      group.add_to_organizers(prevy_bot)
+      group.add_to_organizers(SampleUser.prevy_bot)
 
-      SampleUser.select_random_users(2).each do |member|
+      SampleUser.select_random_users(RANDOM_ORGANIZERS).each do |member|
         group.add_to_organizers(member)
       end
-    end
-
-    def prevy_bot
-      SampleUser.find_by(email: "prevybot@prevy.test")
-    end
-
-    def add_sample_event
-      SampleEvent.create_for_group(group)
-    end
-
-    def add_sample_topics
-      SampleTopic.create_topics_for_group(@group)
-    end
-
-    def update_topics_count
-      ActiveRecord::Base.connection.execute <<-SQL.squish
-        UPDATE groups
-           SET topics_count = (SELECT count(1)
-                                 FROM topics
-                                WHERE topics.group_id = groups.id)
-      SQL
-    end
-
-    def add_sample_invitations
-      SampleInvitation.create_invitations_for(group, quantity: 3)
     end
 end

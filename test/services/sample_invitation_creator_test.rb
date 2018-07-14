@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class SampleInvitationTest < ActiveSupport::TestCase
+class SampleInvitationCreatorTest < ActiveSupport::TestCase
   def setup
     stub_sample_content_for_new_users
 
@@ -10,7 +10,7 @@ class SampleInvitationTest < ActiveSupport::TestCase
   end
 
   test "generates invitations" do
-    SampleInvitation.create_invitations_for(@group, quantity: 3)
+    SampleInvitationCreator.call(@group, quantity: 3)
 
     invitations = GroupInvitation.where(group: @group)
 
