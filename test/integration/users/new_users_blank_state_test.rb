@@ -88,6 +88,21 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     assert page.has_link?    "Cancel attendance"
   end
 
+  test "new user visits 'invite someone'" do
+    log_in_as(@user)
+
+    visit group_path(@user.sample_group)
+
+    click_on "Invite someone"
+
+    within "form" do
+      assert page.has_button? "Invite", disabled: true
+    end
+
+    assert page.has_css?     ".alert"
+    assert page.has_content? "Invitations to sample groups are disabled."
+  end
+
   test "new and confirmed user creates a group" do
     prepare_javascript_driver
 

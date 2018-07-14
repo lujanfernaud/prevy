@@ -14,6 +14,7 @@
         <div class="box form-group pl-4 pr-4 pb-4">
           <%= render "error_messages", object: @invitation %>
 
+          <!-- First Name -->
           <div class="form-group pt-4">
             <%= f.label :name, "First name", class: "mb-0" %>
             <small class="text-muted mb-0">Required *</small>
@@ -27,6 +28,7 @@
               class: "form-control" %>
           </div>
 
+          <!-- Email -->
           <div class="form-group mt-4">
             <%= f.label :email %>
             <small class="text-muted">Required *</small>
@@ -34,10 +36,26 @@
               placeholder: "doris@email.com", class: "form-control" %>
           </div>
 
+          <!-- Invite -->
           <div class="form-group mt-4 mb-0">
-            <%= f.submit "Invite", class: "btn btn-primary btn-block btn-lg" %>
+            <% if @group.sample_group? %>
+              <%= f.button "Invite", disabled: true,
+                class: "btn btn-primary btn-block btn-lg" %>
+            <% else %>
+              <%= f.submit "Invite",
+                class: "btn btn-primary btn-block btn-lg" %>
+            <% end %>
           </div>
 
+        </div>
+      <% end %>
+
+      <!-- Sample Group Alert -->
+      <% if @group.sample_group? %>
+        <div class="alert alert-primary text-center mt-4">
+          <p class="mb-0">
+            Invitations to sample groups are disabled.
+          </p>
         </div>
       <% end %>
 
