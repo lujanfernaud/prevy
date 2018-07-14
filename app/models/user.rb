@@ -167,10 +167,10 @@ class User < ApplicationRecord
     topic_comments
   end
 
-  def password_required?
-    super if confirmed?
-  end
-
+  # Devise
+  #
+  # Used for customized account confirmation.
+  # See Users::ConfirmationsController#confirm
   def password_match?
     add_password_match_error if password != password_confirmation
 
@@ -182,6 +182,13 @@ class User < ApplicationRecord
     # Devise
     def after_confirmation
       WelcomeEmailJob.perform_async(self)
+    end
+
+    # Devise
+    #
+    # Used for customized sign up and account confirmation.
+    def password_required?
+      super if confirmed?
     end
 
   private
