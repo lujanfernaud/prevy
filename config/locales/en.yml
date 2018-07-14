@@ -34,15 +34,15 @@ en:
     name: "Sample Group"
     description: >
       <p>Welcome to %{user_name}'s group!</p>
-      <p>This is how your group could look like. Once you have your own group, you can:</p>
+      <p>This is how your group could look like. Once you have it, you can:</p>
       <ul class='mb-0'>
-      <li>Make the group hidden so that it doesn't appear in groups listing</li>
+      <li>Make the group hidden so that only members and invitees can see it</li>
       <li>
-      Send the group link to the people you want so they can request membership
+      Send out invitations to as many people as you wish
       </li>
       <li>Add organizer role to whomever you want, or to all by default</li>
       <li>Create events that would only be seen by your group members</li>
-      <li>Create discussion topics to encourage members to be involved in the group</li>
+      <li>Create discussion topics to encourage members to be involved</li>
       </ul>
     location: "The Internet"
 
