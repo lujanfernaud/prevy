@@ -4,13 +4,15 @@
 
 ## Private Communities Around Events
 
-1. All groups are *private* and can be *hidden* (so only the people you want can see them).
+### Features
 
-2. People need to *request membership* to your groups.
-
-3. Events are *only visible* to group members.
-
-4. Every group has its own *forum*, to discuss anything comfortably.
+- All groups are *private* and can be *hidden*
+- People need to *request membership* or *be invited* to become group members
+- Only *members* and *invitees* can see hidden groups
+- Every group has its own *forum*, to discuss anything comfortably
+- Group members are rewarded with *points* for commenting, creating topics, and attending events
+- All members of a group can be set as organizers with an automatic option
+- In-app and email notifications
 
 ---
 
