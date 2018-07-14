@@ -103,6 +103,20 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     assert page.has_content? "Invitations to sample groups are disabled."
   end
 
+  test "new user visits invitations index" do
+    log_in_as(@user)
+
+    visit group_path(@user.sample_group)
+
+    click_on "Invite someone"
+
+    within ".breadcrumb" do
+      click_on "Invitations"
+    end
+
+    assert page.has_css? ".invitation-box", count: 3
+  end
+
   test "new and confirmed user creates a group" do
     prepare_javascript_driver
 

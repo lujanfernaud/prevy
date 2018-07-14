@@ -2,14 +2,13 @@
 
 # A sample group created for every new user.
 class SampleGroup
-
   def self.create_for_user(user)
     new(user).create_sample_group
   end
 
   def initialize(user)
-    @user  = user
-    @group = nil
+    @user        = user
+    @group       = nil
     @memberships = []
   end
 
@@ -21,6 +20,7 @@ class SampleGroup
     add_sample_event
     add_sample_topics
     update_topics_count
+    add_sample_invitations
   end
 
   private
@@ -108,5 +108,9 @@ class SampleGroup
                                  FROM topics
                                 WHERE topics.group_id = groups.id)
       SQL
+    end
+
+    def add_sample_invitations
+      SampleInvitation.create_invitations_for(group, quantity: 3)
     end
 end

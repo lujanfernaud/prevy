@@ -9,7 +9,7 @@ class SampleGroupTest < ActiveSupport::TestCase
     stub_geocoder
   end
 
-  test "creates group with sample members, organizers, topics and event" do
+  test "creates group with sample content" do
     user = users(:stranger)
 
     SampleGroup.create_for_user(user)
@@ -35,6 +35,8 @@ class SampleGroupTest < ActiveSupport::TestCase
     assert_equal 6, group.normal_topics.size
 
     assert user.group_points_amount(group)
+
+    assert_equal 3, group.invitations.size
   end
 
   test "all members have a group comments count" do

@@ -21,9 +21,10 @@ class UserSeeder
         bio:      Faker::BackToTheFuture.quote,
         settings: {
           "membership_request_emails": false,
-          "group_membership_emails": false,
-          "group_role_emails": false,
-          "new_event_emails": false
+          "group_membership_emails":   false,
+          "group_role_emails":         false,
+          "new_event_emails":          false,
+          "new_invitation_emails":     false
         }
       )
     end

@@ -4,10 +4,10 @@
 class SampleTopic
   TOPIC_SEEDS = YAML.load_file("db/seeds/topic_seeds.yml").shuffle
 
-  CREATION_DATE = 1.day.ago
-  MIN_COMMENTS  = 7
-  MAX_COMMENTS  = 15
-  ONE_MINUTE    = 60
+  CREATION_DATE      = 1.day.ago
+  MIN_COMMENTS       = 7
+  MAX_COMMENTS       = 15
+  ONE_MINUTE         = 60
   TWENTY_THREE_HOURS = 82_200
 
   def self.create_topics_for_group(group)
@@ -54,13 +54,13 @@ class SampleTopic
       user = select_user_for seed
 
       group.topics.new(
-        user:       user,
-        title:      seed["title"],
-        body:       seed["body"],
-        type:       seed["type"],
-        edited_by:  user,
-        edited_at:  CREATION_DATE,
-        created_at: CREATION_DATE,
+        user:              user,
+        title:             seed["title"],
+        body:              seed["body"],
+        type:              seed["type"],
+        edited_by:         user,
+        edited_at:         CREATION_DATE,
+        created_at:        CREATION_DATE,
         last_commented_at: CREATION_DATE
       )
     end
