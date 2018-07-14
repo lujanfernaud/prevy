@@ -45,21 +45,18 @@ class TopicTest < ActiveSupport::TestCase
   include MailerSupport
 
   def setup
-    @group = groups(:one)
-
+    stub_sample_content_for_new_users
     stub_new_announcement_topic_mailer
   end
 
   test "has priority" do
-    topic = fake_topic(type: "AnnouncementTopic")
-    topic.save!
+    topic = create :topic, type: "AnnouncementTopic"
 
     assert_equal AnnouncementTopic::PRIORITY, topic.priority
   end
 
   test "priority changes to 0 when updating type to 'Topic'" do
-    topic = fake_topic(type: "AnnouncementTopic")
-    topic.save!
+    topic = create :topic, type: "AnnouncementTopic"
 
     topic.update_attributes(type: "Topic")
 
@@ -69,8 +66,7 @@ class TopicTest < ActiveSupport::TestCase
   end
 
   test "keeps it as announcement on update" do
-    topic = fake_topic(type: "AnnouncementTopic")
-    topic.save!
+    topic = create :topic, type: "AnnouncementTopic"
 
     topic.update_attributes(title: "Announcement topic updated")
 
@@ -81,7 +77,8 @@ class TopicTest < ActiveSupport::TestCase
   end
 
   test "notifies group members" do
-    topic = fake_announcement_topic(@group)
+    group = create :group
+    topic = fake_announcement_topic(group)
 
     NewAnnouncementNotification.expects(:call).with(topic)
 
@@ -89,8 +86,8 @@ class TopicTest < ActiveSupport::TestCase
   end
 
   test "does not notify group members if group is a sample group" do
-    sample_group = groups(:sample_group)
-    topic = fake_announcement_topic(sample_group)
+    group = create :group, sample_group: true
+    topic = fake_announcement_topic(group)
 
     NewAnnouncementNotification.expects(:call).never
 

@@ -41,7 +41,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
       post group_events_url(@group), params: event_params
     end
 
-    assert_emails_sent_to members_emails
+    assert_emails_sent_to @group.members
     assert_redirected_to group_event_url(@group, Event.last)
   end
 
@@ -62,14 +62,22 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update event" do
-    sign_in(@user)
+    stub_sample_content_for_new_users
 
-    patch group_event_url(@group, @event), params: event_params_updated
+    users = create_list :user, 10, :confirmed
+    group = create :group
+    group.members << users
 
-    group = Group.find(@group.id)
-    event = Event.find(@event.id)
+    event = create :event, group: group, organizer: group.owner
+    event.attendees << users
 
-    assert_emails_sent_to attendees_emails
+    sign_in(group.owner)
+
+    ActionMailer::Base.deliveries.clear
+
+    patch group_event_url(group, event), params: event_params_updated
+
+    assert_emails_sent_to event.attendees
     assert_redirected_to group_event_url(group, event)
   end
 
@@ -88,12 +96,12 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     def event_params
       { event:
         {
-          title: "Test event",
+          title:       "Test event",
           description: Faker::Lorem.paragraph,
-          website: "www.event.com",
-          start_date: Time.zone.now + 6.days,
-          end_date: Time.zone.now + 1.week,
-          image: upload_valid_image
+          website:     "www.event.com",
+          start_date:  Time.zone.now + 6.days,
+          end_date:    Time.zone.now + 1.week,
+          image:       upload_valid_image
         }
       }
     end
@@ -102,25 +110,17 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
       { event:
         {
           start_date: 1.week.from_now,
-          end_date: 1.week.from_now + 1.hour,
-          image: upload_valid_image
+          end_date:   1.week.from_now + 1.hour,
+          image:      upload_valid_image
         }
       }
     end
 
-    def assert_emails_sent_to(members)
-      assert_equal sent_to_emails, members
+    def assert_emails_sent_to(users)
+      assert_equal users.map(&:email), sent_to_emails
     end
 
     def sent_to_emails
       ActionMailer::Base.deliveries.map(&:to).flatten
-    end
-
-    def members_emails
-      @group.members.map(&:email)
-    end
-
-    def attendees_emails
-      @event.attendees.map(&:email)
     end
 end

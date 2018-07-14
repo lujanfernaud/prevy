@@ -9,8 +9,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
   def setup
     stub_geocoder
 
-    @user = fake_user
-    @user.save!
+    @user = create :user
   end
 
   test "new user has sample membership request" do

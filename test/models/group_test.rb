@@ -298,11 +298,11 @@ class GroupTest < ActiveSupport::TestCase
   end
 
   test "#user_is_authorized? is true for unconfirmed sample group owner" do
-    group = groups(:sample_group)
+    user  = create :user
+    group = create :group, owner: user, sample_group: true
 
     result = group.user_is_authorized? group.owner
 
-    assert_not group.owner.confirmed?
     assert result
   end
 

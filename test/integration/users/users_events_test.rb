@@ -2,42 +2,36 @@
 
 require 'test_helper'
 
-class EventsIndexTest < ActionDispatch::IntegrationTest
+class UsersEventsTest < ActionDispatch::IntegrationTest
   def setup
-    @phil = users(:phil)
-    @onitsuka = users(:onitsuka)
+    stub_sample_content_for_new_users
   end
 
   test "user with events visits events index" do
-    log_in_as(@phil)
+    user  = create :user, :confirmed
+    group = create :group, owner: user
 
-    visit user_events_path(@phil)
+    create_list :event, 10, group: group, organizer: user
 
-    assert page.has_css? ".box", count: 15
+    log_in_as user
+
+    visit user_events_path(user)
+
+    assert page.has_content? "Events"
+    assert page.has_css?     ".event-box", count: 10
   end
 
   test "user without events visits events index" do
-    log_in_as(@onitsuka)
+    user = create :user, :confirmed
 
-    visit user_events_path(@onitsuka)
+    create :group, owner: user
 
-    refute page.has_css?     ".box"
-    assert page.has_content? "There are no upcoming events"
-  end
+    log_in_as user
 
-  test "user visits group events index" do
-    group = groups(:one)
-
-    log_in_as(@phil)
-
-    visit group_events_path(group)
-
-    within ".breadcrumb" do
-      assert page.has_link?    group.name
-      assert page.has_content? "Events"
-    end
+    visit user_events_path(user)
 
     assert page.has_content? "Events"
-    assert page.has_css?     ".box"
+    assert_not page.has_css? ".event-box"
+    assert page.has_content? "There are no upcoming events"
   end
 end

@@ -4,8 +4,9 @@ require 'test_helper'
 
 class UsersAccountConfirmationTest < ActionDispatch::IntegrationTest
   test "user with unconfirmed email tries to create a group" do
-    group = groups(:sample_group)
-    user  = users(:user_1)
+    stub_sample_content_for_new_users
+
+    user = create :user
 
     log_in_as(user)
 
