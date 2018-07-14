@@ -29,6 +29,10 @@
 require 'test_helper'
 
 class GroupInvitationTest < ActiveSupport::TestCase
+  def setup
+    stub_sample_content_for_new_users
+  end
+
   test "is not valid without name" do
     invitation = build_stubbed :group_invitation, name: nil
 
@@ -48,8 +52,7 @@ class GroupInvitationTest < ActiveSupport::TestCase
   end
 
   test "is not valid with bad email" do
-    invitation = build_stubbed :group_invitation
-    invitation.email = "phil.example.com"
+    invitation = build_stubbed :group_invitation, email: "phil.example.com"
 
     assert_not invitation.valid?
 
@@ -73,7 +76,7 @@ class GroupInvitationTest < ActiveSupport::TestCase
   end
 
   test "is not valid if the user is already a member of the group" do
-    user  = create :user, skip_sample_content: true
+    user  = create :user
     email = user.email
     group = create :group
     group.members << user
@@ -90,7 +93,7 @@ class GroupInvitationTest < ActiveSupport::TestCase
   end
 
   test "finds and stores a user if it exists" do
-    user = create :user, skip_sample_content: true
+    user       = create :user
     invitation = create :group_invitation, email: user.email
 
     assert invitation.user

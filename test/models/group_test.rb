@@ -35,6 +35,8 @@ require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
   def setup
+    stub_sample_content_for_new_users
+
     @group   = groups(:one)
     @woodell = users(:woodell)
   end

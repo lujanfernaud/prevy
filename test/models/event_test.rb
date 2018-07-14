@@ -36,6 +36,7 @@ require 'test_helper'
 class EventTest < ActiveSupport::TestCase
   def setup
     stub_requests_to_googleapis
+    stub_sample_content_for_new_users
   end
 
   test "is valid" do

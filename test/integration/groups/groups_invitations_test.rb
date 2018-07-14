@@ -159,6 +159,8 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "registered invited and unconfirmed user joins group" do
+    stub_sample_content_for_new_users
+
     group = create :group
     user  = create :user
 
@@ -188,7 +190,7 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
   test "unregistered invited user uses breadcrumbs" do
     stub_sample_content_for_new_users
 
-    users      = SampleUser.select_random_users(10)
+    users      = create_list :user, 10, :confirmed
     group      = create :group
     event      = create :event, group: group, organizer: group.owner
     topic      = create :topic, group: group

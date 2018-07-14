@@ -6,6 +6,8 @@ class LatestTopicsTest < ActionDispatch::IntegrationTest
   include TopicsIntegrationSupport
 
   def setup
+    stub_sample_content_for_new_users
+
     @phil  = users(:phil)
     @group = create :group, owner: @phil
   end

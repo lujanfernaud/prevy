@@ -4,6 +4,8 @@ require 'test_helper'
 
 class Groups::InvitationsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    stub_sample_content_for_new_users
+
     @group = create :group
   end
 

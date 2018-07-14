@@ -42,6 +42,10 @@ require 'test_helper'
 class TopicTest < ActiveSupport::TestCase
   include UserSupport
 
+  def setup
+    stub_sample_content_for_new_users
+  end
+
   test "is valid" do
     topic = fake_topic
 

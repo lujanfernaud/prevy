@@ -37,7 +37,6 @@
 #  index_users_on_slug                  (slug)
 #
 
-
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase

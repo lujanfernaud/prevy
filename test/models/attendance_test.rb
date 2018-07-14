@@ -19,6 +19,10 @@
 require 'test_helper'
 
 class AttendanceTest < ActiveSupport::TestCase
+  def setup
+    stub_sample_content_for_new_users
+  end
+
   test "increases count for UserGroupPoints" do
     attendance = build :attendance
 
