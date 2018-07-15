@@ -231,13 +231,11 @@ class EventTest < ActiveSupport::TestCase
 
   test "#recent_attendees" do
     event = create :event
-    attendee_one = SampleUser.all.last
-    attendee_two = SampleUser.all.first
+    limit = Event::RECENT_ATTENDEES_SHOWN
 
-    Attendance.create!(attended_event: event, attendee: attendee_one)
-    Attendance.create!(attended_event: event, attendee: attendee_two)
+    RecentAttendeesQuery.expects(:call).with(event, limit)
 
-    assert_equal [attendee_one, attendee_two], event.recent_attendees
+    event.recent_attendees
   end
 
   test "#random_attendees" do

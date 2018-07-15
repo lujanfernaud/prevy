@@ -114,7 +114,7 @@ class Event < ApplicationRecord
   end
 
   def recent_attendees
-    attendees.order(:created_at).limit(RECENT_ATTENDEES_SHOWN)
+    RecentAttendeesQuery.call(self, RECENT_ATTENDEES_SHOWN)
   end
 
   def random_attendees

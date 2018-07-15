@@ -29,7 +29,7 @@
           <ul>
             <%= render partial: "list_attendee",
               collection: event.recent_attendees, as: :attendee,
-              locals: { event: event }, cached: true %>
+              locals: { event: event } %>
           </ul>
 
           <% if more_attendees?(event) %>
