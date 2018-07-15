@@ -128,7 +128,7 @@ class GroupsRolesIndexTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "remove mdoerator role" do
+  test "remove moderator role" do
     @group.add_to_moderators @woodell
 
     log_in_as @phil
