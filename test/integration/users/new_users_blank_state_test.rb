@@ -20,6 +20,10 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     click_on "Notifications 1"
 
     assert page.has_content? sample_group_name
+
+    click_on "Go to request"
+
+    assert_not page.has_content? "Notifications 1"
   end
 
   test "new user accepts sample membership request" do

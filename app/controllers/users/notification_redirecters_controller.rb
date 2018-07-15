@@ -9,13 +9,13 @@ class Users::NotificationRedirectersController < ApplicationController
     @topic              = params[:topic]
     @token              = params[:token]
 
-    delete_notification_and_redirect
+    destroy_notification_and_redirect
   end
 
   private
 
-    def delete_notification_and_redirect
-      @notification.delete
+    def destroy_notification_and_redirect
+      @notification.destroy
 
       if @membership_request
         redirect_to user_membership_request_path(
