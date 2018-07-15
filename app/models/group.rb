@@ -32,7 +32,6 @@
 #
 
 class Group < ApplicationRecord
-  SPECIAL_ROLES        = ["organizer", "moderator"].freeze
   RECENT_MEMBERS_SHOWN = 8
   TOP_MEMBERS_SHOWN    = 12
 
@@ -130,11 +129,7 @@ class Group < ApplicationRecord
   # When we pass NULL to LIMIT, Postgres treats it as LIMIT ALL (no limit).
   # https://www.postgresql.org/docs/current/static/sql-select.html#SQL-LIMIT
   def topics_prioritized(normal_topics_limit: nil)
-    remove_priority_to_past_events_topics
-
-    ids = topic_ids(normal_topics_limit)
-
-    topics.where(id: ids).prioritized
+    PrioritizedTopicsQuery.call(self, normal_topics_limit)
   end
 
   def normal_topics
@@ -158,33 +153,27 @@ class Group < ApplicationRecord
   end
 
   def top_members(limit: TOP_MEMBERS_SHOWN)
-    members_with_role.
-     joins(:user_group_points).
-     where("user_group_points.group_id = ?", self).
-     order("user_group_points.amount DESC").
-     limit(limit)
+    TopMembersQuery.call(self, limit)
   end
 
   def add_to_organizers(member)
-    add_role_to member, role: :organizer
+    GroupRoleAdder.call(self, member, :organizer)
   end
 
   def remove_from_organizers(member)
-    remove_role_from member, role: :organizer
+    GroupRoleRemover.call(self, member, :organizer)
   end
 
   def add_to_moderators(member)
-    add_role_to member, role: :moderator
+    GroupRoleAdder.call(self, member, :moderator)
   end
 
   def remove_from_moderators(member)
-    remove_role_from member, role: :moderator
+    GroupRoleRemover.call(self, member, :moderator)
   end
 
   def user_is_authorized?(user)
-    return false unless members.include?(user) || owner == user
-
-    self == user.sample_group || user.confirmed?
+    GroupUserPolicy.call(self, user)
   end
 
   private
@@ -213,83 +202,15 @@ class Group < ApplicationRecord
     end
 
     def update_members_role
-      return unless saved_change_to_all_members_can_create_events?
-
-      if all_members_can_create_events
-        add_members_to_organizers
-      else
-        remove_members_from_organizers
-      end
-    end
-
-    def add_members_to_organizers
-      members.each { |member| add_to_organizers(member) }
-    end
-
-    def remove_members_from_organizers
-      members.each { |member| remove_from_organizers(member) }
+      GroupMembersRoleUpdater.call(self)
     end
 
     def group_users_with_role(role)
-      User.confirmed
-          .joins(:roles)
-          .where(roles: { resource_id: self, name: role.to_s })
-    end
-
-    def add_role_to(member, role:)
-      if has_member_role? member
-        change_role_for member, remove_as: :member, add_as: role
-      else
-        member.add_role role, self
-      end
-    end
-
-    def has_member_role?(member)
-      member.has_role? :member, self
-    end
-
-    def change_role_for(member, remove_as:, add_as:)
-      member.remove_role remove_as, self
-      member.add_role add_as, self
-    end
-
-    def remove_role_from(member, role:)
-      if only_has_one_special_role? member
-        change_role_for member, remove_as: role, add_as: :member
-      else
-        member.remove_role role, self
-      end
-    end
-
-    def only_has_one_special_role?(member)
-      !(SPECIAL_ROLES - member.group_roles(self)).empty?
+      GroupUsersWithRoleQuery.call(self, role)
     end
 
     def create_image_placeholder
       ImagePlaceholderCreator.new(self).call
-    end
-
-    def remove_priority_to_past_events_topics
-      return if event_topics_to_remove_priority.empty?
-
-      event_topics_to_remove_priority.update_all(priority: 0)
-    end
-
-    def event_topics_to_remove_priority
-      past_event_ids = events.past.pluck(:id)
-
-      topics.where("event_id IN (?)", past_event_ids)
-    end
-
-    def topic_ids(normal_topics_limit)
-      special_topics_ids = special_topics.pluck(:id)
-      normal_topics_ids  = normal_topics.limit(normal_topics_limit).pluck(:id)
-
-      special_topics_ids + normal_topics_ids
-    end
-
-    def special_topics
-      Topic.where(group: self).where.not(type: "Topic").prioritized
     end
 
     def should_generate_new_friendly_id?

@@ -64,12 +64,16 @@ class Topic < ApplicationRecord
   include FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
-  scope :prioritized, -> {
-    order(priority: :desc, last_commented_at: :desc).includes(:user)
-  }
-
   scope :normal, -> {
     where(type: "Topic")
+  }
+
+  scope :special, -> {
+    where.not(type: "Topic")
+  }
+
+  scope :prioritized, -> {
+    order(priority: :desc, last_commented_at: :desc).includes(:user)
   }
 
   def normal?

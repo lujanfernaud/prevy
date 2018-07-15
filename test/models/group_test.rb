@@ -179,6 +179,14 @@ class GroupTest < ActiveSupport::TestCase
     group.destroy
   end
 
+  test "updates members role" do
+    group = create :group
+
+    GroupMembersRoleUpdater.expects(:call).with(group)
+
+    group.update_attributes(all_members_can_create_events: true)
+  end
+
   test "adds owner as organizer and moderator after creation" do
     group = fake_group
     owner = group.owner
@@ -192,72 +200,43 @@ class GroupTest < ActiveSupport::TestCase
   end
 
   test "#add_to_organizers" do
-    @woodell.add_role :member, @group
-    @woodell.remove_role :organizer, @group
+    GroupRoleAdder.expects(:call).with(@group, @woodell, :organizer)
 
     @group.add_to_organizers @woodell
-
-    assert @group.organizers.include? @woodell
-    refute @woodell.has_role? :member, @group
   end
 
   test "#remove_from_organizers" do
-    @woodell.add_role :organizer, @group
+    GroupRoleRemover.expects(:call).with(@group, @woodell, :organizer)
 
     @group.remove_from_organizers @woodell
-
-    refute @group.organizers.include? @woodell
-    assert @woodell.has_role? :member, @group
   end
 
-  test "#add_to_moderators having 'organizer' role" do
-    @woodell.add_role :organizer, @group
+  test "#add_to_moderators" do
+    GroupRoleAdder.expects(:call).with(@group, @woodell, :moderator)
 
     @group.add_to_moderators @woodell
-
-    assert @group.organizers.include? @woodell
-    assert @group.moderators.include? @woodell
-    refute @woodell.has_role? :member, @group
-  end
-
-  test "#remove_from_moderators having 'organizer' role" do
-    @woodell.add_role :organizer, @group
-    @woodell.add_role :moderator, @group
-
-    @group.remove_from_moderators @woodell
-
-    refute @group.moderators.include? @woodell
-    assert @group.organizers.include? @woodell
-    refute @woodell.has_role? :member, @group
   end
 
   test "#remove_from_moderators" do
-    @woodell.add_role :moderator, @group
+    GroupRoleRemover.expects(:call).with(@group, @woodell, :moderator)
 
     @group.remove_from_moderators @woodell
-
-    refute @group.moderators.include? @woodell
-    assert @woodell.has_role? :member, @group
   end
 
-  test "#topics_prioritized removes priority to past events topics" do
+  test "#topics_prioritized without normal topics limit" do
     group = groups(:two)
 
+    PrioritizedTopicsQuery.expects(:call).with(group, nil)
+
     group.topics_prioritized
-
-    past_events_topics = group.events.past.map(&:topic)
-
-    assert topics_have_zero_priority? past_events_topics
   end
 
-  test "#topics_prioritized doesn't remove priority to upcoming events" do
+  test "#topics_prioritized with normal topics limit limit" do
     group = groups(:two)
 
-    group.topics_prioritized
+    PrioritizedTopicsQuery.expects(:call).with(group, 5)
 
-    upcoming_events_topics = group.events.upcoming.map(&:topic)
-
-    assert_not topics_have_zero_priority? upcoming_events_topics
+    group.topics_prioritized(normal_topics_limit: 5)
   end
 
   test "#recent_members" do
@@ -276,51 +255,16 @@ class GroupTest < ActiveSupport::TestCase
 
   test "#top_members" do
     group = groups(:one)
-    add_member_role(group: group, users: top_members_sorted.shuffle)
 
-    expectation = top_members_sorted[0..11]
+    TopMembersQuery.expects(:call).with(group, 12)
 
-    assert_equal expectation, group.top_members
-    assert_equal 12, group.top_members(limit: 12).size
-    assert_equal 6, group.top_members(limit: 6).size
+    group.top_members(limit: 12)
   end
 
-  test "#user_is_authorized? is true for member" do
-    result = @group.user_is_authorized? @woodell
+  test "#user_is_authorized?" do
+    GroupUserPolicy.expects(:call).with(@group, @woodell)
 
-    assert result
-  end
-
-  test "#user_is_authorized? is true for owner" do
-    result = @group.user_is_authorized? @group.owner
-
-    assert result
-  end
-
-  test "#user_is_authorized? is true for unconfirmed sample group owner" do
-    user  = create :user
-    group = create :group, owner: user, sample_group: true
-
-    result = group.user_is_authorized? group.owner
-
-    assert result
-  end
-
-  test "#user_is_authorized? is false for unconfirmed member" do
-    unconfirmed = users(:unconfirmed)
-    @group.members << unconfirmed
-
-    result = @group.user_is_authorized? unconfirmed
-
-    assert_not result
-  end
-
-  test "#user_is_authorized? is false for everyone else" do
-    stranger = users(:stranger)
-
-    result = @group.user_is_authorized? stranger
-
-    assert_not result
+    @group.user_is_authorized? @woodell
   end
 
   test "has name as slug" do
@@ -331,35 +275,4 @@ class GroupTest < ActiveSupport::TestCase
 
     assert_equal name_parameterized, group.slug
   end
-
-  private
-
-    def top_members_sorted
-      woodell  = users(:woodell)
-      carolyn  = users(:carolyn)
-      stranger = users(:stranger)
-      user_0   = users(:user_0)
-      user_1   = users(:user_1)
-      user_1   = users(:user_1)
-      user_2   = users(:user_2)
-      user_3   = users(:user_3)
-      user_4   = users(:user_4)
-      user_5   = users(:user_5)
-      user_6   = users(:user_6)
-      user_7   = users(:user_7)
-      user_8   = users(:user_8)
-      user_9   = users(:user_9)
-      user_10  = users(:user_10)
-
-      [woodell, carolyn, stranger, user_0, user_1, user_2,
-        user_3, user_4, user_5, user_6, user_7, user_8, user_9, user_10]
-    end
-
-    def topics_have_zero_priority?(topics)
-      topics.map(&:priority).all?(&:zero?)
-    end
-
-    def add_member_role(group:, users:)
-      users.each { |u| u.add_role :member, group }
-    end
 end
