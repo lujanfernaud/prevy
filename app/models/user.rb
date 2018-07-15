@@ -116,12 +116,7 @@ class User < ApplicationRecord
   end
 
   def groups
-    Group.includes(:group_memberships)
-         .where(
-           'groups.user_id = :user OR group_memberships.user_id = :user',
-            user: self
-         )
-         .references(:group_memberships)
+    UserGroupsQuery.call(self)
   end
 
   # TODO: Find a way to refactor. Currently making 2 calls to the database.
