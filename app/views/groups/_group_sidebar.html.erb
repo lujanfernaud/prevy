@@ -94,7 +94,7 @@
     <% end %>
 
     <!-- Organizer -->
-    <% if has_organizer_role?(current_user, group) %>
+    <% if has_organizer_role?(current_user, group) && current_user.confirmed? %>
       <div class="group-options mt-3">
         <%= link_to "Create event", new_group_event_path(group),
           class: "btn btn-primary btn-block btn-lg" %>
