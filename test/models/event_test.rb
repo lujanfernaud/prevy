@@ -231,7 +231,7 @@ class EventTest < ActiveSupport::TestCase
 
   test "#recent_attendees" do
     event = create :event
-    limit = Event::RECENT_ATTENDEES_SHOWN
+    limit = Event::RECENT_ATTENDEES
 
     RecentAttendeesQuery.expects(:call).with(event, limit)
 

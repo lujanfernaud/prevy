@@ -32,8 +32,8 @@
 #
 
 class Event < ApplicationRecord
-  RECENT_ATTENDEES_SHOWN = 8
-  RANDOM_ATTENDEES_SHOWN = 6
+  RECENT_ATTENDEES = 8
+  RANDOM_ATTENDEES = 6
 
   belongs_to :organizer, class_name: "User"
   belongs_to :group,     touch: true, counter_cache: true
@@ -114,15 +114,15 @@ class Event < ApplicationRecord
   end
 
   def recent_attendees
-    RecentAttendeesQuery.call(self, RECENT_ATTENDEES_SHOWN)
+    RecentAttendeesQuery.call(self, RECENT_ATTENDEES)
   end
 
   def random_attendees
-    return attendees unless attendees_count > RANDOM_ATTENDEES_SHOWN
+    return attendees unless attendees_count > RANDOM_ATTENDEES
 
-    random_offset = rand(attendees_count - RANDOM_ATTENDEES_SHOWN)
+    random_offset = rand(attendees_count - RANDOM_ATTENDEES)
 
-    attendees.offset(random_offset).limit(RANDOM_ATTENDEES_SHOWN)
+    attendees.offset(random_offset).limit(RANDOM_ATTENDEES)
   end
 
   private

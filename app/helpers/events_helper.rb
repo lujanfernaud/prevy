@@ -16,7 +16,7 @@ module EventsHelper
   end
 
   def more_attendees?(event)
-    event.attendees_count > Event::RECENT_ATTENDEES_SHOWN
+    event.attendees_count > Event::RECENT_ATTENDEES
   end
 
   def same_time?(event)
