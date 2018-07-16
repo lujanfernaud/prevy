@@ -32,6 +32,7 @@
 #
 
 class Group < ApplicationRecord
+  UPCOMING_EVENTS      = 6
   RECENT_MEMBERS_SHOWN = 8
   TOP_MEMBERS_SHOWN    = 12
 
