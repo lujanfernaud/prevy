@@ -761,7 +761,7 @@ a.box-title:hover {
 }
 
 
-// Turbolinks Specific
+// Turbolinks
 
 
 .turbolinks-progress-bar {
@@ -769,7 +769,7 @@ a.box-title:hover {
 }
 
 
-// Trix Editor Specific
+// Trix Editor
 
 
 trix-editor {
@@ -782,6 +782,15 @@ trix-editor {
 
 .trix-editor--comment {
   min-height: 7rem !important;
+}
+
+.trix-button-group {
+  border-radius: $box-radius !important;
+}
+
+.trix-button {
+  border-radius: $box-radius !important;
+  border-bottom: 0 !important;
 }
 
 .trix-button--icon-strike,
@@ -820,7 +829,30 @@ trix-editor {
 }
 
 
-// Bootstrap Specific
+// Will Paginate
+
+
+ul.pagination {
+  box-shadow: 0 1px .36px 0 $shadow;
+  border-radius: $box-radius;
+}
+
+.previous_page {
+  .page-link {
+    border-top-left-radius: $box-radius !important;
+    border-bottom-left-radius: $box-radius !important;
+  }
+}
+
+.next_page {
+  .page-link {
+    border-top-right-radius: $box-radius !important;
+    border-bottom-right-radius: $box-radius !important;
+  }
+}
+
+
+// Bootstrap
 
 
 .alert {
@@ -833,8 +865,9 @@ trix-editor {
   border-radius: $box-radius;
 }
 
-small {
-  font-size: .8rem;
+.btn {
+  box-shadow: 0 1px .36px 0 rgba($dark-indigo, .35);
+  border-radius: $box-radius;
 }
 
 .card {
@@ -858,8 +891,21 @@ small {
   color: $white;
 }
 
+.dropdown-menu {
+  border-radius: $box-radius;
+}
+
+.form-control {
+  border-radius: $box-radius;
+}
+
 .nav-tabs {
   border-bottom: 1px solid darken(#dee2e6, 20%);
+}
+
+.nav-tabs .nav-link {
+  border-top-left-radius: $box-radius;
+  border-top-right-radius: $box-radius;
 }
 
 .nav-link.active {
@@ -871,7 +917,16 @@ small {
   border-color: darken(#dee2e6, 15%) darken(#dee2e6, 15%) $light-background !important;
 }
 
+.rounded {
+  border-radius: $box-radius !important;
+}
+
+small {
+  font-size: .8rem;
+}
+
 .tooltip-inner {
   max-width: 350px;
   width: inherit;
+  border-radius: $box-radius;
 }
