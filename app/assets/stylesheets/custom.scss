@@ -13,6 +13,8 @@ $primary-darker: #300872;
 $light-background: #f3f4f5;
 $shadow: #989999;
 
+$box-radius: .625rem;
+
 
 // Spacing
 
@@ -136,7 +138,7 @@ body {
   box-shadow: 0 1px .36px 0 $shadow;
   background: $white;
   border-top: 1px solid lighten($shadow, 34%);
-  border-radius: .25rem;
+  border-radius: $box-radius;
 }
 
 .box-image {
@@ -150,11 +152,11 @@ body {
 }
 
 .box-image--orientation-switch {
-  border-top-left-radius: calc(.25rem) !important;
-  border-top-right-radius: calc(.25rem) !important;
+  border-top-left-radius: $box-radius !important;
+  border-top-right-radius: $box-radius !important;
 
   @include media-breakpoint-up(md) {
-    border-bottom-left-radius: calc(.25rem) !important;
+    border-bottom-left-radius: $box-radius !important;
   }
 }
 
@@ -163,11 +165,12 @@ body {
 }
 
 .box-image__img--orientation-switch {
-  border-top-left-radius: calc(.25rem - 1px);
-  border-top-right-radius: calc(.25rem - 1px);
+  border-top-left-radius: calc(#{$box-radius} - 1px);
+  border-top-right-radius: calc(#{$box-radius} - 1px);
 
   @include media-breakpoint-up(md) {
     border-top-right-radius: 0;
+    border-bottom-left-radius: calc(#{$box-radius} - 2px) !important;
   }
 }
 
@@ -203,12 +206,12 @@ a.box-title:hover {
 }
 
 .box-text--orientation-switch {
-  border-bottom-left-radius: calc(.25rem - 1px);
-  border-bottom-right-radius: calc(.25rem - 1px);
+  border-bottom-left-radius: calc(#{$box-radius} - 1px);
+  border-bottom-right-radius: calc(#{$box-radius} - 1px);
 
   @include media-breakpoint-up(sm) {
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: calc(.25rem - 1px);
+    border-bottom-right-radius: calc(#{$box-radius} - 1px);
   }
 
   @include media-breakpoint-up(xl) {
@@ -291,7 +294,7 @@ a.box-title:hover {
 
 .breadcrumb {
   background-color: darken($light-background, 4.5%);
-  border-radius: none;
+  border-radius: $box-radius;
 }
 
 .breadcrumbs-separator {
@@ -430,7 +433,7 @@ a.box-title:hover {
 }
 
 .group-box-text {
-  padding: .72rem .5rem .5rem .5rem;
+  padding: .65rem .7rem .5rem .7rem;
 }
 
 .group-info-box,
@@ -631,8 +634,8 @@ a.box-title:hover {
   height: 110px;
   background-color: $gray-300;
   background-size: cover;
-  border-top-left-radius: .25rem;
-  border-bottom-left-radius: .25rem;
+  border-top-left-radius: $box-radius;
+  border-bottom-left-radius: $box-radius;
 
   @include media-breakpoint-up(md) {
     display: block;
@@ -685,8 +688,8 @@ a.box-title:hover {
   height: 0;
   color: $gray-500;
   background-color: $gray-500;
-  border-top-left-radius: calc(.25rem) !important;
-  border-top-right-radius: calc(.25rem) !important;
+  border-top-left-radius: $box-radius !important;
+  border-top-right-radius: $box-radius !important;
   overflow: hidden;
 }
 
@@ -698,6 +701,7 @@ a.box-title:hover {
 .intrinsic-ratio-container--orientation-switch {
   @include media-breakpoint-up(md) {
     border-top-right-radius: 0 !important;
+    border-bottom-left-radius: calc(#{$box-radius} - 3px) !important;
   }
 }
 
@@ -821,6 +825,7 @@ trix-editor {
 
 .alert {
   margin-bottom: 0;
+  border-radius: $box-radius;
 }
 
 .alert--header {
@@ -834,6 +839,8 @@ small {
 .card {
   border: 0;
   border-radius: 0;
+  border-top-left-radius: $box-radius;
+  border-top-right-radius: $box-radius;
 }
 
 .card-img-overlay {

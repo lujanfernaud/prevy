@@ -1,6 +1,7 @@
 <div class="col-sm-12 col-md-6 col-lg-4 mt-2rem">
   <div class="box group-box" id="group-<%= group.id %>">
 
+    <!-- Group Image -->
     <div class="group-box-image intrinsic-ratio-container card card-inverse text-center">
       <%= image_tag  group.image_base64,
         data: {
@@ -14,7 +15,7 @@
       <a href="<%= group_path(group) %>" class="group-card-link">
         <div class="card-img-overlay card-img-overlay--group">
           <div class="card-title mb-0">
-            <h2 class="h4 mb-0 box-title">
+            <h2 class="h4 mb-0 ml-1 box-title">
               <%= group.name %>
             </h2>
           </div>
