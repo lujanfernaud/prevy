@@ -3,8 +3,8 @@
 require 'test_helper'
 
 class SampleCommentsCreatorTest < ActiveSupport::TestCase
-  MIN_COMMENTS   = SampleCommentsCreator::MIN_COMMENTS
-  MAX_COMMENTS   = SampleCommentsCreator::MAX_COMMENTS
+  MIN_COMMENTS   =  MIN_COMMENTS
+  MAX_COMMENTS   =  MAX_COMMENTS
   COMMENTS_RANGE = (MIN_COMMENTS..MAX_COMMENTS)
 
   def setup
