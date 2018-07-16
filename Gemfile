@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.4.1'
+ruby '2.5.1'
 
 gem 'rails',                           '~> 5.1.3'
 gem 'pg',                              '~> 0.18'
@@ -64,7 +64,7 @@ group :development, :test do
   gem 'factory_bot_rails',             '~> 4.10'
   gem 'pry-byebug',                    '~> 3.6'
   gem 'pry-rails',                     '~> 0.3.6'
-  gem 'rubocop-rails',                 '~> 1.4'
+  gem 'rubocop-rails_config',          '~> 0.1.3'
 end
 
 group :test do
