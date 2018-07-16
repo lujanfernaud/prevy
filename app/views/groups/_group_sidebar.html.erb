@@ -49,7 +49,7 @@
             <% if !group.members_with_role.empty? %>
               <%= render partial: "list_member",
                 collection: group.recent_members,
-                as: :member, locals: { group: group }, cached: true %>
+                as: :member, locals: { group: group } %>
             <% else %>
               <li>
                 So far there are no members
