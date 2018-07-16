@@ -120,10 +120,9 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test "adds protocol to event's website before saving if missing" do
-    event = fake_event(website: "www.eventwebsite.com")
-    event.save!
+    WebsiteUrlFormatter.expects(:call)
 
-    assert_equal event.website, "https://" + "www.eventwebsite.com"
+    create :event, website: "www.eventwebsite.com"
   end
 
   test "delegates address methods" do

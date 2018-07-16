@@ -55,7 +55,7 @@ class Event < ApplicationRecord
   validates :title,       presence: true, length: { in: 4..140 }
 
   before_save   :titleize_title
-  before_save   :check_website_url
+  before_save   :format_website_url
   before_create :prepare_event_topic
   before_update :store_updated_fields
   before_update :update_event_topic
@@ -135,10 +135,8 @@ class Event < ApplicationRecord
       self.title = title.titleize
     end
 
-    def check_website_url
-      return if url_has_protocol? || website.empty?
-
-      self.website = "https://" + website
+    def format_website_url
+      WebsiteUrlFormatter.call(self)
     end
 
     def prepare_event_topic
@@ -148,10 +146,6 @@ class Event < ApplicationRecord
         title: title,
         body:  description
       )
-    end
-
-    def url_has_protocol?
-      website =~ /https?\:\/\//
     end
 
     def store_updated_fields
@@ -179,8 +173,8 @@ class Event < ApplicationRecord
     end
 
     def update_event_topic
-      topic.title = title if title_changed?
-      topic.body = description if description_changed?
+      topic.title = title       if title_changed?
+      topic.body  = description if description_changed?
       topic.save
     end
 
