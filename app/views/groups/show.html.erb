@@ -6,7 +6,7 @@
 
         <div class="row mb-2rem">
 
-          <% if params[:invited] %>
+          <% if params[:invited] && has_membership?(current_user, @group) %>
             <%= render "group_welcome" %>
           <% end %>
 
