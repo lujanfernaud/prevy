@@ -42,7 +42,6 @@ class EventsController < ApplicationController
 
   def create
     @event = @group.events.build event_params
-    @event.organizer = current_user
 
     authorize @event
 
@@ -78,8 +77,6 @@ class EventsController < ApplicationController
 
     authorize @event
 
-    redirect_to_root unless @event
-
     @event.destroy
 
     flash[:success] = "Event deleted."
@@ -92,8 +89,8 @@ class EventsController < ApplicationController
       @group ||= Group.find(params[:group_id])
     end
 
-    def events_decorators_for(concern)
-      EventDecorator.collection(concern)
+    def events_decorators_for(events_collection)
+      EventDecorator.collection(events_collection)
                     .paginate(page: params[:page], per_page: 15)
     end
 
@@ -103,6 +100,37 @@ class EventsController < ApplicationController
 
     def find_event
       Event.find(params[:id])
+    end
+
+    def send_new_event_email
+      NewEventEmail.call(@event)
+    end
+
+    def send_updated_event_email
+      UpdatedEventEmail.call(@event)
+    end
+
+    def event_params
+      params.
+        require(:event).
+        permit(:title,
+               :description,
+               :website,
+               :start_date,
+               :end_date,
+               :image,
+               :image_cache,
+               :group_id,
+                address_attributes: [
+                  :place_name,
+                  :street1,
+                  :street2,
+                  :city,
+                  :state,
+                  :post_code,
+                  :country
+               ]).
+        merge(organizer: current_user)
     end
 
     def add_breadcrumbs_for_index
@@ -124,22 +152,5 @@ class EventsController < ApplicationController
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb @event.title, group_event_path(@group, @event)
       add_breadcrumb "Edit event"
-    end
-
-    def send_new_event_email
-      NewEventEmail.call(@event)
-    end
-
-    def send_updated_event_email
-      UpdatedEventEmail.call(@event)
-    end
-
-    def event_params
-      params.require(:event)
-            .permit(:title, :description, :website,
-                    :start_date, :end_date, :image, :image_cache, :group_id,
-                      address_attributes: [:place_name, :street1, :street2,
-                                           :city, :state,
-                                           :post_code, :country])
     end
 end
