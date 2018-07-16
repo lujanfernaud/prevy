@@ -240,13 +240,11 @@ class EventTest < ActiveSupport::TestCase
 
   test "#random_attendees" do
     event = create :event
-    attendee_one = SampleUser.all.last
-    attendee_two = SampleUser.all.first
+    limit = Event::RANDOM_ATTENDEES
 
-    Attendance.create!(attended_event: event, attendee: attendee_one)
-    Attendance.create!(attended_event: event, attendee: attendee_two)
+    RandomAttendeesQuery.expects(:call).with(event, limit)
 
-    assert_not_empty event.random_attendees
+    event.random_attendees
   end
 
   private
