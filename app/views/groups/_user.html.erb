@@ -22,8 +22,9 @@
     </div>
 
     <!-- User Group Points -->
-    <div class="user-box__points mt-2 pl-4 pr-4 text-center"
-      title="Group points">
+    <div class="user-box__points mt-2 pl-4 pr-4 text-center" id="user-points"
+      data-toggle="tooltip" data-placement="top"
+      title="<%= render 'groups/group_points_tooltip' %>">
       <%= "#{user.group_points_amount(group)} pts" %>
     </div>
   </div>

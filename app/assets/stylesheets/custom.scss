@@ -862,3 +862,8 @@ small {
 .nav-link:hover {
   border-color: darken(#dee2e6, 15%) darken(#dee2e6, 15%) $light-background !important;
 }
+
+.tooltip-inner {
+  max-width: 350px;
+  width: inherit;
+}
