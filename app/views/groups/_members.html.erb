@@ -30,7 +30,7 @@
 
           <% end %>
 
-          <% if group.members_with_role.size > Group::TOP_MEMBERS_SHOWN / 2 %>
+          <% if group.members_with_role.size > Group::TOP_MEMBERS / 2 %>
             <div class="text-center mb-4">
               <%= link_to "See all members",
                 group_members_path(group) %>

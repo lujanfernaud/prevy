@@ -79,10 +79,10 @@ module GroupsHelper
   end
 
   def top_members(group)
-    if group.members_with_role.size > Group::TOP_MEMBERS_SHOWN
+    if group.members_with_role.size > Group::TOP_MEMBERS
       group.top_members
     else
-      group.top_members(limit: Group::TOP_MEMBERS_SHOWN / 2)
+      group.top_members(limit: Group::TOP_MEMBERS / 2)
     end
   end
 end

@@ -57,8 +57,7 @@
             <% end %>
           </ul>
 
-          <%= see_all_members_link(group,
-            quantity: Group::RECENT_MEMBERS_SHOWN) %>
+          <%= see_all_members_link(group, quantity: Group::RECENT_MEMBERS) %>
 
         <!-- If Invited -->
         <% elsif invited? %>

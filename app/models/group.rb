@@ -32,9 +32,9 @@
 #
 
 class Group < ApplicationRecord
-  UPCOMING_EVENTS      = 6
-  RECENT_MEMBERS_SHOWN = 8
-  TOP_MEMBERS_SHOWN    = 12
+  UPCOMING_EVENTS = 6
+  RECENT_MEMBERS  = 8
+  TOP_MEMBERS     = 12
 
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
 
@@ -149,11 +149,11 @@ class Group < ApplicationRecord
     group_users_with_role :member
   end
 
-  def recent_members(limit: RECENT_MEMBERS_SHOWN)
+  def recent_members(limit: RECENT_MEMBERS)
     members.confirmed.limit(limit)
   end
 
-  def top_members(limit: TOP_MEMBERS_SHOWN)
+  def top_members(limit: TOP_MEMBERS)
     TopMembersQuery.call(self, limit)
   end
 

@@ -309,7 +309,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     end
 
     def recent_members_names(group)
-      group.members.last(Group::RECENT_MEMBERS_SHOWN).pluck(&:name)
+      group.members.last(Group::RECENT_MEMBERS).pluck(&:name)
     end
 
     def assert_members_count(number)
