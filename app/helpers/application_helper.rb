@@ -5,7 +5,7 @@ module ApplicationHelper
   include Application::AlertHelpers
 
   def home_page?
-    controller_name == "static_pages" && action_name == "home"
+    controller_name == "home"
   end
 
   def page_without_footer?

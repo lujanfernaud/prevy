@@ -15,16 +15,18 @@ Rails.application.routes.draw do
     get   "logout"  => "devise/sessions#destroy"
   end
 
+  # Root
+  # ----
+  root "home#index"
+
   # Static Pages
   # ------------
-  # Root
-  root "static_pages#home"
   #
-  # Create Group Unconfirmed Notice
-  get  "create_group_unconfirmed", to: "static_pages#create_group_unconfirmed"
+  # Create Group Unconfirmed Notice Page
+  get "create_group_unconfirmed", to: "static_pages#create_group_unconfirmed"
   #
-  # Hidden Group Notice
-  get  "hidden_group", to: "static_pages#hidden_group"
+  # Hidden Group Notice Page
+  get "hidden_group", to: "static_pages#hidden_group"
 
   # Users
   # -----
