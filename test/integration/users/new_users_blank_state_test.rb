@@ -76,6 +76,16 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     assert page.has_content? "New comment created."
   end
 
+  test "new user visits 'create event'" do
+    log_in_as(@user)
+
+    click_on sample_group_name
+
+    click_on "Create event"
+
+    assert_current_path new_group_event_path(@user.sample_group)
+  end
+
   test "new user visits sample event" do
     log_in_as(@user)
 

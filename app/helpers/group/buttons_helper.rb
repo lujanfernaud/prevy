@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module Group::ButtonsHelper
+  def create_event_button_authorized?(user, group)
+    has_organizer_role?(user, group) && user.confirmed? || group.sample_group?
+  end
+
   def membership_button(group)
     return request_membership_button_disabled if group.sample_group?
 
