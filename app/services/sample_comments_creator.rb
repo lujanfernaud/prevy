@@ -96,7 +96,7 @@ class SampleCommentsCreator
     end
 
     def update_topics_comments_count
-      ActiveRecord::Base.connection.execute <<-SQL.squish
+      ActiveRecord::Base.connection.execute <<~SQL
         UPDATE topics
            SET comments_count = (SELECT count(1)
                                    FROM topic_comments

@@ -81,13 +81,7 @@ class SampleTopicCreator
     end
 
     def update_group_topics_count
-      ActiveRecord::Base.connection.execute <<-SQL.squish
-        UPDATE groups
-           SET topics_count = (SELECT count(1)
-                                 FROM topics
-                                WHERE topics.group_id = groups.id
-                                  AND groups.id = '#{group.id}')
-      SQL
+      Group.reset_counters(group.id, :topics)
     end
 
     def create_comments

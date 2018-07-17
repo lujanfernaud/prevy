@@ -107,15 +107,7 @@ class SampleEventCreator
     end
 
     def update_attendees_count
-      ActiveRecord::Base.connection.execute <<-SQL.squish
-        UPDATE events
-           SET attendees_count = (
-             SELECT count(1)
-               FROM attendances
-              WHERE attendances.attended_event_id = events.id
-                AND events.id = '#{event.id}'
-           )
-      SQL
+      Event.reset_counters(event.id, :attendees)
     end
 
     def create_comments

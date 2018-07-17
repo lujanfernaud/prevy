@@ -77,12 +77,6 @@ class SampleEventCommentsCreator
     end
 
     def update_topic_comments_count
-      ActiveRecord::Base.connection.execute <<-SQL.squish
-        UPDATE topics
-           SET comments_count = (SELECT count(1)
-                                   FROM topic_comments
-                                  WHERE topic_comments.topic_id = topics.id
-                                    AND topics.id = '#{event_topic.id}')
-      SQL
+      Topic.reset_counters(event_topic.id, :topic_comments)
     end
 end

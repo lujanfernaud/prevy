@@ -81,13 +81,7 @@ class SampleGroupCreator
     end
 
     def update_members_count
-      ActiveRecord::Base.connection.execute <<-SQL.squish
-        UPDATE groups
-           SET members_count = (SELECT count(1)
-                                  FROM group_memberships
-                                 WHERE group_memberships.group_id = groups.id
-                                   AND groups.id = '#{group.id}')
-      SQL
+      Group.reset_counters(group.id, :members)
     end
 
     def add_sample_organizers
