@@ -54,6 +54,9 @@ class User < ApplicationRecord
   has_many :group_memberships, dependent: :delete_all
   has_many :associated_groups, through: :group_memberships, source: "group"
 
+  has_many :user_roles, dependent: :delete_all
+  has_many :roles,      through:   :user_roles
+
   has_many :user_group_points, dependent: :destroy
 
   has_many :organized_events, class_name: "Event", foreign_key: "organizer_id",
@@ -119,7 +122,6 @@ class User < ApplicationRecord
     UserGroupsQuery.call(self)
   end
 
-  # TODO: Find a way to refactor. Currently making 2 calls to the database.
   def group_roles(group)
     roles.where(resource_id: group).map(&:name)
   end

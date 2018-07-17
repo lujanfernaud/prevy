@@ -241,4 +241,31 @@ class UserTest < ActiveSupport::TestCase
 
     UserSampleContentCreator.expects(:call).with(user).never
   end
+
+  test "creates role" do
+    stub_sample_content_for_new_users
+
+    user  = create :user, :confirmed, skip_sample_content: true
+    group = create :group
+
+    user.roles.create!(resource: group, name: :member)
+
+    assert user.has_role? :member, group
+    assert group.members_with_role.include? user
+  end
+
+  test "destroys role" do
+    stub_sample_content_for_new_users
+
+    user  = create :user, :confirmed, skip_sample_content: true
+    group = create :group
+
+    user.roles.create!(resource: group, name: :member)
+
+    role = user.roles.last
+    role.destroy
+
+    assert_not user.has_role? :member, group
+    assert_not group.members_with_role.include? user
+  end
 end
