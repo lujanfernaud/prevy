@@ -12,9 +12,12 @@ class SampleGroupCreator
   end
 
   def initialize(user)
-    @user        = user
-    @group       = nil
-    @memberships = []
+    @user         = user
+    @group        = nil
+    @sample_users = SampleUser.collection_for_sample_group
+    @memberships  = []
+    @roles        = []
+    @user_roles   = []
   end
 
   def call
@@ -26,7 +29,7 @@ class SampleGroupCreator
 
   private
 
-    attr_reader :user, :group
+    attr_reader :user, :group, :sample_users
 
     def create_group
       @group = user.owned_groups.build(
@@ -58,25 +61,32 @@ class SampleGroupCreator
     # We are using 'activerecord-import' for bulk inserting the data.
     # https://github.com/zdennis/activerecord-import/wiki/Examples
     #
-    # Some callbacks are not being called.
-    # https://github.com/zdennis/activerecord-import/wiki/Callbacks
+    # Callbacks are not being called to increase performance.
     def add_sample_members
       build_memberships
-      run_before_callbacks
+      build_roles
+      build_user_roles
 
       GroupMembership.import(@memberships)
+      Role.import(@roles)
+      UserRole.import(@user_roles)
     end
 
     def build_memberships
-      SampleUser.collection_for_sample_group.each do |user|
-        @memberships << GroupMembership.new(group: @group, user: user)
+      sample_users.each do |user|
+        @memberships << GroupMembership.new(group: group, user: user)
       end
     end
 
-    def run_before_callbacks
-      @memberships.each do |membership|
-        membership.run_callbacks(:save)   { false }
-        membership.run_callbacks(:create) { false }
+    def build_roles
+      sample_users.each do |user|
+        @roles << user.roles.new(resource: group, name: "member")
+      end
+    end
+
+    def build_user_roles
+      @roles.each.with_index do |role, index|
+        @user_roles << UserRole.new(role: role, user: sample_users[index])
       end
     end
 

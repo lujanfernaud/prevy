@@ -25,7 +25,7 @@ class SampleGroupCreatorTest < ActiveSupport::TestCase
 
     assert_equal members_count, group.members.size
     assert_equal group.members.size, group.members_count
-    assert_equal group.members_with_role.size, members_count - ORGANIZERS_COUNT
+    assert_equal members_count - ORGANIZERS_COUNT, group.members_with_role.size
 
     assert_equal TOTAL_ORGANIZERS, group.organizers.size
   end
