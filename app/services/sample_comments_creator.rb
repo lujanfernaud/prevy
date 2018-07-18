@@ -2,6 +2,8 @@
 
 # Creates sample comments for every new user's sample group's topics.
 class SampleCommentsCreator
+  COMMENT_SEEDS = YAML.load_file("db/seeds/comment_seeds.yml")
+
   def self.call(group)
     new(group).call
   end
@@ -58,15 +60,19 @@ class SampleCommentsCreator
     end
 
     def build_comments_for(topic)
+      comment_seeds = COMMENT_SEEDS.shuffle
+
       @commenters.each do |commenter|
-        @comments << new_comment_for(topic, commenter)
+        comment = comment_seeds.pop
+
+        @comments << new_comment_for(topic, commenter, comment)
       end
     end
 
-    def new_comment_for(topic, commenter)
+    def new_comment_for(topic, commenter, comment)
       topic.comments.new(
         user:       commenter,
-        body:       Faker::BackToTheFuture.quote,
+        body:       comment["body"],
         edited_by:  commenter,
         created_at: created_at_date
       )
