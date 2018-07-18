@@ -892,6 +892,10 @@ ul.pagination {
   border-radius: $box-radius;
 }
 
+input[type="radio"] {
+  margin-top: .2rem;
+}
+
 .nav-tabs {
   border-bottom: 1px solid darken(#dee2e6, 20%);
 }
