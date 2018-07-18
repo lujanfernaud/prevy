@@ -44,7 +44,7 @@ class Topic < ApplicationRecord
   POINTS              = 3
 
   belongs_to :group, touch: true, counter_cache: true
-  belongs_to :user
+  belongs_to :user,  touch: true
   belongs_to :edited_by, class_name: "User", optional: true
 
   has_many   :topic_comments, dependent: :delete_all

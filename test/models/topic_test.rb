@@ -223,7 +223,7 @@ class TopicTest < ActiveSupport::TestCase
     group.update_attributes(name: "Test group")
     group.update_attributes(updated_at: 1.day.ago)
 
-    assert_in_delta 1.day.ago, group.updated_at, 2.minutes
+    assert_in_delta 1.day.ago, group.updated_at, 5.minutes
 
     group.topics.create!(
       user:  SampleUser.all.sample,
@@ -231,7 +231,27 @@ class TopicTest < ActiveSupport::TestCase
       body:  "This is the body of the test topic."
     )
 
-    assert_in_delta topic.reload.updated_at, group.reload.updated_at, 2.minutes
+    assert_in_delta topic.reload.updated_at, group.reload.updated_at, 5.minutes
+  end
+
+  test "touches user when creating a topic" do
+    user  = create :user
+    group = create :group
+    group.members << user
+
+    user.update_attributes(updated_at: 1.day.ago)
+
+    assert_in_delta 1.day.ago, user.updated_at, 5.minutes
+
+    group.topics.create!(
+      user:  user,
+      title: "Test topic",
+      body:  "This is the body of the test topic."
+    )
+
+    topic = Topic.last
+
+    assert_in_delta topic.reload.updated_at, user.reload.updated_at, 5.minutes
   end
 
   test "sets default last_commented_at after create" do
