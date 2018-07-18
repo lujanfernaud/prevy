@@ -19,7 +19,7 @@
 class Attendance < ApplicationRecord
   POINTS = 5
 
-  belongs_to :attendee,       class_name: "User"
+  belongs_to :attendee,       class_name: "User", touch: true
   belongs_to :attended_event, class_name: "Event",
               counter_cache: :attendees_count
 

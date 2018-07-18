@@ -23,6 +23,22 @@ class AttendanceTest < ActiveSupport::TestCase
     stub_sample_content_for_new_users
   end
 
+  test "touches user when attending an event" do
+    user  = create :user
+    group = create :group
+    group.members << user
+
+    event = create :event, group: group
+
+    user.update_attributes(updated_at: 1.day.ago)
+
+    assert_in_delta 1.day.ago, user.updated_at, 5.minutes
+
+    event.attendees << user
+
+    assert_in_delta event.reload.updated_at, user.reload.updated_at, 5.minutes
+  end
+
   test "increases count for UserGroupPoints" do
     attendance = build :attendance
 
