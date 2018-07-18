@@ -56,18 +56,6 @@ class SampleCommentsCreatorTest < ActiveSupport::TestCase
     assert_equal 0, event.topic.comments.size
   end
 
-  test "touches users after adding comments" do
-    create_list :topic, 6, group: @group
-
-    previous_updated_at = @group.members.pluck(:updated_at)
-
-    SampleCommentsCreator.call(@group)
-
-    updated_at = @group.members.reload.pluck(:updated_at)
-
-    assert_not_equal previous_updated_at, updated_at
-  end
-
   test "increases count for UserGroupPoints" do
     create_list :topic, 6, group: @group
 

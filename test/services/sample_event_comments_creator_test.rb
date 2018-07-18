@@ -35,16 +35,6 @@ class SampleEventCommentsCreatorTest < ActiveSupport::TestCase
     assert_equal COMMENTS_COUNT, @event.comments.size
   end
 
-  test "touches users after adding comments" do
-    previous_updated_at = @event.attendees.pluck(:updated_at)
-
-    SampleEventCommentsCreator.call(@event)
-
-    updated_at = @event.attendees.reload.pluck(:updated_at)
-
-    assert_not_equal previous_updated_at, updated_at
-  end
-
   test "increases count for UserGroupPoints" do
     group_points = UserGroupPoints.new
 

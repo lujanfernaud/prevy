@@ -19,6 +19,8 @@ class UserSampleContentCreator
     create_sample_topics
     create_sample_invitations
     create_sample_membership_request
+
+    update_members_updated_at_date
   end
 
   private
@@ -47,5 +49,9 @@ class UserSampleContentCreator
 
     def create_sample_membership_request
       SampleMembershipRequestCreator.call(user)
+    end
+
+    def update_members_updated_at_date
+      group.members.update_all(updated_at: Time.zone.now)
     end
 end

@@ -59,7 +59,6 @@ class SampleEventCommentsCreator
     def run_comments_before_create_callbacks
       @comments.each do |comment|
         comment.run_callbacks(:create) { false }
-        comment.user.touch
       end
     end
 
