@@ -29,4 +29,13 @@ class SampleGroupCreatorTest < ActiveSupport::TestCase
 
     assert_equal TOTAL_ORGANIZERS, group.organizers.size
   end
+
+  test "returns created group" do
+    user = create :user, :confirmed
+
+    result = SampleGroupCreator.call(user)
+    group  = Group.last
+
+    assert_equal group, result
+  end
 end

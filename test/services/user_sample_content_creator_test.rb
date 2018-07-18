@@ -7,12 +7,12 @@ class UserSampleContentCreatorTest < ActiveSupport::TestCase
     user = create :user, skip_sample_content: true
     user.update_attributes(skip_sample_content: false)
 
-    create :group, owner: user, sample_group: true
+    group = create :group, owner: user, sample_group: true
 
-    SampleGroupCreator.expects(:call).with(user)
-    SampleEventCreator.expects(:call).with(user.sample_group)
-    SampleTopicCreator.expects(:call).with(user.sample_group)
-    SampleInvitationCreator.expects(:call).with(user.sample_group, quantity: 3)
+    SampleGroupCreator.expects(:call).with(user).returns(group)
+    SampleEventCreator.expects(:call).with(group)
+    SampleTopicCreator.expects(:call).with(group)
+    SampleInvitationCreator.expects(:call).with(group, quantity: 3)
     SampleMembershipRequestCreator.expects(:call).with(user)
 
     UserSampleContentCreator.call(user)

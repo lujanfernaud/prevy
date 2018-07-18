@@ -7,7 +7,8 @@ class UserSampleContentCreator
   end
 
   def initialize(user)
-    @user = user
+    @user  = user
+    @group = nil
   end
 
   def call
@@ -22,26 +23,26 @@ class UserSampleContentCreator
 
   private
 
-    attr_reader :user
+    attr_reader :user, :group
 
     def user_without_sample_content?
       user.skip_sample_content? || user.sample_user? || user.admin?
     end
 
     def create_sample_group
-      SampleGroupCreator.call(user)
+      @group = SampleGroupCreator.call(user)
     end
 
     def create_sample_event
-      SampleEventCreator.call(user.sample_group)
+      SampleEventCreator.call(group)
     end
 
     def create_sample_topics
-      SampleTopicCreator.call(user.sample_group)
+      SampleTopicCreator.call(group)
     end
 
     def create_sample_invitations
-      SampleInvitationCreator.call(user.sample_group, quantity: 3)
+      SampleInvitationCreator.call(group, quantity: 3)
     end
 
     def create_sample_membership_request

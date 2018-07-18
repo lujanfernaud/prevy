@@ -25,6 +25,8 @@ class SampleGroupCreator
     add_sample_members
     update_members_count
     add_sample_organizers
+
+    group
   end
 
   private
