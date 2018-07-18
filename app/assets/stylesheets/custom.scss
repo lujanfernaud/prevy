@@ -139,6 +139,10 @@ body {
   background: $white;
   border-top: 1px solid lighten($shadow, 34%);
   border-radius: $box-radius;
+
+  .btn {
+    box-shadow: none;
+  }
 }
 
 .box-image {
@@ -859,7 +863,7 @@ ul.pagination {
 }
 
 .btn {
-  box-shadow: 0 1px .36px 0 rgba($dark-indigo, .35);
+  box-shadow: 0 1px .36px 0 rgba($dark-indigo, .4);
   border-radius: $box-radius;
 }
 
