@@ -8,14 +8,20 @@
           <h2 class="text-center">Your Groups</h2>
 
           <div class="row d-flex justify-content-center">
+
             <% if !user_groups.empty? %>
+
               <%= render partial: "group",
                collection: user_groups, as: :group, cached: true %>
+
             <% else %>
-              <h3 class="h5 text-center mt-4">
+
+              <h3 class="h5 text-center mt-4 pb-1">
                 You still don't have membership to any group.
               </h3>
+
             <% end %>
+
           </div>
 
           <div class="row mx-0 d-flex justify-content-center">
