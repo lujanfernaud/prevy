@@ -87,7 +87,7 @@ group :development do
   gem 'bullet',                        '~> 5.7', '>= 5.7.5'
   gem 'guard-rubycritic',              '~> 2.9', '>= 2.9.3'
   gem 'rails-erd',                     '~> 1.5', '>= 1.5.2', require: false
-  gem 'web-console',                   '>= 3.3.0'
+  gem 'web-console',                   '~> 3.6', '>= 3.6.2'
   gem 'listen',                        '>= 3.0.5', '< 3.2'
   gem 'rack-mini-profiler',            '~> 1.0'
   gem 'spring'
