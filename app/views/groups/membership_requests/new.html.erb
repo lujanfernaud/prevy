@@ -1,20 +1,31 @@
 <div class="container-fluid bg-light">
   <div class="container">
+
     <div class="row justify-content-md-center">
-      <div class="col-md-8 mt-4">
-        <h2 class="text-center mb-3">Request membership</h2>
+      <div class="col-md-8 text-center">
+
+        <h2 class="text-center mt-2rem mb-2rem pt-2 pb-2">
+          Request membership:
+
+          <p class="mt-2 mb-0 font-italic">
+            <%= @group.name %>
+          </p>
+        </h2>
 
         <%= form_for @membership_request,
           url: group_membership_requests_path(@group), method: :post do |f| %>
           <%= render "error_messages", object: @membership_request %>
 
           <div class="form-group box p-4 mt-2rem mb-2rem">
-            <h3 class="mb-4">Would you like to add a nice message?</h3>
+            <h3 class="h4 mb-3">
+              Would you like to add a nice message?
+            </h3>
 
-            <div class="form-group mt-2rem mb-0">
+            <div class="form-group mt-1rem mb-0">
               <%= f.label :message, hidden: true %>
               <small class="text-muted">Optional *</small>
-              <%= f.text_area :message, class: "form-control" %>
+              <%= f.text_area :message, autofocus: true,
+                class: "form-control" %>
             </div>
           </div>
 
@@ -24,5 +35,6 @@
 
       </div>
     </div>
+
   </div>
 </div>
