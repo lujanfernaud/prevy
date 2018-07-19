@@ -9,48 +9,36 @@ module ApplicationHelper
   end
 
   def page_without_footer?
-    devise_action? || user_settings? || group_settings?
+    actions_without_footer.include? [controller_path, action_name]
   end
 
-  def devise_action?
-    devise_actions.include? [controller_name, action_name]
-  end
-
-  def devise_actions
+  def actions_without_footer
     [
-      ["registrations", "new"],
-      ["registrations", "edit"],
-      ["sessions",      "new"],
-      ["passwords",     "new"],
-      ["confirmations", "show"],
-      ["confirmations", "new"],
-      ["static_pages",  "create_group_unconfirmed"]
-    ]
-  end
+      ["users/registrations",       "new"],   # Sign up
+      ["devise/sessions",           "new"],   # Log in
+      ["devise/passwords",          "new"],   # Request new password
+      ["users/confirmations",       "show"],  # Confirm account
+      ["users/confirmations",       "new"],   # Request new confirmation
 
-  def user_settings?
-    user_settings.include? [controller_path, action_name]
-  end
+      ["users/registrations",       "edit"],  # Edit account
+      ["users",                     "edit"],  # Edit profile
+      ["users/notifications",       "edit"],  # Edit email notifications
 
-  def user_settings
-    [
-      ["users",                     "edit"],  # Edit Profile
       ["users",                     "show"],  # Profile
-      ["users/notifications",       "edit"],  # Email Notifications
-      ["users/memberships",         "index"], # My Groups
-      ["users/membership_requests", "index"]  # Membership Requests
-    ]
-  end
+      ["users/memberships",         "index"], # My groups
+      ["users/membership_requests", "index"], # Membership requests
 
-  def group_settings?
-    group_settings.include? [controller_path, action_name]
-  end
+      ["groups/membership_requests", "new"],  # Request membership
 
-  def group_settings
-    [
-      ["groups/invitations", "new"],  # Invite Someone
-      ["groups/invitations", "index"], # Invitations Index
-      ["static_pages", "hidden_group"] # Hidden Group Notice
+      ["groups/members",            "show"],  # Member profile
+      ["events/attendees",          "show"],  # Attendee profile
+      ["groups/invitations",        "new"],   # Invite someone
+      ["groups/invitations",        "index"], # Invitations index
+
+      ["searches",                  "show"],  # Search results
+
+      ["static_pages",              "create_group_unconfirmed"],
+      ["static_pages",              "hidden_group"]
     ]
   end
 
