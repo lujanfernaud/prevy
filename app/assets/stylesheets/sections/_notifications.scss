@@ -1,0 +1,17 @@
+//
+// User Notifications
+//
+
+
+.notification__date {
+  @include media-breakpoint-up(md) {
+    width: 5rem;
+  }
+}
+
+.notification__link,
+.notification__mark-as-read {
+  @include media-breakpoint-up(md) {
+    width: 7.5rem;
+  }
+}

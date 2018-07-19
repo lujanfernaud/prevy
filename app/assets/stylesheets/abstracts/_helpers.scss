@@ -1,0 +1,80 @@
+//
+// Helpers
+//
+
+
+.mt-2rem {
+  margin-top: 2rem !important;
+}
+
+.mb-2rem {
+  margin-bottom: 2rem !important;
+}
+
+.ml-010rem {
+  margin-left: .10rem !important;
+}
+
+.pt-0125 {
+  padding-top: .125rem;
+}
+
+.pb-0125 {
+  padding-bottom: .125rem;
+}
+
+.white-space-normal {
+  white-space: normal;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.bg-primary-dark {
+  background-color: $primary-dark;
+}
+
+.bg-primary-darker {
+  background-color: darken($primary-darker, 0%);
+}
+
+.bg-light {
+  background-color: $light-background !important;
+}
+
+.accent-border-bottom {
+  border-bottom: 3px solid $indigo;
+}
+
+.intrinsic-ratio-container {
+  position: relative;
+  padding-bottom: 56.285714%;
+  height: 0;
+  color: $gray-500;
+  background-color: $gray-500;
+  border-top-left-radius: $box-radius !important;
+  border-top-right-radius: $box-radius !important;
+  overflow: hidden;
+}
+
+.intrinsic-ratio-container--square {
+  padding-bottom: 100%;
+  border-radius: 100% !important;
+}
+
+.intrinsic-ratio-container--orientation-switch {
+  @include media-breakpoint-up(md) {
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: calc(#{$box-radius} - 3px) !important;
+  }
+}
+
+.intrinsic-ratio-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: transparent !important;
+}

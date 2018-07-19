@@ -1,0 +1,29 @@
+//
+// Octicons
+//
+
+
+.octicon {
+  display: inline-block;
+  vertical-align: text-top;
+  width: 20px;
+  height: 20px;
+  margin-right: 1px;
+  fill: $gray-700;
+}
+
+.octicon-calendar {
+  margin-top: -.1rem;
+}
+
+.octicon-location,
+.octicon-person,
+.octicon-organization,
+.octicon-star {
+  vertical-align: sub;
+}
+
+.octicon-shield {
+  width: 150px;
+  height: 150px;
+}

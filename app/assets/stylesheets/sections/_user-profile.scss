@@ -1,0 +1,66 @@
+//
+// User Profile
+//
+
+
+// Show
+
+
+.box-user-profile {
+  font-size: 1.05rem;
+}
+
+.profile-heading {
+  margin-bottom: .8rem;
+}
+
+.user-profile-image-container {
+  margin: 0 auto;
+  max-width: 150px;
+}
+
+.user-avatar {
+  border-radius: 100%;
+}
+
+.user-points--profile {
+  flex-basis: 120px !important;
+}
+
+
+// Edit
+
+
+.edit-profile__heading,
+.email-notifications__heading {
+  position: relative;
+  bottom: -.4rem;
+}
+
+.edit-profile__hr {
+  flex-basis: 25%;
+
+  @include media-breakpoint-up(md) {
+    flex-basis: 28%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    flex-basis: 35%;
+  }
+}
+
+.email-notifications__hr {
+  flex-basis: 18%;
+
+  @include media-breakpoint-up(md) {
+    flex-basis: 21%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    flex-basis: 28%;
+  }
+}
+
+.avatar-container {
+  background-color: rgba($light-background, .2);
+}

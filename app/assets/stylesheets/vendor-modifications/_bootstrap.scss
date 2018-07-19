@@ -1,0 +1,81 @@
+//
+// Bootstrap
+//
+
+
+.alert {
+  margin-bottom: 0;
+  border-radius: $box-radius;
+}
+
+.alert--header {
+  margin-top: 1.65rem;
+  border-radius: $box-radius;
+}
+
+.btn {
+  box-shadow: 0 1px .36px 0 rgba($dark-indigo, .4);
+  border-radius: $box-radius;
+}
+
+.card {
+  border: 0;
+  border-radius: 0;
+  border-top-left-radius: $box-radius;
+  border-top-right-radius: $box-radius;
+}
+
+.card-img-overlay {
+  padding: 0.5rem;
+  background-image: linear-gradient(to top, rgba(33, 4, 81, .9) 9%, rgba(33, 4, 81, .3) 33%, rgba(33, 4, 81, .1) 43%, transparent 55%);
+  opacity: 1;
+}
+
+.card-title {
+  bottom: .67rem;
+  margin-bottom: 0;
+  position: absolute;
+  text-align: left;
+  color: $white;
+}
+
+.dropdown-menu {
+  box-shadow: 0 3px 10px rgba(27,31,35,0.15);
+  border-radius: $box-radius;
+}
+
+.form-control {
+  border-radius: $box-radius;
+}
+
+input[type="radio"] {
+  margin-top: .2rem;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid darken(#dee2e6, 20%);
+}
+
+.nav-tabs .nav-link {
+  border-top-left-radius: $box-radius;
+  border-top-right-radius: $box-radius;
+}
+
+.nav-link.active {
+  background-color: unset !important;
+  border-color: darken(#dee2e6, 15%) darken(#dee2e6, 15%) $light-background !important;
+}
+
+.nav-link:hover {
+  border-color: darken(#dee2e6, 15%) darken(#dee2e6, 15%) $light-background !important;
+}
+
+.rounded {
+  border-radius: $box-radius !important;
+}
+
+.tooltip-inner {
+  max-width: 350px;
+  width: inherit;
+  border-radius: $box-radius;
+}

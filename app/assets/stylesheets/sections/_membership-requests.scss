@@ -1,0 +1,27 @@
+//
+// Membership requests
+//
+
+
+.membership-request-info {
+  flex-basis: 100%;
+  min-height: 110px;
+
+  @include media-breakpoint-up(md) {
+    flex-basis: 80%;
+  }
+}
+
+.membership-request-image {
+  display: none;
+  width: 110px;
+  height: 110px;
+  background-color: $gray-300;
+  background-size: cover;
+  border-top-left-radius: $box-radius;
+  border-bottom-left-radius: $box-radius;
+
+  @include media-breakpoint-up(md) {
+    display: block;
+  }
+}

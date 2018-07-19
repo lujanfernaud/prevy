@@ -1,12 +1,56 @@
-// Use @import to import Sass files.
 // Do not use *= require in Sass or your other stylesheets will not be able to access the Bootstrap mixins and variables.
 
-@import "bootstrap-variables";
+// Bootstrap
 
-// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "vendor/bootstrap-variables";
 @import "bootstrap";
-@import "custom";
-@import "static_pages";
-@import "events";
+
+// Variables, Mixins & Helpers
+
+@import "abstracts/variables";
+@import "abstracts/mixins";
+@import "abstracts/helpers";
+
+// General Styling
+
+@import "base/initial-setup";
+
+// Components
+
+@import "components/box";
+@import "components/spinner";
+@import "components/user-points";
+
+// Layout
+
+@import "layout/header";
+@import "layout/search-bar";
+@import "layout/breadcrumbs";
+@import "layout/errors";
+@import "layout/pagination";
+@import "layout/footer";
+
+// Sections
+
+@import "sections/home";
+@import "sections/notifications";
+@import "sections/user-profile";
+@import "sections/my-groups";
+@import "sections/group-roles";
+@import "sections/groups";
+@import "sections/events";
+@import "sections/topics";
+@import "sections/membership-requests";
+
+// Vendor
+
 @import "trix/dist/trix";
 @import "leaflet/dist/leaflet";
+
+// Vendor Modifications
+
+@import "vendor-modifications/turbolinks";
+@import "vendor-modifications/lazysizes";
+@import "vendor-modifications/trix";
+@import "vendor-modifications/octicons";
+@import "vendor-modifications/bootstrap";

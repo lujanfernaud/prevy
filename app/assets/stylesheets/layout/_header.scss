@@ -1,0 +1,29 @@
+//
+// Header
+//
+
+
+.main-header {
+  border-bottom: 2px solid $gray-400;
+}
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: white;
+  padding-top: 9px;
+  font-weight: bold;
+
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.btn-navbar-menu {
+  @include media-breakpoint-down(md) {
+    display: block;
+    width: 100%;
+  }
+}

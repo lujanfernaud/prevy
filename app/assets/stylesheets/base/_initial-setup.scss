@@ -1,0 +1,26 @@
+//
+// Initial Setup
+//
+
+
+html {
+  font-size: 1.05rem;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.container-semi-fluid {
+  @include media-breakpoint-only(md) {
+    max-width: initial;
+  }
+}
+
+.main-container {
+  flex: 1;
+}
+
+small {
+  font-size: .8rem;
+}

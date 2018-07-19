@@ -1,0 +1,23 @@
+//
+// Pagination
+//
+
+
+ul.pagination {
+  box-shadow: 0 1px .36px 0 $shadow;
+  border-radius: $box-radius;
+}
+
+.previous_page {
+  .page-link {
+    border-top-left-radius: $box-radius !important;
+    border-bottom-left-radius: $box-radius !important;
+  }
+}
+
+.next_page {
+  .page-link {
+    border-top-right-radius: $box-radius !important;
+    border-bottom-right-radius: $box-radius !important;
+  }
+}

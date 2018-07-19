@@ -1,13 +1,13 @@
-// Place all the styles related to the Events controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+//
+// Events
+//
 
 
-// Event box
+// Small box
 
 
 .event-box-image {
-  border-bottom: 3px solid $indigo;
+  border-bottom: 3px solid $indigo !important;
   padding-left: 0;
   padding-right: 0;
 
@@ -93,12 +93,12 @@
 }
 
 
-// Show view
+// Big Box (Show view)
 
 
 .event-box-big__img {
-  border-top-left-radius: calc(.625rem - 1px);
-  border-top-right-radius: calc(.625rem - 1px);
+  border-top-left-radius: calc(#{$box-radius} - 1px);
+  border-top-right-radius: calc(#{$box-radius} - 1px);
 }
 
 .event-box-big__text,
@@ -156,7 +156,7 @@
       background-size: auto auto;
   background-size: 8px 10px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: .625rem;
+  border-radius: $box-radius;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -166,4 +166,14 @@
 [id*="event_end_date"]:focus {
   border-color: #b389f9;
   outline: none;
+}
+
+
+// Map
+
+
+#map {
+  height: 600px;
+  border-top: 6px solid $indigo;
+  border-bottom: 6px solid $indigo;
 }

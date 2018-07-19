@@ -1,0 +1,22 @@
+//
+// My Groups
+//
+
+
+.user-group-list-hr {
+  margin-top: .6rem;
+  margin-bottom: .6rem;
+  width: 98.6%;
+}
+
+.user-group-list-hr:last-child {
+  display: none;
+}
+
+.user-group__link {
+  display: block;
+
+  @media (min-width: 335px) {
+    display: inline-block;
+  }
+}

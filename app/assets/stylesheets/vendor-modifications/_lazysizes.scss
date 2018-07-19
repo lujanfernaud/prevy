@@ -1,0 +1,13 @@
+//
+// Lazysizes
+//
+
+
+.blur-up {
+  filter: blur(.95rem);
+  transition: .5s;
+}
+
+.blur-up.lazyloaded {
+  filter: blur(0);
+}

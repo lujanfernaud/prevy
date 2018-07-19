@@ -1,0 +1,74 @@
+//
+// Group
+//
+
+
+.radio-button-list {
+  padding-left: 2rem;
+}
+
+.group-box-title {
+  bottom: .83rem;
+  left: 1.1rem;
+  margin-bottom: 0;
+  margin-right: 0.9rem;
+  position: absolute;
+  text-align: left;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .35);
+
+  @include media-breakpoint-up(sm) {
+    font-size: 2rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: 2.2rem;
+  }
+}
+
+.group-box-text {
+  padding: .65rem .7rem .5rem .7rem;
+}
+
+.group-info-box,
+.event-info-box {
+  padding-left: 1.19rem;
+  padding-right: 1.19rem;
+}
+
+// Hack to offset screen position when using anchor link.
+// It can be removed if we remove the link to 'See most involved members'.
+.members-container {
+  margin-top: -41px;
+  padding-top: 30px;
+}
+
+
+// User Box (Shown for members and attendees)
+
+
+.user-box {
+  height: 100%;
+}
+
+.user-box__image {
+  width: 100%;
+  max-width: 150px;
+}
+
+.user-box__name,
+.user-box__points {
+  flex: 1;
+}
+
+
+// Unhidden Groups
+
+
+.unhidden-groups-container {
+  padding-top: 2.3rem;
+  padding-bottom: 1.5rem;
+  background: rgba($indigo, 0.032);
+}
