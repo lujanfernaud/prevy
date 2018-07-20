@@ -2,6 +2,7 @@
 
 class StaticPagesController < ApplicationController
   def create_group_unconfirmed
+    redirect_to root_path unless signed_in?
   end
 
   def hidden_group
