@@ -46,7 +46,7 @@ class GroupsMembersTest < ActionDispatch::IntegrationTest
     assert_not page.has_content? unconfirmed.name
   end
 
-  test "unconfirmed organizers are not shown" do
+  test "unconfirmed organizers are shown" do
     stub_sample_content_for_new_users
 
     user        = create :user, :confirmed
@@ -60,7 +60,7 @@ class GroupsMembersTest < ActionDispatch::IntegrationTest
 
     visit group_members_path(group)
 
-    assert_not page.has_content? unconfirmed.name
+    assert page.has_content? unconfirmed.name
   end
 
   test "logged out invited user visits group members" do

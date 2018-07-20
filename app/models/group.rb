@@ -138,15 +138,15 @@ class Group < ApplicationRecord
   end
 
   def organizers
-    group_users_with_role :organizer
+    group_users_with_role(:organizer)
   end
 
   def moderators
-    group_users_with_role :moderator
+    group_users_with_role(:moderator)
   end
 
   def members_with_role
-    group_users_with_role :member
+    group_users_with_role(:member).confirmed
   end
 
   def recent_members(limit: RECENT_MEMBERS)
