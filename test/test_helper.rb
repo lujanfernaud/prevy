@@ -10,6 +10,11 @@ require 'rails/test_help'
 require 'mocha/minitest'
 require 'support/support'
 
+require 'database_cleaner'
+
+DatabaseCleaner.clean_with :truncation
+DatabaseCleaner.strategy = :transaction
+
 require 'capybara/rails'
 require 'capybara/minitest'
 
@@ -43,6 +48,8 @@ class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   include FactoryBot::Syntax::Methods
 
+  include DatabaseCleanerSupport
+
   include ApplicationHelper
   include EventsHelper
 
@@ -50,8 +57,6 @@ class ActionDispatch::IntegrationTest
   include IntegrationSupport
   include UserSupport
 
-  # Reset sessions and driver between tests
-  # Use super wherever this method is redefined in your individual test classes
   def teardown
     Capybara.reset_sessions!
     Capybara.use_default_driver
@@ -62,6 +67,8 @@ end
 class ActiveSupport::TestCase
   fixtures :all
   include FactoryBot::Syntax::Methods
+
+  include DatabaseCleanerSupport
 
   include StubsSupport
   include TestCaseSupport

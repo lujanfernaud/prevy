@@ -68,6 +68,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'database_cleaner',              '~> 1.7'
   gem 'mocha',                         '~> 1.5'
   gem 'capybara',                      '~> 2.14'
   gem 'capybara-webkit',               '~> 1.15'
