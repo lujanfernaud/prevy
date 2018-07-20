@@ -76,7 +76,7 @@ group :test do
   gem 'rails-controller-testing',      '~> 1.0', '>= 1.0.2'
   gem 'guard',                         '2.14.0'
   gem 'guard-minitest',                '2.4.6'
-  gem 'minitest-reporters',            '1.1.14'
+  gem 'minitest-reporters',            '~> 1.3'
   gem 'webmock',                       '~> 3.3'
   gem 'simplecov', :require => false
 end

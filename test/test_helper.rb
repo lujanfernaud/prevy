@@ -33,7 +33,9 @@ end
 require 'minitest/autorun'
 require 'minitest/reporters'
 
-Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::DefaultReporter.new]
+Minitest::Reporters.use! [
+  Minitest::Reporters::DefaultReporter.new(color: true, slow_count: 5)
+]
 
 require 'webmock/minitest'
 
