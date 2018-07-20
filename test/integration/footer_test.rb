@@ -215,6 +215,20 @@ class FooterTest < ActionDispatch::IntegrationTest
     assert_not page.has_css? footer_css
   end
 
+  test "is not shown on 'create group unconfirmed' notice page" do
+    stub_sample_content_for_new_users
+
+    user = create :user
+
+    log_in_as user
+
+    click_on user.name
+    click_on "Create group"
+
+    assert_current_path create_group_unconfirmed_path
+
+    assert_not page.has_css? footer_css
+  end
   private
 
     def footer_css
