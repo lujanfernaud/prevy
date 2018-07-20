@@ -239,18 +239,16 @@ class GroupTest < ActiveSupport::TestCase
     group.topics_prioritized(normal_topics_limit: 5)
   end
 
-  test "#recent_members" do
-    group = create :group
-    member_one = SampleUser.all.last
-    member_one.created_at = 1.month.ago
-    member_two = SampleUser.all.first
-    member_two.created_at = 1.day.ago
+  test "#recent_members sorts by membership creation date" do
+    group      = create :group
+    member_one = create :user, :confirmed, created_at: 1.month.ago
+    member_two = create :user, :confirmed, created_at: 1.day.ago
 
     group.members << [member_one, member_two]
 
-    expected = [member_one.name, member_two.name]
+    expected = [member_two.name, member_one.name]
 
-    assert_equal expected, group.recent_members.pluck(:name)
+    assert_equal expected, group.reload.recent_members.pluck(:name)
   end
 
   test "#top_members" do
