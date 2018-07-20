@@ -93,7 +93,7 @@ class GroupsController < ApplicationController
       return if     invited_to_group?
       return unless @group.hidden? && not_authorized?
 
-      render "static_pages/hidden_group"
+      redirect_to hidden_group_path
     end
 
     def invited_to_group?

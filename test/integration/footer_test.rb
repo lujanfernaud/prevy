@@ -229,6 +229,15 @@ class FooterTest < ActionDispatch::IntegrationTest
 
     assert_not page.has_css? footer_css
   end
+
+  test "is not shown on 'hidden group' notice" do
+    visit hidden_group_path
+
+    assert_current_path hidden_group_path
+
+    assert_not page.has_css? footer_css
+  end
+
   private
 
     def footer_css

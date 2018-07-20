@@ -143,7 +143,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert page.has_content? "This group is hidden."
     assert_not page.has_css? ".box"
 
-    assert_current_path group_path(group)
+    assert_current_path hidden_group_path
   end
 
   test "logged out user tries to visit hidden group" do
@@ -155,7 +155,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert page.has_content? "This group is hidden."
     assert_not page.has_css? ".box"
 
-    assert_current_path group_path(group)
+    assert_current_path hidden_group_path
   end
 
   test "user visits hidden group with someone else's invitation token" do
@@ -174,7 +174,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert page.has_content? "This group is hidden."
     assert_not page.has_css? ".box"
 
-    assert_current_path group_path(group, token: invitation.token)
+    assert_current_path hidden_group_path
   end
 
 
@@ -208,7 +208,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     visit group_path(group)
 
-    assert_current_path group_path(group)
+    assert_current_path hidden_group_path
 
     within ".hidden-group-notice-container" do
       click_on "log in"
@@ -225,7 +225,6 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     assert_not page.has_css? ".hidden-group-notice-container"
 
-    assert page.has_content? group.owner.name
     assert page.has_content? group.description
   end
 
