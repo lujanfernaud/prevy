@@ -92,6 +92,18 @@ class FooterTest < ActionDispatch::IntegrationTest
     assert_not page.has_css? footer_css
   end
 
+  test "is not shown in notifications index page" do
+    user = users(:phil)
+
+    log_in_as user
+
+    visit user_notifications_path user
+
+    assert_current_path user_notifications_path user
+
+    assert_not page.has_css? footer_css
+  end
+
   test "is not shown in profile page" do
     user = users(:phil)
 

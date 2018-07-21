@@ -24,6 +24,7 @@ module ApplicationHelper
       ["users",                     "edit"],  # Edit profile
       ["users/notifications",       "edit"],  # Edit email notifications
 
+      ["users/notifications",       "index"], # User notifications
       ["users",                     "show"],  # Profile
       ["users/memberships",         "index"], # My groups
       ["users/membership_requests", "index"], # Membership requests
