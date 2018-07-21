@@ -145,6 +145,23 @@ class FooterTest < ActionDispatch::IntegrationTest
     assert_not page.has_css? footer_css
   end
 
+  test "is not shown in membership requests 'show'" do
+    stub_sample_content_for_new_users
+
+    user   = create :user
+    group  = create :group, owner: user
+    sender = create :user
+    membership_request = create :membership_request, user: sender, group: group
+
+    log_in_as user
+
+    visit user_membership_request_path user, membership_request
+
+    assert_current_path user_membership_request_path user, membership_request
+
+    assert_not page.has_css? footer_css
+  end
+
   test "is not shown in membership requests 'new'" do
     stub_sample_content_for_new_users
 

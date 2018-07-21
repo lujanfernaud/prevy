@@ -28,6 +28,7 @@ module ApplicationHelper
       ["users",                     "show"],  # Profile
       ["users/memberships",         "index"], # My groups
       ["users/membership_requests", "index"], # Membership requests
+      ["users/membership_requests", "show"],  # Membership request
 
       ["groups/membership_requests", "new"],  # Request membership
 
