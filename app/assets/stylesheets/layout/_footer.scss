@@ -4,7 +4,7 @@
 
 
 .footer {
-  min-height: 400px;
+  min-height: 500px;
 }
 
 .container-footer {
@@ -12,14 +12,15 @@
 }
 
 .footer__hr {
-  width: 50%;
+  width: 10%;
+
 
   @include media-breakpoint-up(md) {
-    width: 40%;
+    width: 5%;
   }
 
-  @include media-breakpoint-up(lg) {
-    width: 30%;
+  @include media-breakpoint-up(xl) {
+    width: 3%;
   }
 }
 
