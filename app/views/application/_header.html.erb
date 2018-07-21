@@ -1,21 +1,29 @@
-<header class="main-header">
-  <nav class="navbar navbar-expand-md navbar-dark
-    bg-primary-dark justify-content-between">
+<header class="<%= 'header-border-bottom' if dark_header? %>">
+  <nav class="navbar navbar-expand-md <%= navbar_style %>
+    justify-content-between">
     <div class="container container-semi-fluid">
 
-      <%= link_to "Prevy", root_path, id: "logo", class: "navbar-brand" %>
+      <!-- Prevy Logo -->
+      <%= link_to "Prevy", root_path, id: "logo",
+        class: "header-logo #{header_logo_style}" %>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- Navbar Toggler -->
+      <button class="navbar-toggler" type="button"
+        data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false"
+        aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="navbar-collapse collapse" id="navbarCollapse">
-
         <ul class="navbar-nav ml-auto">
+
+          <!-- Notifications Button -->
           <li class="nav-item mr-md-3 mb-2 mb-md-0">
             <%= notifications_button %>
           </li>
 
+          <!-- User Button and Dropdown Menu -->
           <% if user_signed_in? %>
 
             <li class="nav-item dropdown">
@@ -51,21 +59,23 @@
               </div>
             </li>
 
+          <!-- Log In and Sign Up Buttons -->
           <% else %>
 
             <li class="nav-item mr-md-3 mb-2 mb-md-0">
               <%= link_to "Log in", new_user_session_path,
-                class: "btn btn-outline-light btn-navbar-menu p-2", role: "button" %>
+                class: "btn #{log_in_button_style} btn-navbar-menu p-2",
+                  role: "button" %>
             </li>
             <li class="nav-item">
               <%= link_to "Sign up", new_user_registration_path,
-                class: "btn btn-outline-light btn-navbar-menu p-2", role: "button" %>
+                class: "btn #{sign_up_button_style} btn-navbar-menu p-2",
+                  role: "button" %>
             </li>
 
           <% end %>
 
         </ul>
-
       </div><!-- ./navbar-collapse -->
 
     </div>

@@ -5,46 +5,120 @@
       <div class="row">
         <div class="col-md-12 mt-2rem mb-2rem">
 
-          <div class="promo text-center mt-2">
-            <h2 class="promo__header display-5">
-              Private communities around events
+          <!-- Slogan -->
+
+          <div class="promo promo__text text-center mt-2">
+
+            <h2 class="promo__header font-weight-bold">
+              Private communities
+              <br>
+              around events
             </h2>
 
-            <div class="promo__text mt-5">
-              <p class="lead">
-                Create a private group.
-              </p>
-              <p class="lead">
-                Build a community.
-              </p>
-              <p class="lead">
-                Organize private events.
-              </p>
-            </div>
+            <!-- Three Main Points -->
 
-            <div class="promo__text mt-5 mb-4">
-              <p class="lead">
-                1. All groups are <em>private</em> and can be <em>hidden</em> (so only the people you want can see them).
-              </p>
-              <p class="lead">
-                2. People need to <em>request membership</em> or <em>be invited</em> to join your groups.
-              </p>
-              <p class="lead">
-                3. Events (as everything else) are <em>only visible</em> to group members.
-              </p>
-              <p class="lead">
-                4. Every group has its own <em>forum</em>, to discuss anything comfortably.
-              </p>
-              <p class="lead">
-                5. Group members are rewarded with <em>points</em> for participating in the forum or attending events.
-              </p>
-            </div>
-          </div>
+            <section class="promo__section--main">
+              <div class="mt-5 mb-5">
+                <p class="mb-2 mb-sm-3">
+                  Create a private group.
+                </p>
+                <p class="mb-2 mb-sm-3">
+                  Build a community.
+                </p>
+                <p class="mb-2 mb-sm-3">
+                  Organize private events.
+                </p>
+              </div>
+            </section>
 
-          <div class="row text-center">
-            <div class="col mx-auto mt-2rem mb-2rem">
-              <%= link_to "Sign up and get started", new_user_registration_path,
-                class: "btn btn-primary btn-lg mb-2 pt-4 pb-4 pl-5 pr-5 white-space-normal" %>
+            <!-- Hidden Group -->
+
+            <section class="promo__section">
+              <div class="mt-5 mb-5">
+                <p class="promo__image-description">
+                  All groups are <em>private</em> and can be <em>hidden</em> (so only the people you want can see them).
+                </p>
+
+                <%= render "browser_window",
+                  image_file: "hidden_group.png",
+                  alt:        "Hidden group notice page" %>
+              </div>
+            </section>
+
+            <hr class="w-50">
+
+            <!-- Invitee View -->
+
+            <section class="promo__section">
+              <div class="mt-5 mb-5">
+                <p class="promo__image-description">
+                  People need to <em>request membership</em> or <em>be invited</em> to join your groups.
+                </p>
+
+                <%= render "browser_window",
+                  image_file: "rave_up.png",
+                  alt:        "Group view for invited person" %>
+              </div>
+            </section>
+
+            <hr class="w-50">
+
+            <!-- Event View -->
+
+            <section class="promo__section">
+              <div class="mt-5 mb-5">
+                <p class="promo__image-description">
+                  Events (as everything else) are <em>only visible</em> to group members.
+                </p>
+
+                <%= render "browser_window",
+                  image_file: "sample_event.png",
+                  alt:        "Event view" %>
+              </div>
+            </section>
+
+            <hr class="w-50">
+
+            <!-- Forum -->
+
+            <section class="promo__section">
+              <div class="mt-5 mb-5">
+                <p class="promo__image-description">
+                  Every group has its own <em>forum</em>, to discuss anything comfortably.
+                </p>
+
+                <%= render "browser_window",
+                  image_file: "latest_topics.png",
+                  alt:        "Latest topics" %>
+              </div>
+            </section>
+
+            <hr class="w-50">
+
+            <!-- Most Involved Members -->
+
+            <section class="promo__section">
+              <div class="mt-5 mb-5">
+                <p class="promo__image-description">
+                  Group members are rewarded with <em>points</em> for participating in the forum or attending events.
+                </p>
+
+                <%= render "browser_window",
+                  image_file: "most_involved_members.png",
+                  alt:        "Most involved members" %>
+              </div>
+            </section>
+
+          </div><!-- /.promo -->
+
+          <!-- Sign Up Now! -->
+
+          <div class="row promo__section--sign-up text-center">
+            <div class="col mx-auto mt-2rem">
+              <%= link_to "Sign up and get started",
+                new_user_registration_path,
+                class: "btn btn-primary btn-xl font-weight-bold
+                  mb-2 white-space-normal" %>
             </div>
           </div>
 

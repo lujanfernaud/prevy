@@ -1,0 +1,12 @@
+<div class="browser-window">
+  <header class="browser-window__header">
+    <div class="browser-window__button red-button"></div>
+    <div class="browser-window__button yellow-button"></div>
+    <div class="browser-window__button green-button"></div>
+  </header>
+  <div class="browser-window__viewport intrinsic-ratio-container">
+    <%= image_tag  "/images/promo/lqip_#{image_file}",
+      data: { src: "/images/promo/#{image_file}" },
+      alt: alt, class: "lazyload blur-up intrinsic-ratio-image img-fluid" %>
+    </div>
+</div>
