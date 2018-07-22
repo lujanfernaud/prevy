@@ -13,14 +13,18 @@
           <div class="row p-3">
             <div class="col-md-12">
 
-              <% unless @topics.empty? %>
+              <% unless @topics && @topics.empty? %>
+
                 <%= render partial: "groups/topics/topic_row",
                   as: :topic, collection: @topics,
                   locals: { topics: @topics, group: @group } %>
+
               <% else %>
+
                 <p class="lead text-center mt-1 mb-1">
                   This looks better with some topics. Why not creating one? :)
                 </p>
+
               <% end %>
 
             </div>

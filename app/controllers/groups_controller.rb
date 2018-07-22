@@ -1,21 +1,24 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
-  before_action :find_group, only: [:show, :edit, :update, :destroy]
+  before_action :find_group,     only: [:show, :edit, :update, :destroy]
   before_action :redirect_to_root_if_not_own_sample_group, only: [:show]
-  before_action :store_invitation_token_in_session, only: [:show]
-  before_action :render_notice_if_group_hidden, only: [:show]
-  after_action  :verify_authorized, except: [:index]
+  before_action :store_invitation_token_in_session,        only: [:show]
+  before_action :render_notice_if_group_hidden,            only: [:show]
+  after_action  :verify_authorized,                     except: [:index]
 
   def index
     @groups = store_unhidden_groups
   end
 
   def show
-    @events          = store_upcoming_events
-    @events_count    = @group.events.upcoming.size
-    @topics          = @group.topics_prioritized(normal_topics_limit: 5)
-    @unhidden_groups = unhidden_groups_selection_without @group
+    if not_authorized? && !invited_to_group?
+      @unhidden_groups = unhidden_groups_selection_without @group
+    else
+      @events          = store_upcoming_events
+      @events_count    = @group.events.upcoming.size
+      @topics          = @group.topics_prioritized(normal_topics_limit: 5)
+    end
 
     authorize @group
   end

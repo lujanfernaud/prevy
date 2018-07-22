@@ -23,9 +23,9 @@
 
 <% if authorized?(current_user, @group) || invited? %>
 
-  <% unless @events.empty? %>
+  <% unless @events && @events.empty? %>
     <%= render "events", group: @group,
-      events: @events, events_count: @events_count %>
+      events: @events, events_count: @events_count || 0 %>
   <% end %>
 
   <% unless @group.topics.empty? && invited? %>
