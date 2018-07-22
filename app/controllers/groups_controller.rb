@@ -113,7 +113,7 @@ class GroupsController < ApplicationController
       Group.includes(:image_placeholder)
            .unhidden
            .order(created_at: :desc)
-           .paginate(page: params[:page], per_page: 15)
+           .paginate(page: params[:page], per_page: 18)
     end
 
     def store_upcoming_events

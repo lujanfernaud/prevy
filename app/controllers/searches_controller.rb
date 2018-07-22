@@ -6,6 +6,6 @@ class SearchesController < ApplicationController
   def show
     @groups = Group.unhidden
                    .search(params[:keywords])
-                   .paginate(page: params[:page], per_page: 15)
+                   .paginate(page: params[:page], per_page: 18)
   end
 end
