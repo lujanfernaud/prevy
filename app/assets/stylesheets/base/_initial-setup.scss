@@ -9,7 +9,7 @@ html {
 
 body {
   min-height: 100vh;
-  color: $dark-indigo;
+  color: darken($dark-indigo, 6.5%);
 }
 
 .container-semi-fluid {
@@ -20,6 +20,13 @@ body {
 
 .main-container {
   flex: 1;
+}
+
+h1,
+h2,
+h3,
+.h3 {
+  color: $dark-indigo;
 }
 
 small {
