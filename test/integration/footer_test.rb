@@ -17,6 +17,23 @@ class FooterTest < ActionDispatch::IntegrationTest
     assert_not page.has_css? footer_css
   end
 
+  test "is not shown in sign up page with errors" do
+    user = create :user, name: "Doris", email: "doris@test.test"
+
+    visit new_user_registration_path
+
+    fill_in "Name",  with: user.name
+    fill_in "Email", with: user.email
+
+    within "form" do
+      click_on "Sign up"
+    end
+
+    assert_current_path "/users"
+
+    assert_not page.has_css? footer_css
+  end
+
   test "is not shown in log in page" do
     visit new_user_session_path
 

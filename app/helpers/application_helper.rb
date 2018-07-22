@@ -15,6 +15,7 @@ module ApplicationHelper
   def actions_without_footer
     [
       ["users/registrations",       "new"],   # Sign up
+      ["users/registrations",    "create"],   # Sign up error
       ["devise/sessions",           "new"],   # Log in
       ["devise/passwords",          "new"],   # Request new password
       ["users/confirmations",       "show"],  # Confirm account
