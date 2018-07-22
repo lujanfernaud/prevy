@@ -70,5 +70,10 @@
 .unhidden-groups-container {
   padding-top: 3.8rem;
   padding-bottom: 3.1rem;
-  background: rgba($indigo, .032);
+  background: rgba($primary-dark, .032);
+}
+
+.btn-outline-primary--dark {
+  color: $dark-indigo;
+  border-color: $dark-indigo;
 }
