@@ -210,3 +210,79 @@
     We regularly organize get-togethers and present Open Source projects that can potentially add great value to an IT environment. This is the perfect place to find out what today's hot Open Source projects are.
   location: Honolulu
   image: app/assets/images/samples/sample_groups/chris-ried-512801-unsplash.jpg
+
+-
+  name: Homebrew Music Makers
+  description: |-
+    You are a maker. You like soldering or would like to learn. You make music. You like music. You are fascinated by the possibilities technology opens up for music makery. You are tired of this second person nonsense.
+  location: Seattle, WA
+  image: app/assets/images/samples/sample_groups/adi-goldstein-687402-unsplash.jpg
+
+-
+  name: Makerspace
+  description: |-
+    Makerspace is Krakow's first and only makerspace. A community center where makers of different skill levels and ages can come together to build and showcase projects. We share space, tools, and knowledge with one another. We are always excited to meet new people, because everyone adds a new perspective and ideas.
+  location: Krakow
+  image: app/assets/images/samples/sample_groups/blur-business-close-up-246753.jpg
+
+-
+  name: Vinyl Exchange
+  description: |-
+    This group is a vinyl adventure. Each month we'll set a vinyl challenge that will expand your collection and take it into new and interesting places. Then we'll get together, listen, share, discuss, swap, and enjoy a pint. Plus we'll do special events like heading to record fairs and vinyl swaps.
+  location: Florida
+  image: app/assets/images/samples/sample_groups/roman-kraft-57268-unsplash.jpg
+
+-
+  name: Music Makers
+  description: |-
+    The Music Makers group is for anyone who writes and/or performs electronic music in and around the Austin area.
+    <br><br>
+    Our primary goal is to promote an active production, performance, collaboration and development environment. Our members use a variety of tools including Ableton Live, Logic, Pro Tools, Garageband, Maschine, FL Studio, plugins such as Massive, Serum, Sylenth 1 and Max for Live as well as hardware including Elektron, Roland, Korg and modular synths. Together we organise in-person activities including workshops, mixers, jam sessions, and other performance opportunities.
+  location: Austin, TX
+  image: app/assets/images/samples/sample_groups/vania-shows-429708-unsplash.jpg
+
+-
+  name: Dora Acrylics School
+  description: |-
+    Experience the infinite possibilities of combining acrylic painting with an array of materials such as wood, vintage papers, textiles, metals and recyclables to create exciting artworks. Connect to your creativity in a warm, friendly environment and enjoy the pleasures of painting.
+    <br><br>
+    Enjoy learning various techniques that in combination with your imagination, develop your creative self.
+  location: Stockholm
+  image: app/assets/images/samples/sample_groups/acrylic-acrylic-paint-art-1174952.jpg
+
+-
+  name: The Loving Spirit
+  description: |-
+    I aim to build a strong community of love, where we can constantly give each other the loving spirit, the encouraging and motivation for us to stay in this natural negative world. With love, we can fight on, fight for our loved ones, fight for the things you want...
+    <br><br>
+    Let’s stay in love, give love, and be loved to make this world a loving place to live.️
+  location: Paris
+  image: app/assets/images/samples/sample_groups/4k-wallpaper-close-up-colorful-1173576.jpg
+
+-
+  name: Berlin Car Hackers
+  description: |-
+    This is a community for anyone interested in car hacking, reverse engineering, programming, and improving car security. All skill levels are welcome. I started this group to meet other people interested in car hacking. You don't need to be an expert - just interested in the topic!
+  location: Berlin
+  image: app/assets/images/samples/sample_groups/adult-auto-automobile-401796.jpg
+
+-
+  name: The Beetle Crew
+  description: |-
+    This community is for VW Beetle owners and enthusiasts in San Jose. A place for exchanging tips, trading parts, working on cars, racing (at sanctioned events of course), or just hanging out.
+  location: San Jose, CA
+  image: app/assets/images/samples/sample_groups/issam-hammoudi-740821-unsplash.jpg
+
+-
+  name: The House Crew
+  description: |-
+    This group is for anyone who loves house music - whether you just want to meet up with true music lovers alike, love to dance to a good beat and see different DJ's live, or you're slipping to the darker side of house and want to bring back that "underground vibe". Moscow's abundant electronic music scene provides the perfect backdrop for this experience. This group is a platform to discover awesome shows and find cool people to go with.
+  location: Moscow
+  image: app/assets/images/samples/sample_groups/matty-adame-274356-unsplash.jpg
+
+-
+  name: The Pixel Guild
+  description: |-
+    If you love to work with colored squares and you live in San Francisco... we need to know each other! No matter if you are a game developer, graphic designer, art director, 2D animator or just a pixel art lover. We're looking forward to share our portfolios and experiences, organize workshops, create contests and do anything to inspire ourselves and boost our pixel art skills. A very nice creative flow is guaranteed!
+  location: San Francisco
+  image: app/assets/images/samples/sample_groups/ECB_LA_28k.png
