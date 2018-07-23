@@ -2,17 +2,15 @@
 
 class Groups::MembershipRequestsController < ApplicationController
   def new
-    @membership_request = MembershipRequest.new
     @group = find_group
+    @membership_request = MembershipRequest.new
 
     authorize @membership_request
   end
 
   def create
-    @user  = current_user
     @group = find_group
-    @membership_request = MembershipRequest.new(
-      { user: @user, group: @group }.merge(membership_request_params))
+    @membership_request = MembershipRequest.new(membership_request_params)
 
     if @membership_request.save
       flash[:success] = "Your request has been sent. " \
@@ -29,11 +27,10 @@ class Groups::MembershipRequestsController < ApplicationController
     @membership_request = find_membership_request
     @user  = @membership_request.user
     @group = @membership_request.group
-    @user_session = current_user
 
     @membership_request.destroy
 
-    if @user_session == @user
+    if current_user == @user
       flash[:success] = "Your membership request was deleted."
     else
       flash[:success] = "The membership request was deleted."
@@ -54,7 +51,9 @@ class Groups::MembershipRequestsController < ApplicationController
     end
 
     def membership_request_params
-      params.require(:membership_request).permit(:message)
+      params.require(:membership_request)
+            .permit(:message)
+            .merge(user: current_user, group: @group)
     end
 
     def notify_group_owner
