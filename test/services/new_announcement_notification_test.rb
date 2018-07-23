@@ -37,7 +37,7 @@ class NewAnnouncementNotificationTest < ActiveSupport::TestCase
     end
 
     def assert_in_app_notification_for(member)
-      notification = member.announcement_notifications.last
+      notification = member.announcement_topic_notifications.last
 
       assert_equal announcement_topic,       notification.topic
       assert_equal announcement_topic.group, notification.group

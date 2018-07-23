@@ -29,12 +29,16 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-
 FactoryBot.define do
   factory :notification do
     user
     message "Factory notification."
     type    "Notification"
+  end
+
+  trait :membership_request_notification do
+    membership_request
+    type "MembershipRequestNotification"
   end
 
   trait :group_invitation do

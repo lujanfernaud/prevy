@@ -21,42 +21,67 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
 
     visit user_notifications_path(@phil)
 
-    refute page.current_path == user_notifications_path(@phil)
+    refute_current_path user_notifications_path(@phil)
   end
 
-  test "group owner visits notifications and accepts request" do
-    log_in_as(@phil)
+  test "group owner visits notifications and accepts membership request" do
+    stub_sample_content_for_new_users
+
+    group              = create :group
+    membership_request = create :membership_request, group: group
+    receiver           = group.owner
+    sender             = membership_request.user
+
+    notification = create :notification,
+      :membership_request_notification,
+       message: membership_request_notification_message(sender, group),
+       membership_request_id: membership_request.id,
+       user: receiver
+
+    log_in_as(receiver)
 
     click_on "Notifications"
 
-    assert_membership_request_notification(@carolyn) do
+    within "#notification-#{notification.id}" do
+      assert page.has_content? formatted_date
+
+      assert page.has_content? membership_request_notification_message(
+        sender, group)
+
+      assert page.has_link? "Go to request"
+      assert page.has_link? "Mark as read"
+
       click_on "Go to request"
     end
 
-    assert_membership_request_url
+    assert_current_path user_membership_request_path(
+      receiver, membership_request)
 
-    click_on "Notifications"
+    visit user_notifications_path(receiver)
 
-    refute_membership_request_notification(@carolyn)
+    refute page.has_css?     "#notification-#{notification.id}"
+    refute page.has_content? sender.name
+    refute page.has_content? membership_request_notification_message(
+      sender, group)
 
-    click_on @phil.name
+    click_on receiver.name
     click_on "Membership requests"
 
-    within membership_request_from(@carolyn) do
+    within membership_request_from(sender) do
       click_on "Accept"
     end
 
     log_out
 
-    log_in_as(@carolyn)
+    log_in_as(sender)
 
     click_on "Notifications"
 
-    within last_notification_for(@carolyn) do
+    within last_notification_for(sender) do
       click_on "Go to group"
     end
 
-    assert page.current_path == group_path(@nike_group)
+    assert_current_path group_path(group)
 
     click_on "Notifications"
 
@@ -252,13 +277,18 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
   end
 
   test "user marks all notifications as read" do
-    log_in_as(@onitsuka)
+    stub_sample_content_for_new_users
 
-    visit user_notifications_url(@onitsuka)
+    receiver = create :user
+    create_list :notification, 5, user: receiver
+
+    log_in_as(receiver)
+
+    visit user_notifications_path(receiver)
 
     click_on "Mark all as read"
 
-    assert page.current_path == user_notifications_path(@onitsuka)
+    assert_current_path user_notifications_path(receiver)
     assert page.has_content? no_notifications_message
     refute page.has_link?    "Mark all as read"
   end
@@ -291,45 +321,16 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
 
   private
 
-    def assert_membership_request_notification(user, &block)
-      within "#notification-#{@notification.id}" do
-        assert page.has_content? formatted_date
-        assert page.has_content? user.name
-        assert page.has_content? @nike_group.name
-        assert page.has_content? notification_message(user, @nike_group)
-        assert page.has_link?    "Go to request"
-        assert page.has_link?    "Mark as read"
-
-        yield if block_given?
-      end
-    end
-
     def formatted_date
       @notification.created_at.strftime("%d %b")
     end
 
-    def notification_message(user, group)
+    def membership_request_notification_message(user, group)
       "New membership request from #{user.name} in #{group.name}."
-    end
-
-    def assert_membership_request_url
-      assert page.current_url == user_membership_request_url(
-        @phil, @notification)
     end
 
     def last_notification_for(user)
       "#notification-#{user.notifications.last.id}"
-    end
-
-    def mark_notification_as_read
-      within "#notification-#{@notification.id}" do
-        click_on "Mark as read"
-      end
-    end
-
-    def refute_membership_request_notification(user)
-      refute page.has_content? user.name
-      refute page.has_content? notification_message(user, @nike_group)
     end
 
     def membership_request_from(user)

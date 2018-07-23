@@ -17,7 +17,7 @@ class UsersAnnouncementsNotificationsTest < ActionDispatch::IntegrationTest
   test "user receives group announcement notification" do
     submit_new_announcement_topic_as(@phil)
     topic = @group.reload.announcement_topics.last
-    notification = @woodell.reload.announcement_notifications.last
+    notification = @woodell.reload.announcement_topic_notifications.last
 
     log_in_as(@woodell)
 

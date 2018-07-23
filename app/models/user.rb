@@ -142,24 +142,6 @@ class User < ApplicationRecord
     received_requests + sent_requests
   end
 
-  # I haven't found a better way of including the related tables for each
-  # resource when using STI. This may mean that STI is not the best solution
-  # for this case.
-  #
-  # We could use a lambda for each has_many, but as we still need to call
-  # notifications_optimized, I think this solution looks cleaner.
-  def notifications_optimized
-    membership_request_notifications.includes(:membership_request) +
-      group_membership_notifications.includes(group_membership: :group) +
-      group_role_notifications.includes(:group) +
-      announcement_topic_notifications +
-      group_invitation_notifications
-  end
-
-  def announcement_notifications
-    announcement_topic_notifications
-  end
-
   def comments
     topic_comments
   end

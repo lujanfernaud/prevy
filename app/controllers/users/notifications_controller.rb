@@ -8,7 +8,7 @@ class Users::NotificationsController < ApplicationController
     authorize Notification
 
     @user = find_user
-    @notifications = @user.notifications_optimized
+    @notifications = @user.notifications
   end
 
   # Notification settings
@@ -40,7 +40,7 @@ class Users::NotificationsController < ApplicationController
 
     authorize @notification
 
-    @notification.delete
+    @notification.destroy
 
     redirect_to user_notifications_path(@user)
   end
