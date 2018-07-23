@@ -133,7 +133,7 @@ class Topic < ApplicationRecord
     end
 
     def set_edited_at
-      return unless content_changed? || !edited_at
+      return unless content_changed?
 
       self.edited_at = Time.current
     end

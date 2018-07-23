@@ -198,13 +198,6 @@ class TopicTest < ActiveSupport::TestCase
     refute_equal previous_edited_at, topic.edited_at
   end
 
-  test "edited_at is set if it was empty" do
-    topic = fake_topic
-    topic.save!
-
-    assert topic.edited_at
-  end
-
   test "edited_at remains unchanged when the topic is touched" do
     topic = fake_topic
     topic.save!
