@@ -42,8 +42,6 @@ class TopicComment < ApplicationRecord
   before_destroy -> { user_group_points.decrease by: POINTS }
 
   def edited?
-    return false if topic.group.sample_group?
-
     !edited_by_author? || edited_at - created_at > EDITED_OFFSET_TIME
   end
 

@@ -103,8 +103,6 @@ class Topic < ApplicationRecord
   end
 
   def edited?
-    return false if group.sample_group?
-
     !edited_by_author? || edited_at - created_at > EDITED_OFFSET_TIME
   end
 

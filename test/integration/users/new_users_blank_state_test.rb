@@ -53,6 +53,17 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     assert page.has_link? sample_event_name
   end
 
+  test "new user visits sample topic" do
+    group = @user.sample_group
+    topic = group.normal_topics.first
+
+    log_in_as(@user)
+
+    visit group_topic_path(group, topic)
+
+    assert_not page.has_content? "Edited"
+  end
+
   test "new user creates topic in sample group" do
     log_in_as(@user)
 

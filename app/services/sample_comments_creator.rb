@@ -70,16 +70,15 @@ class SampleCommentsCreator
     end
 
     def new_comment_for(topic, commenter, comment)
+      created_at_date = CREATION_DATE + rand(ONE_MINUTE..TWENTY_THREE_HOURS)
+
       topic.comments.new(
         user:       commenter,
         body:       comment["body"],
         edited_by:  commenter,
+        edited_at:  created_at_date,
         created_at: created_at_date
       )
-    end
-
-    def created_at_date
-      CREATION_DATE + rand(ONE_MINUTE..TWENTY_THREE_HOURS)
     end
 
     def run_comments_before_create_callbacks

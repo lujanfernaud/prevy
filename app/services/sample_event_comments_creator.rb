@@ -43,17 +43,15 @@ class SampleEventCommentsCreator
 
     def new_comment_with(seed)
       attendee = attendees.pop
+      created_at_date = CREATION_DATE + rand(ONE_MINUTE..TWENTY_THREE_HOURS)
 
       event_topic.comments.new(
         user:       attendee,
         body:       seed["body"],
         edited_by:  attendee,
+        edited_at:  created_at_date,
         created_at: created_at_date
       )
-    end
-
-    def created_at_date
-      CREATION_DATE + rand(ONE_MINUTE..TWENTY_THREE_HOURS)
     end
 
     def run_comments_before_create_callbacks
