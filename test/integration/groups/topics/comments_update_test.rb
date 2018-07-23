@@ -32,6 +32,27 @@ class CommentsUpdateTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "topic does not show 'edited' after editing comment" do
+    @topic.update_attributes   edited_at:  1.hour.ago
+    @comment.update_attributes created_at: 1.hour.ago
+
+    log_in_as @phil
+
+    visit group_topic_path(@group, @topic)
+
+    click_on_edit_comment(@comment)
+
+    update_comment_with("Body of updated comment.")
+
+    within "#comment-#{@comment.id}" do
+      assert page.has_content? "Edited"
+    end
+
+    within "#topic-#{@topic.id}" do
+      assert_not page.has_content? "Edited"
+    end
+  end
+
   test "shows 'edited' if edited after offset" do
     @comment.update_attributes(
       created_at: 1.hour.ago,

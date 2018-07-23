@@ -30,7 +30,7 @@ class TopicsUpdateTest < ActionDispatch::IntegrationTest
   test "shows 'edited' if edited after offset" do
     @topic.update_attributes(
       created_at: 1.hour.ago,
-      updated_at: 11.minutes.ago
+      edited_at:  11.minutes.ago
     )
 
     log_in_as @phil
@@ -47,7 +47,7 @@ class TopicsUpdateTest < ActionDispatch::IntegrationTest
 
     @topic.update_attributes(
       created_at: 1.hour.ago,
-      updated_at: 11.minutes.ago,
+      edited_at:  11.minutes.ago,
       edited_by:  woodell
     )
 

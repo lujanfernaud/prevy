@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: topics
@@ -7,7 +8,7 @@
 #  announcement      :boolean          default(FALSE)
 #  body              :text
 #  comments_count    :integer          default(0), not null
-#  edited_at         :datetime
+#  edited_at         :datetime         not null
 #  last_commented_at :datetime
 #  priority          :integer          default(0)
 #  slug              :string

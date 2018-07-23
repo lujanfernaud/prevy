@@ -8,7 +8,7 @@
 #  announcement      :boolean          default(FALSE)
 #  body              :text
 #  comments_count    :integer          default(0), not null
-#  edited_at         :datetime
+#  edited_at         :datetime         not null
 #  last_commented_at :datetime
 #  priority          :integer          default(0)
 #  slug              :string
@@ -105,7 +105,7 @@ class Topic < ApplicationRecord
   def edited?
     return false if group.sample_group?
 
-    !edited_by_author? || updated_at - created_at > EDITED_OFFSET_TIME
+    !edited_by_author? || edited_at - created_at > EDITED_OFFSET_TIME
   end
 
   def edited_by_author?
