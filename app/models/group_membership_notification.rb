@@ -40,6 +40,10 @@ class GroupMembershipNotification < Notification
     { text: "Go to group", path: notification_redirecter_path }
   end
 
+  def resource_path
+    URL_HELPERS.group_path(group)
+  end
+
   private
 
     def notification_redirecter_path

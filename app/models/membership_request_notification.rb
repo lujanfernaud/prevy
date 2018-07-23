@@ -38,6 +38,10 @@ class MembershipRequestNotification < Notification
     { text: "Go to request", path: notification_redirecter_path }
   end
 
+  def resource_path
+    URL_HELPERS.user_membership_request_path(user, membership_request)
+  end
+
   private
 
     def membership_request_declined?

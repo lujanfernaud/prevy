@@ -36,6 +36,10 @@ class GroupInvitationNotification < Notification
     { text: "Go to group", path: notification_redirecter_path }
   end
 
+  def resource_path
+    URL_HELPERS.group_path(group, token: invitation.token)
+  end
+
   private
 
     def notification_redirecter_path

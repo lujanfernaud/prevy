@@ -30,12 +30,18 @@
 #
 
 class Notification < ApplicationRecord
+  URL_HELPERS = Rails.application.routes.url_helpers
+
   belongs_to :user, counter_cache: true
 
   validates :message, presence: true
 
   def link
     {}
+  end
+
+  def resource_path
+    "Not implemented"
   end
 
   def redirecter_path(**params)

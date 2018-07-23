@@ -32,6 +32,8 @@
 require 'test_helper'
 
 class AnnouncementTopicNotificationTest < ActiveSupport::TestCase
+  URL_HELPERS = Notification::URL_HELPERS
+
   include UserSupport
   include TopicsTestCaseSupport
 
@@ -48,15 +50,23 @@ class AnnouncementTopicNotificationTest < ActiveSupport::TestCase
     assert_equal({ text: text, path: path }, result)
   end
 
+  test "#resource_path" do
+    group = @notification.group
+    topic = @notification.topic
+
+    expected = URL_HELPERS.group_topic_path(group, topic)
+
+    assert_equal expected, @notification.resource_path
+  end
+
   private
 
     def path_with_params
-      Rails.application.routes.url_helpers
-           .user_notification_redirecter_path(
-             @notification.user,
-             notification: @notification,
-             group: @notification.group,
-             topic: @notification.topic
-           )
+      URL_HELPERS.user_notification_redirecter_path(
+        @notification.user,
+        notification: @notification,
+        group: @notification.group,
+        topic: @notification.topic
+      )
     end
 end

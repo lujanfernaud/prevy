@@ -32,6 +32,8 @@
 require 'test_helper'
 
 class MembershipRequestNotificationTest < ActiveSupport::TestCase
+  URL_HELPERS = Notification::URL_HELPERS
+
   def setup
     @notification = membership_request_notifications(:one)
   end
@@ -44,14 +46,22 @@ class MembershipRequestNotificationTest < ActiveSupport::TestCase
     assert_equal({ text: text, path: path }, result)
   end
 
+  test "#resource_path" do
+    expected = URL_HELPERS.user_membership_request_path(
+      @notification.user,
+      @notification.membership_request
+    )
+
+    assert_equal expected, @notification.resource_path
+  end
+
   private
 
     def path_with_params
-      Rails.application.routes.url_helpers
-           .user_notification_redirecter_path(
-             @notification.user,
-             notification: @notification,
-             membership_request: @notification.membership_request
-           )
+      URL_HELPERS.user_notification_redirecter_path(
+        @notification.user,
+        notification: @notification,
+        membership_request: @notification.membership_request
+      )
     end
 end

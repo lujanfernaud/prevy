@@ -32,6 +32,8 @@
 require 'test_helper'
 
 class GroupInvitationNotificationTest < ActiveSupport::TestCase
+  URL_HELPERS = Notification::URL_HELPERS
+
   def setup
     stub_sample_content_for_new_users
   end
@@ -63,5 +65,18 @@ class GroupInvitationNotificationTest < ActiveSupport::TestCase
     notification = user.notifications.last
 
     assert notification.link[:path].include?(invitation.token)
+  end
+
+  test "#resource_path" do
+    user  = create :user
+    group = create :group
+    invitation = create :group_invitation, group: group, email: user.email
+    create :notification, :group_invitation, user: user, group_id: group.id
+
+    notification = user.notifications.last
+
+    expected = URL_HELPERS.group_path(group, token: invitation.token)
+
+    assert_equal expected, notification.resource_path
   end
 end
