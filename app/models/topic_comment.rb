@@ -6,6 +6,7 @@
 #
 #  id           :bigint(8)        not null, primary key
 #  body         :text
+#  edited_at    :datetime         not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  edited_by_id :bigint(8)
@@ -35,6 +36,7 @@ class TopicComment < ApplicationRecord
   validate :body_length
 
   before_save    :set_default_edited_by, unless: :edited_by
+  before_save    :set_edited_at
   after_create   :update_topic_last_commented_at_date
   before_create  -> { user_group_points.increase by: POINTS }
   before_destroy -> { user_group_points.decrease by: POINTS }
@@ -42,15 +44,11 @@ class TopicComment < ApplicationRecord
   def edited?
     return false if topic.group.sample_group?
 
-    !edited_by_author? || updated_at - created_at > EDITED_OFFSET_TIME
+    !edited_by_author? || edited_at - created_at > EDITED_OFFSET_TIME
   end
 
   def edited_by_author?
     user == edited_by
-  end
-
-  def edited_at
-    updated_at
   end
 
   def group
@@ -65,6 +63,12 @@ class TopicComment < ApplicationRecord
 
     def set_default_edited_by
       self.edited_by = user
+    end
+
+    def set_edited_at
+      return unless body_changed?
+
+      self.edited_at = Time.current
     end
 
     def update_topic_last_commented_at_date

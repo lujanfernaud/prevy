@@ -6,6 +6,7 @@
 #
 #  id           :bigint(8)        not null, primary key
 #  body         :text
+#  edited_at    :datetime         not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  edited_by_id :bigint(8)
@@ -81,14 +82,14 @@ class TopicCommentTest < ActiveSupport::TestCase
 
     comment.update_attributes(
       created_at: 5.minutes.ago,
-      updated_at: 3.minutes.ago
+      edited_at:  3.minutes.ago
     )
 
-    refute comment.edited?
+    assert_not comment.edited?
 
     comment.update_attributes(
       created_at: 10.minutes.ago,
-      updated_at: 3.minutes.ago
+      edited_at:  3.minutes.ago
     )
 
     assert comment.edited?
@@ -102,11 +103,33 @@ class TopicCommentTest < ActiveSupport::TestCase
 
     comment.update_attributes(
       created_at: 5.minutes.ago,
-      updated_at: 3.minutes.ago,
+      edited_at:  3.minutes.ago,
       edited_by:  penny
     )
 
     assert comment.edited?
+  end
+
+  test "updates edited_at when the comment body is updated" do
+    comment = fake_comment
+    comment.save!
+
+    previous_edited_at = comment.edited_at
+
+    comment.update_attributes(body: "This is the updated body of the comment.")
+
+    assert_not_equal previous_edited_at, comment.edited_at
+  end
+
+  test "doesn't update edited_at when the comment body doesn't change" do
+    comment = fake_comment
+    comment.save!
+
+    previous_edited_at = comment.edited_at
+
+    comment.update_attributes(body: comment.body)
+
+    assert_equal previous_edited_at, comment.edited_at
   end
 
   test "updates topic's last_commented_at after create" do
