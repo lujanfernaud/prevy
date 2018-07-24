@@ -20,6 +20,6 @@ class NewGroupMembershipNotifier
 
     return unless @user.group_membership_emails?
 
-    NewGroupMembershipJob.perform_async(@user, @group)
+    NotificationMailer.new_group_membership(@user, @group).deliver_later
   end
 end

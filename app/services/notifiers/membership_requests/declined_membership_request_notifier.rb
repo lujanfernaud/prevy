@@ -20,6 +20,6 @@ class DeclinedMembershipRequestNotifier
 
     return unless @user.membership_request_emails?
 
-    NotificationMailer.declined_membership_request(@user, @group).deliver_now
+    NotificationMailer.declined_membership_request(@user, @group).deliver_later
   end
 end

@@ -14,7 +14,7 @@ class NewEventNotifier
     @group.members.each do |member|
       next unless member.group_event_emails?
 
-      NewEventJob.perform_async(member, @group, @event)
+      NotificationMailer.new_event(member, @group, @event).deliver_later
     end
   end
 end

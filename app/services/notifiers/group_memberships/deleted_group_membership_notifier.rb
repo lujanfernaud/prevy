@@ -20,6 +20,6 @@ class DeletedGroupMembershipNotifier
 
     return unless @user.group_membership_emails?
 
-    DeletedGroupMembershipJob.perform_async(@user, @group)
+    NotificationMailer.deleted_group_membership(@user, @group).deliver_later
   end
 end

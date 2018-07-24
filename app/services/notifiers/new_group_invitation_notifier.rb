@@ -16,7 +16,7 @@ class NewGroupInvitationNotifier
 
     return if registered_user_opted_out_of_group_invitation_emails?
 
-    GroupInvitationEmailJob.perform_async(invitation)
+    NotificationMailer.new_group_invitation(invitation).deliver_later
   end
 
   private

@@ -16,7 +16,7 @@ class NewAnnouncementNotifier
 
       return unless member.group_announcement_emails?
 
-      NewAnnouncementTopicJob.perform_async(member, announcement_topic)
+      send_email_to member
     end
   end
 
@@ -31,5 +31,12 @@ class NewAnnouncementNotifier
         topic: announcement_topic,
         message: "New announcement in #{group.name}: #{announcement_topic.title}"
       )
+    end
+
+    def send_email_to(member)
+      NotificationMailer.new_announcement_topic(
+        member,
+        announcement_topic
+      ).deliver_later
     end
 end

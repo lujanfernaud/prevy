@@ -15,7 +15,7 @@ class UpdatedEventNotifier
     attendees.each do |attendee|
       next unless attendee.group_event_emails?
 
-      UpdatedEventJob.perform_async(attendee, @event, updated_data)
+      send_email_to attendee
     end
   end
 
@@ -29,8 +29,13 @@ class UpdatedEventNotifier
       @event.attendees
     end
 
+    def send_email_to(attendee)
+      NotificationMailer.updated_event(attendee, @event, updated_data)
+                        .deliver_later
+    end
+
     def updated_data
-      @event.updated_fields.keys.map do |field_name|
+      @_updated_data ||= @event.updated_fields.keys.map do |field_name|
         simplified_name_for field_name
       end
     end

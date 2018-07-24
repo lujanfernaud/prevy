@@ -20,7 +20,7 @@ class RemovedGroupRoleNotifier
 
     return unless user.group_role_emails?
 
-    DeleteGroupRoleJob.perform_async(user, group, role)
+    NotificationMailer.deleted_group_role(user, group, role).deliver_later
   end
 
   private

@@ -20,7 +20,7 @@ class NewGroupRoleNotifier
 
     return unless user.group_role_emails?
 
-    AddGroupRoleJob.perform_async(user, group, role)
+    NotificationMailer.added_group_role(user, group, role).deliver_later
   end
 
   private

@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class NewAnnouncementNotifierTest < ActiveSupport::TestCase
+  include MailerSupport
+
   def setup
     @group = groups(:one)
     @announcement_topic = announcement_topics(:announcement_topic_one)
@@ -23,7 +25,7 @@ class NewAnnouncementNotifierTest < ActiveSupport::TestCase
 
     assert_in_app_notification_for unnotifiable
 
-    email_delivery = select_email_delivery_for unnotifiable
+    email_delivery = select_email_delivery_for unnotifiable.email
 
     refute email_delivery
   end
@@ -45,16 +47,10 @@ class NewAnnouncementNotifierTest < ActiveSupport::TestCase
 
     def assert_email_notification_for_group_members
       group.members.each do |member|
-        email_delivery = select_email_delivery_for member
+        email_delivery = select_email_delivery_for member.email
 
         assert_equal email_delivery.subject, email_subject
       end
-    end
-
-    def select_email_delivery_for(member)
-      ActionMailer::Base.deliveries.select do |delivery|
-        delivery.to == [member.email]
-      end.first
     end
 
     def email_subject

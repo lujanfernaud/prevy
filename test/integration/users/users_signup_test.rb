@@ -18,9 +18,12 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
     visit confirmation_email_url_link
 
+    ActionMailer::Base.deliveries.clear
+
     fill_in_correct_password
     click_on "Confirm account"
 
+    assert ActionMailer::Base.deliveries.first.subject.include?("Welcome")
     assert page.has_content? email_confirmed_message
   end
 

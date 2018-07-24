@@ -160,7 +160,7 @@ class User < ApplicationRecord
 
     # Devise
     def after_confirmation
-      WelcomeEmailJob.perform_async(self)
+      SupportMailer.welcome(self).deliver_later
     end
 
     # Devise
