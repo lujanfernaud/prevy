@@ -12,29 +12,18 @@ class RemovedGroupRoleNotifier
   end
 
   def call
-    if !@user.has_role?(role.to_sym, group)
-      raise StandardError,
-        "#{user.name} doesn't have #{role} role in #{group.name}"
-    end
+    GroupRoleNotification.create(
+      user:    user,
+      group:   group,
+      message: "You no longer have #{role} role in #{group.name}."
+    )
 
-    group.public_send("remove_from_#{role.pluralize}", user)
+    return unless user.group_role_emails?
 
-    notify_user unless group.sample_group?
+    DeleteGroupRoleJob.perform_async(user, group, role)
   end
 
   private
 
     attr_reader :user, :group, :role
-
-    def notify_user
-      GroupRoleNotification.create(
-        user: user,
-        group: group,
-        message: "You no longer have #{role} role in #{group.name}."
-      )
-
-      return unless user.group_role_emails?
-
-      DeleteGroupRoleJob.perform_async(user, group, role)
-    end
 end

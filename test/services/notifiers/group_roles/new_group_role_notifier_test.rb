@@ -4,15 +4,38 @@ require 'test_helper'
 
 class NewGroupRoleNotifierTest < ActiveSupport::TestCase
   def setup
-    @user  = users(:woodell)
-    @group = groups(:one)
+    stub_sample_content_for_new_users
   end
 
-  test "add organizer role to user" do
-    @user.remove_role :organizer, @group
+  test "sends internal notification and email to user" do
+    user  = create :user
+    group = create :group
+    role  = "moderator"
 
-    NewGroupRoleNotifier.call(user: @user, group: @group, role: "organizer")
+    GroupRoleNotification.expects(:create).with(
+      user:    user,
+      group:   group,
+      message: "You now have #{role} role in #{group.name}!"
+    )
 
-    assert @user.has_role? :organizer, @group
+    AddGroupRoleJob.expects(:perform_async).with(user, group, role)
+
+    NewGroupRoleNotifier.call(user: user, group: group, role: role)
+  end
+
+  test "doesn't send email to user who opted out" do
+    user  = create :user, :no_emails
+    group = create :group
+    role  = "organizer"
+
+    GroupRoleNotification.expects(:create).with(
+      user:    user,
+      group:   group,
+      message: "You now have #{role} role in #{group.name}!"
+    )
+
+    AddGroupRoleJob.expects(:perform_async).with(user, group, role).never
+
+    NewGroupRoleNotifier.call(user: user, group: group, role: role)
   end
 end

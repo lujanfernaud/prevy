@@ -4,15 +4,38 @@ require 'test_helper'
 
 class RemovedGroupRoleNotifierTest < ActiveSupport::TestCase
   def setup
-    @user  = users(:woodell)
-    @group = groups(:one)
+    stub_sample_content_for_new_users
   end
 
-  test "delete organizer role from user" do
-    @user.add_role :organizer, @group
+  test "sends internal notification and email to user" do
+    user  = create :user
+    group = create :group
+    role  = "moderator"
 
-    RemovedGroupRoleNotifier.call(user: @user, group: @group, role: "organizer")
+    GroupRoleNotification.expects(:create).with(
+      user:    user,
+      group:   group,
+      message: "You no longer have #{role} role in #{group.name}."
+    )
 
-    refute @user.has_role? :organizer, @group
+    DeleteGroupRoleJob.expects(:perform_async).with(user, group, role)
+
+    RemovedGroupRoleNotifier.call(user: user, group: group, role: role)
+  end
+
+  test "doesn't send email to user who opted out" do
+    user  = create :user, :no_emails
+    group = create :group
+    role  = "organizer"
+
+    GroupRoleNotification.expects(:create).with(
+      user:    user,
+      group:   group,
+      message: "You no longer have #{role} role in #{group.name}."
+    )
+
+    DeleteGroupRoleJob.expects(:perform_async).with(user, group, role).never
+
+    RemovedGroupRoleNotifier.call(user: user, group: group, role: role)
   end
 end
