@@ -44,7 +44,7 @@ class Notification < ApplicationRecord
     "Not implemented"
   end
 
-  def redirecter_path(**params)
-    NotificationRedirecter.path(self, **params)
+  def redirecter_path
+    URL_HELPERS.user_notification_redirecter_path(user, notification: self)
   end
 end

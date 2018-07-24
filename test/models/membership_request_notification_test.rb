@@ -60,8 +60,7 @@ class MembershipRequestNotificationTest < ActiveSupport::TestCase
     def path_with_params
       URL_HELPERS.user_notification_redirecter_path(
         @notification.user,
-        notification: @notification,
-        membership_request: @notification.membership_request
+        notification: @notification
       )
     end
 end

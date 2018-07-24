@@ -60,8 +60,7 @@ class GroupRoleNotificationTest < ActiveSupport::TestCase
     def path_with_params
       URL_HELPERS.user_notification_redirecter_path(
         @notification.user,
-        notification: @notification,
-        group: @notification.group
+        notification: @notification
       )
     end
 end

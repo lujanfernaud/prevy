@@ -34,16 +34,10 @@ class AnnouncementTopicNotification < Notification
   belongs_to :topic
 
   def link
-    { text: "Go to announcement", path: notification_redirecter_path }
+    { text: "Go to announcement", path: redirecter_path }
   end
 
   def resource_path
     URL_HELPERS.group_topic_path(group, topic)
   end
-
-  private
-
-    def notification_redirecter_path
-      redirecter_path(group: group, topic: topic)
-    end
 end

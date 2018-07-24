@@ -47,13 +47,4 @@ class NotificationTest < ActiveSupport::TestCase
 
     assert_not notification.valid?
   end
-
-  test "#redirecter_path" do
-    notification = group_role_notifications(:roles_one)
-    group = notification.group
-
-    NotificationRedirecter.expects(:path).with(notification, group: group)
-
-    notification.redirecter_path(group: group)
-  end
 end

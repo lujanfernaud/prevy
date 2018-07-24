@@ -56,17 +56,6 @@ class GroupInvitationNotificationTest < ActiveSupport::TestCase
     assert_equal 1, group.notifications.size
   end
 
-  test "link path has invitation token" do
-    user  = create :user
-    group = create :group
-    invitation = create :group_invitation, group: group, email: user.email
-    create :notification, :group_invitation, user: user, group_id: group.id
-
-    notification = user.notifications.last
-
-    assert notification.link[:path].include?(invitation.token)
-  end
-
   test "#resource_path" do
     user  = create :user
     group = create :group
