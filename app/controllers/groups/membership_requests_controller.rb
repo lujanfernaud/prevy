@@ -57,13 +57,13 @@ class Groups::MembershipRequestsController < ApplicationController
     end
 
     def notify_group_owner
-      NewMembershipRequest.call(@membership_request)
+      NewMembershipRequestNotifier.call(@membership_request)
     end
 
     def notify_requester
       return if @group.sample_group?
 
-      DeclinedMembershipRequest.call(@membership_request)
+      DeclinedMembershipRequestNotifier.call(@membership_request)
     end
 
     def user_not_authorized

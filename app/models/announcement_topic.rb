@@ -47,7 +47,7 @@ class AnnouncementTopic < Topic
     def notify_group_members
       return if group.sample_group?
 
-      NewAnnouncementNotification.call(self)
+      NewAnnouncementNotifier.call(self)
     end
 
     def slug_candidates

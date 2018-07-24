@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DeleteGroupRole
+class RemovedGroupRoleNotifier
   def self.call(params)
     new(params).call
   end

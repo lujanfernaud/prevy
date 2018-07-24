@@ -103,11 +103,11 @@ class EventsController < ApplicationController
     end
 
     def send_new_event_email
-      NewEventEmail.call(@event)
+      NewEventNotifier.call(@event)
     end
 
     def send_updated_event_email
-      UpdatedEventEmail.call(@event)
+      UpdatedEventNotifier.call(@event)
     end
 
     def event_params

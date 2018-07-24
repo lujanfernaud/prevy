@@ -44,7 +44,7 @@ class Groups::InvitationsController < ApplicationController
     end
 
     def notify_invited_person
-      NewGroupInvitationNotification.call(@invitation)
+      NewGroupInvitationNotifier.call(@invitation)
     end
 
     def invitation_params

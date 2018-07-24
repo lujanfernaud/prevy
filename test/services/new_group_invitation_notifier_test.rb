@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class NewGroupInvitationNotificationTest < ActiveSupport::TestCase
+class NewGroupInvitationNotifierTest < ActiveSupport::TestCase
   def setup
     stub_sample_content_for_new_users
   end
@@ -12,7 +12,7 @@ class NewGroupInvitationNotificationTest < ActiveSupport::TestCase
 
     GroupInvitationEmailJob.expects(:perform_async).with(invitation)
 
-    NewGroupInvitationNotification.call(invitation)
+    NewGroupInvitationNotifier.call(invitation)
   end
 
   test "sends email notification to existing user" do
@@ -21,7 +21,7 @@ class NewGroupInvitationNotificationTest < ActiveSupport::TestCase
 
     GroupInvitationEmailJob.expects(:perform_async).with(invitation)
 
-    NewGroupInvitationNotification.call(invitation)
+    NewGroupInvitationNotifier.call(invitation)
   end
 
   test "doesn't send email notification to existing user who opted out" do
@@ -30,7 +30,7 @@ class NewGroupInvitationNotificationTest < ActiveSupport::TestCase
 
     GroupInvitationEmailJob.expects(:perform_async).with(invitation).never
 
-    NewGroupInvitationNotification.call(invitation)
+    NewGroupInvitationNotifier.call(invitation)
   end
 
   test "sends internal notification to existing user" do
@@ -39,6 +39,6 @@ class NewGroupInvitationNotificationTest < ActiveSupport::TestCase
 
     GroupInvitationNotification.expects(:create!)
 
-    NewGroupInvitationNotification.call(invitation)
+    NewGroupInvitationNotifier.call(invitation)
   end
 end

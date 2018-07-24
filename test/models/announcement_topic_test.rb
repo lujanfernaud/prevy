@@ -80,7 +80,7 @@ class TopicTest < ActiveSupport::TestCase
     group = create :group
     topic = fake_announcement_topic(group)
 
-    NewAnnouncementNotification.expects(:call).with(topic)
+    NewAnnouncementNotifier.expects(:call).with(topic)
 
     topic.save!
   end
@@ -89,7 +89,7 @@ class TopicTest < ActiveSupport::TestCase
     group = create :group, sample_group: true
     topic = fake_announcement_topic(group)
 
-    NewAnnouncementNotification.expects(:call).never
+    NewAnnouncementNotifier.expects(:call).never
 
     topic.save!
   end

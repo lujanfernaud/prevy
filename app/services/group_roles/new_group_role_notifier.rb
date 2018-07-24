@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddGroupRole
+class NewGroupRoleNotifier
   def self.call(params)
     new(params).call
   end

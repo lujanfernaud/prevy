@@ -38,7 +38,7 @@ class Groups::TopicsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create announcement topic" do
-    NewAnnouncementNotification.expects(:call)
+    NewAnnouncementNotifier.expects(:call)
 
     sign_in @phil
 

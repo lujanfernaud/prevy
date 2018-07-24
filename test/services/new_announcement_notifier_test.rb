@@ -2,14 +2,14 @@
 
 require 'test_helper'
 
-class NewAnnouncementNotificationTest < ActiveSupport::TestCase
+class NewAnnouncementNotifierTest < ActiveSupport::TestCase
   def setup
     @group = groups(:one)
     @announcement_topic = announcement_topics(:announcement_topic_one)
   end
 
   test "creates notification and email notification" do
-    NewAnnouncementNotification.call(@announcement_topic)
+    NewAnnouncementNotifier.call(@announcement_topic)
 
     assert_in_app_notification_for_group_members
     assert_email_notification_for_group_members
@@ -19,7 +19,7 @@ class NewAnnouncementNotificationTest < ActiveSupport::TestCase
     unnotifiable = users(:unnotifiable)
     @group.members << unnotifiable
 
-    NewAnnouncementNotification.call(@announcement_topic)
+    NewAnnouncementNotifier.call(@announcement_topic)
 
     assert_in_app_notification_for unnotifiable
 

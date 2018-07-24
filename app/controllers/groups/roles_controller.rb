@@ -18,7 +18,7 @@ class Groups::RolesController < ApplicationController
     @user  = User.find(params[:user_id])
     @role  = find_role
 
-    AddGroupRole.call(user: @user, group: @group, role: @role)
+    NewGroupRoleNotifier.call(user: @user, group: @group, role: @role)
 
     redirect_back fallback_location: group_roles_path(@group)
   end
@@ -30,13 +30,14 @@ class Groups::RolesController < ApplicationController
     @user  = User.find(params[:id])
     @role  = find_role
 
-    DeleteGroupRole.call(user: @user, group: @group, role: @role)
+    RemovedGroupRoleNotifier.call(user: @user, group: @group, role: @role)
 
     redirect_back fallback_location: group_roles_path(@group)
   end
 
   private
 
+    # TODO: Refactor.
     def find_organizers_and_moderators
       (organizers + moderators).uniq.sort_by { |member| member.name }
     end

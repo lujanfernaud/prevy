@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NewAnnouncementNotification
+class NewAnnouncementNotifier
   def self.call(announcement_topic)
     new(announcement_topic).call
   end

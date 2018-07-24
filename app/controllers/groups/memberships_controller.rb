@@ -64,12 +64,12 @@ class Groups::MembershipsController < ApplicationController
     def notify_user_accepted
       return if @group.sample_group?
 
-      NewGroupMembership.call(@membership)
+      NewGroupMembershipNotifier.call(@membership)
     end
 
     def notify_user_deleted
       return if @group.sample_group?
 
-      DeletedGroupMembership.call(@membership)
+      DeletedGroupMembershipNotifier.call(@membership)
     end
 end

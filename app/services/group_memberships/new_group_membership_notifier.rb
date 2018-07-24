@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NewGroupMembership
+class NewGroupMembershipNotifier
   def self.call(group_membership)
     new(group_membership).call
   end

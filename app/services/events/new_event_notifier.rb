@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NewEventEmail
+class NewEventNotifier
   def self.call(event)
     new(event).call
   end

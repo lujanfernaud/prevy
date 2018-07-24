@@ -28,7 +28,7 @@ class Groups::InvitationsControllerTest < ActionDispatch::IntegrationTest
   test "should create invitation" do
     sign_in @group.owner
 
-    NewGroupInvitationNotification.expects(:call)
+    NewGroupInvitationNotifier.expects(:call)
 
     assert_difference('GroupInvitation.count') do
       post group_invitations_url(@group), params: invitation_params
