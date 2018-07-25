@@ -244,7 +244,15 @@ class GroupTest < ActiveSupport::TestCase
     member_one = create :user, :confirmed, created_at: 1.month.ago
     member_two = create :user, :confirmed, created_at: 1.day.ago
 
-    group.members << [member_one, member_two]
+    create :group_membership,
+            user:       member_one,
+            group:      group,
+            created_at: 1.day.ago
+
+    create :group_membership,
+            user:       member_two,
+            group:      group,
+            created_at: 1.minute.ago
 
     expected = [member_two.name, member_one.name]
 
