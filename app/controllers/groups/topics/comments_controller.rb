@@ -6,7 +6,7 @@ class Groups::Topics::CommentsController < ApplicationController
   def edit
     @comment = find_comment
     @topic   = @comment.topic
-    @group   = @topic.group
+    @group   = GroupDecorator.new(@topic.group)
 
     authorize @comment
 
@@ -14,7 +14,7 @@ class Groups::Topics::CommentsController < ApplicationController
   end
 
   def create
-    @group   = find_group
+    @group   = GroupDecorator.new(find_group)
     @topic   = find_topic
     @comment = create_comment
 
@@ -33,7 +33,7 @@ class Groups::Topics::CommentsController < ApplicationController
   def update
     @comment = find_comment
     @topic   = @comment.topic
-    @group   = @topic.group
+    @group   = GroupDecorator.new(@topic.group)
 
     authorize @comment
 

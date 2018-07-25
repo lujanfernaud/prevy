@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <% if is_admin?(@group) && !@topic.event? %>
+  <% if is_group_owner?(current_user, @group) && !@topic.event? %>
     <div class="box topic-type-box p-4 mb-2rem">
 
       <% if announceable?(@topic) %>

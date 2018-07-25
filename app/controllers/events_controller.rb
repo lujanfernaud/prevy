@@ -86,7 +86,7 @@ class EventsController < ApplicationController
   private
 
     def find_group
-      @group ||= Group.find(params[:group_id])
+      @group = GroupDecorator.new(Group.find(params[:group_id]))
     end
 
     def events_decorators_for(events_collection)

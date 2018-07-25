@@ -13,7 +13,7 @@
 
               <div class="organizers mb-4">
                 <h2 class="mb-2">
-                  <%= organizer_title %>
+                  <%= @group.organizers_title %>
                 </h3>
                 <div class="row">
                   <%= render partial: "groups/user",
@@ -28,7 +28,7 @@
 
               <div class="members mb-4">
                 <h2 class="mt-2rem mb-2 pt-2">
-                  <%= members_title_with_count %>
+                  <%= @group.members_title_with_count %>
                 </h3>
                 <div class="row">
                   <%= render partial: "groups/user",

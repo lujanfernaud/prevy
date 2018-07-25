@@ -23,7 +23,7 @@ class Groups::MembersController < ApplicationController
   private
 
     def find_group
-      @group ||= Group.find(params[:group_id])
+      @group = GroupDecorator.new(Group.find(params[:group_id]))
     end
 
     def find_user

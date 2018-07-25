@@ -1,4 +1,4 @@
-<% cache top_members(group) do %>
+<% cache group.top_members_selection do %>
 
   <div class="container-fluid members-container bg-light" id="top-members">
     <div class="container pb-4">
@@ -14,7 +14,7 @@
 
             <div class="row d-flex justify-content-center mt-1rem mb-2rem">
               <%= render partial: "user",
-                collection: top_members(group), as: :user,
+                collection: group.top_members_selection, as: :user,
                 locals: {
                   object: group,
                   group:  group,

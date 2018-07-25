@@ -2,22 +2,8 @@
 
 module GroupsHelper
   include SessionsHelper
-  include Group::CountersHelper
   include Group::ButtonsHelper
   include Group::TopicsHelper
-
-  def show_create_group_link_or_unconfirmed_alert(user, group)
-    return unless is_group_owner?(user, group)
-    return unless group.sample_group?
-
-    if user.confirmed?
-      link_to "Click here to create your first group!", new_group_path
-    else
-      content_tag :div, class: "mt-4" do
-        create_group_unconfirmed_account_alert
-      end
-    end
-  end
 
   def has_organizer_role?(user, group)
     user&.has_role? :organizer, group
@@ -54,14 +40,21 @@ module GroupsHelper
     has_membership?(user, group) && !user.confirmed?
   end
 
-  def is_group_owner?(user, group)
-    group.owner == user
+  def show_create_group_link_or_unconfirmed_alert(user, group)
+    return unless is_group_owner?(user, group)
+    return unless group.sample_group?
+
+    if user.confirmed?
+      link_to "Click here to create your first group!", new_group_path
+    else
+      content_tag :div, class: "mt-4" do
+        create_group_unconfirmed_account_alert
+      end
+    end
   end
 
-  def invited?
-    return false unless session[:token]
-
-    InvitationAuthorizer.call(session[:token], @group, current_user)
+  def is_group_owner?(user, group)
+    group.owner == user
   end
 
   def admin_name_or_link(group)
@@ -74,15 +67,13 @@ module GroupsHelper
     end
   end
 
-  def checked_if_not_set(attribute)
-    attribute ? false : true
+  def invited?
+    return false unless session[:token]
+
+    InvitationAuthorizer.call(session[:token], @group, current_user)
   end
 
-  def top_members(group)
-    if group.members_with_role.size > Group::TOP_MEMBERS
-      group.top_members
-    else
-      group.top_members(limit: Group::TOP_MEMBERS / 2)
-    end
+  def checked_if_not_set?(attribute)
+    attribute ? false : true
   end
 end

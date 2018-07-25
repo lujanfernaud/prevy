@@ -31,7 +31,7 @@
 
           <!-- User Group Points -->
           <small class="topic__user-points">
-            <%= user_points(@group, @topic.user) %>
+            <%= @group.user_points(@topic.user) %>
           </small>
 
           <!-- Date -->
@@ -63,7 +63,7 @@
     <!-- Comments -->
     <%= render partial: "groups/topics/comments/comment",
       collection: @comments,
-      locals: { comments: @comments } %>
+      locals: { comments: @comments, group: @group } %>
 
     <h3 class="text-center mt-2rem">Comment</h3>
 

@@ -73,7 +73,7 @@ class GroupsController < ApplicationController
   private
 
     def find_group
-      @group = Group.find(params[:id])
+      @group = GroupDecorator.new(Group.find(params[:id]))
     end
 
     def redirect_to_root_if_not_own_sample_group

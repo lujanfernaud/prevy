@@ -31,7 +31,7 @@
       <% unless @comments.empty? %>
         <%= render partial: "groups/topics/comments/comment",
           collection: @comments,
-          locals: { comments: @comments } %>
+          locals: { comments: @comments, group: @group } %>
       <% else %>
         <div class="box topic-box p-4">
           <p class="lead text-center mb-0">

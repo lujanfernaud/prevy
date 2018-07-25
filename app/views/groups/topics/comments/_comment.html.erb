@@ -11,7 +11,7 @@
     <div class="comment__avatar member-image mr-3">
       <div class="intrinsic-ratio-container
         intrinsic-ratio-container--square">
-        <%= link_to group_member_path(comment.group, comment.user),
+        <%= link_to group_member_path(group, comment.user),
           class: "display-block" do %>
           <%= image_tag gravatar_image_url(comment.user.email),
             class: "lazyload blur-up
@@ -24,12 +24,12 @@
     <div class="comment__body">
       <!-- User Name -->
       <%= link_to comment.user.name,
-        group_member_path(comment.group, comment.user),
+        group_member_path(group, comment.user),
         class: "font-weight-bold" %>
 
       <!-- User Group Points -->
       <small class="comment__user-points">
-        <%= user_points(comment.group, comment.user) %>
+        <%= group.user_points(comment.user) %>
       </small>
 
       <!-- Date -->
@@ -48,7 +48,7 @@
       <% end %>
 
       <!-- Edit Link -->
-      <% if is_authorized_to_edit?(comment, comment.group) %>
+      <% if is_authorized_to_edit?(comment, group) %>
         <div class="mt-2">
           <%= link_to "Edit",
             edit_comment_path(comment, origin: controller_name) %>
