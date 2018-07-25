@@ -34,6 +34,7 @@
 class Event < ApplicationRecord
   RECENT_ATTENDEES = 8
   RANDOM_ATTENDEES = 6
+  EVENTS_PER_PAGE  = 15
 
   belongs_to :organizer, class_name: "User"
   belongs_to :group,     touch: true, counter_cache: true

@@ -28,7 +28,7 @@
 
       </div>
 
-      <% if @topics.count > 25 %>
+      <% if @group.topics_count > Topic::TOPICS_PER_PAGE %>
         <div class="topics-index row mt-2rem mb-0">
           <div class="mx-auto mb-0">
             <%= will_paginate @topics,

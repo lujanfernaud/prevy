@@ -90,8 +90,10 @@ class EventsController < ApplicationController
     end
 
     def events_decorators_for(events_collection)
-      EventDecorator.collection(events_collection)
-                    .paginate(page: params[:page], per_page: 15)
+      EventDecorator.collection(events_collection).paginate(
+        page:     params[:page],
+        per_page: Event::EVENTS_PER_PAGE
+      )
     end
 
     def find_event

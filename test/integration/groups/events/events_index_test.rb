@@ -12,10 +12,13 @@ class EventsIndexTest < ActionDispatch::IntegrationTest
     group = create :group
     group.members << user
 
+    create_list :event, Event::EVENTS_PER_PAGE + 3, group: group
+
     log_in_as user
 
     visit group_events_path(group)
 
+    assert page.has_css? ".pagination"
     assert_current_path group_events_path(group)
   end
 

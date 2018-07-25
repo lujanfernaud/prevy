@@ -42,6 +42,7 @@ class Topic < ApplicationRecord
   MINIMUM_BODY_LENGTH = 20
   EDITED_OFFSET_TIME  = 600 # 10 minutes
   POINTS              = 3
+  TOPICS_PER_PAGE     = 25
 
   belongs_to :group, touch: true, counter_cache: true
   belongs_to :user,  touch: true

@@ -14,17 +14,22 @@ class TopicsIndexTest < ActionDispatch::IntegrationTest
   end
 
   test "user visits index" do
-    log_in_as @phil
+    topics_per_page = Topic::TOPICS_PER_PAGE
 
-    visit group_topics_path(@group)
+    group = create :group
+    create_list :topic, topics_per_page + 5, group: group
 
-    assert_breadcrumbs
-    assert_topics(@group)
+    log_in_as group.owner
+
+    visit group_topics_path(group)
+
+    assert_breadcrumbs_for(group)
+    assert_topics(group)
     assert_pagination
 
     click_on "Submit a new topic"
 
-    assert_equal current_path, new_group_topic_path(@group)
+    assert_equal current_path, new_group_topic_path(group)
   end
 
   test "logged out user visits index" do
@@ -117,9 +122,9 @@ class TopicsIndexTest < ActionDispatch::IntegrationTest
 
   private
 
-    def assert_breadcrumbs
+    def assert_breadcrumbs_for(group)
       within ".breadcrumb" do
-        assert page.has_link?    @group.name
+        assert page.has_link?    group.name
         assert page.has_content? "Topics"
       end
     end
