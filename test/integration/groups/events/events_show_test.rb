@@ -32,6 +32,22 @@ class EventsShowTest < ActionDispatch::IntegrationTest
     assert_attendees(event)
   end
 
+  test "logged in user visits event without website" do
+    user  = create :user, :confirmed
+    group = create :group
+    group.members << user
+
+    event = create :event, group: group, website: ""
+    event.attendees << user
+
+    log_in_as(user)
+    visit group_event_path(group, event)
+
+    within ".quick-access" do
+      assert_not page.has_link? "Visit event website"
+    end
+  end
+
   test "logged out user visits event" do
     group = groups(:one)
     event = EventDecorator.new(events(:one))

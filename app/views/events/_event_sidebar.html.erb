@@ -32,7 +32,7 @@
               locals: { event: event } %>
           </ul>
 
-          <% if more_attendees?(event) %>
+          <% if event.has_more_attendees_than_recent_attendees? %>
             <%= link_to "See all attendees", event_attendees_path(event) %>
           <% end %>
 
@@ -52,7 +52,6 @@
   <!-- Sidebar Links -->
   <% if logged_in? %>
     <div class="box box--sidebar p-3">
-
       <div class="quick-access">
 
         <div>
@@ -61,7 +60,7 @@
             data: { turbolinks: false } %>
         </div>
 
-        <% if website? %>
+        <% if event.website? %>
           <div class="mt-2">
             <span class="mr-1"><%= link_icon %></span>
             <%= link_to "Visit event website", event.website %>
@@ -69,17 +68,15 @@
         <% end %>
 
       </div>
-
     </div><!-- /.box -->
   <% end %>
 
   <!-- Attendance Button -->
-  <% if logged_in? && !author?(event) %>
+  <% unless event.organizer?(current_user) %>
     <div class="box box--sidebar p-3">
-
       <div class="attendance">
 
-        <% if not_attending?(event) %>
+        <% if event.not_an_attendee?(current_user) %>
 
           <h4 class="h5">Would you like to attend?</h4>
           <%= link_to "Attend",
@@ -98,10 +95,22 @@
         <% end %>
 
       </div>
-
     </div><!-- /.box -->
   <% end %>
 
-  <%= edit_event_box(event, @group) %>
+  <!-- Edit Event Button -->
+  <% if event.organizer?(current_user) %>
+    <div class="box box--sidebar p-3">
+
+      <% if event.sample_event? %>
+        <%= button_tag "Edit event",
+          class: "btn btn-primary btn-block btn-lg disabled" %>
+      <% else %>
+        <%= link_to "Edit event", edit_group_event_path(group, event),
+          class: "btn btn-primary btn-block btn-lg" %>
+      <% end %>
+
+    </div><!-- /.box -->
+  <% end %>
 
 </div>

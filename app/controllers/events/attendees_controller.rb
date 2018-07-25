@@ -23,7 +23,7 @@ class Events::AttendeesController < ApplicationController
   private
 
     def find_event
-      @event ||= Event.find(params[:event_id])
+      @event ||= EventDecorator.new(Event.find(params[:event_id]))
     end
 
     def find_group

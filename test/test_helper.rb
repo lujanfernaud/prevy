@@ -53,7 +53,6 @@ class ActionDispatch::IntegrationTest
   include DatabaseCleanerSupport
 
   include ApplicationHelper
-  include EventsHelper
 
   include StubsSupport
   include IntegrationSupport

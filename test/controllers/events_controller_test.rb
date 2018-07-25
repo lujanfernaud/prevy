@@ -4,6 +4,8 @@ require 'test_helper'
 
 class EventsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    stub_geocoder
+
     @group = groups(:one)
     @event = events(:one)
     @user  = users(:phil)

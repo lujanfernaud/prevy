@@ -109,6 +109,14 @@ class Event < ApplicationRecord
     sample_resource? && title =~ /\ASample\s/
   end
 
+  def default_start_date
+    1.week.from_now.round_to(1.hour)
+  end
+
+  def default_end_date
+    (1.week.from_now + 1.hour).round_to(1.hour)
+  end
+
   def topic
     event_topic
   end

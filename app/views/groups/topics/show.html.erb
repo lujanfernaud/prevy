@@ -3,6 +3,7 @@
 
     <%= render partial: "application/breadcrumbs" %>
 
+    <!-- Title -->
     <h2 class="text-center mt-3 mb-2rem pb-1">
       <%= @topic.title %>
     </h2>
@@ -40,45 +41,8 @@
 
           <!-- Body -->
           <div class="mt-2 pt-1 pb-1">
-            <!-- TODO: Remove Event Topic Data -->
-            <!----------------------------------->
-            <% if @topic.event? %>
-              <div class="topic-event-data mt-2 mb-4">
-                <p class="mb-3">
-                  <span class="mr-1"><%= calendar_icon %></span>
-                  <%= EventDecorator.new(@topic.event).start_date_prettyfied %>
-                  <% unless same_time?(EventDecorator.new(@topic.event)) %>
-                    - <%= EventDecorator.new(@topic.event).end_date_prettyfied %>
-                  <% end %>
-                </p>
-
-                <p class="mb-3">
-                  <span class="mr-1"><%= location_icon %></span>
-                  <%= link_to EventDecorator.new(@topic.event).full_address, group_event_path(@group, @topic.event) + "#map",
-                    data: { turbolinks: false } %>
-                </p>
-
-                <% if @topic.event&.website? %>
-                  <p class="mb-3">
-                    <span class="mr-1"><%= link_icon %></span>
-                    <%= link_to EventDecorator.new(@topic.event)&.website_prettyfied, @topic.event&.website %>
-                  </p>
-                <% end %>
-              </div>
-            <% end %>
-            <!----------------------------------->
-
             <%= sanitize(@topic.body) %>
           </div>
-
-          <!-- TODO: Remove Event Topic Data -->
-          <% if @topic.event? %>
-            <div class="mt-2 pt-1">
-              <%= link_to "See event",
-                group_event_path(@group, @topic.event) %>
-            </div>
-          <% end %>
-          <!----------------------------------->
 
           <!-- Edited On Date -->
           <% if @topic.edited? %>
@@ -96,6 +60,7 @@
 
     </div><!-- /.box -->
 
+    <!-- Comments -->
     <%= render partial: "groups/topics/comments/comment",
       collection: @comments,
       locals: { comments: @comments } %>

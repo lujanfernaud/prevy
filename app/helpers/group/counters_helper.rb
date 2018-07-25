@@ -16,8 +16,4 @@ module Group::CountersHelper
   def members_title_with_count
     "Members (#{@group.members_count})"
   end
-
-  def attendees_title_with_count
-    "Attendees (#{@event.attendees_count})"
-  end
 end

@@ -16,7 +16,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event    = find_and_decorate_event
+    @event    = EventDecorator.new(find_event)
     @comments = @event.comments.order(:created_at).includes(:user, :edited_by)
     @comment  = TopicComment.new
 
@@ -41,7 +41,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = @group.events.build event_params
+    @event = @group.events.build(event_params)
 
     authorize @event
 
@@ -92,10 +92,6 @@ class EventsController < ApplicationController
     def events_decorators_for(events_collection)
       EventDecorator.collection(events_collection)
                     .paginate(page: params[:page], per_page: 15)
-    end
-
-    def find_and_decorate_event
-      EventDecorator.new(Event.find(params[:id]))
     end
 
     def find_event

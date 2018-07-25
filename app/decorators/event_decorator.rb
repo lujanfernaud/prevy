@@ -5,6 +5,22 @@ class EventDecorator < SimpleDelegator
     events.map { |event| EventDecorator.new(event) }
   end
 
+  def organizer?(user)
+    return false unless user
+
+    user.id == organizer_id
+  end
+
+  def not_an_attendee?(user)
+    return true unless user
+
+    !attendees.include?(user)
+  end
+
+  def has_more_attendees_than_recent_attendees?
+    attendees_count > Event::RECENT_ATTENDEES
+  end
+
   def full_address
     return unless address
 
@@ -29,8 +45,16 @@ class EventDecorator < SimpleDelegator
     happens_this_year? ? end_date_formatted : end_date_formatted_with_year
   end
 
+  def same_time?
+    start_date.strftime("%H:%M") == end_date.strftime("%H:%M")
+  end
+
   def website_prettyfied
     website.gsub("https://", "")
+  end
+
+  def attendees_title_with_count
+    "Attendees (#{attendees_count})"
   end
 
   private

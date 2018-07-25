@@ -35,6 +35,7 @@ require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
   def setup
+    stub_geocoder
     stub_requests_to_googleapis
     stub_sample_content_for_new_users
   end

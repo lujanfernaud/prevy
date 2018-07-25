@@ -27,7 +27,7 @@
           <p class="event-box-big__date mb-3">
             <span class="mr-1"><%= calendar_icon %></span>
             <%= event.start_date_prettyfied %>
-            <% unless same_time?(event) %>
+            <% unless event.same_time? %>
               - <%= event.end_date_prettyfied %>
             <% end %>
           </p>
