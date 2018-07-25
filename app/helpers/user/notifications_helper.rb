@@ -26,12 +26,8 @@ module User::NotificationsHelper
     return unless notifications?
 
     "<span class='ml-2 badge badge-pill badge-dark align-middle bg-primary-dark'>
-      #{notifications_count}
+      #{current_user.notifications_count}
     </span>".html_safe
-  end
-
-  def notifications_count
-    current_user.notifications_count
   end
 
   def button_without_notifications

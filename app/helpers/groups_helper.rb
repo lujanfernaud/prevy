@@ -13,10 +13,6 @@ module GroupsHelper
     user&.has_role? :moderator, group
   end
 
-  def has_member_role?(user, group)
-    group.owner == user || user&.has_role?(:member, group)
-  end
-
   def has_member_role_and_is_confirmed?(user, group)
     return false unless user
 
