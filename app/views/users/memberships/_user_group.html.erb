@@ -1,8 +1,11 @@
 <div class="row box group-box mt-2rem" id="group-<%= group.id %>">
 
   <!-- Image -->
-  <div class="box-image box-image--orientation-switch card card-inverse text-center col-md-4">
-    <div class="intrinsic-ratio-container intrinsic-ratio-container--orientation-switch">
+  <div class="box-image box-image--orientation-switch card card-inverse
+    text-center col-md-4">
+
+    <div class="intrinsic-ratio-container
+      intrinsic-ratio-container--orientation-switch">
       <%= link_to group_path(group), class: "d-block" do %>
         <%= image_tag  group.image_base64,
           data: {
@@ -15,18 +18,16 @@
             box-image__img--orientation-switch" %>
       <% end %>
     </div>
-  </div>
+
+  </div><!-- /.box -->
 
   <div class="box-text box-text--orientation-switch box-text--accented
     card-body col-md-8 d-flex flex-column justify-content-between">
 
     <!-- Name -->
     <h3 class="h4 mb-0 pb-2 pb-md-0">
-      <%= group_name_with_link(group) %>
-
-      <% if user_is_organizer_but_not_owner(group, user) %>
-        <span class="h6 d-inline-block mb-0">[Organizer]</span>q
-      <% end %>
+      <%= link_to group.name, group_path(group) %>
+      <%= group.organizer_tag(current_user) %>
     </h3>
 
     <!-- Members -->
@@ -37,14 +38,9 @@
 
     <!-- Links -->
     <div class="flex-row">
-      <% if user.owned_groups.include?(group) %>
-        <%= edit_group_link(group) %>
-        <span> | </span>
-        <%= edit_roles_link(group) %>
-      <% else %>
-        <%= cancel_membership_link(group) %>
-      <% end %>
+      <%= group.links(current_user) %>
     </div>
-  </div>
+
+  </div><!-- /.box -->
 
 </div>
