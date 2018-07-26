@@ -17,7 +17,7 @@ class EventsController < ApplicationController
 
   def show
     @event    = EventDecorator.new(find_event)
-    @comments = @event.comments.order(:created_at).includes(:user, :edited_by)
+    @comments = find_event_comments
     @comment  = TopicComment.new
 
     add_breadcrumbs_for_show
@@ -94,6 +94,10 @@ class EventsController < ApplicationController
         page:     params[:page],
         per_page: Event::EVENTS_PER_PAGE
       )
+    end
+
+    def find_event_comments
+      @event.comments.includes(:topic, :user, :edited_by).order(:created_at)
     end
 
     def find_event
