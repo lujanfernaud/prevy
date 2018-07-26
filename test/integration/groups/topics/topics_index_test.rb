@@ -32,6 +32,19 @@ class TopicsIndexTest < ActionDispatch::IntegrationTest
     assert_equal current_path, new_group_topic_path(group)
   end
 
+  test "pagination is not shown in index when there are not enough topics" do
+    topics_per_page = Topic::TOPICS_PER_PAGE
+
+    group = create :group
+    create_list :topic, topics_per_page - 1, group: group
+
+    log_in_as group.owner
+
+    visit group_topics_path(group)
+
+    assert_not page.has_css? ".pagination"
+  end
+
   test "logged out user visits index" do
     topic = create :topic
     group = topic.group

@@ -28,14 +28,12 @@
 
       </div>
 
-      <% if @group.topics_count > Topic::TOPICS_PER_PAGE %>
-        <div class="topics-index row mt-2rem mb-0">
-          <div class="mx-auto mb-0">
-            <%= will_paginate @topics,
-              :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
-          </div>
+      <div class="topics-index row mt-2rem mb-0">
+        <div class="mx-auto mb-0">
+          <%= will_paginate @topics,
+            :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
         </div>
-      <% end %>
+      </div>
 
       <div class="row mt-2rem mb-2rem">
         <div class="col text-center">
