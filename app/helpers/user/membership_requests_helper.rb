@@ -6,20 +6,18 @@ module User::MembershipRequestsHelper
 
     link_to user_membership_requests_path(current_user),
       class: "dropdown-item" do
-      "Membership requests #{membership_requests_badge}".html_safe
+      "Membership requests #{badge}".html_safe
     end
   end
 
-  def membership_requests_badge
-    return unless membership_requests?
-
+  def badge
     "<span class='ml-2 badge badge-pill badge-primary align-middle'>
       #{membership_requests_count}
     </span>".html_safe
   end
 
   def membership_requests?
-    current_user.total_membership_requests.size > 0
+    membership_requests_count > 0
   end
 
   def membership_requests_count

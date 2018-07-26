@@ -2,18 +2,18 @@
 
 class Users::MembershipRequestsController < ApplicationController
   def index
-    @user = find_user
+    @user   = find_user
     @groups = @user.owned_groups
 
     @membership_requests_received = find_membership_requests_received
-    @membership_requests_sent = find_membership_requests_sent
+    @membership_requests_sent     = find_membership_requests_sent
   end
 
   def show
-    @user = find_user
+    @user   = find_user
     @groups = @user.owned_groups
 
-    @membership_request = find_membership_request
+    @membership_request           = find_membership_request
     @membership_requests_received = find_membership_requests_received
   end
 
