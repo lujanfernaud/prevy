@@ -43,25 +43,38 @@ class MembershipRequestTest < ActiveSupport::TestCase
     assert notification.destroyed?
   end
 
-  test ".find_sent" do
-    user = users(:phil)
-    sent = [membership_requests(:three)]
-
-    assert_equal sent, MembershipRequest.find_sent(user)
-  end
-
-  test ".find_received" do
-    user = users(:phil)
-    received = [membership_requests(:one), membership_requests(:two)]
-
-    assert_equal received, MembershipRequest.find_received(user)
-  end
-
   test "a default message is set when no message is provided" do
     membership_request = build :membership_request, message: ""
 
     membership_request.save
 
     assert_equal "No message.", membership_request.message
+  end
+
+  test ".sent" do
+    user = users(:phil)
+    sent = [membership_requests(:three)]
+
+    assert_equal sent, MembershipRequest.sent(user)
+  end
+
+  test ".received" do
+    user = users(:phil)
+    received = [membership_requests(:one), membership_requests(:two)]
+
+    assert_equal received, MembershipRequest.received(user)
+  end
+
+  test ".total" do
+    stub_sample_content_for_new_users
+
+    user  = create :user
+    group = create :group, owner: user
+    request_received = create :membership_request, group: group
+    request_sent     = create :membership_request, user:  user
+
+    expected = [request_received, request_sent]
+
+    assert_equal expected, MembershipRequest.total(user)
   end
 end

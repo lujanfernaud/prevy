@@ -139,7 +139,7 @@ class User < ApplicationRecord
   end
 
   def total_membership_requests
-    received_requests + sent_requests
+    MembershipRequest.total(self)
   end
 
   def comments

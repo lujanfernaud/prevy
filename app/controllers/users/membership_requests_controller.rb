@@ -24,11 +24,11 @@ class Users::MembershipRequestsController < ApplicationController
     end
 
     def find_membership_requests_sent
-      MembershipRequest.find_sent(@user)
+      MembershipRequest.sent(@user)
     end
 
     def find_membership_requests_received
-      MembershipRequest.find_received(@user)
+      MembershipRequest.received(@user)
     end
 
     def find_membership_request

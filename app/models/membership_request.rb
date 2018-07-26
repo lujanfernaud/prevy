@@ -33,16 +33,20 @@ class MembershipRequest < ApplicationRecord
 
   before_save :set_default_message
 
-  scope :find_sent, -> (user) {
+  scope :sent, -> (user) {
     includes(:group).
     where(user: user).
     order(created_at: :desc)
   }
 
-  scope :find_received, -> (user) {
+  scope :received, -> (user) {
     includes(:group, :user).
     where(group: user.owned_groups).
     order(created_at: :desc)
+  }
+
+  scope :total, -> (user) {
+    where(user: user).or(where(group: user.owned_groups))
   }
 
   private
