@@ -90,6 +90,8 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
 
     visit group_path group, token: invitation.token
 
+    assert page.has_link? group.owner.name
+
     within ".group-buttons-box" do
       assert page.has_content? "You've been invited!"
       assert page.has_content? "Would you like to be part?"

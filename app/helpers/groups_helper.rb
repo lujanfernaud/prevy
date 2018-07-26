@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module GroupsHelper
-  include Group::ButtonsHelper
   include Group::TopicsHelper
 
   def has_organizer_role?(user, group)
@@ -35,37 +34,12 @@ module GroupsHelper
     has_membership?(user, group) && !user.confirmed?
   end
 
-  def show_create_group_link_or_unconfirmed_alert(user, group)
-    return unless is_group_owner?(user, group)
-    return unless group.sample_group?
-
-    if user.confirmed?
-      link_to "Click here to create your first group!", new_group_path
-    else
-      content_tag :div, class: "mt-4" do
-        create_group_unconfirmed_account_alert
-      end
-    end
-  end
-
   def is_group_owner?(user, group)
     group.owner == user
   end
 
-  def admin_name_or_link(group)
-    owner = group.owner
-
-    if invited?
-      link_to owner.name, group_member_path(group, owner)
-    else
-      owner.name
-    end
-  end
-
   def invited?
-    return false unless session[:token]
-
-    InvitationAuthorizer.call(session[:token], @group, current_user)
+    @group.invited?(current_user, session[:token])
   end
 
   def checked_if_not_set?(attribute)

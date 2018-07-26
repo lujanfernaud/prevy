@@ -30,7 +30,7 @@
           </h3>
           <p class="mr-1">
             <%= person_icon %>
-            <%= admin_name_or_link(group) %>
+            <%= group.admin_name_or_link(current_user, session[:token]) %>
           </p>
         </div>
 
@@ -57,7 +57,7 @@
             <% end %>
           </ul>
 
-          <%= see_all_members_link(group, quantity: Group::RECENT_MEMBERS) %>
+          <%= group.see_all_members_link %>
 
         <!-- If Invited -->
         <% elsif invited? %>
@@ -93,7 +93,7 @@
     <% end %>
 
     <!-- Organizer -->
-    <% if create_event_button_authorized?(current_user, group) %>
+    <% if group.create_event_button_authorized?(current_user) %>
       <div class="group-options mt-3">
         <%= link_to "Create event", new_group_event_path(group),
           class: "btn btn-primary btn-block btn-lg" %>
@@ -115,7 +115,7 @@
           You've been invited! <span class="align-bottom">😊</span>
         </h4>
         <h5 class="h5">Would you like to be part?</h5>
-        <%= membership_button(group) %>
+        <%= group.membership_button(current_user, session[:token]) %>
       </div>
     <% end %>
 
@@ -123,7 +123,7 @@
     <% unless authorized?(current_user, group) || invited? %>
       <div class="group-membership">
         <h4 class="h5">Would you like to be part?</h4>
-        <%= membership_button(group) %>
+        <%= group.membership_button(current_user, session[:token]) %>
       </div>
     <% end %>
 

@@ -7,6 +7,112 @@ class GroupDecoratorTest < ActiveSupport::TestCase
     stub_sample_content_for_new_users
   end
 
+  test "#admin_name_or_link returns link to owner when the user is invited" do
+    user  = nil
+    group = GroupDecorator.new(create :group)
+    invitation = create :group_invitation, group: group
+
+    InvitationAuthorizer.stubs(:call).returns(true)
+
+    result = group.admin_name_or_link(user, invitation.token)
+
+    assert result.include? "href"
+  end
+
+  test "#admin_name_or_link returns owner name when the user is not invited" do
+    user  = create :user
+    group = GroupDecorator.new(create :group)
+    invitation = create :group_invitation, group: group
+
+    InvitationAuthorizer.stubs(:call).returns(false)
+
+    result = group.admin_name_or_link(user, invitation.token)
+
+    assert result.include? group.owner.name
+  end
+
+  test "#membership_button returns requested membership button" do
+    user  = create :user
+    token = nil
+    group = GroupDecorator.new(create :group)
+    create :membership_request, user: user, group: group
+
+    result = group.membership_button(user, token)
+
+    assert result.include? "Membership requested"
+  end
+
+  test "#membership_button returns join button" do
+    user  = create :user
+    token = 123456789
+    group = GroupDecorator.new(create :group)
+
+    InvitationAuthorizer.stubs(:call).returns(true)
+
+    result = group.membership_button(user, token)
+
+    assert result.include? "Yes!"
+  end
+
+  test "#membership_button returns request membership button" do
+    user  = create :user
+    token = nil
+    group = GroupDecorator.new(create :group)
+
+    InvitationAuthorizer.stubs(:call).returns(false)
+
+    result = group.membership_button(user, token)
+
+    assert result.include? "Request membership"
+  end
+
+  test "#see_all_members_link doesn't return link" do
+    group = GroupDecorator.new(create :group)
+
+    group.stubs(:members_count).returns(Group::RECENT_MEMBERS - 1)
+
+    result = group.see_all_members_link
+
+    assert_nil result
+  end
+
+  test "#see_all_members_link returns link" do
+    group = GroupDecorator.new(create :group)
+
+    group.stubs(:members_count).returns(Group::RECENT_MEMBERS + 1)
+
+    result = group.see_all_members_link
+
+    assert result.include? "See all members"
+  end
+
+  test "#create_event_button_authorized? is true for sample groups" do
+    user  = create :user
+    group = GroupDecorator.new(create :group, sample_group: true)
+
+    user.stubs(:has_role?).with(:organizer, group).returns(true)
+
+    assert group.create_event_button_authorized?(user)
+  end
+
+  test "#create_event_button_authorized? is true for confirmed organizer" do
+    user  = create :user, :confirmed
+    group = GroupDecorator.new(create :group)
+
+    user.stubs(:has_role?).with(:organizer, group).returns(true)
+
+    assert group.create_event_button_authorized?(user)
+  end
+
+  test "#create_event_button_authorized? is false for unconfirmed organizer" do
+    user  = create :user
+    group = GroupDecorator.new(create :group)
+
+    user.stubs(:has_role?).with(:organizer, group).returns(true)
+
+    assert_not group.create_event_button_authorized?(user)
+  end
+
   test "#members_title_with_count" do
     group = GroupDecorator.new(create :group)
     group.stubs(:members_count).returns(1)

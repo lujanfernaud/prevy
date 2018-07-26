@@ -58,7 +58,7 @@
             <h2 class="h3 mt-2 mb-3">You've been invited to this group.</h2>
             <p class="lead mb-4">Would you like to be part?</p>
 
-            <%= join_link %>
+            <%= @group.join_link(session[:token]) %>
           </div>
 
         </div>
