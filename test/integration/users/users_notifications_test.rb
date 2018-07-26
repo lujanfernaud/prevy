@@ -334,11 +334,11 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
     end
 
     def membership_request_from(user)
-      "##{user.membership_requests.last.id}"
+      "#membership-request-#{user.membership_requests.last.id}"
     end
 
     def last_membership_request
-      "##{MembershipRequest.last.id}"
+      "#membership-request-#{MembershipRequest.last.id}"
     end
 
     def request_membership_as_unnotifiable

@@ -11,6 +11,22 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
     @message  = "Hey! I would love to be part :)"
   end
 
+  test "shows default message when no message is provided" do
+    stub_sample_content_for_new_users
+
+    user  = create :user
+    group = create :group
+    create :membership_request, user: user, group: group, message: ""
+
+    log_in_as group.owner
+
+    visit user_membership_requests_path group.owner
+
+    within last_membership_request do
+      assert page.has_content? "No message."
+    end
+  end
+
   test "user requests membership" do
     @woodell.notifications.destroy_all
 
@@ -167,7 +183,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
     end
 
     def last_membership_request
-      "##{MembershipRequest.last.id}"
+      "#membership-request-#{MembershipRequest.last.id}"
     end
 
     def assert_membership_request_was_sent

@@ -1,14 +1,6 @@
 # frozen_string_literal: true
 
 module User::MembershipRequestsHelper
-  def message_for(membership_request)
-    if membership_request.message.empty?
-      "No message."
-    else
-      membership_request.message
-    end
-  end
-
   def membership_requests_link
     return unless membership_requests?
 

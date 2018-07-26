@@ -261,6 +261,6 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     end
 
     def last_membership_request
-      "##{MembershipRequest.last.id}"
+      "#membership-request-#{MembershipRequest.last.id}"
     end
 end

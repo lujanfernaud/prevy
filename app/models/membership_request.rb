@@ -31,6 +31,8 @@ class MembershipRequest < ApplicationRecord
   validates_uniqueness_of :user, scope: :group,
     message: "is already a member of the group"
 
+  before_save :set_default_message
+
   scope :find_sent, -> (user) {
     includes(:group).
     where(user: user).
@@ -42,4 +44,10 @@ class MembershipRequest < ApplicationRecord
     where(group: user.owned_groups).
     order(created_at: :desc)
   }
+
+  private
+
+    def set_default_message
+      self.message = "No message." if message.empty?
+    end
 end

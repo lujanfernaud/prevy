@@ -56,4 +56,12 @@ class MembershipRequestTest < ActiveSupport::TestCase
 
     assert_equal received, MembershipRequest.find_received(user)
   end
+
+  test "a default message is set when no message is provided" do
+    membership_request = build :membership_request, message: ""
+
+    membership_request.save
+
+    assert_equal "No message.", membership_request.message
+  end
 end
