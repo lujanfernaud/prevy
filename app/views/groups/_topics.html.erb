@@ -17,7 +17,7 @@
 
                 <%= render partial: "groups/topics/topic_row",
                   as: :topic, collection: @topics,
-                  locals: { topics: @topics, group: @group } %>
+                  locals: { topics: @topics, group: @group }, cached: true %>
 
               <% else %>
 
@@ -29,8 +29,6 @@
 
             </div>
           </div><!-- ./row -->
-
-          <hr class="latest-topics__hr mx-3 px-2">
 
           <div class="latest-topics__buttons row">
             <div class="col text-center">

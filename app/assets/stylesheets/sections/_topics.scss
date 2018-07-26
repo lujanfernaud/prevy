@@ -37,16 +37,8 @@
   border-bottom: 1px solid $gray-300;
 }
 
-.latest-topics__hr {
-  margin-bottom: 1.75rem;
-
-  @media (min-width: 568px) {
-    margin-top: .4rem;
-    margin-bottom: 2rem;
-  }
-}
-
 .latest-topics__buttons {
+  margin-top: -.25rem;
   margin-bottom: 1.15rem;
 
   @media (min-width: 568px) {
@@ -94,6 +86,12 @@
   @media (min-width: 568px) {
     margin-left: initial;
     margin-right: initial;
+  }
+}
+
+.topics-index__list {
+  hr:nth-last-child(1) {
+    display: none;
   }
 }
 
