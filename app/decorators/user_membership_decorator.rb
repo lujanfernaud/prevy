@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-# Used in 'My groups' section.
-class UserMembershipDecorator < SimpleDelegator
-  delegate :class, :is_a?, to: :__getobj__
-
+class UserMembershipDecorator < ApplicationDecorator
   def self.collection(groups)
     groups.map { |group| UserMembershipDecorator.new(group) }
   end
@@ -51,13 +48,5 @@ class UserMembershipDecorator < SimpleDelegator
         data: {
           confirm: "Are you sure to cancel your membership to '#{name}'?"
         }
-    end
-
-    def h
-      ActionController::Base.helpers
-    end
-
-    def url
-      Rails.application.routes.url_helpers
     end
 end

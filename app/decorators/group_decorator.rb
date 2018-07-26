@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class GroupDecorator < SimpleDelegator
-  delegate :class, :is_a?, to: :__getobj__
-
+class GroupDecorator < ApplicationDecorator
   def admin_name_or_link(user, token)
     if invited?(user, token)
       h.link_to owner.name, url.group_member_path(self, owner)
@@ -96,13 +94,5 @@ class GroupDecorator < SimpleDelegator
       h.link_to "Request membership",
         url.new_group_membership_request_path(self),
         class: "btn btn-primary btn-block btn-lg mt-3"
-    end
-
-    def h
-      ActionController::Base.helpers
-    end
-
-    def url
-      Rails.application.routes.url_helpers
     end
 end
