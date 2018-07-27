@@ -3,10 +3,6 @@
 module GroupsHelper
   include Group::TopicsHelper
 
-  def has_organizer_role?(user, group)
-    user&.has_role? :organizer, group
-  end
-
   def has_moderator_role?(user, group)
     user&.has_role? :moderator, group
   end

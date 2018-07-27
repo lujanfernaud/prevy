@@ -10,13 +10,6 @@ class GroupsHelperTest < ActionView::TestCase
     @nike     = groups(:one)
   end
 
-  test "#has_organizer_role?" do
-    @phil.add_role(:organizer, @nike)
-
-    assert has_organizer_role?(@phil, @nike)
-    refute has_organizer_role?(@onitsuka, @nike)
-  end
-
   test "#authorized?" do
     assert authorized?(@phil, @nike)
     refute authorized?(@onitsuka, @nike)
