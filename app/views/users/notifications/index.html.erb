@@ -17,7 +17,8 @@
             <% end %>
           </div>
 
-          <%= render partial: "notification", collection: @notifications %>
+          <%= render partial: "notification",
+            collection: @notifications, cached: true %>
 
         <% else %>
 

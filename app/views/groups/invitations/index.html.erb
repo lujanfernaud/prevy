@@ -13,7 +13,8 @@
         class: "btn btn-primary btn-lg mb-2rem px-4" %>
 
       <div class="mt-2">
-        <%= render partial: "invitation", collection: @invitations %>
+        <%= render partial: "invitation",
+          collection: @invitations, cached: true %>
       </div>
 
     </div>
