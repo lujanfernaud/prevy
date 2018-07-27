@@ -15,6 +15,76 @@ class CommentsEditTest < ActionDispatch::IntegrationTest
     prepare_javascript_driver
   end
 
+  test "moderator can edit comment" do
+    @group.add_to_moderators(@phil)
+    comment = @topic.comments.where.not(user: @phil).first
+
+    log_in_as @phil
+
+    visit group_topic_path(@group, @topic)
+
+    within "#comment-#{comment.id}" do
+      assert page.has_link? "Edit"
+    end
+  end
+
+  test "author can edit comment" do
+    comment = @topic.comments.where.not(user: @phil).first
+    author  = comment.user
+
+    log_in_as author
+
+    visit group_topic_path(@group, @topic)
+
+    within "#comment-#{comment.id}" do
+      assert page.has_link? "Edit"
+    end
+  end
+
+  test "user other than moderator or author can't edit comment" do
+    stub_sample_content_for_new_users
+
+    comment = @topic.comments.where.not(user: @phil).first
+    user    = create :user, :confirmed
+    @group.members << user
+
+    log_in_as user
+
+    visit group_topic_path(@group, @topic)
+
+    within "#comment-#{comment.id}" do
+      assert_not page.has_link? "Edit"
+    end
+  end
+
+  test "caching doesn't keep 'edit' link" do
+    stub_sample_content_for_new_users
+
+    @group.add_to_moderators(@phil)
+
+    comment = @topic.comments.where.not(user: @phil).first
+    user    = create :user, :confirmed
+    @group.members << user
+
+    log_in_as @phil
+
+    visit group_topic_path(@group, @topic)
+
+    within "#comment-#{comment.id}" do
+      assert page.has_link? "Edit"
+    end
+
+    log_out
+
+    log_in_as user
+
+    visit group_topic_path(@group, @topic)
+
+    within "#comment-#{comment.id}" do
+      assert_not page.has_link? "Edit"
+    end
+  end
+
   test "user visits 'comments/edit'" do
     log_in_as @phil
 

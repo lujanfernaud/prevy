@@ -1,60 +1,64 @@
-<% unless controller_name == "events" &&
-  comment == comment.topic.comments.first %>
-  <div class="comment-separator d-flex flex-row">
-    <div class="comment-separator__line"></div>
-  </div>
-<% end %>
+<% cache [comment, is_authorized_to_edit?(comment, group)] do %>
 
-<div class="box topic-box mb-1 p-4">
+  <% unless controller_name == "events" &&
+    comment == comment.topic.comments.first %>
+    <div class="comment-separator d-flex flex-row">
+      <div class="comment-separator__line"></div>
+    </div>
+  <% end %>
 
-  <div class="d-flex flex-row comment-container" id="comment-<%= comment.id %>">
-    <div class="comment__avatar member-image mr-3">
-      <div class="intrinsic-ratio-container
-        intrinsic-ratio-container--square">
-        <%= link_to group_member_path(group, comment.user),
-          class: "display-block" do %>
-          <%= image_tag gravatar_image_url(comment.user.email),
-            class: "lazyload blur-up
-              img-fluid intrinsic-ratio-image user-avatar d-block",
-            alt: comment.user.name %>
+  <div class="box topic-box mb-1 p-4">
+
+    <div class="d-flex flex-row comment-container" id="comment-<%= comment.id %>">
+      <div class="comment__avatar member-image mr-3">
+        <div class="intrinsic-ratio-container
+          intrinsic-ratio-container--square">
+          <%= link_to group_member_path(group, comment.user),
+            class: "display-block" do %>
+            <%= image_tag gravatar_image_url(comment.user.email),
+              class: "lazyload blur-up
+                img-fluid intrinsic-ratio-image user-avatar d-block",
+              alt: comment.user.name %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="comment__body">
+        <!-- User Name -->
+        <%= link_to comment.user.name,
+          group_member_path(group, comment.user),
+          class: "font-weight-bold" %>
+
+        <!-- User Group Points -->
+        <small class="comment__user-points">
+          <%= group.user_points(comment.user) %>
+        </small>
+
+        <!-- Date -->
+        <small class="comment__date d-block d-md-inline-block text-muted">
+          <%= local_time_ago(comment.created_at) %>
+        </small>
+
+        <!-- Body -->
+        <div class="mt-2 pt-1 pb-1">
+          <%= sanitize(comment.body) %>
+        </div>
+
+        <!-- Edited On Date -->
+        <% if comment.edited? %>
+          <%= render "groups/topics/edited_by", object: comment %>
+        <% end %>
+
+        <!-- Edit Link -->
+        <% if is_authorized_to_edit?(comment, group) %>
+          <div class="mt-2">
+            <%= link_to "Edit",
+              edit_comment_path(comment, origin: controller_name) %>
+          </div>
         <% end %>
       </div>
     </div>
 
-    <div class="comment__body">
-      <!-- User Name -->
-      <%= link_to comment.user.name,
-        group_member_path(group, comment.user),
-        class: "font-weight-bold" %>
-
-      <!-- User Group Points -->
-      <small class="comment__user-points">
-        <%= group.user_points(comment.user) %>
-      </small>
-
-      <!-- Date -->
-      <small class="comment__date d-block d-md-inline-block text-muted">
-        <%= local_time_ago(comment.created_at) %>
-      </small>
-
-      <!-- Body -->
-      <div class="mt-2 pt-1 pb-1">
-        <%= sanitize(comment.body) %>
-      </div>
-
-      <!-- Edited On Date -->
-      <% if comment.edited? %>
-        <%= render "groups/topics/edited_by", object: comment %>
-      <% end %>
-
-      <!-- Edit Link -->
-      <% if is_authorized_to_edit?(comment, group) %>
-        <div class="mt-2">
-          <%= link_to "Edit",
-            edit_comment_path(comment, origin: controller_name) %>
-        </div>
-      <% end %>
-    </div>
   </div>
 
-</div>
+<% end %>
