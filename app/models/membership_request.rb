@@ -49,6 +49,9 @@ class MembershipRequest < ApplicationRecord
     where(user: user).or(where(group: user.owned_groups))
   }
 
+  delegate :name,         to: :group, prefix: true
+  delegate :email, :name, to: :user,  prefix: true
+
   private
 
     def set_default_message

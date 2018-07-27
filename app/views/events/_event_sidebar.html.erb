@@ -1,6 +1,6 @@
 <div class="col-md-12 col-lg-4">
 
-  <% cache [event.organizer.name, event.recent_attendees] do %>
+  <% cache [event.organizer_name, event.recent_attendees] do %>
 
     <!-- Event Organizer and Attendees -->
     <div class="event-info-box box box--sidebar mt-lg-0 py-3">
@@ -12,7 +12,7 @@
 
         <ul>
           <li>
-            <%= link_to event.organizer.name,
+            <%= link_to event.organizer_name,
               event_attendee_path(event, event.organizer),
               class: "mb-2rem" %>
           </li>

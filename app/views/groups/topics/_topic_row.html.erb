@@ -6,10 +6,10 @@
       intrinsic-ratio-container--square">
       <%= link_to group_member_path(group, topic.user),
         class: "display-block" do %>
-        <%= image_tag gravatar_image_url(topic.user.email),
+        <%= image_tag gravatar_image_url(topic.user_email),
           class: "lazyload blur-up
             img-fluid intrinsic-ratio-image user-avatar d-block",
-          alt: topic.user.name %>
+          alt: topic.user_name %>
       <% end %>
     </div>
   </div>
@@ -40,7 +40,7 @@
           Opened <%= local_time_ago(topic.created_at) %>
         </span>
         <span class="d-block d-md-inline">
-          by <%= link_to topic.user.name,
+          by <%= link_to topic.user_name,
             group_member_path(group, topic.user),
             class: "text-dark" %>
         </span>

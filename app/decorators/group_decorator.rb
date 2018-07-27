@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class GroupDecorator < ApplicationDecorator
+  delegate :name, to: :owner, prefix: true
+
   def admin_name_or_link(user, token)
     if invited?(user, token)
-      h.link_to owner.name, url.group_member_path(self, owner)
+      h.link_to owner_name, url.group_member_path(self, owner)
     else
-      owner.name
+      owner_name
     end
   end
 

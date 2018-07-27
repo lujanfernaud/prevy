@@ -106,6 +106,8 @@ class Group < ApplicationRecord
     where.not(id: group.id)
   }
 
+  delegate :name, to: :owner, prefix: true
+
   def image_base64
     return image_url(:thumb) unless image_placeholder
 

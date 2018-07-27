@@ -79,6 +79,8 @@ class Topic < ApplicationRecord
     order(priority: :desc, last_commented_at: :desc).includes(:user)
   }
 
+  delegate :email, :name, to: :user, prefix: true
+
   def normal?
     type == "Topic"
   end

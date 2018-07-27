@@ -6,8 +6,8 @@
     class="overflow-hidden">
     <div class="lazyload blur-up membership-request-image"
       style="background-image:
-        url(<%= gravatar_image_url membership_request.user.email %>)"
-      data-bg="<%= gravatar_image_url membership_request.user.email %>">
+        url(<%= gravatar_image_url membership_request.user_email %>)"
+      data-bg="<%= gravatar_image_url membership_request.user_email %>">
     </div>
   </a>
 
@@ -16,13 +16,13 @@
     <h3 class="h6 font-weight-bold mt-1 mb-2 mb-md-1 pb-1 pb-md-0">
       <span class="font-weight-normal">From</span>
       <span>
-        <%= link_to membership_request.user.name,
+        <%= link_to membership_request.user_name,
           group_member_path(membership_request.group,
             membership_request.user) %>
       </span>
       <span class="font-weight-normal">in</span>
       <span>
-        <%= link_to membership_request.group.name,
+        <%= link_to membership_request.group_name,
           group_path(membership_request.group) %>
       </span>
     </h3>

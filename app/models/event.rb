@@ -89,12 +89,12 @@ class Event < ApplicationRecord
     where("end_date < ?", Time.zone.now).order("end_date ASC")
   }
 
-  # TODO: Refactor
-  delegate :place_name, :street1, :street2, :city,
-           :state, :post_code, :country,
-           :latitude, :longitude,
+  delegate :place_name, :street1, :street2, :city, :state,
+           :post_code, :country, :latitude, :longitude,
            :full_address, :full_address_changed?,
             to: :address, allow_nil: true
+
+  delegate :name, to: :organizer, prefix: true
 
   def image_base64
     return image_url(:thumb) unless image_placeholder
