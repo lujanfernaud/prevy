@@ -30,7 +30,7 @@ class Groups::MembershipRequestsController < ApplicationController
 
     @membership_request.destroy
 
-    if current_user == @user
+    if requester_is_current_user?
       flash[:success] = "Your membership request was deleted."
     else
       flash[:success] = "The membership request was deleted."
@@ -58,6 +58,10 @@ class Groups::MembershipRequestsController < ApplicationController
 
     def notify_group_owner
       NewMembershipRequestNotifier.call(@membership_request)
+    end
+
+    def requester_is_current_user?
+      current_user == @user
     end
 
     def notify_requester
