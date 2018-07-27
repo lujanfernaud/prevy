@@ -8,8 +8,11 @@
     <div class="row justify-content-md-center">
       <div class="col-md-12 mt-2 mb-2">
 
-        <h2 class="text-center mb-3">Edit topic</h2>
-        <%= render "form" %>
+        <h2 class="text-center mb-3">
+          Edit topic
+        </h2>
+
+        <%= render "form", group: @group, topic: @topic %>
 
       </div>
     </div>

@@ -1,5 +1,5 @@
-<%= form_for [@group, @topic.becomes(Topic)] do |f| %>
-  <%= render "error_messages", object: @topic %>
+<%= form_for [group, topic.becomes(Topic)] do |f| %>
+  <%= render "error_messages", object: topic %>
 
   <div class="form-group box p-4 mt-2rem mb-2rem">
     <div class="form-group">
@@ -18,13 +18,13 @@
     </div>
   </div>
 
-  <% if is_group_owner?(current_user, @group) && !@topic.event? %>
+  <% if is_group_owner?(current_user, group) && !topic.event? %>
     <div class="box topic-type-box p-4 mb-2rem">
 
-      <% if announceable?(@topic) %>
+      <% if announceable?(topic) %>
         <div class="announcement-topic-section">
           <%= f.radio_button :type, "AnnouncementTopic",
-            checked: @topic.announcement? %>
+            checked: topic.announcement? %>
           <%= f.label :type_announcementtopic, "Announcement", class: "mb-0" %>
 
           <% if action_name == "new" %>
@@ -42,7 +42,7 @@
       <% end %>
 
       <div class="pinned-topic-section">
-        <%= f.radio_button :type, "PinnedTopic", checked: @topic.pinned? %>
+        <%= f.radio_button :type, "PinnedTopic", checked: topic.pinned? %>
         <%= f.label :type_pinnedtopic, "Pinned", class: "mb-0" %>
 
         <p class="font-italic mt-3 mb-0">
@@ -53,7 +53,7 @@
       <hr>
 
       <div class="normal-topic-section">
-        <%= f.radio_button :type, "Topic", checked: @topic.normal? %>
+        <%= f.radio_button :type, "Topic", checked: topic.normal? %>
         <%= f.label :type_topic, "Normal", class: "mb-0" %>
       </div>
 
@@ -69,7 +69,7 @@
           This action is not reversible.
         </p>
         <%= link_to "Delete topic",
-          group_topic_path(@group, @topic), method: :delete,
+          group_topic_path(group, topic), method: :delete,
           data: { confirm: "Are you sure you want to delete this topic?" },
           class: "btn btn-danger btn-lg" %>
       </div>

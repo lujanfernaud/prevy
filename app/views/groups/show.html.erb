@@ -28,8 +28,8 @@
       events: @events, events_count: @events_count || 0 %>
   <% end %>
 
-  <% unless @group.topics.empty? && invited? %>
-    <%= render "topics", group: @group %>
+  <% unless @topics.empty? && invited? %>
+    <%= render "topics", group: @group, topics: @topics %>
   <% end %>
 
   <% unless @group.members.empty? && !is_group_owner?(current_user, @group) %>

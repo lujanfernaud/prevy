@@ -13,11 +13,11 @@
           <div class="row p-3">
             <div class="col-md-12">
 
-              <% unless @topics && @topics.empty? %>
+              <% unless topics && topics.empty? %>
 
                 <%= render partial: "groups/topics/topic_row",
-                  as: :topic, collection: @topics,
-                  locals: { topics: @topics, group: @group }, cached: true %>
+                  as: :topic, collection: topics,
+                  locals: { topics: topics, group: group }, cached: true %>
 
               <% else %>
 
@@ -32,7 +32,7 @@
 
           <div class="latest-topics__buttons row">
             <div class="col text-center">
-              <% if @group.topics_count > 5 %>
+              <% if group.topics_count > 5 %>
                 <%= link_to "See all topics", group_topics_path(group),
                   class: "all-topics-btn btn btn-outline-primary btn-lg" %>
               <% end %>

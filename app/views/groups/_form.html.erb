@@ -1,5 +1,5 @@
-<%= form_for @group, html: { multipart: true } do |f| %>
-  <%= render "error_messages", object: @group %>
+<%= form_for group, html: { multipart: true } do |f| %>
+  <%= render "error_messages", object: group %>
 
   <div class="form-group box p-4 mt-2rem mb-2rem">
     <h3 class="mb-4">1. Group info</h3>
@@ -37,9 +37,9 @@
     <div class="form-group mb-0">
       <%= f.label :image, hidden: true %>
 
-      <% if @group.image? %>
-        <%= image_tag(@group.image_url,
-          srcset: "#{@group.image_url(:medium)} 510w, #{@group.image_url(:thumb)} 350w",
+      <% if group.image? %>
+        <%= image_tag(group.image_url,
+          srcset: "#{group.image_url(:medium)} 510w, #{group.image_url(:thumb)} 350w",
             class: "img-fluid mb-2rem") %>
       <% end %>
 
@@ -74,7 +74,7 @@
       <div class="row mt-2">
         <div class="col-sm-1 text-center text-sm-left">
           <%= f.radio_button :hidden, false,
-            checked: checked_if_not_set?(@group.hidden),
+            checked: checked_if_not_set?(group.hidden),
             class: "form-control" %>
         </div>
         <div class="col-sm-11 text-center text-sm-left mt-2 mt-sm-0">
@@ -101,7 +101,7 @@
       <div class="row mt-1">
         <div class="col-sm-1 text-center text-sm-left">
           <%= f.radio_button :all_members_can_create_events, false,
-            checked: checked_if_not_set?(@group.all_members_can_create_events),
+            checked: checked_if_not_set?(group.all_members_can_create_events),
             class: "form-control" %>
         </div>
         <div class="col-sm-11 text-center text-sm-left mt-2 mt-sm-0">
@@ -118,7 +118,7 @@
 
   </div>
 
-  <% if current_user == @group.owner %>
+  <% if current_user == group.owner %>
     <div class="form-group box p-4 mb-2rem">
       <h3 class="mb-4">4. Danger zone</h3>
 
@@ -127,7 +127,7 @@
           This action is not reversible. All events in this group would also be deleted.
         </p>
         <%= link_to "Delete group",
-          group_path(@group, user_id: current_user.id),
+          group_path(group, user_id: current_user.id),
           data: { confirm: "Are you sure you want to delete this group?" },
             method: :delete, class: "btn btn-danger btn-lg" %>
       </div>
