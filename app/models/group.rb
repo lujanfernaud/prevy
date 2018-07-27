@@ -122,10 +122,6 @@ class Group < ApplicationRecord
     sample_resource? && name =~ /\ASample\s/
   end
 
-  def invitation_tokens
-    invitations.pluck(:token)
-  end
-
   def invitations
     group_invitations.order(created_at: :desc)
   end
@@ -183,8 +179,8 @@ class Group < ApplicationRecord
   private
 
     def prepare_text_fields
-      self.name = name.titleize
-      self.location = location.titleize
+      self.name        = name.titleize
+      self.location    = location.titleize
       self.description = description[0].capitalize + description[1..-1]
     end
 
