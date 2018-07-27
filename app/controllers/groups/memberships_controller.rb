@@ -13,7 +13,7 @@ class Groups::MembershipsController < ApplicationController
     destroy_user_sample_content
     destroy_membership_request
 
-    if current_user == @user
+    if owner_is_current_user?
       flash[:success] = "You are now a member of #{@group.name}!"
       redirect_to group_path(@group)
     else
@@ -33,7 +33,7 @@ class Groups::MembershipsController < ApplicationController
 
     @membership.destroy
 
-    if current_user == @user
+    if owner_is_current_user?
       flash[:success] = "Your membership to '#{@group.name}' " \
                         "has been cancelled."
       redirect_to group_path(@group)
@@ -59,6 +59,10 @@ class Groups::MembershipsController < ApplicationController
       if request_id = params[:request_id]
         MembershipRequest.find(request_id).destroy
       end
+    end
+
+    def owner_is_current_user?
+      current_user == @user
     end
 
     def notify_user_accepted
