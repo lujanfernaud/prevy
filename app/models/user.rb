@@ -110,10 +110,6 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
-  scope :recent, -> (users_number = 5) {
-    order("created_at DESC").limit(users_number)
-  }
-
   def sample_group
     owned_groups.where(sample_group: true).first
   end
