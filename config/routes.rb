@@ -83,7 +83,8 @@ Rails.application.routes.draw do
 
     # Group Topics
     resources :topics, controller: "groups/topics" do
-      resources :comments, controller: "groups/topics/comments", shallow: true
+      resources :comments, except: [:show, :new, :index],
+        controller: "groups/topics/comments", shallow: true
     end
   end
 
