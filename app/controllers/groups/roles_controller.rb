@@ -37,17 +37,8 @@ class Groups::RolesController < ApplicationController
 
   private
 
-    # TODO: Refactor.
     def find_organizers_and_moderators
-      (organizers + moderators).uniq.sort_by { |member| member.name }
-    end
-
-    def organizers
-      User.with_role :organizer, @group
-    end
-
-    def moderators
-      User.with_role :moderator, @group
+      OrganizersAndModeratorsQuery.call(@group)
     end
 
     def find_members
@@ -55,7 +46,7 @@ class Groups::RolesController < ApplicationController
     end
 
     def find_group
-      @group ||= Group.find(params[:group_id])
+      @group = Group.find(params[:group_id])
     end
 
     def find_role
