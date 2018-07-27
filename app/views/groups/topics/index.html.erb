@@ -11,12 +11,12 @@
       <div class="box topics-box mt-4 p-2">
 
         <div class="row p-3">
-          <div class="col-md-12 topics-index__list">
+          <div class="col-md-12">
 
             <% unless @topics.empty? %>
               <%= render partial: "topic_row",
                 as: :topic, collection: @topics,
-                locals: { topics: @topics, group: @group }, cached: true %>
+                locals: { topics: @topics, group: @group } %>
             <% else %>
               <p class="lead text-center mt-1 mb-1">
                 This looks better with some topics. Why not creating one? :)
@@ -28,12 +28,14 @@
 
       </div>
 
-      <div class="topics-index row mt-2rem mb-0">
-        <div class="mx-auto mb-0">
-          <%= will_paginate @topics,
-            :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+      <% if @group.topics_count > Topic::TOPICS_PER_PAGE %>
+        <div class="topics-index row mt-2rem mb-0">
+          <div class="mx-auto mb-0">
+            <%= will_paginate @topics,
+              :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
       <div class="row mt-2rem mb-2rem">
         <div class="col text-center">
