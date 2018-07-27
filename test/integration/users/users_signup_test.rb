@@ -124,7 +124,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     fill_in_correct_information
     click_on_sign_up_form_button
 
-    assert current_path == group_path(group)
+    assert_current_path group_path(group)
     assert page.has_content? signed_up_but_unconfirmed_message
   end
 
@@ -139,7 +139,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     fill_in_correct_information
     click_on_sign_up_form_button
 
-    assert current_path == new_group_membership_request_path(group)
+    assert_current_path new_group_membership_request_path(group)
     assert page.has_content? signed_up_but_unconfirmed_message
   end
 

@@ -20,7 +20,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
       click_on "Log in"
     end
 
-    assert current_path == root_path
+    assert_current_path root_path
 
     within ".navbar-nav" do
       assert page.has_content? @user.name
@@ -37,7 +37,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
       click_on "Log in"
     end
 
-    assert current_path == new_user_session_path
+    assert_current_path new_user_session_path
     assert page.has_content? "Invalid"
   end
 
@@ -51,7 +51,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
       click_on "Log in"
     end
 
-    assert current_path == new_user_session_path
+    assert_current_path new_user_session_path
     assert page.has_content? "Invalid"
   end
 
@@ -59,7 +59,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     visit new_user_session_path
 
-    assert current_path == root_path
+    assert_current_path root_path
     assert page.has_content? "You are already signed in."
   end
 
@@ -72,7 +72,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
     introduce_log_in_information_as(@user)
 
-    assert current_path == group_path(group)
+    assert_current_path group_path(group)
   end
 
   test "user is redirected to new membership request after logging in" do
@@ -85,7 +85,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
     introduce_log_in_information_as(@user)
 
-    assert current_path == new_group_membership_request_path(group)
+    assert_current_path new_group_membership_request_path(group)
   end
 
   test "logout" do
@@ -94,7 +94,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     click_on @user.name
     click_on "Log out"
 
-    assert current_path == root_path
+    assert_current_path root_path
 
     within ".navbar-nav" do
       assert page.has_content? "Log in"

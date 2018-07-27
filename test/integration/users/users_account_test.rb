@@ -77,13 +77,13 @@ class UsersAccountTest < ActionDispatch::IntegrationTest
   private
 
     def assert_valid
-      assert current_path == root_path
+      assert_current_path root_path
       assert page.has_content? "updated"
       yield if block_given?
     end
 
     def assert_invalid
-      assert current_path == "/users"
+      assert_current_path "/users"
       assert page.has_content? "error"
       yield if block_given?
     end
