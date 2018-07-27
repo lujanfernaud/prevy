@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180723082023) do
+ActiveRecord::Schema.define(version: 20180727064716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,6 +170,7 @@ ActiveRecord::Schema.define(version: 20180723082023) do
     t.datetime "updated_at", null: false
     t.bigint "edited_by_id"
     t.datetime "edited_at", default: -> { "now()" }, null: false
+    t.index ["edited_by_id"], name: "index_topic_comments_on_edited_by_id"
     t.index ["topic_id"], name: "index_topic_comments_on_topic_id"
     t.index ["user_id"], name: "index_topic_comments_on_user_id"
   end
@@ -190,8 +191,10 @@ ActiveRecord::Schema.define(version: 20180723082023) do
     t.datetime "edited_at", default: -> { "now()" }, null: false
     t.datetime "last_commented_at"
     t.integer "comments_count", default: 0, null: false
+    t.index ["edited_by_id"], name: "index_topics_on_edited_by_id"
     t.index ["event_id"], name: "index_topics_on_event_id"
     t.index ["group_id"], name: "index_topics_on_group_id"
+    t.index ["id", "type"], name: "index_topics_on_id_and_type"
     t.index ["last_commented_at"], name: "index_topics_on_last_commented_at"
     t.index ["priority"], name: "index_topics_on_priority"
     t.index ["slug"], name: "index_topics_on_slug"
