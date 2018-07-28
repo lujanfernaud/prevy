@@ -6,6 +6,8 @@ class PinnedTopicsTest < ActionDispatch::IntegrationTest
   include TopicsIntegrationSupport
 
   def setup
+    stub_sample_content_for_new_users
+
     @group = groups(:one)
     @phil  = users(:phil)
 
@@ -56,5 +58,18 @@ class PinnedTopicsTest < ActionDispatch::IntegrationTest
     visit group_topics_path(group)
 
     refute_topic_has_label "PINNED:", topic: topic
+  end
+
+  test "author sets normal topic to pinned topic" do
+    topic = create :topic, group: @group
+
+    log_in_as @phil
+
+    visit edit_group_topic_path(@group, topic)
+
+    set_topic_type_to "PinnedTopic"
+    click_on "Update topic"
+
+    assert page.has_content? "Topic set to pinned topic."
   end
 end
