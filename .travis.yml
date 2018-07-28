@@ -1,3 +1,7 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=8f5dfce9d78ea2372029fc420b6dda3ab06367393706148814fb229e040b85fc
+
 language: ruby
 
 rvm:
@@ -21,10 +25,16 @@ before_script:
   - cp config/application.yml.example config/application.yml
   - bundle install
   - psql -c 'create database prevy_test;' -U postgres
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
   - bundle exec rake db:migrate RAILS_ENV=test
   - xvfb-run -a bundle exec rake test
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 test:
   adapter: postgresql
