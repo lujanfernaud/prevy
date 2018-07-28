@@ -76,11 +76,6 @@ class GroupDecorator < ApplicationDecorator
       " (#{count})"
     end
 
-    def request_membership_button_disabled
-      h.button_tag "Request membership", disabled: true,
-        class: "btn btn-primary btn-block btn-lg mt-3"
-    end
-
     def requested_membership?(user)
       return unless user
 

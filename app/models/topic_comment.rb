@@ -50,10 +50,6 @@ class TopicComment < ApplicationRecord
     user == edited_by
   end
 
-  def group
-    topic.group
-  end
-
   private
 
     def body_length

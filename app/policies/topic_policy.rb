@@ -1,14 +1,6 @@
 # frozen_string_literal: true
 
 class TopicPolicy < ApplicationPolicy
-  def index?
-    is_member? || is_group_owner?
-  end
-
-  def show?
-    is_member? || is_group_owner?
-  end
-
   def create?
     logged_in? && is_member_or_group_owner?
   end

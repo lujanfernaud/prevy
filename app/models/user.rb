@@ -138,10 +138,6 @@ class User < ApplicationRecord
     MembershipRequest.total(self)
   end
 
-  def comments
-    topic_comments
-  end
-
   # Devise
   #
   # Used for customized account confirmation.
