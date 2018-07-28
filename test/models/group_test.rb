@@ -240,23 +240,11 @@ class GroupTest < ActiveSupport::TestCase
   end
 
   test "#recent_members sorts by membership creation date" do
-    group      = create :group
-    member_one = create :user, :confirmed, created_at: 1.month.ago
-    member_two = create :user, :confirmed, created_at: 1.day.ago
+    group = groups(:one)
 
-    create :group_membership,
-            user:       member_one,
-            group:      group,
-            created_at: 1.day.ago
+    RecentMembersQuery.expects(:call).with(group, Group::RECENT_MEMBERS)
 
-    create :group_membership,
-            user:       member_two,
-            group:      group,
-            created_at: 1.minute.ago
-
-    expected = [member_two.name, member_one.name]
-
-    assert_equal expected, group.reload.recent_members.pluck(:name)
+    group.recent_members
   end
 
   test "#top_members" do

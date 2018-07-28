@@ -32,6 +32,14 @@ class GroupMembership < ApplicationRecord
   before_destroy :destroy_user_group_points
   before_destroy :remove_user_roles
 
+  scope :confirmed, -> (group) {
+    where(user: group.members.confirmed)
+  }
+
+  scope :by_creation_date, -> (group) {
+    where(group: group).order(created_at: :desc)
+  }
+
   private
 
     def add_user_role

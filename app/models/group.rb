@@ -149,7 +149,7 @@ class Group < ApplicationRecord
   end
 
   def recent_members(limit: RECENT_MEMBERS)
-    members.confirmed.limit(limit)
+    RecentMembersQuery.call(self, limit)
   end
 
   def top_members(limit: TOP_MEMBERS)
