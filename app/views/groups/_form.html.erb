@@ -118,7 +118,7 @@
 
   </div>
 
-  <% if current_user == group.owner %>
+  <% if group.persisted? && current_user == group.owner %>
     <div class="form-group box p-4 mb-2rem">
       <h3 class="mb-4">4. Danger zone</h3>
 
