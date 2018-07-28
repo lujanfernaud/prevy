@@ -1,4 +1,4 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/4ff8c244d2d53411887b/maintainability)](https://codeclimate.com/github/lujanfernaud/prevy/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4ff8c244d2d53411887b/maintainability)](https://codeclimate.com/github/lujanfernaud/prevy/maintainability) [![Build Status](https://travis-ci.org/lujanfernaud/prevy.svg?branch=master)](https://travis-ci.org/lujanfernaud/prevy)
 
 # Prevy
 

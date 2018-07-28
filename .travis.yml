@@ -1,0 +1,31 @@
+language: ruby
+
+rvm:
+  - 2.5.1
+
+sudo: required
+
+dist: trusty
+
+addons:
+  postgresql: 9.6
+
+services:
+  - postgresql
+
+cache:
+  bundler: true
+  yarn: true
+
+before_script:
+  - cp config/application.yml.example config/application.yml
+  - bundle install
+  - psql -c 'create database prevy_test;' -U postgres
+
+script:
+  - bundle exec rake db:migrate RAILS_ENV=test
+  - xvfb-run -a bundle exec rake test
+
+test:
+  adapter: postgresql
+  database: prevy_test
