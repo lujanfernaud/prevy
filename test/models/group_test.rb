@@ -250,9 +250,9 @@ class GroupTest < ActiveSupport::TestCase
   test "#top_members" do
     group = groups(:one)
 
-    TopMembersQuery.expects(:call).with(group, 12)
+    TopMembersQuery.expects(:call).with(group, Group::TOP_MEMBERS)
 
-    group.top_members(limit: 12)
+    group.top_members(limit: Group::TOP_MEMBERS)
   end
 
   test "#user_is_authorized?" do
