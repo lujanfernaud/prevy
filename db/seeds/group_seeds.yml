@@ -2,7 +2,7 @@
 # It is meant to be as real as possible.
 
 -
-  name: Tenerife Ruby Group
+  name: Tenerife Ruby Brigade
   description: |-
     We’re a software users group interested in the programming language, Ruby. Our talks range from specific aspects of Ruby on Rails to metaprogamming to anything else in the Ruby world. Occasionally we may talk about software topics not directly tied to Ruby.
   location: Tenerife
@@ -83,7 +83,7 @@
   name: Tea Sketchers
   description: |-
     Are you an artist free to sketch on a Friday? Like to draw from life but a bit shy about doing it alone? Meet other artists for a casual lunch and sketch :) Venue-based for comfort and sociability, but informal and inexpensive. We gather every Friday in various relaxed eateries and tea shops, to draw our surroundings and chat through the afternoon. You're welcome to join us - just bring a small sketchbook and some food money.
-  location: Vancouver
+  location: Seattle
   image: app/assets/images/samples/sample_groups/tea-sketchers.jpg
 
 -
@@ -215,7 +215,7 @@
   name: Homebrew Music Makers
   description: |-
     You are a maker. You like soldering or would like to learn. You make music. You like music. You are fascinated by the possibilities technology opens up for music makery. You are tired of this second person nonsense.
-  location: Seattle, WA
+  location: Seattle, Washington
   image: app/assets/images/samples/sample_groups/adi-goldstein-687402-unsplash.jpg
 
 -
@@ -238,7 +238,7 @@
     The Music Makers group is for anyone who writes and/or performs electronic music in and around the Austin area.
     <br><br>
     Our primary goal is to promote an active production, performance, collaboration and development environment. Our members use a variety of tools including Ableton Live, Logic, Pro Tools, Garageband, Maschine, FL Studio, plugins such as Massive, Serum, Sylenth 1 and Max for Live as well as hardware including Elektron, Roland, Korg and modular synths. Together we organise in-person activities including workshops, mixers, jam sessions, and other performance opportunities.
-  location: Austin, TX
+  location: Austin, Texas
   image: app/assets/images/samples/sample_groups/vania-shows-429708-unsplash.jpg
 
 -
@@ -270,7 +270,7 @@
   name: The Beetle Crew
   description: |-
     This community is for VW Beetle owners and enthusiasts in San Jose. A place for exchanging tips, trading parts, working on cars, racing (at sanctioned events of course), or just hanging out.
-  location: San Jose, CA
+  location: San Jose, California
   image: app/assets/images/samples/sample_groups/issam-hammoudi-740821-unsplash.jpg
 
 -
@@ -286,3 +286,57 @@
     If you love to work with colored squares and you live in San Francisco... we need to know each other! No matter if you are a game developer, graphic designer, art director, 2D animator or just a pixel art lover. We're looking forward to share our portfolios and experiences, organize workshops, create contests and do anything to inspire ourselves and boost our pixel art skills. A very nice creative flow is guaranteed!
   location: San Francisco
   image: app/assets/images/samples/sample_groups/ECB_LA_28k.png
+
+-
+  name: Motorcycle Artisans
+  description: |-
+    This community is for anyone interested in and passionate about building custom motorcycles by hand. All skill levels are welcome. Calling all custom artisans! Come out of your garage and into the light!
+  location: Ocean City, Maryland
+  image: app/assets/images/samples/sample_groups/cafe-racer-frame-garage-1599.jpg
+
+-
+  name: Bern Astronomy Club
+  description: |-
+    The purpose of this community is to help you begin or rekindle your connection with the night sky while having fun and meeting others with similar interests. Looking for members in and around Bern.
+    <br><br>
+    No experience in astronomy is required and you don't need to own a telescope to participate. If you already own a telescope and looking to find other people to go out and observe the sky, you have come to the right place. Clear skies and happy viewing.
+  location: Bern
+  image: app/assets/images/samples/sample_groups/astro-nick-757202-unsplash.jpg
+
+-
+  name: Brisbane Surf Crew
+  description: |-
+    Brisbane Surf Crew is a great place to meet new surf buddies and friends! Our mission is connecting other like-minded surfers to ensure safety and fun in one of nature’s most powerful elements; the water.
+    <br><br>
+    We host social and surfing events where members have the opportunity to meet other surfers of varying skills and talent. The connections they make and events they attend ensure members do not have to surf alone and they learn respect for and adhere to the rules of the line-up and mother nature.
+  location: Brisbane
+  image: app/assets/images/samples/sample_groups/jeremy-bishop-123463-unsplash.jpg
+
+-
+  name: Dublin Pet Rescuers
+  description: |-
+    This group is more than just a pet rescue organization. It's a way to make new friends while helping a great cause. It's a way to get connected to your community while making a difference. It's a enjoy the outdoors while saving a life. It's a way to create family moments while raising awareness.
+    <br><br>
+    We are a non-profit animal rescue that is committed to finding homes for homeless pets that have ended up in a shelter through no fault of there own. This group is run 100% with volunteers and donations. Come join this amazing group of people that are committed to making a difference everyday.
+  location: Dublin
+  image: app/assets/images/samples/sample_groups/autri-taheri-528246-unsplash.jpg
+
+-
+  name: Vienna Hiking Club
+  description: |-
+    We promote hiking as a tool to improve physical and mental fitness because hiking is a process of overcoming challenges. To hike up a mountain is to conquer one's physical and mental limitation. We believe hiking could be a process to discover ourselves and to push the boundaries of our potential.
+    <br><br>
+    Our goal is to educate and train a new generation of hikers who are physically fit, mentally strong, and confident to face life's challenges. Join us today, and help us spread the message of self-empowerment through hiking.
+  location: Vienna
+  image: app/assets/images/samples/sample_groups/holly-mandarich-326680-unsplash.jpg
+
+-
+  name: Cycling Singapore
+  description: |-
+    We have found that many cyclists struggle to find groups that they can fit in comfortably - that offer assistance and training to help them meet their cycling goals and aspirations. The intent of this community is to do just that.
+    <br><br>
+    We will host training rides to teach you "how to ride" by focusing on such things as the "do's" and "don't's" of riding in a group, riding the paceline, how to climb, sprinting, and building endurance to mention a few. We may even cover simple fixes like changing flats and derailleur adjustments.
+    <br><br>
+    Come join us and let's enjoy the ride!
+  location: Singapore
+  image: app/assets/images/samples/sample_groups/flo-karr-145590-unsplash.jpg
