@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class Groups::MembershipsController < ApplicationController
-  after_action :verify_authorized
+  before_action :find_group
+  after_action  :verify_authorized
 
   def create
-    @group = find_group
-    @user  = User.find(params[:user_id])
+    @user = User.find(params[:user_id])
     @membership = GroupMembership.create(group: @group, user: @user)
 
     authorize @membership
@@ -13,34 +13,25 @@ class Groups::MembershipsController < ApplicationController
     destroy_user_sample_content
     destroy_membership_request
 
-    if owner_is_current_user?
-      flash[:success] = "You are now a member of #{@group.name}!"
-      redirect_to group_path(@group)
-    else
-      flash[:success] = "#{@user.name} was accepted " \
-                        "as a member of #{@group.name}."
-      notify_user_accepted
-      redirect_to user_membership_requests_path(current_user)
-    end
+    notify_user_accepted
+    flash_creation_message_to_group_owner
+    redirect_to user_membership_requests_path(current_user)
   end
 
   def destroy
-    @group = find_group
-    @user  = User.find(params[:id])
+    @user = User.find(params[:id])
     @membership = GroupMembership.find_by(group: @group, user: @user)
 
     authorize @membership
 
     @membership.destroy
 
-    if owner_is_current_user?
-      flash[:success] = "Your membership to '#{@group.name}' " \
-                        "has been cancelled."
+    if membership_owner_is_current_user?
+      flash_deletion_message_to_user
       redirect_to group_path(@group)
     else
-      flash[:success] = "#{@user.name} was removed " \
-                        "as a member of '#{@group.name}'."
       notify_user_deleted
+      flash_deletion_message_to_group_owner
       redirect_back fallback_location: root_path
     end
   end
@@ -48,7 +39,7 @@ class Groups::MembershipsController < ApplicationController
   private
 
     def find_group
-      Group.find(params[:group_id])
+      @group = Group.find(params[:group_id])
     end
 
     def destroy_user_sample_content
@@ -61,19 +52,34 @@ class Groups::MembershipsController < ApplicationController
       end
     end
 
-    def owner_is_current_user?
-      current_user == @user
-    end
-
     def notify_user_accepted
       return if @group.sample_group?
 
       NewGroupMembershipNotifier.call(@membership)
     end
 
+    def flash_creation_message_to_group_owner
+      flash[:success] = "#{@user.name} was accepted " \
+                        "as a member of #{@group.name}."
+    end
+
+    def membership_owner_is_current_user?
+      current_user == @user
+    end
+
+    def flash_deletion_message_to_user
+      flash[:success] = "Your membership to '#{@group.name}' " \
+                        "has been cancelled."
+    end
+
     def notify_user_deleted
       return if @group.sample_group?
 
       DeletedGroupMembershipNotifier.call(@membership)
+    end
+
+    def flash_deletion_message_to_group_owner
+      flash[:success] = "#{@user.name} was removed " \
+                        "as a member of '#{@group.name}'."
     end
 end
