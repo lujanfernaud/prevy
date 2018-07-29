@@ -70,7 +70,7 @@ class EventDecoratorTest < ActiveSupport::TestCase
       end_date:   1.week.from_now
     )
 
-    assert(
+    assert_equal(
       event.start_date.strftime("%A, %b. %d, %H:%M"),
       event.start_date_prettyfied
     )
@@ -78,11 +78,11 @@ class EventDecoratorTest < ActiveSupport::TestCase
 
   test "#start_date_prettyfied for next year includes year" do
     event = fake_event_decorator(
-      start_date: 1.week.from_now,
-      end_date:   1.week.from_now
+      start_date: 1.year.from_now,
+      end_date:   1.year.from_now
     )
 
-    assert(
+    assert_equal(
       event.start_date.strftime("%A, %b. %d, %Y, %H:%M"),
       event.start_date_prettyfied
     )
@@ -91,10 +91,10 @@ class EventDecoratorTest < ActiveSupport::TestCase
   test "#end_date_prettyfied for this year doesn't include year" do
     event = fake_event_decorator(
       start_date: 1.week.from_now,
-      end_date:   1.week.from_now
+      end_date:   1.week.from_now + 1.day
     )
 
-    assert(
+    assert_equal(
       event.end_date.strftime("%A, %b. %d, %H:%M"),
       event.end_date_prettyfied
     )
@@ -102,12 +102,24 @@ class EventDecoratorTest < ActiveSupport::TestCase
 
   test "#end_date_prettyfied for next year includes year" do
     event = fake_event_decorator(
-      start_date: 1.week.from_now,
-      end_date:   1.week.from_now
+      start_date: 1.year.from_now,
+      end_date:   1.year.from_now + 1.day
     )
 
-    assert(
+    assert_equal(
       event.end_date.strftime("%A, %b. %d, %Y, %H:%M"),
+      event.end_date_prettyfied
+    )
+  end
+
+  test "#end_date_prettyfied only shows time" do
+    event = fake_event_decorator(
+      start_date: 1.year.from_now,
+      end_date:   1.year.from_now
+    )
+
+    assert_equal(
+      event.end_date.strftime("%H:%M"),
       event.end_date_prettyfied
     )
   end
@@ -130,13 +142,13 @@ class EventDecoratorTest < ActiveSupport::TestCase
 
   test "#attendees_title_with_count" do
     event = fake_event_decorator
-    event.stubs(:attendees_count).returns(1)
+    event.stubs(:attendees_count).returns(0)
 
-    assert "Attendees (0)", event.attendees_title_with_count
+    assert_equal "Attendees (0)", event.attendees_title_with_count
 
     event.stubs(:attendees_count).returns(9)
 
-    assert "Attendees (9)", event.attendees_title_with_count
+    assert_equal "Attendees (9)", event.attendees_title_with_count
   end
 
   private
