@@ -3,37 +3,35 @@
 class Users::NotificationsController < ApplicationController
   after_action :verify_authorized
 
-  # User notifications
+  # User notifications.
   def index
-    authorize Notification
+    authorize :notification
 
     @user = find_user
     @notifications = @user.notifications
   end
 
-  # Notification settings
+  # Notification settings.
   def edit
     authorize :notification
 
     @user = find_user
   end
 
-  # Notification settings
+  # Notification settings.
   def update
     authorize :notification
 
     @user = find_user
 
-    if @user.update_attributes(notification_params)
-      flash.now[:success] = "Your notification settings have been updated."
-    else
-      flash.now[:alert] = "Your notification settings could not be updated."
-    end
+    @user.update_attributes(notification_params)
+
+    flash.now[:success] = "Your notification settings have been updated."
 
     render :edit
   end
 
-  # Mark notification as read
+  # Mark notification as read.
   def destroy
     @user = find_user
     @notification = Notification.find(params[:id])
@@ -52,11 +50,12 @@ class Users::NotificationsController < ApplicationController
     end
 
     def notification_params
-      params.require(:user).permit(:membership_request_emails,
-                                   :group_membership_emails,
-                                   :group_role_emails,
-                                   :group_event_emails,
-                                   :group_announcement_emails,
-                                   :group_invitation_emails)
+      params.require(:user)
+            .permit(:membership_request_emails,
+                    :group_membership_emails,
+                    :group_role_emails,
+                    :group_event_emails,
+                    :group_announcement_emails,
+                    :group_invitation_emails)
     end
 end
