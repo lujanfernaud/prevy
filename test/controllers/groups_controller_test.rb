@@ -4,12 +4,15 @@ require 'test_helper'
 
 class GroupsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @group = groups(:one)
-    @user  = users(:phil)
+    stub_sample_content_for_new_users
+
+    @user  = create :user, :confirmed
+    @group = create :group, owner: @user
   end
 
   test "should get index" do
     get groups_url
+
     assert_response :success
   end
 
@@ -17,6 +20,7 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
     sign_in(@user)
 
     get new_group_url
+
     assert_response :success
   end
 
@@ -34,6 +38,7 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
 
   test "should show group" do
     get group_url(@group)
+
     assert_response :success
   end
 
@@ -41,6 +46,7 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
     sign_in(@user)
 
     get edit_group_url(@group)
+
     assert_response :success
   end
 
