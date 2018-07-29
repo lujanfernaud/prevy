@@ -4,14 +4,18 @@ require 'test_helper'
 
 class Groups::Topics::CommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @comment = topic_comments(:one)
+    stub_sample_content_for_new_users
+
+    @comment = create :topic_comment
     @topic   = @comment.topic
     @group   = @topic.group
-    @phil    = users(:phil)
+    @user    = @comment.user
+
+    @group.members << @user
   end
 
   test "should create comment" do
-    sign_in @phil
+    sign_in @user
 
     assert_difference('TopicComment.count') do
       post group_topic_comments_url(@group, @topic), params: comment_params
@@ -21,7 +25,7 @@ class Groups::Topics::CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    sign_in @phil
+    sign_in @user
 
     get edit_comment_url(@comment)
 
@@ -29,9 +33,9 @@ class Groups::Topics::CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update comment" do
-    sign_in @phil
+    sign_in @user
 
-    new_params = comment_params.merge({ topic_comment: { body: "Oh! Hai!" } })
+    new_params = { topic_comment: { body: "Oh! Hai!" } }
 
     patch comment_url(@comment), params: new_params
 
@@ -39,7 +43,7 @@ class Groups::Topics::CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy comment" do
-    sign_in @phil
+    sign_in @user
 
     assert_difference('TopicComment.count', -1) do
       delete comment_url(@comment)
