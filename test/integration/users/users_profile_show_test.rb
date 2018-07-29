@@ -69,4 +69,10 @@ class UsersProfileShowTest < ActionDispatch::IntegrationTest
 
     assert_not page.has_content? "Edit profile"
   end
+
+  test "logged out user tries to visit user profile" do
+    visit user_path(@phil)
+
+    assert_current_path new_user_registration_path
+  end
 end
