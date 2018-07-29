@@ -30,6 +30,8 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
+  - bundle exec brakeman
+  - bundle exec bundle-audit
   - bundle exec rake db:migrate RAILS_ENV=test
   - xvfb-run -a bundle exec rake test
 

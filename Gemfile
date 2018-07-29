@@ -36,7 +36,8 @@ gem 'activerecord-import',             '~> 0.23.0'
 # Used to round time to the nearest hour.
 gem 'rounding',                        '~> 1.0', '>= 1.0.1'
 
-# Add type-casting and other features on top of ActiveRecord::Store.store_accessor
+# Add type-casting and other features on top of
+# ActiveRecord::Store.store_accessor
 gem 'storext',                         '~> 2.2', '>= 2.2.2'
 
 # Bootstrap.
@@ -65,6 +66,10 @@ group :development, :test do
   gem 'pry-byebug',                    '~> 3.6'
   gem 'pry-rails',                     '~> 0.3.6'
   gem 'rubocop-rails_config',          '~> 0.1.3'
+
+  # Security.
+  gem 'brakeman',                      :require => false
+  gem 'bundler-audit',                 :require => false
 end
 
 group :test do
@@ -78,7 +83,7 @@ group :test do
   gem 'guard-minitest',                '2.4.6'
   gem 'minitest-reporters',            '~> 1.3'
   gem 'webmock',                       '~> 3.3'
-  gem 'simplecov', :require => false
+  gem 'simplecov',                     :require => false
 end
 
 group :development do
@@ -98,5 +103,5 @@ group :development do
   gem 'scout_apm',                     '~> 2.4', '>= 2.4.14'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem.
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
