@@ -23,8 +23,9 @@ class UserSeeder
           "membership_request_emails": false,
           "group_membership_emails":   false,
           "group_role_emails":         false,
-          "new_event_emails":          false,
-          "new_invitation_emails":     false
+          "group_event_emails":        false,
+          "group_announcement_emails": false,
+          "group_invitation_emails":   false
         }
       )
     end

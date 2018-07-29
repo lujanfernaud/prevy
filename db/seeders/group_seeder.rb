@@ -26,8 +26,8 @@ class GroupSeeder
     end
 
     def add_random_members_to(group)
-      sample_users = SampleUser.collection_for_sample_group
-      max_number = rand(9..sample_users.size)
+      sample_users   = SampleUser.collection_for_sample_group
+      max_number     = rand(18..sample_users.size)
       selected_users = sample_users[0..max_number]
 
       selected_users.each { |user| group.members << user }
