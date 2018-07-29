@@ -17,6 +17,16 @@ class UserMembershipDecoratorTest < ActiveSupport::TestCase
     assert result.include? "[Organizer]"
   end
 
+  test "#links for sample group" do
+    user  = create :user
+    group = create :group, owner: user, sample_group: true
+
+    result = UserMembershipDecorator.new(group).links(user)
+
+    assert result.include? "<a class=\"text-muted\" href=\"\">Edit group</a>"
+    assert result.include? "Edit roles"
+  end
+
   test "#links for owned group" do
     user  = create :user
     group = create :group, owner: user
