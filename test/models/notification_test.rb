@@ -47,4 +47,10 @@ class NotificationTest < ActiveSupport::TestCase
 
     assert_not notification.valid?
   end
+
+  test "#resource_path" do
+    notification = Notification.new(user: @user, message: "Test notification.")
+
+    assert_equal "Not implemented", notification.resource_path
+  end
 end
