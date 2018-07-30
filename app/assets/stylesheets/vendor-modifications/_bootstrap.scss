@@ -52,6 +52,35 @@ input[type="radio"] {
   margin-top: .2rem;
 }
 
+.modal-open {
+  overflow: auto;
+}
+
+.modal-dialog {
+  max-width: 710px;
+}
+
+.modal.fade .modal-dialog {
+  transition: all .2s ease-in-out;
+  transform: translate(0, 0);
+}
+
+.modal-content {
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: $box-radius;
+}
+
+.modal-body {
+  font-size: 1.1rem;
+}
+
+.modal-backdrop {
+  background-color: $dark-indigo;
+
+  &.fade { opacity: 0; }
+  &.show { opacity: .85; }
+}
+
 .nav-tabs {
   border-bottom: 1px solid darken(#dee2e6, 20%);
 }

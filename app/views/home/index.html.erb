@@ -1,14 +1,21 @@
 <% if user_signed_in? %>
 
-  <!-- Events -->
+  <!-- Welcome Modal -->
+  <% if welcomable?  %>
+    <%= render "welcome_modal" %>
+  <% end %>
+
   <div class="main-user-content">
+
+    <!-- Events -->
     <%= render "events",
-      events: @events,
+      events:       @events,
       events_count: @events_count,
-      user_groups: @user_groups %>
+      user_groups:  @user_groups %>
 
     <!-- User Groups -->
     <%= render "user_groups", user_groups: @user_groups %>
+
   </div>
 
 <% else %>

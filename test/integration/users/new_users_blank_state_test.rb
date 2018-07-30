@@ -12,6 +12,45 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
     @user = create :user
   end
 
+  test "new user has welcome modal" do
+    log_in_as(@user)
+
+    within "#welcomeModal" do
+      assert page.has_content? "Welcome"
+    end
+  end
+
+  test "welcome modal is not shown again when going back home" do
+    group = @user.sample_group
+    event = group.events.first
+
+    log_in_as(@user)
+
+    within "#welcomeModal" do
+      assert page.has_content? "Welcome"
+    end
+
+    visit group_event_path(group, event)
+
+    visit root_path
+
+    assert_not page.has_css? "#welcomeModal"
+  end
+
+  test "welcome modal is not shown again when starting a new session" do
+    log_in_as(@user)
+
+    within "#welcomeModal" do
+      assert page.has_content? "Welcome"
+    end
+
+    log_out
+
+    log_in_as(@user)
+
+    assert_not page.has_css? "#welcomeModal"
+  end
+
   test "new user has sample membership request" do
     log_in_as(@user)
 

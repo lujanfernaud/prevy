@@ -45,6 +45,12 @@ module ApplicationHelper
     ]
   end
 
+  def welcomable?
+    return false if session[:was_welcomed]
+
+    current_user.sign_in_count == 1
+  end
+
   def breadcrumbs_separator
     "<span class='breadcrumbs-separator'> / </span>"
   end
