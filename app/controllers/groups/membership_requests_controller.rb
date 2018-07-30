@@ -67,7 +67,7 @@ class Groups::MembershipRequestsController < ApplicationController
     end
 
     def flash_deletion_message_to_requester
-      flash[:success] = "Your membership request was deleted."
+      flash[:success] = "Your membership request has been deleted."
     end
 
     def notify_requester
@@ -77,7 +77,7 @@ class Groups::MembershipRequestsController < ApplicationController
     end
 
     def flash_deletion_message_to_group_owner
-      flash[:success] = "The membership request was deleted."
+      flash[:success] = "The membership request has been deleted."
     end
 
     def membership_request_params

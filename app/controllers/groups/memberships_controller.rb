@@ -15,7 +15,8 @@ class Groups::MembershipsController < ApplicationController
 
     notify_user_accepted
     flash_creation_message_to_group_owner
-    redirect_to user_membership_requests_path(current_user)
+
+    redirect_to_resource
   end
 
   def destroy
@@ -59,8 +60,16 @@ class Groups::MembershipsController < ApplicationController
     end
 
     def flash_creation_message_to_group_owner
-      flash[:success] = "#{@user.name} was accepted " \
+      flash[:success] = "#{@user.name} has been accepted " \
                         "as a member of #{@group.name}."
+    end
+
+    def redirect_to_resource
+      if current_user.received_requests.empty?
+        redirect_to group_path(@group)
+      else
+        redirect_to user_membership_requests_path(current_user)
+      end
     end
 
     def membership_owner_is_current_user?
@@ -79,7 +88,7 @@ class Groups::MembershipsController < ApplicationController
     end
 
     def flash_deletion_message_to_group_owner
-      flash[:success] = "#{@user.name} was removed " \
+      flash[:success] = "#{@user.name} has been removed " \
                         "as a member of '#{@group.name}'."
     end
 end

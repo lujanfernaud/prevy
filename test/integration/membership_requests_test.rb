@@ -62,7 +62,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
 
     click_on "Cancel request"
 
-    assert page.has_content? "Your membership request was deleted."
+    assert page.has_content? "Your membership request has been deleted."
     refute_membership_requests_link
 
     log_out
@@ -80,7 +80,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
   test "group owner accepts membership request" do
     @woodell.notifications.destroy_all
 
-    send_membership_request_as @woodell
+    send_membership_request_as @woodell, @pennys_group
 
     #
     # Switch User
@@ -99,6 +99,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
       click_on "Accept"
     end
 
+    assert_current_path group_path @pennys_group
     assert page.has_content? request_accepted_message_for @woodell
 
     refute_notifications
@@ -120,7 +121,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
   test "group owner declines membership request" do
     @woodell.notifications.destroy_all
 
-    send_membership_request_as @woodell
+    send_membership_request_as @woodell, @pennys_group
 
     #
     # Switch User
@@ -137,7 +138,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
       click_on "Decline"
     end
 
-    assert page.has_content? "The membership request was deleted."
+    assert page.has_content? "The membership request has been deleted."
 
     refute_notifications
     refute_membership_requests_link
@@ -216,7 +217,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
     end
 
     def request_accepted_message_for(user, group = @pennys_group)
-      "#{user.name} was accepted as a member of #{group.name}."
+      "#{user.name} has been accepted as a member of #{group.name}."
     end
 
     def assert_membership_requests_link
