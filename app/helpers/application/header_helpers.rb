@@ -2,7 +2,7 @@
 
 module Application::HeaderHelpers
   def navbar_style
-    if current_user || controller_name == "groups"
+    if dark_header?
       "navbar-dark bg-primary-dark"
     else
       "navbar-light"
@@ -10,11 +10,19 @@ module Application::HeaderHelpers
   end
 
   def dark_header?
-    current_user || controller_name == "groups"
+    current_user || groups_controller? || searches_controller?
+  end
+
+  def groups_controller?
+    controller_name == "groups"
+  end
+
+  def searches_controller?
+    controller_name == "searches"
   end
 
   def header_logo_style
-    if current_user || controller_name == "groups"
+    if dark_header?
       "header-logo--light"
     else
       "header-logo--dark"
@@ -22,7 +30,7 @@ module Application::HeaderHelpers
   end
 
   def log_in_button_style
-    if current_user || controller_name == "groups"
+    if dark_header?
       "btn-outline-light"
     else
       "btn-outline-primary"
@@ -30,7 +38,7 @@ module Application::HeaderHelpers
   end
 
   def sign_up_button_style
-    if current_user || controller_name == "groups"
+    if dark_header?
       "btn-light"
     else
       "btn-primary"
