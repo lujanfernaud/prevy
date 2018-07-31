@@ -10,13 +10,13 @@
         <%= devise_error_messages! %>
 
         <div class="form-group mt-4">
-          <%= f.label :name %>
+          <%= f.label :name, "What's your name?" %>
           <%= f.text_field :name, autofocus: true,
             placeholder: "Doris", class: "form-control" %>
         </div>
 
         <div class="form-group mb-2rem">
-          <%= f.label :email %>
+          <%= f.label :email, "What's your email?" %>
           <%= f.email_field :email, autocomplete: "email",
             placeholder: "doris@email.com", class: "form-control" %>
         </div>

@@ -65,7 +65,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
     click_on "Sign up"
 
-    fill_in "Name", with: "T"
+    fill_in "user_name", with: "T"
     fill_in_correct_email
 
     click_on_sign_up_form_button
@@ -78,7 +78,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
     click_on "Sign up"
 
-    fill_in "Name", with: ""
+    fill_in "user_name", with: ""
     fill_in_correct_email
 
     click_on_sign_up_form_button
@@ -93,7 +93,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     click_on "Sign up"
 
     fill_in_correct_name
-    fill_in "Email", with: "test.test.com"
+    fill_in "user_email", with: "test.test.com"
 
     click_on_sign_up_form_button
 
@@ -106,7 +106,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     click_on "Sign up"
 
     fill_in_correct_name
-    fill_in "Email", with: ""
+    fill_in "user_email", with: ""
 
     click_on_sign_up_form_button
 
@@ -158,11 +158,11 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     end
 
     def fill_in_correct_name
-      fill_in "Name", with: "Test"
+      fill_in "user_name", with: "Test"
     end
 
     def fill_in_correct_email
-      fill_in "Email", with: "test@test.com"
+      fill_in "user_email", with: "test@test.com"
     end
 
     def fill_in_correct_password

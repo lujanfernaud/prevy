@@ -22,8 +22,8 @@ class FooterTest < ActionDispatch::IntegrationTest
 
     visit new_user_registration_path
 
-    fill_in "Name",  with: user.name
-    fill_in "Email", with: user.email
+    fill_in "user_name",  with: user.name
+    fill_in "user_email", with: user.email
 
     within "form" do
       click_on "Sign up"
