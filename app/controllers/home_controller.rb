@@ -29,6 +29,10 @@ class HomeController < ApplicationController
     end
 
     def store_unhidden_groups
-      @unhidden_groups = Group.unhidden.random_selection(3)
+      @unhidden_groups = Group.unhidden.random_selection(limit)
+    end
+
+    def limit
+      current_user ? 3 : 6
     end
 end

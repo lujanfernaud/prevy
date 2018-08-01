@@ -118,6 +118,28 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert_create_group_unconfirmed_button
   end
 
+  test "shows 6 unhidden groups for logged out users" do
+    create_list :group, 6, hidden: false
+
+    visit root_path
+
+    within ".unhidden-groups-container" do
+      assert page.has_css? ".group-box", count: 6
+    end
+  end
+
+  test "shows 3 unhidden groups for logged in users" do
+    create_list :group, 6, hidden: false
+
+    log_in_as(@phil)
+
+    visit root_path
+
+    within ".unhidden-groups-container" do
+      assert page.has_css? ".group-box", count: 3
+    end
+  end
+
   private
 
     def assert_promotional_section
