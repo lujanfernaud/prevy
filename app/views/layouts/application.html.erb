@@ -6,7 +6,8 @@
     <%= render "head_tags" %>
   </head>
 
-  <body class="d-flex flex-column bg-light">
+  <body class="<%= controller_name %> <%= action_name %>
+    d-flex flex-column bg-light">
     <%= render "header" %>
     <%= render "flash_messages" %>
 

@@ -28,6 +28,7 @@ gem 'faker', github: 'stympy/faker'
 gem 'friendly_id',                     '~> 5.2', '>= 5.2.4'
 gem 'nokogiri',                        '~> 1.8', '>= 1.8.2'
 gem 'local_time',                      '~> 2.0', '>= 2.0.1'
+gem 'client_side_validations',         '~> 11.1', '>= 11.1.2'
 gem 'octicons_helper',                 '~> 7.3'
 
 # Used for bulk inserting data into database using ActiveRecord.

@@ -12,7 +12,10 @@
 }
 
 .field_with_errors {
-  padding: 2px;
+  padding: 0 7px 0 7px;
   background-color: #f8d7da;
-}
 
+  .message {
+    margin-top: .5rem;
+  }
+}

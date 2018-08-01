@@ -58,3 +58,7 @@ en:
 
   sample_membership_request:
     message: "Hello! Welcome to Prevy. This is a sample membership request."
+
+  errors:
+    messages:
+      email: "not an email address"

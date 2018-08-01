@@ -15,6 +15,7 @@
 //= require popper
 //= require bootstrap
 //= require turbolinks
+//= require rails.validations
 //= require trix/dist/trix
 //= require smooth-scroll/dist/js/smooth-scroll.polyfills
 //= require leaflet/dist/leaflet
