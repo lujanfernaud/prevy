@@ -144,12 +144,12 @@ class HomePageTest < ActionDispatch::IntegrationTest
 
     def assert_promotional_section
       assert page.has_content? promotional_message
-      assert page.has_link? "Sign up and get started"
+      assert page.has_button? "Sign up and get started"
     end
 
     def refute_promotional_section
       refute page.has_content? promotional_message
-      refute page.has_link? "Sign up and get started"
+      refute page.has_button? "Sign up and get started"
     end
 
     def promotional_message

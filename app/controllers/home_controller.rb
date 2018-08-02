@@ -35,4 +35,14 @@ class HomeController < ApplicationController
     def limit
       current_user ? 3 : 6
     end
+
+    def resource
+      @resource ||= User.new
+    end
+
+    def resource_name
+      :user
+    end
+
+    helper_method :resource, :resource_name
 end

@@ -3,10 +3,21 @@
 //
 
 
-$dark-indigo: #210451;
+// Colors
+
+
 $primary-dark: #4B0CB2;
 $primary-darker: #300872;
+$dark-indigo: #210451;
+
 $light-background: #f3f4f5;
+$darker-background: rgba($primary-dark, .032);
+
 $shadow: #989999;
+$btn-box-shadow: $dark-indigo;
+
+
+// Other
+
 
 $box-radius: .75rem;

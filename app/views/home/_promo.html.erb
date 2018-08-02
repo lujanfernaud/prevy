@@ -111,14 +111,43 @@
 
           </div><!-- /.promo -->
 
-          <!-- Sign Up Now! -->
+          <!-- Sign Up Box -->
 
-          <div class="row promo__section--sign-up text-center">
-            <div class="col mx-auto mt-2rem">
-              <%= link_to "Sign up and get started",
-                new_user_registration_path,
-                class: "btn btn-primary btn-xl font-weight-bold
-                  mb-2 white-space-normal" %>
+          <div class="row promo__section--sign-up">
+            <div class="col-lg-10 col-xl-8 mx-auto mt-2rem">
+
+              <div class="promo__sign-up-form-container">
+                <h3 class="sign-up-form__title h2 mb-2rem">
+                  Start building your community!
+                </h3>
+
+                <%= form_for(resource, as: resource_name,
+                  url: registration_path(resource_name),
+                  validate: true) do |f| %>
+
+                  <div class="form-group mt-4">
+                    <%= f.label :name, "What's your name?",
+                      class: "sign-up-form__label" %>
+                    <%= f.text_field :name,
+                      placeholder: "Doris", class: "form-control" %>
+                  </div>
+
+                  <div class="form-group mb-2rem">
+                    <%= f.label :email, "What's your email?",
+                      class: "sign-up-form__label" %>
+                    <%= f.email_field :email, autocomplete: "email",
+                      placeholder: "doris@email.com", class: "form-control" %>
+                  </div>
+
+                  <div class="form-group mb-0">
+                    <%= f.button "Sign up and get started!",
+                      class: "btn btn-xl btn-primary
+                      btn-block font-weight-bold white-space-normal",
+                      data: { disable_with: "Signing you up... &nbsp;#{render 'spinner'}" } %>
+                  </div>
+                <% end %>
+              </div>
+
             </div>
           </div>
 
