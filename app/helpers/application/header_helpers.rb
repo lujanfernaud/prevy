@@ -21,11 +21,11 @@ module Application::HeaderHelpers
     controller_name == "searches"
   end
 
-  def header_logo_style
+  def prevy_logo_style
     if dark_header?
-      "header-logo--light"
+      "prevy-logo--light"
     else
-      "header-logo--dark"
+      "prevy-logo--dark"
     end
   end
 

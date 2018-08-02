@@ -4,9 +4,12 @@
     <div class="container container-semi-fluid">
 
       <!-- Prevy Logo -->
-      <%= link_to "Prevy", root_path, id: "logo",
+      <%= link_to root_path, id: "logo",
         data: { behavior: "prevent-validation-error" },
-        class: "header-logo #{header_logo_style}" %>
+        class: "header-logo" do %>
+        <%= inline_svg "svgs/prevy.svg",
+          class: "prevy-logo prevy-logo--header #{prevy_logo_style}" %>
+      <% end %>
 
       <!-- Navbar Toggler -->
       <button class="navbar-toggler" type="button"

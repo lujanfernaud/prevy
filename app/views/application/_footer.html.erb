@@ -4,9 +4,10 @@
   <div class="container container-footer
     d-flex flex-column justify-content-center align-items-center">
 
-    <h2 class="footer__logo text-center font-weight-bold">
-      Prevy
-    </h2>
+    <div class="footer__logo text-center">
+      <%= inline_svg "svgs/prevy.svg",
+        class: "prevy-logo prevy-logo--footer" %>
+    </div>
 
     <% unless signed_in? %>
       <hr class="footer__hr bg-light mb-4">

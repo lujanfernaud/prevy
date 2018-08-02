@@ -7,36 +7,8 @@
   border-bottom: 2px solid $gray-400;
 }
 
-.header-logo {
-  display: inline-block;
-  float: left;
-  margin-right: 10px;
-  padding-top: 9px;
-  padding-bottom: 0.3125rem;
-  font-size: 1.7em;
-  font-weight: bold;
-  line-height: inherit;
-  white-space: nowrap;
-
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-.header-logo--light {
-  color: white;
-
-  &:hover {
-    color: white;
-  }
-}
-
-.header-logo--dark {
-  color: $primary-dark;
-
-  &:hover {
-    color: $primary-dark;
-  }
+.navbar {
+  padding: .7rem 1rem;
 }
 
 .navbar-light .navbar-toggler {
@@ -55,6 +27,43 @@
 
 .navbar-dark .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.header-logo {
+  position: relative;
+  top: 6px;
+  display: inline-block;
+  float: left;
+  line-height: inherit;
+  white-space: nowrap;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.prevy-logo {
+  margin-top: -19px;
+}
+
+.prevy-logo--header {
+  width: 113px;
+}
+
+.prevy-logo--light {
+  fill: #fff;
+
+  &:hover {
+    fill: #fff;
+  }
+}
+
+.prevy-logo--dark {
+  fill: $primary-dark;
+
+  &:hover {
+    fill: $primary-dark;
+  }
 }
 
 .btn-navbar-menu {
