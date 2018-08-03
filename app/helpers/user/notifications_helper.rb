@@ -17,8 +17,9 @@ module User::NotificationsHelper
 
   def button_with_notifications
     link_to user_notifications_path(current_user),
+      id: "notifications",
       class: "btn btn-light btn-navbar-menu btn-notifications" do
-      "Notifications #{notifications_badge}".html_safe
+      "#{bell_icon(style: "octicon-bell--active")} #{notifications_badge}".html_safe
     end
   end
 
@@ -32,9 +33,10 @@ module User::NotificationsHelper
 
   def button_without_notifications
     link_to user_notifications_path(current_user),
+      id: "notifications",
       class: "btn btn-outline-light btn-navbar-menu
         btn-notifications disabled" do
-      "Notifications"
+      "#{bell_icon}".html_safe
     end
   end
 

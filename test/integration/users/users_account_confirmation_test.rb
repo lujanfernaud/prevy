@@ -11,7 +11,7 @@ class UsersAccountConfirmationTest < ActionDispatch::IntegrationTest
     log_in_as(user)
 
     within ".navbar" do
-      click_on user.name
+      click_user_button
       click_on "Create group"
     end
 

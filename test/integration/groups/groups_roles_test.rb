@@ -72,7 +72,7 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
 
     log_in_as @woodell
 
-    click_on "Notifications"
+    click_notifications_button
 
     within "#notification-#{@woodell.notifications.last.id}" do
       click_on "Go to group"
@@ -102,7 +102,7 @@ class GroupsRolesTest < ActionDispatch::IntegrationTest
 
     log_in_as @woodell
 
-    click_on "Notifications"
+    click_notifications_button
 
     within "#notification-#{@woodell.notifications.last.id}" do
       click_on "Go to group"

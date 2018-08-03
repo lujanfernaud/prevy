@@ -143,7 +143,11 @@ class InvitationsCreationTest < ActionDispatch::IntegrationTest
 
     log_in_as user
 
-    click_on "Notifications 1"
+    within "#notifications" do
+      assert page.has_content? "1"
+    end
+
+    click_notifications_button
 
     within last_notification do
       assert page.has_content? notification.message

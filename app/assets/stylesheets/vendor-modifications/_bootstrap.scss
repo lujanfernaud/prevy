@@ -44,6 +44,11 @@
   border-radius: $box-radius;
 }
 
+.dropdown-item {
+  padding: .35rem 1.5rem;
+  font-size: 1.05rem;
+}
+
 .form-control {
   border-radius: $box-radius;
 }
@@ -79,6 +84,11 @@ input[type="radio"] {
 
   &.fade { opacity: 0; }
   &.show { opacity: .83; }
+}
+
+.navbar-expand > .container {
+  padding-right: .75rem;
+  padding-left: .75rem;
 }
 
 .nav-tabs {

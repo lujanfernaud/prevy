@@ -268,7 +268,7 @@ class FooterTest < ActionDispatch::IntegrationTest
 
     log_in_as user
 
-    click_on user.name
+    click_user_button
     click_on "Create group"
 
     assert_current_path create_group_unconfirmed_path

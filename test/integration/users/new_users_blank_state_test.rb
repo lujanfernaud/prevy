@@ -54,15 +54,19 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
   test "new user has sample membership request" do
     log_in_as(@user)
 
-    assert page.has_content? "Notifications 1"
+    within "#notifications" do
+      assert page.has_content? "1"
+    end
 
-    click_on "Notifications 1"
+    click_notifications_button
 
     assert page.has_content? sample_group_name
 
     click_on "Go to request"
 
-    assert_not page.has_content? "Notifications 1"
+    within "#notifications" do
+      assert_not page.has_content? "1"
+    end
   end
 
   test "new user accepts sample membership request" do
@@ -290,8 +294,8 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
       log_out
     end
 
-    def accept_membership_request_as(user)
-      click_on user.name
+    def accept_membership_request_as(_user)
+      click_user_button
       click_on "Membership requests"
 
       within last_membership_request do
@@ -299,6 +303,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
       end
     end
 
+    # TODO: Extract to integration_support.
     def last_membership_request
       "#membership-request-#{MembershipRequest.last.id}"
     end

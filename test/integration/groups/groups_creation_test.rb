@@ -19,7 +19,7 @@ class GroupsCreationTest < ActionDispatch::IntegrationTest
     page.execute_script("$('#navbarCollapse').toggle('.show')")
 
     within ".navbar" do
-      click_on user.name
+      click_user_button
       click_on "Create group"
     end
 
@@ -70,7 +70,7 @@ class GroupsCreationTest < ActionDispatch::IntegrationTest
     visit root_path
 
     within ".navbar" do
-      click_on user.name
+      click_user_button
       click_on "Create group"
     end
 

@@ -8,7 +8,7 @@ class DropdownMenuTest < ActionDispatch::IntegrationTest
 
     log_in_as(user)
 
-    click_on user.name
+    click_user_button
 
     within ".dropdown-menu" do
       assert_create_group_link_enabled
@@ -24,7 +24,7 @@ class DropdownMenuTest < ActionDispatch::IntegrationTest
 
     log_in_as(user)
 
-    click_on user.name
+    click_user_button
 
     within ".dropdown-menu" do
       click_on "Create group"

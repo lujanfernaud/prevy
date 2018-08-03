@@ -1,5 +1,5 @@
 <header class="<%= 'header-border-bottom' if dark_header? %>">
-  <nav class="navbar navbar-expand-md <%= navbar_style %>
+  <nav class="navbar navbar-expand <%= navbar_style %>
     justify-content-between">
     <div class="container container-semi-fluid">
 
@@ -11,78 +11,93 @@
           class: "prevy-logo prevy-logo--header #{prevy_logo_style}" %>
       <% end %>
 
-      <!-- Navbar Toggler -->
-      <button class="navbar-toggler" type="button"
-        data-toggle="collapse" data-target="#navbarCollapse"
-        aria-controls="navbarCollapse" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <ul class="navbar-nav ml-auto">
 
-      <div class="navbar-collapse collapse" id="navbarCollapse">
-        <ul class="navbar-nav ml-auto">
+        <!-- Notifications Button -->
+        <li class="nav-item mr-3 mb-2 mb-md-0">
+          <%= notifications_button %>
+        </li>
 
-          <!-- Notifications Button -->
-          <li class="nav-item mr-md-3 mb-2 mb-md-0">
-            <%= notifications_button %>
+        <!-- User Button and Dropdown Menu -->
+        <% if user_signed_in? %>
+
+          <li class="nav-item dropdown">
+
+            <!-- User Button -->
+            <a href="" class="user-avatar-button dropdown-toggle"
+              id="user-button dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" width="40px">
+              <%= image_tag gravatar_image_url(current_user.email),
+                class: "user-avatar", width: "40px", alt: "" %>
+            </a>
+
+            <!-- Dropdown Menu -->
+            <div class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="dropdownMenuButton">
+
+              <!-- User Name -->
+              <p class="dropdown-user-name text-primary font-weight-bold">
+                <%= current_user.name %>
+              </p>
+
+              <div class="dropdown-divider"></div>
+
+              <!-- Create Group -->
+              <%= create_group_menu_link(current_user) %>
+
+              <% if current_user.groups %>
+                <div class="dropdown-divider"></div>
+
+                <!-- My Groups -->
+                <%= link_to "My groups", user_groups_path(current_user),
+                  class: "dropdown-item" %>
+
+                <!-- Membership Requests -->
+                <%= membership_requests_link %>
+              <% end %>
+
+              <div class="dropdown-divider"></div>
+
+              <!-- Profile -->
+              <%= link_to "Profile", current_user,
+                class: "dropdown-item" %>
+
+              <!-- Account Settings -->
+              <%= link_to "Account settings",
+                edit_user_registration_path(current_user),
+                class: "dropdown-item" %>
+
+              <div class="dropdown-divider"></div>
+
+              <!-- Log Out -->
+              <%= link_to "Log out", destroy_user_session_path,
+                method: :delete,
+                class: "dropdown-item" %>
+            </div>
           </li>
 
-          <!-- User Button and Dropdown Menu -->
-          <% if user_signed_in? %>
+        <!-- Log In and Sign Up Buttons -->
+        <% else %>
 
-            <li class="nav-item dropdown">
-              <button class="btn btn-outline-light btn-navbar-menu dropdown-toggle"
-                type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= current_user.name %> <b class="caret"></b>
-              </button>
+          <!-- Log In -->
+          <li class="nav-item mr-2 mr-md-3 mb-2 mb-md-0">
+            <%= link_to "Log in", new_user_session_path,
+              class: "btn #{log_in_button_style} btn-navbar-menu p-2",
+                data: { behavior: "prevent-validation-error" },
+                role: "button" %>
+          </li>
 
-              <div class="dropdown-menu dropdown-menu-right"
-                aria-labelledby="dropdownMenuButton">
-                <%= create_group_menu_link(current_user) %>
+          <!-- Sign Up -->
+          <li class="nav-item">
+            <%= link_to "Sign up", new_user_registration_path,
+              class: "btn #{sign_up_button_style} btn-navbar-menu p-2",
+                data: { behavior: "prevent-validation-error" },
+                role: "button" %>
+          </li>
 
-                <% if current_user.groups %>
-                  <div class="dropdown-divider"></div>
-                  <%= link_to "My groups", user_groups_path(current_user),
-                    class: "dropdown-item" %>
-                  <%= membership_requests_link %>
-                <% end %>
+        <% end %>
 
-                <div class="dropdown-divider"></div>
-
-                <%= link_to "Profile", current_user,
-                  class: "dropdown-item" %>
-                <%= link_to "Account settings",
-                  edit_user_registration_path(current_user),
-                  class: "dropdown-item" %>
-
-                <div class="dropdown-divider"></div>
-
-                <%= link_to "Log out", destroy_user_session_path,
-                  method: :delete,
-                  class: "dropdown-item" %>
-              </div>
-            </li>
-
-          <!-- Log In and Sign Up Buttons -->
-          <% else %>
-
-            <li class="nav-item mr-md-3 mb-2 mb-md-0">
-              <%= link_to "Log in", new_user_session_path,
-                class: "btn #{log_in_button_style} btn-navbar-menu p-2",
-                  data: { behavior: "prevent-validation-error" },
-                  role: "button" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Sign up", new_user_registration_path,
-                class: "btn #{sign_up_button_style} btn-navbar-menu p-2",
-                  data: { behavior: "prevent-validation-error" },
-                  role: "button" %>
-            </li>
-
-          <% end %>
-
-        </ul>
-      </div><!-- ./navbar-collapse -->
+      </ul>
 
     </div>
   </nav>

@@ -91,7 +91,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   test "logout" do
     log_in_as(@user)
 
-    click_on @user.name
+    click_user_button
     click_on "Log out"
 
     assert_current_path root_path

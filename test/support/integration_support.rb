@@ -24,6 +24,14 @@ module IntegrationSupport
     visit logout_path
   end
 
+  def click_notifications_button
+    find("#notifications").click
+  end
+
+  def click_user_button
+    find(:xpath, '//*[@id="user-button dropdownMenuButton"]').click
+  end
+
   def assert_error(message)
     within ".alert-danger" do
       assert page.has_content? message

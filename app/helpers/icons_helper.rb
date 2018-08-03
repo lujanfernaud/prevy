@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module IconsHelper
+  def bell_icon(style: '')
+    octicon "bell", class: "#{style}"
+  end
+
   def location_icon
     octicon "location"
   end

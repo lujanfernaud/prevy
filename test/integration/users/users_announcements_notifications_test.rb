@@ -21,7 +21,7 @@ class UsersAnnouncementsNotificationsTest < ActionDispatch::IntegrationTest
 
     log_in_as(@woodell)
 
-    click_on "Notifications"
+    click_notifications_button
 
     assert_group_announcement_notification(notification) do
       click_on "Go to announcement"

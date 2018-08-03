@@ -40,7 +40,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
 
     log_in_as(receiver)
 
-    click_on "Notifications"
+    click_notifications_button
 
     within "#notification-#{notification.id}" do
       assert page.has_content? formatted_date
@@ -64,7 +64,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
     refute page.has_content? membership_request_notification_message(
       sender, group)
 
-    click_on receiver.name
+    click_user_button
     click_on "Membership requests"
 
     within membership_request_from(sender) do
@@ -75,7 +75,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
 
     log_in_as(sender)
 
-    click_on "Notifications"
+    click_notifications_button
 
     within last_notification_for(sender) do
       click_on "Go to group"
@@ -83,7 +83,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
 
     assert_current_path group_path(group)
 
-    click_on "Notifications"
+    click_notifications_button
 
     assert page.has_content? no_notifications_message
   end
@@ -143,7 +143,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
 
     log_in_as(@unnotifiable)
 
-    click_on "Notifications"
+    click_notifications_button
 
     within last_notification_for(@unnotifiable) do
       click_on "Mark as read"
@@ -155,7 +155,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
   test "user without notifications visits notifications" do
     log_in_as(@stranger)
 
-    click_on "Notifications"
+    click_notifications_button
 
     assert page.has_content? no_notifications_message
   end
@@ -337,6 +337,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
       "#membership-request-#{user.membership_requests.last.id}"
     end
 
+    # TODO: Extract to integration_support.
     def last_membership_request
       "#membership-request-#{MembershipRequest.last.id}"
     end
@@ -354,7 +355,7 @@ class UsersNotificationsTest < ActionDispatch::IntegrationTest
     end
 
     def assert_regular_notifications
-      click_on "Notifications"
+      click_notifications_button
       refute page.has_content? no_notifications_message
     end
 

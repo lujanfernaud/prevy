@@ -183,6 +183,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
       log_out
     end
 
+    # TODO: Extract to integration_support.
     def last_membership_request
       "#membership-request-#{MembershipRequest.last.id}"
     end
@@ -232,8 +233,8 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
       refute page.has_content? /Membership requests \d/
     end
 
-    def go_to_membership_requests_for(user)
-      click_on user.name
+    def go_to_membership_requests_for(_user)
+      click_user_button
       click_on "Membership requests"
     end
 
@@ -242,7 +243,7 @@ class MembershipRequestsTest < ActionDispatch::IntegrationTest
         assert page.has_css? ".badge-pill"
       end
 
-      click_on "Notifications"
+      click_notifications_button
       assert page.has_content? new_membership_request_notification
     end
 

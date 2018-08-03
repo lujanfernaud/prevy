@@ -66,6 +66,26 @@
   }
 }
 
+.user-avatar-button {
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: $gray-500;
+  background: url(image-path('svgs/if_user_981085.svg'));
+  border-radius: 100%;
+}
+
+.dropdown-user-name {
+  margin: 0;
+  padding: .8rem 1.5rem .5rem 1.5rem;
+  font-size: 1.05rem;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
 .btn-navbar-menu {
   @include media-breakpoint-down(md) {
     display: block;

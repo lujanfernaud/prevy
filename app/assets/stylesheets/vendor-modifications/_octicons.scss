@@ -12,6 +12,14 @@
   fill: $gray-700;
 }
 
+.octicon-bell {
+  fill: $gray-200;
+}
+
+.octicon-bell--active {
+  fill: $primary-dark;
+}
+
 .octicon-calendar {
   margin-top: -.1rem;
 }

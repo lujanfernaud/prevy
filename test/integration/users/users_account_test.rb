@@ -10,7 +10,7 @@ class UsersAccountTest < ActionDispatch::IntegrationTest
   test "active tab in account settings is 'Account' tab" do
     log_in_as(@user)
 
-    click_on @user.name
+    click_user_button
     click_on "Account settings"
 
     within ".nav-item-account" do
