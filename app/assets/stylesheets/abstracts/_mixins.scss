@@ -8,3 +8,12 @@
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
 }
+
+@mixin section-borders {
+  border-top: 1px solid darken($light-background, 7.65%);
+  border-bottom: 1px solid darken($light-background, 7.65%);
+}
+
+@mixin background-gradient {
+  background: linear-gradient(rgba(75, 12, 178, 0.0095), rgba(75, 12, 178, 0.032));
+}
