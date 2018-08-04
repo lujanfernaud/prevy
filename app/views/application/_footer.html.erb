@@ -1,4 +1,4 @@
-<footer class="container-fluid footer bg-primary-darker text-light
+<footer class="container-fluid footer text-light
   d-flex flex-column justify-content-center align-items-center">
 
   <div class="container container-footer
@@ -9,24 +9,17 @@
         class: "prevy-logo prevy-logo--footer" %>
     </div>
 
-    <% unless signed_in? %>
-      <hr class="footer__hr bg-light mb-4">
+    <hr class="footer__hr bg-light mb-4">
 
-      <nav class="footer-nav row">
-        <div class="col-md-12 d-flex justify-content-center">
-          <ul class="list-unstyled text-center">
-            <li>
-              <%= link_to "Sign Up", new_user_registration_path,
-                class: "text-light" %>
-            </li>
-            <li class="mt-1">
-              <%= link_to "Login", new_user_session_path,
-                class: "text-light" %>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    <% end %>
+    <div class="text-center mt-3">
+      <p>
+        A demo project by <a href="http://www.lujanfernaud.com" class="text-light">Luján Fernaud</a>.
+      </p>
+    </div>
+
+    <a href="https://github.com/lujanfernaud/prevy" class="mt-3 pt-1">
+      <%= inline_svg "svgs/github.svg", size: "40px", class: "github-icon" %>
+    </a>
 
   </div>
 

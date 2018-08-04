@@ -4,7 +4,9 @@
 
 
 .footer {
-  min-height: 500px;
+  min-height: 600px;
+  font-size: 1.05rem;
+  background: linear-gradient(rgba($primary-darker, .85), $primary-darker);
 }
 
 .container-footer {
@@ -13,19 +15,19 @@
 
 .prevy-logo--footer {
   width: 185px;
-  fill: #fff;
+  fill: $light-background;
 }
 
 .footer__hr {
-  width: 10%;
-
+  width: 7%;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
 
   @include media-breakpoint-up(md) {
-    width: 5%;
+    width: 4%;
   }
 
   @include media-breakpoint-up(xl) {
-    width: 3%;
+    width: 2.4%;
   }
 }
 
@@ -39,4 +41,8 @@
   @include media-breakpoint-up(lg) {
     width: 30%;
   }
+}
+
+.github-icon {
+  fill: $light-background;
 }
