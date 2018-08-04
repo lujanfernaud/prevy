@@ -14,8 +14,11 @@
 }
 
 .btn {
-  box-shadow: 0 2px 0 0 $btn-box-shadow;
   border-radius: $box-radius;
+}
+
+.btn-lg {
+  padding: .65rem 1rem;
 }
 
 .card {

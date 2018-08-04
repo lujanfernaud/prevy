@@ -4,7 +4,7 @@
     <% if current_user&.confirmed? %>
 
       <%= link_to "Create group", new_group_path,
-        class: "btn btn-primary btn-lg" %>
+        class: "btn btn-lg btn-3d btn-primary" %>
 
     <% else %>
 
@@ -15,7 +15,7 @@
       <% end %>
 
       <%= button_tag "Create group", disabled: true,
-        class: "btn btn-create-group btn-primary btn-lg" %>
+        class: "btn btn-lg btn-3d btn-create-group btn-primary" %>
 
     <% end %>
 
