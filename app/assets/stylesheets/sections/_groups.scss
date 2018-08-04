@@ -70,7 +70,9 @@
 .unhidden-groups-container {
   padding-top: 3.8rem;
   padding-bottom: 3.1rem;
-  background: $darker-background;
+
+  @include section-borders;
+  @include background-gradient;
 }
 
 .btn-outline-primary--dark {
