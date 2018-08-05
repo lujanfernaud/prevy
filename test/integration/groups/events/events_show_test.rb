@@ -129,6 +129,8 @@ class EventsShowTest < ActionDispatch::IntegrationTest
   end
 
   test "user attends and cancels attendance" do
+    prepare_javascript_driver
+
     group = groups(:one)
     event = events(:one)
     penny = users(:penny)
@@ -139,14 +141,12 @@ class EventsShowTest < ActionDispatch::IntegrationTest
 
     click_on "Attend"
 
-    assert page.has_content? "Yay! You are attending this event!"
+    assert page.has_content? "You are attending this event!"
     assert page.has_content? "Cancel attendance"
 
     click_on "Cancel attendance"
 
-    assert page.has_content? "Your attendance to this event " \
-                             "has been cancelled."
-    assert page.has_link?    "Attend"
+    assert page.has_link? "Attend"
   end
 
   test "website url is not shown if the event has no website" do

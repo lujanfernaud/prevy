@@ -12,10 +12,11 @@ class Events::AttendancesController < ApplicationController
     authorize @attendance
 
     @attendance.save
+    @event.reload
 
-    flash[:success] = "Yay! You are attending this event!"
-
-    redirect_to group_event_path(@event.group, @event)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy
@@ -24,16 +25,17 @@ class Events::AttendancesController < ApplicationController
     authorize @attendance
 
     @attendance.destroy
+    @event.reload
 
-    flash[:success] = "Your attendance to this event has been cancelled."
-
-    redirect_to group_event_path(@event.group, @event)
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
 
     def find_event
-      @event = Event.find(params[:event_id])
+      @event = EventDecorator.new(Event.find(params[:event_id]))
     end
 
     def new_attendance

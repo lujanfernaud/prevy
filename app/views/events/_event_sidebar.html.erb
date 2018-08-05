@@ -1,4 +1,4 @@
-<div class="col-md-12 col-lg-4">
+<div class="col-md-12 col-lg-4" id="event-sidebar">
 
   <% cache [event.organizer_name, event.recent_attendees] do %>
 
@@ -27,7 +27,7 @@
         <% unless event.attendees.empty? %>
 
           <ul>
-            <%= render partial: "list_attendee",
+            <%= render partial: "events/list_attendee",
               collection: event.recent_attendees, as: :attendee,
               locals: { event: event } %>
           </ul>
@@ -81,15 +81,15 @@
           <h4 class="h5">Would you like to attend?</h4>
           <%= link_to "Attend",
             event_attendances_path(event),
-            method: :post,
+            method: :post, remote: true,
             class: "btn btn-primary btn-block btn-lg mt-3" %>
 
         <% else %>
 
           <h4 class="h5">You are attending this event!</h4>
           <%= link_to "Cancel attendance",
-            event_attendance_path(event),
-            method: :delete,
+            event_attendance_path(event, current_user),
+            method: :delete, remote: true,
             class: "btn btn-secondary btn-block btn-lg mt-3",
             data: { confirm: "Are you sure to cancel your attendance?" } %>
         <% end %>

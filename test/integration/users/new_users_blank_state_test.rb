@@ -141,9 +141,13 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
   end
 
   test "new user visits sample event" do
+    prepare_javascript_driver
+
+    event = @user.sample_group.events.first
+
     log_in_as(@user)
 
-    click_on sample_event_name
+    visit group_event_path(@user.sample_group, event)
 
     assert page.has_content? "This is how your event could look like."
     assert page.has_content? "Would you like to attend?"
@@ -151,7 +155,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
 
     click_on "Attend"
 
-    assert page.has_content? "Yay! You are attending this event!"
+    assert page.has_content? "You are attending this event!"
     assert page.has_link?    "Cancel attendance"
   end
 

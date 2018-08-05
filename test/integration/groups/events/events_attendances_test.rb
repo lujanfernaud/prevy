@@ -17,6 +17,8 @@ class EventsAttendancesTest < ActionDispatch::IntegrationTest
   end
 
   test "user can attend an event" do
+    prepare_javascript_driver
+
     log_in_as(@user)
     visit group_event_path(@group, @event)
 
@@ -27,13 +29,14 @@ class EventsAttendancesTest < ActionDispatch::IntegrationTest
   end
 
   test "user can cancel it's attendance to an event" do
+    prepare_javascript_driver
+
     log_in_as(@user)
     visit group_event_path(@group, @event)
 
     click_on "Attend"
     click_on "Cancel attendance"
 
-    assert page.has_content? "has been cancelled"
     assert page.has_link? "Attend"
   end
 end

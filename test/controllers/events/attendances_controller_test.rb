@@ -17,18 +17,14 @@ class Events::AttendancesControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Attendance.count') do
       post event_attendances_url(@event), params: attendance_params
     end
-
-    assert_redirected_to group_event_url(@group, @event)
   end
 
   test "should destroy attendance" do
     sign_in(@user)
 
     assert_difference('Attendance.count', -1) do
-      delete event_attendance_url(@event, @attendance)
+      delete event_attendance_url(@event, @attendance, format: :js)
     end
-
-    assert_redirected_to group_event_url(@group, @event)
   end
 
   private
@@ -38,7 +34,8 @@ class Events::AttendancesControllerTest < ActionDispatch::IntegrationTest
         {
           attendee: @user,
           attended_event: events(:one)
-        }
+        },
+        format: :js
       }
     end
 end
