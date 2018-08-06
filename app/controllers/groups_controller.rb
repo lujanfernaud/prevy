@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
   end
 
   def show
-    if not_authorized? && !invited_to_group?
+    if not_authorized?
       @unhidden_groups = unhidden_groups_selection_without @group
     else
       @events          = store_upcoming_events
@@ -21,6 +21,8 @@ class GroupsController < ApplicationController
     end
 
     authorize @group
+
+    add_breadcrumbs_for_show
   end
 
   def new
@@ -93,20 +95,21 @@ class GroupsController < ApplicationController
     end
 
     def render_notice_if_group_hidden
-      return if     invited_to_group?
       return unless @group.hidden? && not_authorized?
 
       redirect_to hidden_group_path
+    end
+
+    def not_authorized?
+      return false if invited_to_group?
+
+      not_owned_by_current_user? && !@group.members.include?(current_user)
     end
 
     def invited_to_group?
       return false if session[:token].blank?
 
       InvitationAuthorizer.call(session[:token], @group, current_user)
-    end
-
-    def not_authorized?
-      not_owned_by_current_user? && !@group.members.include?(current_user)
     end
 
     def store_unhidden_groups
@@ -123,6 +126,15 @@ class GroupsController < ApplicationController
 
     def unhidden_groups_selection_without(group)
       Group.unhidden_without(group).random_selection(3)
+    end
+
+    def add_breadcrumbs_for_show
+      if !@group.hidden? && not_authorized?
+        add_breadcrumb "Unhidden Groups", groups_path
+        add_breadcrumb @group.name
+      else
+        add_breadcrumb @group.name, ""
+      end
     end
 
     def destroy_user_sample_content

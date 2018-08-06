@@ -17,7 +17,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     stub_sample_content_for_new_users
   end
 
-  test "group owner visits group" do
+  test "group owner visits unhidden group" do
     add_members_to_group(@group, @penny, @woodell)
 
     log_in_as(@phil)
@@ -36,12 +36,17 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_top_members(@group)
   end
 
-  test "group member visits group" do
+  test "group member visits unhidden group" do
     add_members_to_group(@group, @penny, @woodell)
 
     log_in_as(@penny)
 
     visit group_path(@group)
+
+    within ".breadcrumb" do
+      assert_not page.has_content? "Unhidden Groups"
+      assert     page.has_content? @group.name
+    end
 
     assert_group_info_and_image(@group)
     assert_members_preview(@group)
@@ -70,7 +75,7 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     assert_not page.has_content? unconfirmed.name
   end
 
-  test "logged in user visits group" do
+  test "logged in user visits unhidden group" do
     stranger = users(:stranger)
     add_members_to_group(@group, @penny)
 
@@ -92,10 +97,15 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     refute_members
   end
 
-  test "logged out user visits group" do
+  test "logged out user visits unhidden group" do
     @group.members << @penny
 
     visit group_path(@group)
+
+    within ".breadcrumb" do
+      assert page.has_content? "Unhidden Groups"
+      assert page.has_content? @group.name
+    end
 
     assert_group_info_and_image(@group)
     assert_admin(@group)
@@ -186,6 +196,11 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
 
     visit group_path(group)
 
+    within ".breadcrumb" do
+      assert_not page.has_content? "Unhidden Groups"
+      assert     page.has_content? group.name
+    end
+
     assert_current_path group_path(group)
   end
 
@@ -197,6 +212,11 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     log_in_as(user)
 
     visit group_path(group)
+
+    within ".breadcrumb" do
+      assert_not page.has_content? "Unhidden Groups"
+      assert     page.has_content? group.name
+    end
 
     assert_current_path group_path(group)
   end
