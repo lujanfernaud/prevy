@@ -24,9 +24,16 @@
 
           <% else %>
 
-            <h3 class="h5 text-center mt-5 mb-2rem pb-3">
-              We need some members!
-            </h3>
+            <div class="text-center">
+              <h3 class="h5 mt-2rem mb-3 pb-3">
+                We need some members!
+              </h3>
+
+              <div class="mb-2rem">
+                <%= link_to "Invite someone", new_group_invitation_path(group),
+                  class: "btn btn-primary btn-lg btn-3d" %>
+              </div>
+            </div>
 
           <% end %>
 

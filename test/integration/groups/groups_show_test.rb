@@ -294,6 +294,20 @@ class GroupsShowTest < ActionDispatch::IntegrationTest
     refute_upcoming_events
   end
 
+  test "members section shows message and invite button when empty" do
+    stranger = users(:stranger)
+    group    = create :group, owner: stranger
+
+    log_in_as(stranger)
+
+    visit group_path(group)
+
+    within ".members-container" do
+      assert page.has_content? "We need some members!"
+      assert page.has_link?    "Invite someone"
+    end
+  end
+
   private
 
     def assert_group_info_and_image(group)
