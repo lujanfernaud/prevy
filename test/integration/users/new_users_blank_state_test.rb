@@ -287,7 +287,7 @@ class NewUsersBlankStateTest < ActionDispatch::IntegrationTest
 
     def send_membership_request
       click_on "Request membership"
-      assert page.has_content? "Would you like to add a nice message?"
+      assert page.has_content? "Would you like to add a message?"
       fill_in "Message", with: "Hey!"
       click_on "Send request"
     end

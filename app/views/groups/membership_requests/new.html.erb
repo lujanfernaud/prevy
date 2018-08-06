@@ -18,19 +18,18 @@
 
           <div class="form-group box p-4 mt-2rem mb-2rem">
             <h3 class="h4 mb-3">
-              Would you like to add a nice message?
+              Would you like to add a message?
             </h3>
 
             <div class="form-group mt-1rem mb-0">
               <%= f.label :message, hidden: true %>
               <small class="text-muted">Optional *</small>
-              <%= f.text_area :message, autofocus: true,
-                class: "form-control" %>
+              <%= f.text_area :message, class: "form-control" %>
             </div>
           </div>
 
           <%= f.submit "Send request",
-            class: "btn btn-primary btn-block btn-lg mt-4 mb-4" %>
+            class: "btn btn-primary btn-block btn-lg btn-3d mt-4 mb-4" %>
         <% end %>
 
       </div>
