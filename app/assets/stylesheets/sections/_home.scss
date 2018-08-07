@@ -151,3 +151,63 @@
   padding-top: .5rem;
   padding-bottom: 1.5rem;
 }
+
+// Welcome Modal
+// (Base classes are in 'vendor-modifications/_bootstrap.scss'.)
+
+.modal-avatar-container {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  padding: 2.5rem 0 1.5rem 0;
+  background: $darker-background;
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    flex-basis: 34%;
+    padding: 3.5rem 0 0 0;
+  }
+}
+
+.user-avatar--welcome-modal {
+  align-self: center;
+  border: 1px solid $gray-300;
+
+  @include media-breakpoint-up(md) {
+    align-self: initial;
+    position: relative;
+    left: 1.5rem;
+  }
+}
+
+.modal-triangle {
+  position: relative;
+  align-self: center;
+  bottom: -1.5rem;
+  height: 0;
+  width: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #fff;
+
+  @include media-breakpoint-up(md) {
+    align-self: initial;
+    top: 2rem;
+    right: -1.3rem;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid #fff;
+  }
+}
+
+.welcome-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  @include media-breakpoint-up(md) {
+    position: relative;
+    top: 0;
+    right: 0;
+  }
+}

@@ -3,46 +3,59 @@
 <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog"
   aria-labelledby="welcomeModalTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content p-2">
+    <div class="modal-content d-flex flex-column flex-md-row">
 
-      <div class="modal-header border-0 p-0 pt-1 pr-2">
-        <h5 class="modal-title" id="welcomeModalTitle"></h5>
-        <button type="button" class="close" data-dismiss="modal"
-          aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-avatar-container">
+        <%= image_tag "avatar_circle.png", alt: "Luján Fernaud",
+          class: "user-avatar user-avatar--welcome-modal",
+          width: "100px", height: "100px" %>
+
+        <div class="modal-triangle"></div>
       </div>
 
-      <div class="modal-body">
-        <h2 class="modal-body__title h3 mb-4 pb-3 text-center">
-          Welcome! 👋
-        </h2>
+      <div class="modal-message-container p-2">
 
-        <p>
-          I've prepared some sample content for you, so you can see how everything works.
-        </p>
+        <div class="modal-header border-0 p-0 pt-1 pr-2">
+          <h5 class="modal-title" id="welcomeModalTitle"></h5>
+          <button type="button" class="close welcome-modal-close"
+            data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
-        <p>
-          That content will disappear automatically when you create your own group, or become a group member.
-        </p>
+        <div class="modal-body">
+          <h2 class="modal-body__title h3 mt-2 mt-md-0 mb-4 pb-2 text-center text-md-left">
+            Welcome! 👋
+          </h2>
 
-        <p>
-          Hope you have a wonderful experience here!
-        </p>
+          <p>
+            I've prepared some sample content for you, so you can see how everything works.
+          </p>
 
-        <p>
-          Luján
-        </p>
-      </div>
+          <p>
+            That content will disappear automatically once you create your own group or become a group member.
+          </p>
 
-      <div class="modal-footer justify-content-center border-0 mb-3 pt-0 pb-4">
-        <button type="button" class="btn btn-lg btn-3d btn-primary"
-          data-dismiss="modal">
-          Let's start!
-        </button>
-      </div>
+          <p>
+            Hope you have a wonderful experience here!
+          </p>
 
-    </div>
+          <p>
+            Luján
+          </p>
+        </div>
+
+        <div class="modal-footer justify-content-center
+          justify-content-md-start border-0 mt-2 mb-3 pt-0 pb-4">
+          <button type="button" class="btn btn-lg btn-3d btn-primary"
+            data-dismiss="modal">
+            Let's start!
+          </button>
+        </div>
+
+      </div><!-- /.modal-message-container -->
+
+    </div><!-- /.modal-content -->
   </div>
 </div>
 
