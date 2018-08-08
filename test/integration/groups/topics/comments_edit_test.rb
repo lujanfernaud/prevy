@@ -107,6 +107,27 @@ class CommentsEditTest < ActionDispatch::IntegrationTest
     assert_breadcrumbs
   end
 
+  test "clicking on event topic breadcrums takes you to the event" do
+    stub_sample_content_for_new_users
+
+    event = create :event
+    group = event.group
+    topic = event.topic
+    comment = create :topic_comment, topic: topic
+
+    log_in_as group.owner
+
+    visit edit_comment_path(comment)
+
+    within ".breadcrumb" do
+      click_on event.title
+    end
+
+    # save_and_open_page
+
+    assert_current_path group_event_path(group, event)
+  end
+
   private
 
     def assert_breadcrumbs

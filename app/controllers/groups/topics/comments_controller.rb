@@ -113,6 +113,14 @@ class Groups::Topics::CommentsController < ApplicationController
     def add_base_breadcrumbs
       add_breadcrumb @group.name, group_path(@group)
       add_breadcrumb "Topics", group_topics_path(@group)
-      add_breadcrumb @topic.title, group_topic_path(@group, @topic)
+      add_breadcrumb @topic.title, topic_path
+    end
+
+    def topic_path
+      if @topic.event?
+        group_event_path(@group, @topic.event)
+      else
+        group_topic_path(@group, @topic)
+      end
     end
 end
