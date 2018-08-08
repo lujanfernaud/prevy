@@ -20,6 +20,7 @@
   background-size: cover;
   border-top-left-radius: $box-radius;
   border-bottom-left-radius: $box-radius;
+  background-position: center center;
 
   @include media-breakpoint-up(md) {
     display: block;
