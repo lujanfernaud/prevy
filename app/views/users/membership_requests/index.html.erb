@@ -5,11 +5,11 @@
       <div class="col-md-12 col-lg-10 col-xl-8 mb-3">
 
         <% if @membership_requests_received.any? %>
-          <h2 class="text-center mt-2rem mb-2rem pt-2 pb-2">
+          <h2 class="text-center mt-2rem mb-2 pt-2 pb-2">
             Membership Requests Received
           </h2>
 
-          <div class="d-flex flex-column mt-4">
+          <div class="d-flex flex-column">
             <% @membership_requests_received.each do |membership_request| %>
 
               <%= render "membership_request_received",
@@ -20,11 +20,11 @@
         <% end %>
 
         <% if @membership_requests_sent.any? %>
-          <h2 class="text-center mt-2rem mb-2rem pt-2 pb-2">
+          <h2 class="text-center mt-2rem mb-2 pt-2 pb-2">
             Membership Requests Sent
           </h2>
 
-          <div class="d-flex flex-column mt-4">
+          <div class="d-flex flex-column">
             <% @membership_requests_sent.each do |membership_request| %>
 
               <%= render "membership_request_sent",
