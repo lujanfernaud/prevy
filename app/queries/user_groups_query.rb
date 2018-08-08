@@ -11,6 +11,6 @@ class UserGroupsQuery
         'groups.user_id            = :user OR
          group_memberships.user_id = :user',
          user: user
-      )
+      ).distinct
   end
 end
