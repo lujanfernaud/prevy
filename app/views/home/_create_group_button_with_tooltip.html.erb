@@ -8,12 +8,11 @@
 
     <% else %>
 
-      <div class="mb-2rem">
-        <%= create_group_unconfirmed_account_alert %>
-      </div>
-
       <%= button_tag "Create group", disabled: true,
-        class: "btn btn-lg btn-3d btn-create-group btn-primary" %>
+        id: "create-group-button",
+        class: "btn btn-lg btn-3d btn-create-group btn-primary",
+        data: { behavior: "tooltip", toggle: "tooltip", placement: "top" },
+        title: "#{render 'unconfirmed_account_tooltip'}" %>
 
     <% end %>
 
