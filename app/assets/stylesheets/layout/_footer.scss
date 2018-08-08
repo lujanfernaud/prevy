@@ -6,7 +6,9 @@
 .footer {
   min-height: 600px;
   font-size: 1.05rem;
-  background: linear-gradient(rgba($primary-darker, .85), $primary-darker);
+  color: $light-background;
+  background: $primary-darker;
+  border-top: 2px solid $gray-400;
 }
 
 .container-footer {
@@ -14,32 +16,21 @@
 }
 
 .prevy-logo--footer {
-  width: 185px;
+  width: 169px;
   fill: $light-background;
 }
 
-.footer__hr {
-  width: 7%;
-  border-top: 2px solid rgba(0, 0, 0, 0.1);
+.footer-link {
+  padding: .1rem;
+  margin-left: -.1rem;
+  margin-right: -.1rem;
+  color: $light-background;
+  transition: all .3s;
 
-  @include media-breakpoint-up(md) {
-    width: 4%;
-  }
-
-  @include media-breakpoint-up(xl) {
-    width: 2.4%;
-  }
-}
-
-.footer-nav {
-  width: 100%;
-
-  @include media-breakpoint-up(md) {
-    width: 40%;
-  }
-
-  @include media-breakpoint-up(lg) {
-    width: 30%;
+  &:hover {
+    color: $primary-darker;
+    text-decoration: none;
+    background: $light-background;
   }
 }
 
