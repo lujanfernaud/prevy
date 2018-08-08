@@ -17,3 +17,7 @@
 @mixin background-gradient {
   background: linear-gradient(rgba(75, 12, 178, 0.0095), rgba(75, 12, 178, 0.032));
 }
+
+@mixin floating-shadow {
+  box-shadow: 0 3px 10px rgba(27,31,35,0.2);
+}

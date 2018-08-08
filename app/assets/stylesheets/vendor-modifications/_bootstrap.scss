@@ -66,8 +66,8 @@
 
 
 .dropdown-menu {
-  box-shadow: 0 3px 10px rgba(27,31,35,0.15);
   border-radius: $box-radius;
+  @include floating-shadow;
 }
 
 .dropdown-item {
@@ -198,7 +198,7 @@ input[type="radio"] {
   width: inherit;
   background-color: $primary-darker;
   border-radius: $box-radius;
-  box-shadow: 0 3px 10px rgba(27,31,35,0.15);
+  @include floating-shadow;
 
   @include media-breakpoint-up(md) {
     max-width: 700px;
