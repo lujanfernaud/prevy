@@ -3,6 +3,17 @@
 //
 
 
+// Helpers
+
+
+.rounded {
+  border-radius: $box-radius !important;
+}
+
+
+// Alerts
+
+
 .alert {
   margin-bottom: 0;
   border-radius: $box-radius;
@@ -13,6 +24,10 @@
   border-radius: $box-radius;
 }
 
+
+// Buttons
+
+
 .btn {
   border-radius: $box-radius;
 }
@@ -20,6 +35,10 @@
 .btn-lg {
   padding: .65rem 1rem;
 }
+
+
+// Card
+
 
 .card {
   border: 0;
@@ -42,6 +61,10 @@
   color: $white;
 }
 
+
+// Dropdown Menu
+
+
 .dropdown-menu {
   box-shadow: 0 3px 10px rgba(27,31,35,0.15);
   border-radius: $box-radius;
@@ -52,6 +75,10 @@
   font-size: 1.05rem;
 }
 
+
+// Forms
+
+
 .form-control {
   border-radius: $box-radius;
 }
@@ -59,6 +86,10 @@
 input[type="radio"] {
   margin-top: .2rem;
 }
+
+
+// Modal
+
 
 .modal-open {
   overflow: auto;
@@ -89,6 +120,10 @@ input[type="radio"] {
   &.show { opacity: .83; }
 }
 
+
+// Navbar
+
+
 .navbar-expand > .container {
   padding-right: .75rem;
   padding-left: .75rem;
@@ -112,12 +147,60 @@ input[type="radio"] {
   border-color: darken(#dee2e6, 15%) darken(#dee2e6, 15%) $light-background !important;
 }
 
-.rounded {
-  border-radius: $box-radius !important;
+
+// Tooltip
+
+
+.tooltip {
+  font-size: 1.05rem;
+
+  &.show { opacity: 1; }
+}
+
+.bs-tooltip-top {
+  .arrow {
+
+    &::before {
+      border-top-color: $primary-darker;
+    }
+  }
+}
+
+.bs-tooltip-right {
+  .arrow {
+
+    &::before {
+      border-right-color: $primary-darker;
+    }
+  }
+}
+
+.bs-tooltip-bottom {
+  .arrow {
+
+    &::before {
+      border-bottom-color: $primary-darker;
+    }
+  }
+}
+
+.bs-tooltip-left {
+  .arrow {
+
+    &::before {
+      border-left-color: $primary-darker;
+    }
+  }
 }
 
 .tooltip-inner {
-  max-width: 350px;
+  max-width: 90vw;
   width: inherit;
+  background-color: $primary-darker;
   border-radius: $box-radius;
+  box-shadow: 0 3px 10px rgba(27,31,35,0.15);
+
+  @include media-breakpoint-up(md) {
+    max-width: 700px;
+  }
 }
