@@ -11,8 +11,12 @@ trix-editor {
   font-size: 1.05rem;
 }
 
-.trix-editor--comment {
+.trix-editor--event-comment {
   min-height: 7rem !important;
+}
+
+.trix-editor--topic-comment {
+  min-height: 9rem !important;
 }
 
 .trix-button-group {
