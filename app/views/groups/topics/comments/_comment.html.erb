@@ -1,4 +1,4 @@
-<% cache [comment, is_authorized_to_edit?(comment, group)] do %>
+<% cache [comment, comment.user, is_authorized_to_edit?(comment, group)] do %>
 
   <% unless controller_name == "events" &&
     comment == comment.topic.comments.first %>
