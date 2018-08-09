@@ -1,9 +1,9 @@
-<% cache @attendees do %>
+<div class="container-fluid bg-light pb-2">
+  <div class="container mb-2">
 
-  <div class="container-fluid bg-light pb-2">
-    <div class="container mb-2">
+    <%= render partial: "application/breadcrumbs" %>
 
-      <%= render partial: "application/breadcrumbs" %>
+    <% cache @attendees do %>
 
       <div class="row">
         <div class="col-md-12 mt-3">
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-    </div>
-  </div>
+    <% end %>
 
-<% end %>
+  </div>
+</div>
