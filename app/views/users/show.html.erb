@@ -9,7 +9,7 @@
       <div class="mt-4 pt-1"></div>
     <% end %>
 
-    <% cache [@user, @user == current_user] do %>
+    <% cache [@user, @user == current_user, @group, @event] do %>
 
       <div class="box box-user-profile mb-2 p-4 text-center">
 
