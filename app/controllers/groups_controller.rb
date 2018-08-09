@@ -133,7 +133,8 @@ class GroupsController < ApplicationController
         add_breadcrumb "Unhidden Groups", groups_path
         add_breadcrumb @group.name
       else
-        add_breadcrumb @group.name, ""
+        add_breadcrumb "Home", root_path
+        add_breadcrumb @group.name
       end
     end
 
