@@ -52,6 +52,6 @@ module ApplicationHelper
   end
 
   def breadcrumbs_separator
-    "<span class='breadcrumbs-separator'> / </span>"
+    "<span class='breadcrumbs-separator'> > </span>"
   end
 end
