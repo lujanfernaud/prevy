@@ -10,8 +10,9 @@ class SampleTopicCreator
   end
 
   def initialize(group)
-    @group  = group
-    @topics = []
+    @group   = group
+    @topics  = []
+    @members = group.members - [prevy_bot]
   end
 
   def call
@@ -22,7 +23,7 @@ class SampleTopicCreator
 
   private
 
-    attr_reader :group, :topics
+    attr_reader :group, :topics, :members
 
     # We are using 'activerecord-import' for bulk inserting the data.
     # https://github.com/zdennis/activerecord-import/wiki/Examples
@@ -62,16 +63,12 @@ class SampleTopicCreator
       when "AnnouncementTopic", "PinnedTopic"
         prevy_bot
       else
-        members.sample
+        members.pop
       end
     end
 
     def prevy_bot
       @_prevy_bot ||= SampleUser.prevy_bot
-    end
-
-    def members
-      @_members ||= (group.members - [prevy_bot]).to_a
     end
 
     def run_topics_before_create_callbacks
