@@ -2,7 +2,7 @@
 
 # Creates sample comments for every new user's sample group's topics.
 class SampleCommentsCreator
-  COMMENT_SEEDS = YAML.load_file("db/seeds/comment_seeds.yml")
+  COMMENT_SEEDS = YAML.load_file("db/seeds/terry_pratchett_quotes.yml")
 
   def self.call(group)
     new(group).call
@@ -74,7 +74,7 @@ class SampleCommentsCreator
 
       topic.comments.new(
         user:       commenter,
-        body:       comment["body"],
+        body:       comment,
         edited_by:  commenter,
         edited_at:  created_at_date,
         created_at: created_at_date

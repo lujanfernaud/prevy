@@ -2,6 +2,8 @@
 
 # Seeds sample users.
 class UserSeeder
+  BIO_SEEDS = YAML.load_file("db/seeds/terry_pratchett_quotes.yml").shuffle
+
   class << self
 
     def create_sample_users(users_number)
@@ -13,12 +15,14 @@ class UserSeeder
     end
 
     def create_sample_user
+      bio = BIO_SEEDS.pop
+
       SampleUser.create!(
         name:     full_name,
         email:    Faker::Internet.email,
         password: "password",
         location: Faker::Address.city,
-        bio:      Faker::BackToTheFuture.quote,
+        bio:      bio,
         settings: {
           "membership_request_emails": false,
           "group_membership_emails":   false,
