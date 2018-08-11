@@ -35,7 +35,7 @@ class Group < ApplicationRecord
   UPCOMING_EVENTS = 6
   RECENT_MEMBERS  = 8
   TOP_MEMBERS     = 12
-  GROUPS_PER_PAGE = 21
+  GROUPS_PER_PAGE = 24
 
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
 
