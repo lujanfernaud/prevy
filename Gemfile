@@ -36,7 +36,7 @@ gem 'activerecord-import',             '~> 0.23.0'
 gem 'rounding',                        '~> 1.0', '>= 1.0.1'
 
 # Geolocalization.
-gem 'geocoder',                        '~> 1.4', '>= 1.4.5'
+gem 'geocoder',                        '~> 1.5'
 
 # Upload, process and store images.
 gem 'carrierwave',                     '~> 1.2', '>= 1.2.2'
