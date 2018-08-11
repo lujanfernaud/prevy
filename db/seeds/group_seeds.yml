@@ -28,7 +28,7 @@
     This is a group for people interested in lucid dreaming from an ethical point of view. Lucid dreaming doesn't just mean you have nice clear dreams - it means being consciously aware that you are having a dream, and learning how to take charge of the experience. All skill levels are welcome. Let's get together and help each other have amazing experiences, and learn more about ourselves and our inner worlds.
     <br><br>
     Lucid dreaming has many benefits, particularly self-healing - whether physical or psychological problems exist - and it offers the chance to tackle inner demons which may get in the way of a full and enjoyable life.
-  location: Adeje
+  location: Adeje, Tenerife
   image: app/assets/images/samples/sample_groups/bruce-christianson-558321-unsplash.jpg
 
 -
@@ -340,3 +340,60 @@
     Come join us and let's enjoy the ride!
   location: Singapore
   image: app/assets/images/samples/sample_groups/flo-karr-145590-unsplash.jpg
+
+-
+  name: The Sewing Project
+  description: |-
+    Calling all stitchers established and aspiring! Come meet with other sewing enthusiasts. Lets get together to learn and grow our skills in whatever we make. Whether you are an absolute novice or you just want to develop your sewing skills this group is for you.
+    <br><br>
+    Bring your projects and machines and we'll help each other answer our sewing and fitting questions. Fashion, alterations, design, home decor, accessories, costume, cosplay, renaissance, steam punk. You're all welcome!
+  location: Prague
+  image: app/assets/images/samples/sample_groups/brooke-lark-609909-unsplash.jpg
+
+-
+  name: London Readers Club
+  description: |-
+    This group is for those individuals who constantly read book after book, page after page, yet after that last sentence is finished, they are left with nobody to share it all with. Share what exactly? All that knowledge, all those insights, and all the experiences one has between the covers of a book. None of it should be kept inside and lost to the larger community.
+    <br><br>
+    Through gathering we, the Readers, can delve deeper into books with the hope of finding what they may have to offer us.
+  location: London
+  image: app/assets/images/samples/sample_groups/alexis-brown-82988-unsplash.jpg
+
+-
+  name: Mindfulness in Nature
+  description: |-
+    This is a group open to anyone who is interested in practicing mindfulness through a curious and contemplative relationship with nature. Nature can be a wonderful teacher, mirror, and guide which can help us learn about ourselves, connect with each other and the larger web of life, and experience appreciation and gratitude.
+    <br><br>
+    The beauty, mystery, and wonder of the natural world so easily and effortlessly pulls us into a mindful state of being, which can help to develop or support a mindfulness practice. Through learning to cultivate a meaningful and intentional relationship with nature, we experience joy, awe, and interconnectedness, as well as relaxation and emotional and mental restoration.
+  location: South East Victoria
+  image: app/assets/images/samples/sample_groups/pexels-photo-1234035.jpeg
+
+-
+  name: San Diego Woodworkers
+  description: |-
+    We are a non-profit, member run woodshop just off I-803 and Vistamar Road. We have a beautiful new 3,000 sq ft facility that includes virtually every type of woodworking tool you could need. SawStop table saw, laser engraver, CNC, wide belt sander and lathe are just a few examples.
+    <br><br>
+    If you enjoy woodworking and would like to enhance your skill set, use our tools, take our classes and meet a great community of woodworkers, join us!
+  location: San Diego, California
+  image: app/assets/images/samples/sample_groups/clem-onojeghuo-119593-unsplash.jpg
+
+-
+  name: Japanese Language Miami
+  description: |-
+    Let's get together to speak Japanese! Here you will meet both native Japanese and non-natives who have the same interests as you do. We'll meet twice a month to practice/speak the language.
+    <br><br>
+    Are you from Japan? Join us to make new friends and help us grow this group! You may find your language exchange partner to improve your Japanese/English communication skills!
+    <br><br>
+    日本語が母国語の方へ：
+    ぜひ、参加して、日本から一番遠いアメリカ、マイアミに住む日本語学習者の助けになってくださると大変ありがたいです。ぜひ、よろしくお願いいたします。
+  location: Miami
+  image: app/assets/images/samples/sample_groups/sorasak-252182-unsplash.jpg
+
+-
+  name: Skatelab Melbourne
+  description: |-
+    We are a skateboarding company located downtown Melbourne. We have a skate shop and we've also built Melbourne's first indoor skatepark where we give skateboarding lessons for all ages and abilities.
+    <br><br>
+    We're all passionate, lifelong skateboarders and love meeting new people. Our biggest goal is to get more people skating in Melbourne. So if you skate, want to skate, or have any interest in skateboarding, be sure to drop us a line.
+  location: Melbourne
+  image: app/assets/images/samples/sample_groups/shawn-henry-581506-unsplash.jpg
