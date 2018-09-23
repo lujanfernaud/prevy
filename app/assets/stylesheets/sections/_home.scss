@@ -89,6 +89,16 @@
   }
 }
 
+.drawings-community__text {
+  @include media-breakpoint-up(md) {
+    margin-top: .04rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-top: .1rem;
+  }
+}
+
 .promo-section-content {
   margin-top: 3rem;
   margin-bottom: 4rem;
