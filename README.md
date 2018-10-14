@@ -2,7 +2,30 @@
 
 # Prevy
 
-The idea behind Prevy is to build private communities that revolve around private events.
+A platform to build private communities that revolve around private events.
+
+## Demo
+
+The public demo will be available soon.
+
+## Built With
+
+- Ruby on Rails 5
+- Minitest
+- Capybara
+- Coffeescript
+- Devise
+- Pundit
+- Rolify
+- Sucker Punch
+- PG Search
+- Storext
+- ActiveRecord Import
+- Geocoder
+- Leaflet API
+- Cloudinary
+
+See the [Gemfile](Gemfile) for more information.
 
 ## Features
 
@@ -15,6 +38,28 @@ The idea behind Prevy is to build private communities that revolve around privat
 - Group members are rewarded with *points* for commenting, creating topics, and attending events
 - All members of a group can be set as organizers by default
 - In-app and email notifications
+
+## Screenshots
+
+<kbd>
+  <img src="public/images/promo/hidden_group.png" alt="Hidden Group">
+</kbd>  
+&nbsp;
+<kbd>
+  <img src="public/images/promo/rave_up.png" alt="Rave Up Group">
+</kbd>  
+&nbsp;
+<kbd>
+  <img src="public/images/promo/sample_event.png" alt="Private Event">
+</kbd>  
+&nbsp;
+<kbd>
+  <img src="public/images/promo/latest_topics.png" alt="Group Forum">
+</kbd>  
+&nbsp;
+<kbd>
+  <img src="public/images/promo/most_involved_members.png" alt="Most Involved Members">
+</kbd>
 
 ---
 
