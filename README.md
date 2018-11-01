@@ -6,7 +6,7 @@ A platform to build private communities that revolve around private events.
 
 ## Demo
 
-The public demo will be available soon.
+[prevy.herokuapp.com](https://prevy.herokuapp.com/)
 
 ## Built With
 
