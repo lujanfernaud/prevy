@@ -60,7 +60,3 @@ See the [Gemfile](Gemfile) for more information.
 <kbd>
   <img src="public/images/promo/most_involved_members.png" alt="Most Involved Members">
 </kbd>
-
----
-
-*Work in progress*.
